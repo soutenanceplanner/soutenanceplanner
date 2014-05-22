@@ -8,11 +8,13 @@ angular.module('soutenanceplanner.calendar')
 	var time_slot_default = '<select></select><span> à </span><select></select>';
 	
 	$scope.time_slot_list = [
-	                         '<select></select>'
+		'<select></select>'
 	];
 	
 	$scope.add_time_slot = function() {
 		//$scope.time_slot_list.push('');  
 	};
 	
-} ]);
+}
+
+]);
