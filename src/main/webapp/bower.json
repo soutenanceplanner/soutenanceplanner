@@ -1,0 +1,20 @@
+{
+  "name": "soutenanceplanner-front",
+  "version": "0.1",
+  "devDependencies": {
+    "jquery": "1.10.2",
+    "angular": "1.2.16",
+    "angular-cookies": "1.2.16",
+    "angular-mocks": "1.2.16",
+    "angular-route": "1.2.16",
+    "angular-animate": "1.2.16",
+    "angular-strap": "2.0.2",
+    "angular-motion": "0.3.2",
+    "angular-ui-router": "0.2.10",
+    "angular-file-upload": "0.5.5",
+    "ionicons": "~1.4.1",
+    "bootstrap-sass": "~3.0.2",
+    "angular-bootstrap": "0.11.0"
+  },
+  "dependencies": {}
+}

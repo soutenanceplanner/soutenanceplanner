@@ -1,0 +1,9 @@
+/node_modules
+/dist
+/.project
+/vendor
+/tmp
+/qa
+/target
+/.settings
+/.classpath
