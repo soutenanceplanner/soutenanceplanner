@@ -4,7 +4,7 @@ angular.module('soutenanceplanner.calendar')
 	
 	$log.debug('CalendarCtrl');
 	
-	var hours = []
+	var hours = [];
 	var time_slot_default = '<select></select><span> à </span><select></select>';
 	
 	$scope.time_slot_list = [

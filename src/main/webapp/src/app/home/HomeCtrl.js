@@ -12,7 +12,7 @@ angular.module('soutenanceplanner.home')
 			nom : 'Soutenance L3 Info',
 			url : 'url'
 		},
-		 {
+		{
 			nom : 'Soutenance M1 Info',
 			url : 'url'
 		} ];
