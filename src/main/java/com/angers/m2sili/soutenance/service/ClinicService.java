@@ -15,15 +15,9 @@
  */
 package com.angers.m2sili.soutenance.service;
 
-import java.util.Collection;
-
 import org.springframework.dao.DataAccessException;
 
 import com.angers.m2sili.soutenance.model.Owner;
-import com.angers.m2sili.soutenance.model.Pet;
-import com.angers.m2sili.soutenance.model.PetType;
-import com.angers.m2sili.soutenance.model.Vet;
-import com.angers.m2sili.soutenance.model.Visit;
 
 
 /**
@@ -33,20 +27,8 @@ import com.angers.m2sili.soutenance.model.Visit;
  */
 public interface ClinicService {
 
-    public Collection<PetType> findPetTypes() throws DataAccessException;
-
-    public Owner findOwnerById(int id) throws DataAccessException;
-
-    public Pet findPetById(int id) throws DataAccessException;
-
-    public void savePet(Pet pet) throws DataAccessException;
-
-    public void saveVisit(Visit visit) throws DataAccessException;
-
-    public Collection<Vet> findVets() throws DataAccessException;
-
     public void saveOwner(Owner owner) throws DataAccessException;
 
-    Collection<Owner> findOwnerByLastName(String lastName) throws DataAccessException;
+    Owner findOwnerById(Integer id) throws DataAccessException;
 
 }
