@@ -15,7 +15,9 @@ angular.module('soutenanceplanner', [
 
 	//modules
 	'soutenanceplanner.home',
+	'soutenanceplanner.login',
 	'soutenanceplanner.account.module'
+	
 ]);
 
 angular.module('soutenanceplanner')
@@ -28,7 +30,7 @@ angular.module('soutenanceplanner')
 
 .config(['$urlRouterProvider',
 	function($urlRouterProvider) {
-		$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/login');
 	}
 ])
 
