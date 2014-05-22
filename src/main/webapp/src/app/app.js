@@ -15,6 +15,8 @@ angular.module('soutenanceplanner', [
 
 	//modules
 	'soutenanceplanner.home',
+	'soutenanceplanner.calendar',
+	'soutenanceplanner.login',
 	'soutenanceplanner.account.module'
 ]);
 

@@ -1,0 +1,26 @@
+<br/><br/><br/><br/><h2>Ajouter un calendrier</h2>
+
+<div class="nav">
+		<div class="tab active"><a class="tab_link" id="tab_1" ui-sref="\#content1" rel="1">Création du calendrier</a></div>
+		<div class="tab"><a class="tab_link" id="tab_2" ui-sref="\#content2" rel="2">Configuration</a></div>
+</div>
+<div id="content1">
+	<fieldset>
+		<legend>Création du calendrier</legend>
+		<label class="obligatoire">Titre</label><input type="text" ng-model="cal_title"/>
+		<label class="">Formation</label><select ng-model="cal_formation"></select>
+		<label class="obligatoire">Date de début</label><input type="date" ng-model="cal_beginning_date"/>
+		<label class="obligatoire">Date de fin</label><input type="date" ng-model="cal_beginning_date"/>
+		<label class="obligatoire">Durée d'une soutenance</label><input type="text" ng-model="cal_beginning_date"/>
+		<label class="obligatoire">Plage(s) horaires</label>
+		<div class="time_slots" ng-repeat="timeSlot in timeSlot">
+		</div>
+		<button ng-click="add_time_slot()">+</button>
+	</fieldset>
+</div>
+<div id="content2">
+	<fieldset>
+		<legend>Configuration</legend>
+	</fieldset>
+</div>
+	
