@@ -41,7 +41,7 @@
                       p:database="${jpa.database}" p:showSql="${jpa.showSql}"/>
             </property>
             <!-- gDickens: BOTH Persistence Unit and Packages to Scan are NOT compatible, persistenceUnit will win -->
-            <property name="persistenceUnitName" value="petclinic"/>
+            <property name="persistenceUnitName" value="soutenance"/>
             <property name="packagesToScan" value="com.angers.m2sili.soutenance"/>
         </bean>
 
