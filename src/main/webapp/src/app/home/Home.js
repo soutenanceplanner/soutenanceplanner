@@ -5,7 +5,7 @@ angular.module('soutenanceplanner.home')
 .config(['$stateProvider', '$urlRouterProvider',
 	function ($stateProvider, $urlRouterProvider) {
 		$stateProvider.state('home', {
-			url: '/',
+			url: '/home',
 			templateUrl: 'home/home.tpl.html',
 			controller: 'HomeCtrl'
 		});
