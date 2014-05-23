@@ -53,10 +53,6 @@ public class Pet extends NamedEntity {
     private DateTime birthDate;
 
     @ManyToOne
-    @JoinColumn(name = "type_id")
-    private PetType type;
-
-    @ManyToOne
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
@@ -72,13 +68,6 @@ public class Pet extends NamedEntity {
         return this.birthDate;
     }
 
-    public void setType(PetType type) {
-        this.type = type;
-    }
-
-    public PetType getType() {
-        return this.type;
-    }
 
     protected void setOwner(Owner owner) {
         this.owner = owner;

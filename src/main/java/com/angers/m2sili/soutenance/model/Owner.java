@@ -43,7 +43,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 @Entity
 @Table(name = "owners")
-public class Owner extends Person {
+public class Owner extends BaseEntity {
     @Column(name = "address")
     @NotEmpty
     private String address;
@@ -56,8 +56,32 @@ public class Owner extends Person {
     @NotEmpty
     @Digits(fraction = 0, integer = 10)
     private String telephone;
+    
+    @Column(name = "first_name")
+    @NotEmpty
+    protected String firstName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @Column(name = "last_name")
+    @NotEmpty
+    protected String lastName;
+
+    public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
 
 

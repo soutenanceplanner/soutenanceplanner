@@ -3,7 +3,7 @@ angular.module('soutenanceplanner.calendar')
 .controller('CalendarCtrl', [ '$scope', '$log', function($scope, $log) {
 	
 	$log.debug('CalendarCtrl');
-	
+
 	$scope.durations = [
         {value:0.5, text:"30min"},
 		{value:0.75, text:"40min"},
@@ -35,4 +35,6 @@ angular.module('soutenanceplanner.calendar')
 		$scope.time_slot_list.push({beginning:8,ending:18});  
 	};
 	
-} ]);
+}
+
+]);
