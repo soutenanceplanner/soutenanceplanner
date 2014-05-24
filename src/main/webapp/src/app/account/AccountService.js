@@ -9,7 +9,15 @@ angular.module('soutenanceplanner.account')
 			test: function(){
 				return $http({
 					method: 'POST',
-					url: WS_SERVER_URL.WebServiceCandidat + "/Test",
+					url: WS_SERVER_URL + "/Test",
+					data: {}
+				});
+			},
+
+			oups: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/oups",
 					data: {}
 				});
 			}
