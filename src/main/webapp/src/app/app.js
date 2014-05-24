@@ -15,7 +15,7 @@ angular.module('soutenanceplanner', [
 
 	//modules
 	'soutenanceplanner.home',
-	'soutenanceplanner.account.module'
+	'soutenanceplanner.account'
 ]);
 
 angular.module('soutenanceplanner')
