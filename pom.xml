@@ -65,6 +65,9 @@
 		<dandelion.datatables.version>0.8.14</dandelion.datatables.version>
 
 		<mysql.version>5.1.22</mysql.version>
+		
+		<!-- Jackson -->
+		<jackson.version>1.9.13</jackson.version>
 
 	</properties>
 
@@ -307,6 +310,13 @@
 			<groupId>com.github.dandelion</groupId>
 			<artifactId>datatables-servlet2</artifactId>
 			<version>${dandelion.datatables.version}</version>
+		</dependency>
+		
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 
 
