@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.service;
+package com.angers.m2sili.soutenance.service.example;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -28,11 +28,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.angers.m2sili.soutenance.model.Owner;
-import com.angers.m2sili.soutenance.model.Pet;
-import com.angers.m2sili.soutenance.model.Vet;
-import com.angers.m2sili.soutenance.model.Visit;
-import com.angers.m2sili.soutenance.service.ClinicService;
+import com.angers.m2sili.soutenance.model.example.Owner;
+import com.angers.m2sili.soutenance.model.example.Pet;
+import com.angers.m2sili.soutenance.model.example.Vet;
+import com.angers.m2sili.soutenance.model.example.Visit;
+import com.angers.m2sili.soutenance.service.example.ClinicService;
 import com.angers.m2sili.soutenance.util.EntityUtils;
 
 /**

@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.service.impl;
+package com.angers.m2sili.soutenance.service.example.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.angers.m2sili.soutenance.model.Owner;
-import com.angers.m2sili.soutenance.repository.OwnerRepository;
-import com.angers.m2sili.soutenance.service.ClinicService;
+import com.angers.m2sili.soutenance.model.example.Owner;
+import com.angers.m2sili.soutenance.repository.example.OwnerRepository;
+import com.angers.m2sili.soutenance.service.example.ClinicService;
 
 /**
  * Mostly used as a facade for all Petclinic controllers

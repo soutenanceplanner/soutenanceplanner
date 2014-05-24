@@ -1,5 +1,5 @@
 
-package com.angers.m2sili.soutenance.service;
+package com.angers.m2sili.soutenance.service.example;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

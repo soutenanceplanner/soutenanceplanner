@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.web;
+package com.angers.m2sili.soutenance.web.example;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.angers.m2sili.soutenance.model.Pet;
+import com.angers.m2sili.soutenance.model.example.Pet;
 
 /**
  * Controller used to showcase what happens when an exception is thrown

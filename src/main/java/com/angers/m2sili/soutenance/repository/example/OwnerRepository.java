@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.repository;
+package com.angers.m2sili.soutenance.repository.example;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.angers.m2sili.soutenance.model.Owner;
+import com.angers.m2sili.soutenance.model.example.Owner;
 
 /**
  * Spring Data JPA specialization of the {@link OwnerRepository} interface

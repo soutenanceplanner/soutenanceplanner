@@ -1,8 +1,10 @@
-package com.angers.m2sili.soutenance.model;
+package com.angers.m2sili.soutenance.model.example;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.angers.m2sili.soutenance.model.BaseEntity;
 
 @Entity
 @Table(name="formation")

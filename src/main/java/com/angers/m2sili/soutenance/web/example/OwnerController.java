@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.web;
+package com.angers.m2sili.soutenance.web.example;
 
 import java.util.Collection;
 import java.util.Map;
@@ -33,8 +33,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.angers.m2sili.soutenance.model.Owner;
-import com.angers.m2sili.soutenance.service.ClinicService;
+import com.angers.m2sili.soutenance.model.example.Owner;
+import com.angers.m2sili.soutenance.service.example.ClinicService;
 
 /**
  * @author Juergen Hoeller

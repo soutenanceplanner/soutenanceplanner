@@ -13,24 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.service;
+package com.angers.m2sili.soutenance.service.example;
 
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.dao.DataAccessException;
+
+import com.angers.m2sili.soutenance.model.example.Owner;
+
 
 /**
- * <p> Integration test using the jdbc profile. 
- * @see AbstractClinicServiceTests AbstractClinicServiceTests for more details. </p>
+ * Mostly used as a facade for all Petclinic controllers
  *
- * @author Thomas Risberg
  * @author Michael Isvy
  */
-@ContextConfiguration(locations = {"classpath:spring/business-config.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("jdbc")
-public class ClinicServiceJdbcTests extends AbstractClinicServiceTests {
+public interface ClinicService {
 
+    public void saveOwner(Owner owner) throws DataAccessException;
+
+    Owner findOwnerById(Integer id) throws DataAccessException;
 
 }

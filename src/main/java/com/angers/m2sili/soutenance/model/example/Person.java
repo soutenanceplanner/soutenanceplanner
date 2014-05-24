@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.model;
+package com.angers.m2sili.soutenance.model.example;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.angers.m2sili.soutenance.model.BaseEntity;
 
 /**
  * Simple JavaBean domain object representing an person.

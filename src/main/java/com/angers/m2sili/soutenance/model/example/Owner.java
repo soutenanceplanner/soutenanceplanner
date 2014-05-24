@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.model;
+package com.angers.m2sili.soutenance.model.example;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,6 +32,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
+
+import com.angers.m2sili.soutenance.model.BaseEntity;
 
 /**
  * Simple JavaBean domain object representing an owner.

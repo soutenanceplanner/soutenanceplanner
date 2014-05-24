@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.angers.m2sili.soutenance.web;
+package com.angers.m2sili.soutenance.web.example;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

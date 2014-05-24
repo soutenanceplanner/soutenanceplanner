@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.model;
+package com.angers.m2sili.soutenance.model.example;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.angers.m2sili.soutenance.model.example.Owner;
+import com.angers.m2sili.soutenance.model.example.Pet;
 
 /**
  * JUnit test for the {@link Owner} class.

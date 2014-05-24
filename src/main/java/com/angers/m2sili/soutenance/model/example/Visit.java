@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.angers.m2sili.soutenance.model;
+package com.angers.m2sili.soutenance.model.example;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +25,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.angers.m2sili.soutenance.model.BaseEntity;
 
 /**
  * Simple JavaBean domain object representing a visit.

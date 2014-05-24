@@ -1,4 +1,4 @@
-package com.angers.m2sili.soutenance.model;
+package com.angers.m2sili.soutenance.model.example;
 
 import java.util.Set;
 
@@ -8,6 +8,8 @@ import javax.validation.Validator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+
+import com.angers.m2sili.soutenance.model.example.Person;
 
 /**
  * 
