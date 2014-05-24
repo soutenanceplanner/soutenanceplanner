@@ -15,16 +15,18 @@ angular.module('soutenanceplanner', [
 
 	//modules
 	'soutenanceplanner.home',
+	'soutenanceplanner.calendar',
+	'soutenanceplanner.login',
 	'soutenanceplanner.account'
 ]);
 
 angular.module('soutenanceplanner')
 
 //INTEG EXTERNE
-.value('WS_SERVER_URL', '')
+//.value('WS_SERVER_URL', '')
 
 //LOCALHOST
-.value('WS_SERVER_URL', '')
+.value('WS_SERVER_URL', 'http://localhost:8082/soutenanceplanner')
 
 .config(['$urlRouterProvider',
 	function($urlRouterProvider) {
@@ -46,7 +48,9 @@ angular.module('soutenanceplanner')
 
 //cross origin => TO DELETE
 .config(['$httpProvider', function($httpProvider) {
-	$httpProvider.defaults.withCredentials = true;
+	//$httpProvider.defaults.withCredentials = true;
+	$httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}
 ])
 

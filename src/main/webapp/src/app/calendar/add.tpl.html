@@ -1,0 +1,39 @@
+<br/><br/><br/><br/><h2>Ajouter un calendrier</h2>
+
+<div class="nav">
+		<div class="tab active"><a class="tab_link" id="tab_1" ui-sref="\#content1" rel="1">Création du calendrier</a></div>
+		<div class="tab"><a class="tab_link" id="tab_2" ui-sref="\#content2" rel="2">Configuration</a></div>
+</div>
+<div id="content1">
+	<fieldset>
+		<legend>Création du calendrier</legend>
+		<label class="obligatoire">Titre</label><input type="text" ng-model="title"/>
+		<label class="">Formation</label><select ng-model="formation"></select>
+		<label class="obligatoire">Date de début</label><input type="text" ng-model="beginning_date" bs-datepicker/>
+		<label class="obligatoire">Date de fin</label><input type="text" ng-model="ending_date" bs-datepicker/>
+		<label class="obligatoire">Durée d'une soutenance</label>
+		<select ng-model="duration">
+			<option ng-selected="{{d.value==duration}}" ng-repeat="d in durations" value="{{d.value}}">{{d.text}}</option>
+		</select>
+		<label class="obligatoire">Plage(s) horaires</label>
+		<ul class="time_slots">
+			<li ng-repeat="time_slot in time_slot_list">
+				<select ng-model="time_slot.beginning">
+					<option ng-selected="{{h1.value==time_slot.beginning}}" ng-repeat="h1 in hours" value="{{h1.value}}">{{h1.text}}</option>
+				</select>
+				<span> à </span>
+				<select ng-model="time_slot.ending">
+					<option ng-selected="{{h2.value==time_slot.ending}}" ng-repeat="h2 in hours" value="{{h2.value}}">{{h2.text}}</option>
+				</select>
+				[<a href ng-click="time_slot_list.splice($index, 1)">X</a>]
+			</li>
+			<li><button ng-click="add_time_slot()">+</button></li>
+		</ul>
+	</fieldset>
+</div>
+<div id="content2">
+	<fieldset>
+		<legend>Configuration</legend>
+	</fieldset>
+</div>
+	
