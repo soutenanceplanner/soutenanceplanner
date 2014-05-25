@@ -39,6 +39,6 @@
     <beans profile="javaee" >
         <!-- JNDI DataSource for JEE environments -->
         <!-- use relative jndi-name + resource-ref=true for https://jira.springsource.org/browse/SPR-4585 -->
-        <jee:jndi-lookup id="dataSource" jndi-name="jdbc/petclinic" resource-ref="true"/>
+        <jee:jndi-lookup id="dataSource" jndi-name="jdbc/soutenanceplanner" resource-ref="true"/>
     </beans>
 </beans>
