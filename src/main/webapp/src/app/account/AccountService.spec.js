@@ -18,7 +18,7 @@ describe('AccountService tester', function() {
 	it('AccountService - test', function() {
 
 		expect(accountService.test).toBeDefined();
-		httpBackend.expect('POST', WS_SERVER_URL.WebServiceCandidat + "/Test" ).respond();
+		httpBackend.expect('POST', WS_SERVER_URL + "/Test" ).respond();
 
 		var responseStatus;
 		accountService.test().then(function(response) {
