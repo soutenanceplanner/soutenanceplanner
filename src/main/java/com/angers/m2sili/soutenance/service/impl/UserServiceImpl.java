@@ -1,4 +1,4 @@
-package com.angers.m2sili.soutenance.service.example.impl;
+package com.angers.m2sili.soutenance.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.model.enumeration.Droit;
 import com.angers.m2sili.soutenance.repository.UserRepository;
-import com.angers.m2sili.soutenance.service.example.UserService;
+import com.angers.m2sili.soutenance.service.UserService;
 
 /**
  * Classe d'implémentation du service de User.

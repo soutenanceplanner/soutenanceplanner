@@ -1,4 +1,4 @@
-package com.angers.m2sili.soutenance.service.example;
+package com.angers.m2sili.soutenance.service;
 
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.model.enumeration.Droit;
