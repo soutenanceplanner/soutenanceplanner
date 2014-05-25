@@ -15,7 +15,6 @@
  */
 package com.angers.m2sili.soutenance.web.example;
 
-import java.util.Collection;
 import java.util.Map;
 
 import javax.validation.Valid;

@@ -16,24 +16,13 @@
 package com.angers.m2sili.soutenance.service.example;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Collection;
-
-import org.joda.time.DateTime;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.angers.m2sili.soutenance.model.example.Owner;
-import com.angers.m2sili.soutenance.model.example.Pet;
-import com.angers.m2sili.soutenance.model.example.Vet;
-import com.angers.m2sili.soutenance.model.example.Visit;
 import com.angers.m2sili.soutenance.service.example.ClinicService;
-import com.angers.m2sili.soutenance.util.EntityUtils;
 
 /**
  * <p> Base class for {@link ClinicService} integration tests. </p> <p> Subclasses should specify Spring context
