@@ -1,7 +1,3 @@
-angular.module('soutenanceplanner.account.module', [
-	'soutenanceplanner.account'
-]);
-
 angular.module('soutenanceplanner.account', []);
 
 angular.module('soutenanceplanner.account')
