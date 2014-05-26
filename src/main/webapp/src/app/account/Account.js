@@ -8,34 +8,16 @@ angular.module('soutenanceplanner.account')
 			url: '/account/add',
 			templateUrl: 'account/add.tpl.html',
 			controller: 'AccountAddCtrl'
-		});
-	}
-])
-
-.config(['$stateProvider', '$urlRouterProvider',
-	function ($stateProvider, $urlRouterProvider) {
-		$stateProvider.state('accountEdit', {
+		}).state('accountEdit', {
 			url: '/account/edit',
 			templateUrl: 'account/edit.tpl.html',
 			controller: 'AccountEditCtrl',
 			directives : [ "directives" ]
-		});
-	}
-])
-
-.config(['$stateProvider', '$urlRouterProvider',
-	function ($stateProvider, $urlRouterProvider) {
-		$stateProvider.state('accountList', {
+		}).state('accountList', {
 			url: '/account/list',
 			templateUrl: 'account/list.tpl.html',
 			controller: 'AccountListCtrl'
-		});
-	}
-])
-
-.config(['$stateProvider', '$urlRouterProvider',
-	function ($stateProvider, $urlRouterProvider) {
-		$stateProvider.state('accountShow', {
+		}).state('accountShow', {
 			url: '/account',
 			templateUrl: 'account/show.tpl.html',
 			controller: 'AccountShowCtrl'

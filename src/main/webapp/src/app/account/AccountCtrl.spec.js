@@ -9,15 +9,15 @@ describe('AccountCtrl tester', function() {
 
 		httpBackend = _$httpBackend_;
 		log = $log;
-		AccountCtrl = $controller('AccountCtrl', {
+		AccountAddCtrl = $controller('AccountAddCtrl', {
 			$log : log,
 			$scope: scope
 		});
 		callBack = {};
 	}));
 
-	it('AccountCtrl', function() {
-		expect(AccountCtrl).toBeDefined();
+	it('AccountAddCtrl', function() {
+		expect(AccountAddCtrl).toBeDefined();
 	});
 
 });
