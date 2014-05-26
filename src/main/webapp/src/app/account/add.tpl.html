@@ -18,7 +18,7 @@
             </tr>
             <tr>
                 <th><label for="flag">Satut :</label></th>
-                <td><select ng-model="user.flag" ng-options="flag.id as flag.name for flag in flags"></select></td>
+                <td><select ng-model="user.flag" ng-options="flag.value as flag.name for flag in flags" required></select></td>
             </tr>
             <tr>
                 <th><label for="password">Mot de passe :</label></th>
@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td><button ui-sref="accountList" >Liste</button></td>
-                <td><button>Ajouter</button></td>
+                <td><button ng-click="create()">Ajouter</button></td>
             </tr>
         </table>
     </fieldset>

@@ -14,6 +14,10 @@ angular.module('soutenanceplanner', [
 	'angularFileUpload',
 	'services.i18n',
 
+	//Commons
+	'soutenanceplanner.factory',
+	'soutenanceplanner.enum',
+
 	//modules
 	'soutenanceplanner.home',
 	'soutenanceplanner.calendar',
@@ -58,6 +62,7 @@ angular.module('soutenanceplanner')
 .run(['$rootScope', '$state', '$stateParams', '$http',
 	function($rootScope, $state, $stateParams, $http) {
 		$http.defaults.headers.contentType = "application/json; charset=utf-8";
+		//$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 	}
 ])
 
