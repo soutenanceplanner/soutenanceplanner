@@ -15,8 +15,14 @@
  */
 package com.angers.m2sili.soutenance.service.example;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.angers.m2sili.soutenance.model.example.Owner;
+import com.angers.m2sili.soutenance.service.example.ClinicService;
 
 /**
  * <p> Base class for {@link ClinicService} integration tests. </p> <p> Subclasses should specify Spring context
@@ -39,18 +45,18 @@ import org.springframework.test.context.ContextConfiguration;
  */
 public abstract class AbstractClinicServiceTests {
 
-//    @Autowired
-//    protected ClinicService clinicService;
-//
-//    @Test
-//    @Transactional
-//    public void updateOwner() throws Exception {
-//        Owner o1 = this.clinicService.findOwnerById(1);
-//        String old = o1.getLastName();
-//        o1.setLastName(old + "X");
-//        this.clinicService.saveOwner(o1);
-//        o1 = this.clinicService.findOwnerById(1);
-//        assertEquals(old + "X", o1.getLastName());
-//    }
+    @Autowired
+    protected ClinicService clinicService;
+
+    @Test
+    @Transactional
+    public void updateOwner() throws Exception {
+        Owner o1 = this.clinicService.findOwnerById(1);
+        String old = o1.getLastName();
+        o1.setLastName(old + "X");
+        this.clinicService.saveOwner(o1);
+        o1 = this.clinicService.findOwnerById(1);
+        assertEquals(old + "X", o1.getLastName());
+    }
 
 }

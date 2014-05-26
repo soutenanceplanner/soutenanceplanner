@@ -15,11 +15,25 @@
  */
 package com.angers.m2sili.soutenance.web.example;
 
+import java.util.Map;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.angers.m2sili.soutenance.model.example.Owner;
+import com.angers.m2sili.soutenance.service.example.ClinicService;
 
 /**
  * @author Juergen Hoeller
@@ -31,72 +45,72 @@ import com.angers.m2sili.soutenance.model.example.Owner;
 @SessionAttributes(types = Owner.class)
 public class OwnerController {
 
-//    private final ClinicService clinicService;
-//
-//
-//    @Autowired
-//    public OwnerController(ClinicService clinicService) {
-//        this.clinicService = clinicService;
-//    }
+    private final ClinicService clinicService;
 
-//    @InitBinder
-//    public void setAllowedFields(WebDataBinder dataBinder) {
-//        dataBinder.setDisallowedFields("id");
-//    }
-//
-//    @RequestMapping(value = "/owners/new", method = RequestMethod.GET)
-//    public String initCreationForm(Map<String, Object> model) {
-//        Owner owner = new Owner();
-//        model.put("owner", owner);
-//        return "owners/createOrUpdateOwnerForm";
-//    }
 
-//    @RequestMapping(value = "/owners/new", method = RequestMethod.POST)
-//    public String processCreationForm(@Valid Owner owner, BindingResult result, SessionStatus status) {
-//        if (result.hasErrors()) {
-//            return "owners/createOrUpdateOwnerForm";
-//        } else {
-//            this.clinicService.saveOwner(owner);
-//            status.setComplete();
-//            return "redirect:/owners/" + owner.getId();
-//        }
-//    }
+    @Autowired
+    public OwnerController(ClinicService clinicService) {
+        this.clinicService = clinicService;
+    }
 
-//    @RequestMapping(value = "/owners/find", method = RequestMethod.GET)
-//    public String initFindForm(Map<String, Object> model) {
-//        model.put("owner", new Owner());
-//        return "owners/findOwners";
-//    }
+    @InitBinder
+    public void setAllowedFields(WebDataBinder dataBinder) {
+        dataBinder.setDisallowedFields("id");
+    }
 
-//    @RequestMapping(value = "/owners/{ownerId}/edit", method = RequestMethod.GET)
-//    public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
-//        Owner owner = this.clinicService.findOwnerById(ownerId);
-//        model.addAttribute(owner);
-//        return "owners/createOrUpdateOwnerForm";
-//    }
-//
-//    @RequestMapping(value = "/owners/{ownerId}/edit", method = RequestMethod.PUT)
-//    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, SessionStatus status) {
-//        if (result.hasErrors()) {
-//            return "owners/createOrUpdateOwnerForm";
-//        } else {
-//            this.clinicService.saveOwner(owner);
-//            status.setComplete();
-//            return "redirect:/owners/{ownerId}";
-//        }
-//    }
-//
-//    /**
-//     * Custom handler for displaying an owner.
-//     *
-//     * @param ownerId the ID of the owner to display
-//     * @return a ModelMap with the model attributes for the view
-//     */
-//    @RequestMapping("/owners/{ownerId}")
-//    public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-//        ModelAndView mav = new ModelAndView("owners/ownerDetails");
-//        mav.addObject(this.clinicService.findOwnerById(ownerId));
-//        return mav;
-//    }
+    @RequestMapping(value = "/owners/new", method = RequestMethod.GET)
+    public String initCreationForm(Map<String, Object> model) {
+        Owner owner = new Owner();
+        model.put("owner", owner);
+        return "owners/createOrUpdateOwnerForm";
+    }
+
+    @RequestMapping(value = "/owners/new", method = RequestMethod.POST)
+    public String processCreationForm(@Valid Owner owner, BindingResult result, SessionStatus status) {
+        if (result.hasErrors()) {
+            return "owners/createOrUpdateOwnerForm";
+        } else {
+            this.clinicService.saveOwner(owner);
+            status.setComplete();
+            return "redirect:/owners/" + owner.getId();
+        }
+    }
+
+    @RequestMapping(value = "/owners/find", method = RequestMethod.GET)
+    public String initFindForm(Map<String, Object> model) {
+        model.put("owner", new Owner());
+        return "owners/findOwners";
+    }
+
+    @RequestMapping(value = "/owners/{ownerId}/edit", method = RequestMethod.GET)
+    public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
+        Owner owner = this.clinicService.findOwnerById(ownerId);
+        model.addAttribute(owner);
+        return "owners/createOrUpdateOwnerForm";
+    }
+
+    @RequestMapping(value = "/owners/{ownerId}/edit", method = RequestMethod.PUT)
+    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, SessionStatus status) {
+        if (result.hasErrors()) {
+            return "owners/createOrUpdateOwnerForm";
+        } else {
+            this.clinicService.saveOwner(owner);
+            status.setComplete();
+            return "redirect:/owners/{ownerId}";
+        }
+    }
+
+    /**
+     * Custom handler for displaying an owner.
+     *
+     * @param ownerId the ID of the owner to display
+     * @return a ModelMap with the model attributes for the view
+     */
+    @RequestMapping("/owners/{ownerId}")
+    public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+        ModelAndView mav = new ModelAndView("owners/ownerDetails");
+        mav.addObject(this.clinicService.findOwnerById(ownerId));
+        return mav;
+    }
 
 }
