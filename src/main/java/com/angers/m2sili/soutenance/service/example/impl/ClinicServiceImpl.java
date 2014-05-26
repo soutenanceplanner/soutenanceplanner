@@ -30,7 +30,7 @@ import com.angers.m2sili.soutenance.service.example.ClinicService;
  *
  * @author Michael Isvy
  */
-@Service
+@Service("clinicServiceImpl")
 public class ClinicServiceImpl implements ClinicService {
 
 	@Autowired
