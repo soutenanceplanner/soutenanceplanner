@@ -6,6 +6,7 @@ angular.module('soutenanceplanner', [
 	'templates-common',
 	'ui.router',
 	'ngAnimate',
+	'ui.calendar',
 
 	//dans cet ordre là pour éviter conflits
 	'ui.bootstrap',

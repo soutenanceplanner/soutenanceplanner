@@ -29,7 +29,7 @@ angular.module('soutenanceplanner.calendar')
 	
 	$scope.time_slot_default = {beginning:8,ending:18};
 	
-	$scope.time_slot_list = [{ beginning:8, ending:18 }];
+	$scope.time_slot_list = [{ beginning:8, ending:12 },{ beginning:14, ending:18 }];
 	
 	$scope.add_time_slot = function() {
 		$scope.time_slot_list.push({beginning:8,ending:18});  
