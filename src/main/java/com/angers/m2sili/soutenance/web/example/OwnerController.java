@@ -45,13 +45,8 @@ import com.angers.m2sili.soutenance.service.example.ClinicService;
 @SessionAttributes(types = Owner.class)
 public class OwnerController {
 
-    private final ClinicService clinicService;
-
-
-    @Autowired
-    public OwnerController(ClinicService clinicService) {
-        this.clinicService = clinicService;
-    }
+	@Autowired
+    private ClinicService clinicService;
 
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
