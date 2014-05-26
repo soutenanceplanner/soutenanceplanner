@@ -1,7 +1,10 @@
 package com.angers.m2sili.soutenance.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,10 +20,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "formation")
 public class Formation extends BaseEntity {
 
+	
 	@NotEmpty
 	@Column(name = "name")
 	private String name;
 
+	@OneToMany
+	private List<Calendar> ListCalendar;
+	
 	public String getName() {
 		return name;
 	}

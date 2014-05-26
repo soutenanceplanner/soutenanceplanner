@@ -24,7 +24,7 @@ public class DayConstraint extends BaseEntity {
 	@NotNull
 	@Column(name = "date")
 	private Date date;
-
+	
 	/**
 	 * State de la contrainte.
 	 */
