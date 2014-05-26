@@ -20,6 +20,19 @@ angular.module('soutenanceplanner.account')
 					url: WS_SERVER_URL + "/oups",
 					data: {}
 				});
+			},
+
+			create:function(login, password, mail, flag){
+				return $http({
+					method: 'POST',
+					url: WS_SERVER_URL + "/user/new",
+					data: {
+						login : login,
+						password : password,
+						mail : mail,
+						flag : flag
+					}
+				});
 			}
 
 		};
