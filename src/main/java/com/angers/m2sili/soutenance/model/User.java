@@ -25,8 +25,11 @@ import com.angers.m2sili.soutenance.model.enumeration.Droit;
 @Table(name = "user")
 public class User extends BaseEntity {
 
+	/**
+	 * Serial ID.
+	 */
+	private static final long serialVersionUID = -2265104457614335742L;
 
-	
 	@NotEmpty
 	private String login;
 	

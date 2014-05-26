@@ -18,7 +18,11 @@ import javax.validation.constraints.NotNull;
 @Table(name = "time_slot")
 public class TimeSlot extends BaseEntity {
 
-	
+	/**
+	 * Serial ID.
+	 */
+	private static final long serialVersionUID = -4390604090909362274L;
+
 	@NotNull
 	@Column(name = "beginning_hour")
 	private Date beginningHour;

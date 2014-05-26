@@ -19,7 +19,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "oral")
 public class Oral extends BaseEntity {
 
-	
+	/**
+	 * Serial ID.
+	 */
+	private static final long serialVersionUID = 5041906236066097434L;
+
 	@NotEmpty
 	private String title;
 

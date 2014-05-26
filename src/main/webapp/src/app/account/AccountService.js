@@ -18,7 +18,9 @@ angular.module('soutenanceplanner.account')
 				return $http({
 					method: 'POST',
 					url: WS_SERVER_URL + "/user/new",
-					data: JSON.stringify(user)
+					data: {
+						test : "toto"
+					}
 				});
 			}
 

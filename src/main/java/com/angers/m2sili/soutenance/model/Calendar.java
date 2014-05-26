@@ -22,7 +22,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "calendar")
 public class Calendar extends BaseEntity {
 
-	
+	/**
+	 * Serial ID.
+	 */
+	private static final long serialVersionUID = 6419590540392821902L;
+
 	@NotNull
 	@Column(name = "beginning_date")
 	private Date beginningDate;
