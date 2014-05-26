@@ -1,0 +1,50 @@
+<div>
+<br><br><br><br>
+    <form name="editAccountForm" ng-submit="accountUpdate()">
+    	<fieldset>
+            <legend>Mon compte</legend>
+            <table>
+                <tr>
+                    <th><label for="login">Identifiant :</label></th>
+                    <td><input data-ng-model="user.login" id="login" type="text" name="login" disabled="disabled" required /></td>
+                </tr>
+                <tr ng-show="editAccountForm.login.$error.required">
+                    <td>&nbsp;</td>
+                    <td class="error">Vous devez saisir un identifiant</td>
+                </tr>
+                <tr>
+                    <th><label for="email">Email :</label></th>
+                    <td><input data-ng-model="user.email" id="email" type="email" name="email" /></td>
+                </tr>
+                <tr>
+                    <th><label for="flag">Satut :</label></th>
+                    <td><select ng-model="user.flag" ng-options="flag.id as flag.name for flag in flags"></select></td>
+                </tr>
+                <tr>
+                    <th><label for="password">Mot de passe :</label></th>
+                    <td><input data-ng-model="user.password" id="password" type="password" name="password" required /></td>
+                </tr>
+                <tr ng-show="editAccountForm.password.$error.required">
+                    <td>&nbsp;</td>
+                    <td class="error">Vous devez saisir un mot de passe</td>
+                </tr>
+                <tr>
+                    <th><label for="passwordConfirm">Confirmation du mot de passe :</label></th>
+                    <td><input ng-model="user.passwordConfirm" type="password" data-match="user.password" name="passwordConfirm" required /></td>
+                </tr>
+                <tr ng-show="editAccountForm.passwordConfirm.$error.match">
+                    <td>&nbsp;</td>
+                    <td class="error">Les mots de passe ne sont pas identiques</td>
+                </tr>
+                <tr ng-show="editAccountForm.passwordConfirm.$error.required">
+                    <td>&nbsp;</td>
+                    <td class="error">Vous devez confirmer le mot de passe</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><button>Valider</button></td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>
