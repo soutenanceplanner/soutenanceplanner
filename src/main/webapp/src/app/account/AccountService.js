@@ -24,7 +24,7 @@ angular.module('soutenanceplanner.account')
 
 			create:function(login, password, mail, flag){
 				return $http({
-					method: 'GET',
+					method: 'POST',
 					url: WS_SERVER_URL + "/user/new",
 					data: {
 						login : login,
