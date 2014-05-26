@@ -51,7 +51,8 @@
 	<!-- Post-processor to perform exception translation on @Repository classes 
 		(from native exceptions such as JPA PersistenceExceptions to Spring's DataAccessException 
 		hierarchy). -->
-	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 	<jpa:repositories base-package="com.angers.m2sili.soutenance.repository" />
 </beans>

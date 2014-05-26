@@ -6,6 +6,7 @@ angular.module('soutenanceplanner', [
 	'templates-common',
 	'ui.router',
 	'ngAnimate',
+	'ui.calendar',
 
 	//dans cet ordre là pour éviter conflits
 	'ui.bootstrap',
@@ -23,7 +24,7 @@ angular.module('soutenanceplanner', [
 angular.module('soutenanceplanner')
 
 //INTEG EXTERNE
-//.value('WS_SERVER_URL', '')
+//.value('WS_SERVER_URL', 'http://soutenanceplanner.m2sili.cloudbees.net')
 
 //LOCALHOST
 .value('WS_SERVER_URL', 'http://localhost:8082/soutenanceplanner')

@@ -35,8 +35,6 @@ public class CrashController {
 
     @RequestMapping(value = "/oups", method = RequestMethod.GET)
     public @ResponseBody Pet triggerException() {
-//        throw new RuntimeException("Expected: controller used to showcase what " +
-//                "happens when an exception is thrown");
     	return new Pet();
     }
 

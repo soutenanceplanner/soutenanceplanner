@@ -7,12 +7,12 @@
 <div id="content1">
 	<fieldset>
 		<legend>Création du calendrier</legend>
-		<label class="obligatoire">Titre</label><input type="text" ng-model="title"/>
+		<label class="obligatoire">Titre</label><input type="text" ng-model="title" ng-change="update_calendar()" />
 		<label class="">Formation</label><select ng-model="formation"></select>
-		<label class="obligatoire">Date de début</label><input type="text" ng-model="beginning_date" bs-datepicker/>
-		<label class="obligatoire">Date de fin</label><input type="text" ng-model="ending_date" bs-datepicker/>
+		<label class="obligatoire">Date de début</label><input type="text" ng-model="beginning_date" ng-change="update_calendar()" bs-datepicker/>
+		<label class="obligatoire">Date de fin</label><input type="text" ng-model="ending_date" ng-change="update_calendar()" bs-datepicker/>
 		<label class="obligatoire">Durée d'une soutenance</label>
-		<select ng-model="duration">
+		<select ng-model="duration" ng-change="update_calendar()">
 			<option ng-selected="{{d.value==duration}}" ng-repeat="d in durations" value="{{d.value}}">{{d.text}}</option>
 		</select>
 		<label class="obligatoire">Plage(s) horaires</label>
@@ -34,6 +34,7 @@
 <div id="content2">
 	<fieldset>
 		<legend>Configuration</legend>
+		<div ui-calendar="calendarOptions" ng-model="new_calendar" calendar="calendar">
 	</fieldset>
 </div>
 	

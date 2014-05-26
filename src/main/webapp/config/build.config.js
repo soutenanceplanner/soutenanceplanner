@@ -30,10 +30,14 @@ module.exports = {
       'vendor/angular-strap/dist/angular-strap.tpl.js',
       'vendor/angular-file-upload/angular-file-upload.js',
       'vendor/angular-bootstrap/ui-bootstrap.min.js',
-      'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js'
+      'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
+      'vendor/angular-ui-calendar/src/calendar.js',
+      'vendor/fullcalendar/fullcalendar.js',
+      'vendor/fullcalendar/gcal.js'
     ],
     css: [
-      'vendor/angular-motion/dist/angular-motion.min.css'
+      'vendor/angular-motion/dist/angular-motion.min.css',
+      'vendor/fullcalendar/fullcalendar.css'
     ],
     assets: [
     ],
