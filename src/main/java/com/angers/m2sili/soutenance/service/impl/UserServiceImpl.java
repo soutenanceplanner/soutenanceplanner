@@ -16,7 +16,7 @@ import com.angers.m2sili.soutenance.service.UserService;
  * 
  */
 
-@Service
+@Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
