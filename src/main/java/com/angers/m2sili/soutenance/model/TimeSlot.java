@@ -22,9 +22,6 @@ import org.springframework.data.annotation.Id;
 @Table(name = "time_slot")
 public class TimeSlot extends BaseEntity {
 
-	@NotEmpty
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int ID ;
 	
 	@NotNull
 	@Column(name = "beginning_hour")

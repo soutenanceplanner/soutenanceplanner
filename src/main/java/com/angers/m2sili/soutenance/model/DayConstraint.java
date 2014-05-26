@@ -30,10 +30,6 @@ public class DayConstraint extends BaseEntity {
 	@NotNull
 	@Column(name = "date")
 	private Date date;
-
-	@NotEmpty
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int ID ;
 	
 	/**
 	 * State de la contrainte.
@@ -41,9 +37,6 @@ public class DayConstraint extends BaseEntity {
 	@NotNull
 	@Column(name = "state")
 	private Boolean state;
-	
-	@OneToOne
-	private int Id_Calendar ;
 
 	public Date getDate() {
 		return date;

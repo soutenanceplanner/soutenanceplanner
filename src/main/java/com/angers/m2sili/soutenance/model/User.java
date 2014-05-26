@@ -29,9 +29,6 @@ import com.angers.m2sili.soutenance.model.enumeration.Droit;
 public class User extends BaseEntity {
 
 
-	@NotEmpty
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int ID;
 	
 	@NotEmpty
 	private String login;
@@ -61,10 +58,6 @@ public class User extends BaseEntity {
 
 	public void setListeOral(List<Oral> listeOral) {
 		this.listeOral = listeOral;
-	}
-
-	public int getID() {
-		return ID;
 	}
 
 	public List<Calendar> getListeCalendrier() {

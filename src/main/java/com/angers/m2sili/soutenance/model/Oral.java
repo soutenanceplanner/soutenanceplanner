@@ -22,9 +22,6 @@ import org.springframework.data.annotation.Id;
 @Table(name = "oral")
 public class Oral extends BaseEntity {
 
-	@NotEmpty
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int ID ;
 	
 	@NotEmpty
 	private String title;
@@ -40,10 +37,10 @@ public class Oral extends BaseEntity {
 	private String participants;
 
 	@OneToOne
-	private int Id_User ;
+	private User user ;
 	
 	@OneToOne
-	private int Id_Calendar;
+	private Calendar calendar;
 	
 	public String getTitle() {
 		return title;

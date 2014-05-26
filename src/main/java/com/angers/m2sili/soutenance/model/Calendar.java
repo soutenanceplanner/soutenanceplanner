@@ -25,9 +25,6 @@ import org.springframework.data.annotation.Id;
 @Table(name = "calendar")
 public class Calendar extends BaseEntity {
 
-	@NotEmpty
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int ID ;
 	
 	@NotNull
 	@Column(name = "beginning_date")
@@ -50,7 +47,7 @@ public class Calendar extends BaseEntity {
 	private String link;
 
 	@OneToOne
-	private int Id_User;
+	private User user;
 	
 	@OneToMany
 	private List<DayConstraint> ListDayConstraint ;

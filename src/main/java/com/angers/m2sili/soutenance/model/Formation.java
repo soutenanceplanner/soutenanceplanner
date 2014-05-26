@@ -23,9 +23,6 @@ import org.springframework.data.annotation.Id;
 @Table(name = "formation")
 public class Formation extends BaseEntity {
 
-	@NotEmpty
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int ID ;
 	
 	@NotEmpty
 	@Column(name = "name")
