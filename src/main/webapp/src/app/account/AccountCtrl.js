@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.account')
 
-.controller('AccountAddCtrl', ['$scope', '$log',
-	function($scope, $log) {
+.controller('AccountAddCtrl', ['$scope', '$log', 'AccountService',
+	function($scope, $log, AccountService) {
 		$log.debug('AccountAddCtrl');
 
 		$scope.flags = [
@@ -18,6 +18,12 @@ angular.module('soutenanceplanner.account')
 		$scope.user = {
 			flag : $scope.flags[0]
 		};
+
+		AccountService.oups().then(
+			function(response){
+				$log.debug(response.data);
+			}
+		);
 	}
 ])
 
