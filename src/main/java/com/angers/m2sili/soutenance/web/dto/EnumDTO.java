@@ -1,7 +1,7 @@
 package com.angers.m2sili.soutenance.web.dto;
 
-public class EnumDTO {
-	
+public class EnumDTO{
+
 	/**
 	 * Valeur dans l'énum.
 	 */
@@ -11,6 +11,9 @@ public class EnumDTO {
 	 * Nom dans l'énum.
 	 */
 	private String name;
+	
+	public EnumDTO(){
+	}
 	
 	public EnumDTO(int value, String name){
 		this.value = value;

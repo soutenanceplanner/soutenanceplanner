@@ -20,7 +20,7 @@ angular.module('soutenanceplanner.account')
 		};
 
 		$scope.create = function(){
-			AccountService.create($scope.user).then(
+			AccountService.create($scope.flags[0]).then(
 				function(response){
 					$log.debug(response.data);
 					$state.go("accountList");

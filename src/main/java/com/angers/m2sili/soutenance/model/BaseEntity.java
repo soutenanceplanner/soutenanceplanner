@@ -31,10 +31,11 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class BaseEntity implements Serializable{
+	
 	/**
 	 * Serial ID.
 	 */
-	private static final long serialVersionUID = -191936681279994341L;
+	private static final long serialVersionUID = 6218449415563584624L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,10 +47,6 @@ public class BaseEntity implements Serializable{
 
 	public Integer getId() {
 		return id;
-	}
-
-	public boolean isNew() {
-		return (this.id == null);
 	}
 
 }

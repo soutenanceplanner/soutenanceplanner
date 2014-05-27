@@ -62,7 +62,6 @@ angular.module('soutenanceplanner')
 .run(['$rootScope', '$state', '$stateParams', '$http',
 	function($rootScope, $state, $stateParams, $http) {
 		$http.defaults.headers.contentType = "application/json; charset=utf-8";
-		$http.defaults.headers.accept = "application/json";
 		//$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 	}
 ])

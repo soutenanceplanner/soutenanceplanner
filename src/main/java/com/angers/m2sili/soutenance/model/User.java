@@ -45,6 +45,9 @@ public class User extends BaseEntity {
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private Droit flag;
+	
+	public User(){
+	}
 
 	@OneToMany
 	private List<Calendar> listeCalendrier ;
