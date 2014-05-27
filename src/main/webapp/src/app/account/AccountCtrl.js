@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.account')
 
-.controller('AccountAddCtrl', ['$scope', '$log', 'AccountService',
-	function($scope, $log, AccountService) {
+.controller('AccountAddCtrl', ['$scope', '$log', '$location', 'AccountService',
+	function($scope, $log, $location, AccountService) {
 		$log.debug('AccountAddCtrl');
 
 		$scope.flags = [
@@ -17,6 +17,11 @@ angular.module('soutenanceplanner.account')
 
 		$scope.user = {
 			flag : $scope.flags[0]
+		};
+
+		$scope.accountAdd = function () {
+			alert("L'utilisateur a été ajouté avec succès !");
+			$location.path( "/account/list" );
 		};
 
 		AccountService.oups().then(
@@ -91,6 +96,10 @@ angular.module('soutenanceplanner.account')
 				flag : 10
 			}
 		];
+
+		$scope.deleteAccount = function () {
+			alert("L'utilisateur a été suprimé avec succès !");
+		};
 	}
 ])
 

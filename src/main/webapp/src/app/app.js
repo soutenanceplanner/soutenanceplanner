@@ -18,7 +18,8 @@ angular.module('soutenanceplanner', [
 	'soutenanceplanner.home',
 	'soutenanceplanner.calendar',
 	'soutenanceplanner.login',
-	'soutenanceplanner.account'
+	'soutenanceplanner.account',
+	'soutenanceplanner.formation'
 ]);
 
 angular.module('soutenanceplanner')

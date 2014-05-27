@@ -1,4 +1,38 @@
-<br><br><br><br>
+<form name="editAccountForm" class="form-horizontal" role="form">
+	<legend>Mon compte</legend>
+	<div class="form-group">
+		<label for="login" class="col-sm-3 control-label">Identifiant</label>
+		<div class="col-sm-9">
+			<p class="form-control-static">{{user.login}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="email" class="col-sm-3 control-label">Email</label>
+		<div class="col-sm-9">
+			<p class="form-control-static">{{user.email}}</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="flag" class="col-sm-3 control-label">Statut</label>
+		<div class="col-sm-9">
+			<p class="form-control-static">{{user.flag}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="password" class="col-sm-3 control-label">Mot de passe</label>
+		<div class="col-sm-9">
+			<p class="form-control-static">{{user.password}}</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-9">
+			<button ui-sref="accountEdit" class="btn btn-default">Editer</button>
+		</div>
+	</div>
+</form>
+
+<!--
 <div>
 	<fieldset>
 		<legend>Mon compte</legend>
@@ -22,3 +56,4 @@
 		</table>
 	</fieldset>
 </div>
+-->

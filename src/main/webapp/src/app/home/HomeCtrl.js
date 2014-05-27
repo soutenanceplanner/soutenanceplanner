@@ -1,11 +1,11 @@
 angular.module('soutenanceplanner.home')
 
-.controller('HomeCtrl', ['$scope', '$log', 'AccountService',
-	function($scope, $log, AccountService) {
+.controller('HomeCtrl', ['$scope', '$log', '$location', 'AccountService',
+	function($scope, $log, $location, AccountService) {
 		$log.debug('HomeCtrl');
 		
 		$scope.calendriers  = [ {
-			nom : 'Soutenance M2Sili',
+			nom : 'Soutenance M2 Sili',
 			url : 'url'
 		},
 		{
@@ -17,13 +17,11 @@ angular.module('soutenanceplanner.home')
 			url : 'url'
 		} ];
 
-
 		AccountService.oups().then(
 			function(response){
 				$log.debug(response.data);
 			}
 		);
-		
 	}
 ])
 

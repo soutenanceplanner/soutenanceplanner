@@ -1,32 +1,66 @@
 <!doctype html>
 <html xmlns:ng="http://angularjs.org" class="ng-scope" data-ng-app="soutenanceplanner" id="ng-app" lang="fr" data-ng-controller="MainCtrl">
-<head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-	<title>Soutenanceplanner - <%= version %></title>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+		<title>Soutenanceplanner - <%= version %></title>
 
-	 <!-- compiled CSS -->
-    <% styles.forEach( function ( file ) { %>
-      <link rel="stylesheet" type="text/css" href="<%= file %>" />
-    <% }); %>
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-additions.min.css" />
+		<!-- compiled CSS -->
+		<% styles.forEach( function ( file ) { %>
+			<link rel="stylesheet" type="text/css" href="<%= file %>" />
+		<% }); %>
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap-additions.min.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/css.css" />
 
-    <style>[ng-cloak] { display: none; }</style>
-</head>
-<body>
+		<style>[ng-cloak] { display: none; }</style>
+	</head>
+	<body>
+		<!-- Begin header -->
+		<div ng-include="'header.tpl.html'"></div>
+		<!-- End header -->
 
-	<div ng-include="'menu/menuTop.tpl.html'"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3"></div>
 
-	<div class="container main">
-		<div ui-view></div>
-	</div>
+				<!-- Begin breadcrumb -->
+				<div ng-include="'breadcrumb.tpl.html'"></div>
+				<!-- End breadcrumb -->
 
-	<!-- compiled JavaScript -->
-    <% scripts.forEach( function ( file ) { %>
-      <script type="text/javascript" src="<%= file %>"></script>
-    <% }); %>
-    
-    
-</body>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
+
+		<!-- Begin main -->
+		<div class="container">
+			<div class="row">
+				<!-- Start left menu -->
+				<div ng-include="'menu/menuLeft.tpl.html'"></div>
+				<!-- End left menu -->
+
+				<!-- Start contents -->
+				<div class="col-md-6 span-fixed-sidebar">
+					<div class="panel panel-default">
+						<div ui-view class="panel-body"></div>
+					</div>
+				</div>
+				<!-- End contents -->
+
+				<!-- Start right menu -->
+				<div ng-include="'menu/menuRight.tpl.html'"></div>
+				<!-- End right menu -->
+			</div>
+		</div>
+		<!-- End main -->
+
+		<!-- Begin footer -->
+		<div ng-include="'footer.tpl.html'"></div>
+		<!-- End footer -->
+
+		<!-- compiled JavaScript -->
+		<% scripts.forEach( function ( file ) { %>
+			<script type="text/javascript" src="<%= file %>"></script>
+		<% }); %>
+	</body>
 </html>

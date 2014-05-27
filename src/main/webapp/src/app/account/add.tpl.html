@@ -1,4 +1,45 @@
-<br><br><br><br>
+<form name="addAccountForm" ng-submit="accountAdd()" class="form-horizontal" role="form">
+	<legend>Ajout d'un utilisateur</legend>
+	<div class="form-group">
+		<label for="login" class="col-sm-3 control-label">Identifiant</label>
+		<div class="col-sm-9">
+			<input data-ng-model="user.login" type="text" class="form-control" id="login" placeholder="Identifiant" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="email" class="col-sm-3 control-label">Email</label>
+		<div class="col-sm-9">
+			<input data-ng-model="user.email" type="email" class="form-control" id="email" placeholder="Email">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="flag" class="col-sm-3 control-label">Statut</label>
+		<div class="col-sm-9">
+			<select ng-model="user.flag" ng-options="flag.id as flag.name for flag in flags" class="form-control" id="flag" required></select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="password" class="col-sm-3 control-label">Mot de passe</label>
+		<div class="col-sm-9">
+			<input data-ng-model="user.password" type="password" class="form-control" id="password" placeholder="Mot de passe" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="passwordConfirm" class="col-sm-3 control-label">Confirmation</label>
+		<div class="col-sm-9">
+			<input ng-model="user.passwordConfirm" type="password" class="form-control" id="passwordConfirm" placeholder="Mot de passe" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-9">
+			<button ui-sref="accountList" class="btn btn-default">Liste</button>
+			<button class="btn btn-default">Valider</button>
+		</div>
+	</div>
+</form>
+
+<!--
 <div>
 	<form name="addAccountForm" ng-submit="accountUpdate()">
 	<fieldset>
@@ -47,3 +88,4 @@
 		</table>
 	</fieldset>
 </div>
+-->
