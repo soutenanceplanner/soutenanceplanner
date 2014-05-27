@@ -1,5 +1,7 @@
 package com.angers.m2sili.soutenance.service;
 
+import java.util.List;
+
 import com.angers.m2sili.soutenance.model.User;
 
 /**
@@ -11,5 +13,11 @@ import com.angers.m2sili.soutenance.model.User;
 public interface UserService {
 
 	public User create(User user);
+	
+	public void delete(Integer id);
+
+	User get(Integer id);
+	
+	List<User> getAll();
 
 }

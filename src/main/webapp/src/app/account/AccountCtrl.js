@@ -19,8 +19,8 @@ angular.module('soutenanceplanner.account')
 			);
 		};
 
-		$scope.create = function(){
-			AccountService.create($scope.user).then(
+		$scope.createUser = function(){
+			AccountService.createUser($scope.user).then(
 				function(response){
 					$log.debug(response.data);
 					$state.go("accountList");

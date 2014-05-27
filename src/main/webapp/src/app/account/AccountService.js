@@ -14,11 +14,32 @@ angular.module('soutenanceplanner.account')
 				});
 			},
 
-			create:function(user){
+			createUser:function(user){
 				return $http({
 					method: 'POST',
 					url: WS_SERVER_URL + "/user/new",
 					data: user
+				});
+			},
+
+			getUser:function(user){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/user/"+user.id,
+				});
+			},
+
+			deleteUser:function(user){
+				return $http({
+					method: 'DELETE',
+					url: WS_SERVER_URL + "/user/"+user.id,
+				});
+			},
+
+			listUser:function(user){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/user/list",
 				});
 			}
 

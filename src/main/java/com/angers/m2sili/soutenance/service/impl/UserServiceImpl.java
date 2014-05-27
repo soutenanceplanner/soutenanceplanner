@@ -1,5 +1,7 @@
 package com.angers.m2sili.soutenance.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,24 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User create(User user) {		
 		return userRepository.save(user);
+	}
+
+	@Override
+	@Transactional
+	public void delete(Integer id) {
+		userRepository.delete(id);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public User get(Integer id) {
+		return userRepository.findOne(id);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<User> getAll() {
+		return userRepository.findAll();
 	}
 
 }
