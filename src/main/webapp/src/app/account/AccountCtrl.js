@@ -24,6 +24,9 @@ angular.module('soutenanceplanner.account')
 				function(response){
 					$log.debug(response.data);
 					//$state.go("accountList");
+				},
+				function(response){
+					$log.debug("Erreur serveur");
 				}
 			);
 		};
