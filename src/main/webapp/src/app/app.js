@@ -14,6 +14,10 @@ angular.module('soutenanceplanner', [
 	'angularFileUpload',
 	'services.i18n',
 
+	//Commons
+	'soutenanceplanner.factory',
+	'soutenanceplanner.enum',
+
 	//modules
 	'soutenanceplanner.home',
 	'soutenanceplanner.calendar',
@@ -51,13 +55,14 @@ angular.module('soutenanceplanner')
 .config(['$httpProvider', function($httpProvider) {
 	//$httpProvider.defaults.withCredentials = true;
 	$httpProvider.defaults.useXDomain = true;
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+	delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}
 ])
 
 .run(['$rootScope', '$state', '$stateParams', '$http',
 	function($rootScope, $state, $stateParams, $http) {
 		$http.defaults.headers.contentType = "application/json; charset=utf-8";
+		//$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 	}
 ])
 

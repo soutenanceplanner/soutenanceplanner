@@ -5,15 +5,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Id;
 
 /**
  * Classe d'un calendrier.
@@ -25,7 +22,6 @@ import org.springframework.data.annotation.Id;
 @Table(name = "calendar")
 public class Calendar extends BaseEntity {
 
-	
 	@NotNull
 	@Column(name = "beginning_date")
 	private Date beginningDate;
@@ -48,6 +44,12 @@ public class Calendar extends BaseEntity {
 
 	@OneToOne
 	private User user;
+	
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public Calendar(){
+	}
 	
 	@OneToMany
 	private List<DayConstraint> ListDayConstraint ;

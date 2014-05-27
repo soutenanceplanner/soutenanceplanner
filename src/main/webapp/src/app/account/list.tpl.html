@@ -1,23 +1,23 @@
 <br><br><br><br>
 <div>
-    <fieldset>
-        <legend>Liste des utilisateurs</legend>
-        <table> 
-            <tr> 
-                <th>Identifiant</th>
-                <th>Email</th>
-                <th>Status</th>
-            </tr> 
-            <tr ng-repeat="user in users">
-                <!--<th><a href="#/account/{{user.id}}"><span>{{user.login}}</span></a></th> -->
-                <th><a href="#/account/edit"><span>{{user.login}}</span></a></th>
-                <td>{{user.email}}</td> 
-                <td>{{user.flag}}</td> 
-                <td><button ng-click="deleteAccount(account)">X</button></td> 
-            </tr>
-            <tr>
-                <td colspan="4" align="center"><button ui-sref="accountAdd" >Ajouter</button></td>
-            </tr>
-        </table> 
-    </fieldset>
+	<fieldset>
+		<legend>Liste des utilisateurs</legend>
+		<table>
+			<tr>
+				<th>Identifiant</th>
+				<th>Email</th>
+				<th>Status</th>
+			</tr>
+			<tr ng-repeat="user in users">
+				<!--<th><a href="#/account/{{user.id}}"><span>{{user.login}}</span></a></th> -->
+				<th><a href="#/account/edit"><span>{{user.login}}</span></a></th>
+				<td>{{user.email}}</td>
+				<td>{{user.flag}}</td>
+				<td><button ng-click="deleteAccount(account)">X</button></td>
+			</tr>
+			<tr>
+				<td colspan="4" align="center"><button ui-sref="accountAdd" >Ajouter</button></td>
+			</tr>
+		</table>
+	</fieldset>
 </div>

@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -14,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
-import org.springframework.data.annotation.Id;
 
 import com.angers.m2sili.soutenance.model.enumeration.Droit;
 
@@ -28,8 +25,6 @@ import com.angers.m2sili.soutenance.model.enumeration.Droit;
 @Table(name = "user")
 public class User extends BaseEntity {
 
-
-	
 	@NotEmpty
 	private String login;
 	
@@ -45,6 +40,12 @@ public class User extends BaseEntity {
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private Droit flag;
+	
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public User(){
+	}
 
 	@OneToMany
 	private List<Calendar> listeCalendrier ;

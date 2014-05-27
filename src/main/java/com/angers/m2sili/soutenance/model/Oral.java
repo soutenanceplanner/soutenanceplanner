@@ -3,14 +3,11 @@ package com.angers.m2sili.soutenance.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Id;
 
 /**
  * Classe qui définit un oral durant une période de soutenance.
@@ -22,7 +19,6 @@ import org.springframework.data.annotation.Id;
 @Table(name = "oral")
 public class Oral extends BaseEntity {
 
-	
 	@NotEmpty
 	private String title;
 
@@ -41,6 +37,12 @@ public class Oral extends BaseEntity {
 	
 	@OneToOne
 	private Calendar calendar;
+	
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public Oral(){
+	}
 	
 	public String getTitle() {
 		return title;

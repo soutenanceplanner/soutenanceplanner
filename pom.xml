@@ -23,7 +23,7 @@
 		<!-- Java EE / Java SE dependencies -->
 		<jsp.version>2.2</jsp.version>
 		<jstl.version>1.2</jstl.version>
-		<servlet.version>2.1</servlet.version>
+		<servlet.version>3.1</servlet.version>
 		<tomcat.servlet.version>7.0.30</tomcat.servlet.version>
 		<jaxb-impl.version>2.2.7</jaxb-impl.version>
 

@@ -15,17 +15,4 @@ describe('AccountService tester', function() {
 		expect(accountService).toBeDefined();
 	});
 
-	it('AccountService - test', function() {
-
-		expect(accountService.test).toBeDefined();
-		httpBackend.expect('POST', WS_SERVER_URL + "/Test" ).respond();
-
-		var responseStatus;
-		accountService.test().then(function(response) {
-			responseStatus = response.status;
-		});
-		httpBackend.flush();
-		expect(responseStatus).toBe(200);
-	});
-
 });

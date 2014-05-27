@@ -152,7 +152,7 @@ public class Owner extends BaseEntity {
     public Pet getPet(String name, boolean ignoreNew) {
         name = name.toLowerCase();
         for (Pet pet : getPetsInternal()) {
-            if (!ignoreNew || !pet.isNew()) {
+            if (!ignoreNew) {
                 String compName = pet.getName();
                 compName = compName.toLowerCase();
                 if (compName.equals(name)) {
@@ -168,7 +168,6 @@ public class Owner extends BaseEntity {
         return new ToStringCreator(this)
 
                 .append("id", this.getId())
-                .append("new", this.isNew())
                 .append("lastName", this.getLastName())
                 .append("firstName", this.getFirstName())
                 .append("address", this.address)

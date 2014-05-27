@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.User;
-import com.angers.m2sili.soutenance.model.enumeration.Droit;
 import com.angers.m2sili.soutenance.service.UserService;
 
 /**
@@ -28,7 +27,7 @@ import com.angers.m2sili.soutenance.service.UserService;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-
+	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
@@ -41,8 +40,9 @@ public class UserController {
 		//User newUser = userService.create(user);
 		//return newUser;
 		return "toto";
-	}
 
+	}
+	
 	@ExceptionHandler
 	public void handle(HttpMessageNotReadableException e) {
 	    logger.warn("Returning HTTP 400 Bad Request", e);
