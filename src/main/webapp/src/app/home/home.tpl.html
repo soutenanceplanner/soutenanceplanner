@@ -16,15 +16,15 @@
 	<h1>Planificateur de soutenance</h1>
 	<div class="menuGauche">
 		<h3>Les Calendrier à venir</h3>
-		<div ng-repeat="calendrier in calendriers">
-			<a href='{{calendrier.url}}'> {{calendrier.nom}} </a>
+		<div ng-repeat="calendrier in calendriersAvenir">
+			<a href='{{calendrier.link}}'> {{calendrier.title}} </a>
 		</div>
 	</div>
 
 	<div class="menuDroit">
 		<h3>Mes Calendriers</h3>
 		<div ng-repeat="calendrier in calendriers">
-			<a href='{{calendrier.url}}'> {{calendrier.nom}} </a>
+			<a href='{{calendrier.link}}'> {{calendrier.title}} </a>
 		</div>
 				<button ui-sref='calendarAdd'>Ajouter un calendrier</button>
 	</div>

@@ -35,27 +35,35 @@ public class UserController {
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	String create(@RequestBody User user) {
+	User create(@RequestBody User user) {
 		logger.debug(user.toString());
-		//User newUser = userService.create(user);
-		//return newUser;
-		return "toto";
-
+		User newUser = userService.create(user);
+		return newUser;
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody
+	void delete(@PathVariable Integer id) {
+		logger.debug(id.toString());
+		userService.delete(id);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public @ResponseBody
+	User get(@PathVariable Integer id) {
+		return userService.get(id);
+	}
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public @ResponseBody
+	List<User> list() {
+		return userService.getAll();
 	}
 	
 	@ExceptionHandler
 	public void handle(HttpMessageNotReadableException e) {
 	    logger.warn("Returning HTTP 400 Bad Request", e);
 	}
-	
-	
-	@RequestMapping(value = "/getCalendars", method = RequestMethod.GET)
-	public @ResponseBody List<Calendar> create(@RequestBody String id) {
-		
-			//List<Calendar> listeCalendar = userService.getCalendars(Integer.parseInt(id));	
-			return null;
-	}
-
 	
 
 }

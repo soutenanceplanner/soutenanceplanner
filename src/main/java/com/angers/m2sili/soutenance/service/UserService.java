@@ -13,7 +13,12 @@ import com.angers.m2sili.soutenance.model.User;
 
 public interface UserService {
 
-	public User create(User user);	
-	public List<Calendar> getCalendars(int id);
+	public User create(User user);
+	
+	public void delete(Integer id);
+
+	User get(Integer id);
+	
+	List<User> getAll();
 
 }
