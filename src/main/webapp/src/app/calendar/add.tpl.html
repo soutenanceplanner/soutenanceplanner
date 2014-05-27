@@ -7,24 +7,24 @@
 		</tab-heading>
 		<div>
 			<p class="input-group">
-				<label class="obligatoire">Titre</label>
-				<input type="text" class="form-control" ng-model="new_calendar.title" ng-change="refetchCalendar(myCalendar1)" required /> 
+				<label class="obligatoire" for="new_calendar.title">Titre</label>
+				<input type="text" name="new_calendar.title" class="form-control" id="new_calendar.title" ng-model="new_calendar.title" ng-change="refetchCalendar(myCalendar1)" required /> 
 			</p>
 			<p class="input-group">
-				<label class="">Formation</label>
-				<select class="form-control" ng-model="new_calendar.formation" required ></select>
+				<label class="" for="new_calendar.formation">Formation</label>
+				<select class="form-control" name="new_calendar.formation" id="new_calendar.formation" ng-model="new_calendar.formation" required ></select>
 			</p>
 			<p class="input-group">
-				<label class="obligatoire">Date de début</label>
-				<input type="text" class="form-control" ng-model="new_calendar.beginning_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker/>
+				<label class="obligatoire" for="new_calendar.beginning_date">Date de début</label>
+				<input type="text" class="form-control" name="new_calendar.beginning_date" id="new_calendar.beginning_date" ng-model="new_calendar.beginning_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker/>
 			</p>
 			<p class="input-group">
-				<label class="obligatoire">Date de fin</label>
-				<input type="text" class="form-control" ng-model="new_calendar.ending_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker/>
+				<label class="obligatoire" for="new_calendar.ending_date">Date de fin</label>
+				<input type="text" class="form-control" name="new_calendar.ending_date" id="new_calendar.ending_date" ng-model="new_calendar.ending_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker/>
 			</p>
 			<p class="input-group">
-				<label class="obligatoire">Durée d'une soutenance</label>
-				<select class="form-control" ng-model="new_calendar.duration" ng-change="refetchCalendar(myCalendar1)" required>
+				<label class="obligatoire" for="new_calendar.duration">Durée d'une soutenance</label>
+				<select class="form-control" name="new_calendar.duration" id="new_calendar.duration" ng-model="new_calendar.duration" ng-change="refetchCalendar(myCalendar1)" required>
 					<option ng-selected="{{d.value==duration}}" ng-repeat="d in durations" value="{{d.value}}">{{d.text}}</option>
 				</select>
 			</p>
@@ -41,7 +41,7 @@
 						</select>
 						<a class="btn btn-sm btn-default" ng-click="new_calendar.time_slot_list.splice($index, 1)">-</a>
 					</li>
-					<li><button class="btn btn-sm btn-default" ng-click="add_time_slot()">+</button></li>
+					<li><button class="add_time_slot btn btn-sm btn-default" ng-click="add_time_slot()">+</button></li>
 				</ul>
 			</p>
 		</div>
