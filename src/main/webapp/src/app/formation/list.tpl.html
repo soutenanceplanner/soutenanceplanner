@@ -1,0 +1,18 @@
+<fieldset>
+	<legend>Formations</legend>
+	<table class="table table-hover">
+		<tr>
+			<th>Nom</th>
+			<th></th>
+		</tr>
+		<tr ng-repeat="formation in formations">
+			<!--<th><a href="#/formation/{{formation.id}}"><span>{{formation.name}}</span></a></th> -->
+			<th><a href="#/formation/edit"><span>{{formation.name}}</span></a></th>
+			<td><button ng-click="deleteFormation()" type="button" class="close">&times;</button></td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center"></td>
+		</tr>
+	</table>
+	<button ui-sref="formationAdd" class="btn btn-default center-block">Ajouter</button>
+</fieldset>
