@@ -1,7 +1,9 @@
 package com.angers.m2sili.soutenance.service;
 
+import java.util.List;
+
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.User;
-import com.angers.m2sili.soutenance.model.enumeration.Droit;
 
 /**
  * Interface du service de User.
@@ -11,6 +13,8 @@ import com.angers.m2sili.soutenance.model.enumeration.Droit;
 
 public interface UserService {
 
-	public User create(String login, String password, String mail, Droit flag);
+	public User create(User user);
+	
+	public List<Calendar> getCalendars(int id);
 
 }

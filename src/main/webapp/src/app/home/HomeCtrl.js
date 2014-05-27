@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.home')
 
-.controller('HomeCtrl', ['$scope', '$log', 'AccountService',
-	function($scope, $log, AccountService) {
+.controller('HomeCtrl', ['$scope', '$log', 'AccountService','HomeService',
+	function($scope, $log, AccountService,HomeService) {
 		$log.debug('HomeCtrl');
 		
 		$scope.calendriers  = [ {
@@ -18,6 +18,12 @@ angular.module('soutenanceplanner.home')
 		} ];
 
 
+		HomeService.getCalendars().then(
+				function(response){
+					$log.debug(response.data);
+				}
+			);
+		
 		AccountService.oups().then(
 			function(response){
 				$log.debug(response.data);

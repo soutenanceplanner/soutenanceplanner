@@ -9,7 +9,7 @@
 
 	<div class='gestionButton'>
 		<button>Administration</button>
-		<button>Mon compte</button>
+		<button ui-sref='account'>Mon compte</button>
 		<button ui-sref='login'>Déconnexion</button>
 	</div>
 
@@ -26,6 +26,7 @@
 		<div ng-repeat="calendrier in calendriers">
 			<a href='{{calendrier.url}}'> {{calendrier.nom}} </a>
 		</div>
+				<button ui-sref='calendarAdd'>Ajouter un calendrier</button>
 	</div>
 
 	<div class="content">Le Lorem Ipsum est simplement du faux texte
