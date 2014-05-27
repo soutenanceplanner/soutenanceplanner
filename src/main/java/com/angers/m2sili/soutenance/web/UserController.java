@@ -30,7 +30,8 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
 	User create(@RequestBody User user) {
-		this.logger.debug(user.toString());
+
+		logger.debug(user.toString());
 		User newUser = userService.create(user);
 		return newUser;
 	}
@@ -56,14 +57,15 @@ public class UserController extends BaseController {
 		return userService.getAll();
 	}
 	
-	
-	@RequestMapping(value = "/getCalendars", method = RequestMethod.GET)
-	public @ResponseBody List<Calendar> create(@RequestBody String id) {
-		
-			//List<Calendar> listeCalendar = userService.getCalendars(Integer.parseInt(id));	
-			return null;
+
+	/*@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public @ResponseBody
+	List<User> list() {
+		return userService.getAll();
+		this.logger.debug(user.toString());
+		User newUser = userService.create(user);
+		return newUser;
 	}
-
+	*/
 	
-
 }

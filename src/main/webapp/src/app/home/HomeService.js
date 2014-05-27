@@ -8,16 +8,16 @@ angular.module('soutenanceplanner.home')
 
 			getCalendars: function(){
 				return $http({
-					method: 'GET',
-					url: WS_SERVER_URL + "/user/getCalendars/",
-					data: {"User_ID":'123456'}
+					method: 'POST',
+					url: WS_SERVER_URL + "/calendar/getCalendars/",
+					data: "123456"
 				});
 			},
 
-			getCalendarAVenir: function(){
+			getFuturesCalendars: function(){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/user/getCalendarAVenir",
+					url: WS_SERVER_URL + "/calendar/getFuturesCalendars",
 					data: {}
 				});
 			},

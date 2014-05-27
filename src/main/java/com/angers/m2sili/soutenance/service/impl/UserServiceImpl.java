@@ -30,11 +30,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
-	@Override
-	@Transactional
-	public void delete(Integer id) {
-		userRepository.delete(id);
-	}
+	
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -49,24 +45,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Calendar> getCalendars(int id) {
-
-		//TODO remplacer les valeurs en dur		
-		Calendar c = new Calendar();
-			c.setTitle("Titre calendrier_1");
-			c.setLink("lienCalendrier_1");
-		
-		Calendar c1 = new Calendar();
-			c.setTitle("Titre calendrier_2");
-			c.setLink("lienCalendrier_2");	
-				
-		User us = new User();
-			us.getListeCalendrier().add(c); 
-			us.getListeCalendrier().add(c1); 
-			
-		List<Calendar> liste = us.getListeCalendrier();
-		
-		return liste;
+	@Transactional
+	public void delete(Integer id) {
+		userRepository.delete(id);
 	}
-
+	
 }
