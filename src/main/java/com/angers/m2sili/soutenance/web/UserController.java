@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.UserService;
 
@@ -30,8 +29,6 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
 	User create(@RequestBody User user) {
-
-		logger.debug(user.toString());
 		User newUser = userService.create(user);
 		return newUser;
 	}
@@ -39,7 +36,6 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
-		logger.debug(id.toString());
 		userService.delete(id);
 	}
 	
@@ -52,8 +48,6 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
 	List<User> list() {
-		logger.debug("test");
-		List<User> users = userService.getAll();
 		return userService.getAll();
 	}
 	

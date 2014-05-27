@@ -2,8 +2,6 @@ package com.angers.m2sili.soutenance.web;
 
 import java.util.ArrayList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,9 +20,7 @@ import com.angers.m2sili.soutenance.service.CalendarService;
 
 @Controller
 @RequestMapping(value = "/calendar")
-public class CalendarController {
-
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+public class CalendarController extends BaseController {
 
 	@Autowired
 	private CalendarService calServiceImpl;
