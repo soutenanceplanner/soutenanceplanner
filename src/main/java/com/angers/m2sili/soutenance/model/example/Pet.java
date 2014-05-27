@@ -23,12 +23,10 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
@@ -43,8 +41,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Juergen Hoeller
  * @author Sam Brannen
  */
-@Entity
-@Table(name = "pets")
+//@Entity
+//@Table(name = "pets")
 public class Pet extends NamedEntity {
 
     @Column(name = "birth_date")

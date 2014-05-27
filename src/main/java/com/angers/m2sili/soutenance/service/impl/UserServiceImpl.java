@@ -30,11 +30,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
-	@Override
-	@Transactional
-	public void delete(Integer id) {
-		userRepository.delete(id);
-	}
+	
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -48,4 +44,10 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findAll();
 	}
 
+	@Override
+	@Transactional
+	public void delete(Integer id) {
+		userRepository.delete(id);
+	}
+	
 }

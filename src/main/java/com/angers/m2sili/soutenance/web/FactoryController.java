@@ -11,7 +11,7 @@ import com.angers.m2sili.soutenance.service.FactoryService;
 
 @Controller
 @RequestMapping(value = "/factory")
-public class FactoryController {
+public class FactoryController extends BaseController {
 	
 	@Autowired
 	private FactoryService factoryService;

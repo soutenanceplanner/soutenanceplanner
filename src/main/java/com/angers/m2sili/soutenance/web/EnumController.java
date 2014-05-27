@@ -13,7 +13,7 @@ import com.angers.m2sili.soutenance.web.dto.EnumDTO;
 
 @Controller
 @RequestMapping(value = "/enum")
-public class EnumController {
+public class EnumController extends BaseController {
 	
 	@Autowired
 	private EnumService enumService;

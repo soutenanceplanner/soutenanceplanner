@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <th><label for="email">Email :</label></th>
-                <td><input data-ng-model="user.email" id="email" type="email" name="email" /></td>
+                <td><input data-ng-model="user.mail" id="email" type="email" name="email" /></td>
             </tr>
             <tr>
                 <th><label for="flag">Satut :</label></th>
@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <th><label for="passwordConfirm">Confirmation du mot de passe :</label></th>
-                <td><input ng-model="user.passwordConfirm" type="password" data-match="user.password" name="passwordConfirm" required /></td>
+                <td><input ng-model="checkVal.passwordConfirm" type="password" data-match="checkVal.password" name="passwordConfirm" required /></td>
             </tr>
             <tr ng-show="addAccountForm.passwordConfirm.$error.match">
                 <td>&nbsp;</td>
@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td><button ui-sref="accountList" >Liste</button></td>
-                <td><button ng-click="create()">Ajouter</button></td>
+                <td><button ng-click="createUser()">Ajouter</button></td>
             </tr>
         </table>
     </fieldset>

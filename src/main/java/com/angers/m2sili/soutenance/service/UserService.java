@@ -2,7 +2,6 @@ package com.angers.m2sili.soutenance.service;
 
 import java.util.List;
 
-import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.User;
 
 /**
@@ -20,5 +19,4 @@ public interface UserService {
 	User get(Integer id);
 	
 	List<User> getAll();
-
 }

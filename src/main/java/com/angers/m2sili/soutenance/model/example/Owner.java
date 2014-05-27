@@ -23,9 +23,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -43,8 +41,8 @@ import com.angers.m2sili.soutenance.model.BaseEntity;
  * @author Sam Brannen
  * @author Michael Isvy
  */
-@Entity
-@Table(name = "owners")
+//@Entity
+//@Table(name = "owners")
 public class Owner extends BaseEntity {
     @Column(name = "address")
     @NotEmpty

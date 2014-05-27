@@ -19,11 +19,14 @@ angular.module('soutenanceplanner.account')
 			);
 		};
 
-		$scope.create = function(){
-			AccountService.create($scope.user).then(
+		$scope.createUser = function(){
+			AccountService.createUser($scope.user).then(
 				function(response){
 					$log.debug(response.data);
-					$state.go("accountList");
+					//$state.go("accountList");
+				},
+				function(response){
+					$log.debug("Erreur serveur");
 				}
 			);
 		};
@@ -63,40 +66,21 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountListCtrl', ['$scope', '$log',
-	function($scope, $log) {
+.controller('AccountListCtrl', ['$scope', '$log', 'AccountService',
+	function($scope, $log, AccountService) {
 		$log.debug('AccountListCtrl');
-		
-		$scope.users  = [
-			{
-				id : 1,
-				login : 'user1',
-				password : 'user1',
-				email : 'user1@univ-angers.fr',
-				flag : 5
-			},
-			{
-				id : 2,
-				login : 'user2',
-				password : 'user2',
-				email : 'user2@univ-angers.fr',
-				flag : 5
-			},
-			{
-				id : 3,
-				login : 'admin1',
-				password : 'admin1',
-				email : 'admin1@univ-angers.fr',
-				flag : 10
-			},
-			{
-				id : 4,
-				login : 'admin2',
-				password : 'admin2',
-				email : 'admin2@univ-angers.fr',
-				flag : 10
-			}
-		];
+
+		$scope.init = function(){
+			AccountService.listUser().then(
+				function(response){
+					$scope.users = response.data;
+					$log(response.data);
+				}
+			);
+		};
+
+		//init
+		$scope.init();
 	}
 ])
 
