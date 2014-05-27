@@ -28,7 +28,8 @@ import javax.persistence.MappedSuperclass;
  * @author Juergen Hoeller
  */
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
@@ -39,10 +40,6 @@ public class BaseEntity {
 
 	public Integer getId() {
 		return id;
-	}
-
-	public boolean isNew() {
-		return (this.id == null);
 	}
 
 }

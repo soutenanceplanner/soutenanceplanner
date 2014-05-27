@@ -2,9 +2,11 @@ package com.angers.m2sili.soutenance.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,8 +27,6 @@ import com.angers.m2sili.soutenance.model.enumeration.Droit;
 @Table(name = "user")
 public class User extends BaseEntity {
 
-
-	
 	@NotEmpty
 	private String login;
 	
@@ -42,11 +42,17 @@ public class User extends BaseEntity {
 	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private Droit flag;
+	
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public User(){
+	}
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Calendar> listeCalendrier ;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Oral> listeOral ;
 	
 	public List<Oral> getListeOral() {

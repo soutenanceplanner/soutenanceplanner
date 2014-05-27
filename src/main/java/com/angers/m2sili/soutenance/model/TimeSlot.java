@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 @Table(name = "time_slot")
 public class TimeSlot extends BaseEntity {
 
-	
 	@NotNull
 	@Column(name = "beginning_hour")
 	private Date beginningHour;
@@ -27,7 +26,11 @@ public class TimeSlot extends BaseEntity {
 	@Column(name = "ending_hour")
 	private Date endingHour;
 	
-	
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public TimeSlot(){
+	}
 
 	public Date getBeginningHour() {
 		return beginningHour;

@@ -23,9 +23,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -43,8 +41,8 @@ import com.angers.m2sili.soutenance.model.BaseEntity;
  * @author Sam Brannen
  * @author Michael Isvy
  */
-@Entity
-@Table(name = "owners")
+//@Entity
+//@Table(name = "owners")
 public class Owner extends BaseEntity {
     @Column(name = "address")
     @NotEmpty
@@ -152,7 +150,7 @@ public class Owner extends BaseEntity {
     public Pet getPet(String name, boolean ignoreNew) {
         name = name.toLowerCase();
         for (Pet pet : getPetsInternal()) {
-            if (!ignoreNew || !pet.isNew()) {
+            if (!ignoreNew) {
                 String compName = pet.getName();
                 compName = compName.toLowerCase();
                 if (compName.equals(name)) {
@@ -168,7 +166,6 @@ public class Owner extends BaseEntity {
         return new ToStringCreator(this)
 
                 .append("id", this.getId())
-                .append("new", this.isNew())
                 .append("lastName", this.getLastName())
                 .append("firstName", this.getFirstName())
                 .append("address", this.address)

@@ -23,7 +23,7 @@
 		<!-- Java EE / Java SE dependencies -->
 		<jsp.version>2.2</jsp.version>
 		<jstl.version>1.2</jstl.version>
-		<servlet.version>2.1</servlet.version>
+		<servlet.version>3.1</servlet.version>
 		<tomcat.servlet.version>7.0.30</tomcat.servlet.version>
 		<jaxb-impl.version>2.2.7</jaxb-impl.version>
 
@@ -69,6 +69,7 @@
 
 		<!-- Jackson -->
 		<jackson.version>1.9.13</jackson.version>
+		<jackson2.version>2.2.3</jackson2.version>
 
 		<!-- CORS -->
 		<cors-filter.version>1.9.3</cors-filter.version>
@@ -322,10 +323,22 @@
 		</dependency>
 
 		<!-- Jackson JSON Mapper -->
+		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> 
+			<version>${jackson.version}</version> </dependency> -->
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson.version}</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson2.version}</version>
 		</dependency>
 
 		<!-- CORS -->
@@ -334,7 +347,7 @@
 			<artifactId>cors-filter</artifactId>
 			<version>${cors-filter.version}</version>
 		</dependency>
-		
+
 		<!-- JSoup -->
 		<dependency>
 			<groupId>org.jsoup</groupId>

@@ -1,34 +1,38 @@
 angular.module('soutenanceplanner.account')
 
-.controller('AccountAddCtrl', ['$scope', '$log', '$location', 'AccountService',
-	function($scope, $log, $location, AccountService) {
+.controller('AccountAddCtrl', ['$scope', '$log', '$state', 'AccountService', 'FactoryService', 'EnumService',
+	function($scope, $log, $state, AccountService, FactoryService, EnumService) {
 		$log.debug('AccountAddCtrl');
 
-		$scope.flags = [
-			{
-				id : 5,
-				name :'Utilisateur'
-			},
-			{
-				id : 10,
-				name : 'Administrateur'
-			}
-		];
+		$scope.init = function(){
 
-		$scope.user = {
-			flag : $scope.flags[0]
+			FactoryService.user().then(
+				function(response){
+					$scope.user = response.data;
+				}
+			);
+
+			EnumService.droit().then(
+				function(response){
+					$scope.flags = response.data;
+				}
+			);
 		};
 
-		$scope.accountAdd = function () {
-			alert("L'utilisateur a été ajouté avec succès !");
-			$location.path( "/account/list" );
+		$scope.createUser = function(){
+			AccountService.createUser($scope.user).then(
+				function(response){
+					$log.debug(response.data);
+					//$state.go("accountList");
+				},
+				function(response){
+					$log.debug("Erreur serveur");
+				}
+			);
 		};
-
-		AccountService.oups().then(
-			function(response){
-				$log.debug(response.data);
-			}
-		);
+		
+		//init
+		$scope.init();
 	}
 ])
 
@@ -62,44 +66,21 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountListCtrl', ['$scope', '$log',
-	function($scope, $log) {
+.controller('AccountListCtrl', ['$scope', '$log', 'AccountService',
+	function($scope, $log, AccountService) {
 		$log.debug('AccountListCtrl');
-		
-		$scope.users  = [
-			{
-				id : 1,
-				login : 'user1',
-				password : 'user1',
-				email : 'user1@univ-angers.fr',
-				flag : 5
-			},
-			{
-				id : 2,
-				login : 'user2',
-				password : 'user2',
-				email : 'user2@univ-angers.fr',
-				flag : 5
-			},
-			{
-				id : 3,
-				login : 'admin1',
-				password : 'admin1',
-				email : 'admin1@univ-angers.fr',
-				flag : 10
-			},
-			{
-				id : 4,
-				login : 'admin2',
-				password : 'admin2',
-				email : 'admin2@univ-angers.fr',
-				flag : 10
-			}
-		];
 
-		$scope.deleteAccount = function () {
-			alert("L'utilisateur a été suprimé avec succès !");
+		$scope.init = function(){
+			AccountService.listUser().then(
+				function(response){
+					$scope.users = response.data;
+					$log(response.data);
+				}
+			);
 		};
+
+		//init
+		$scope.init();
 	}
 ])
 

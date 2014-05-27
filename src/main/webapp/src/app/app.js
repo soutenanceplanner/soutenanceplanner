@@ -14,6 +14,10 @@ angular.module('soutenanceplanner', [
 	'angularFileUpload',
 	'services.i18n',
 
+	//Commons
+	'soutenanceplanner.factory',
+	'soutenanceplanner.enum',
+
 	//modules
 	'soutenanceplanner.home',
 	'soutenanceplanner.calendar',
@@ -50,9 +54,9 @@ angular.module('soutenanceplanner')
 
 //cross origin => TO DELETE
 .config(['$httpProvider', function($httpProvider) {
-	//$httpProvider.defaults.withCredentials = true;
-	$httpProvider.defaults.useXDomain = true;
-	delete $httpProvider.defaults.headers.common['X-Requested-With'];
+	$httpProvider.defaults.withCredentials = true;
+	//$httpProvider.defaults.useXDomain = true;
+	//delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}
 ])
 

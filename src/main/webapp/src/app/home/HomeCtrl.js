@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.home')
 
-.controller('HomeCtrl', ['$scope', '$log', '$location', 'AccountService',
-	function($scope, $log, $location, AccountService) {
+.controller('HomeCtrl', ['$scope', '$log', 'AccountService','HomeService',
+	function($scope, $log, AccountService,HomeService) {
 		$log.debug('HomeCtrl');
 		
 		$scope.calendriers  = [ {
@@ -17,6 +17,24 @@ angular.module('soutenanceplanner.home')
 			url : 'url'
 		} ];
 
+		//on récupère les Calendriers créer par l'utilisateur
+		HomeService.getCalendars().then(
+				function(response){
+					$log.debug(response.data);
+					//on passe la réponse au scope
+					$scope.calendriers = response.data ;
+				}
+			);
+		
+		//on récupère les Calendriers a venir
+		HomeService.getFuturesCalendars().then(
+				function(response){
+					$log.debug(response.data);
+					//on passe la réponse au scope
+					$scope.calendriersAvenir = response.data ;
+				}
+			);
+		
 		AccountService.oups().then(
 			function(response){
 				$log.debug(response.data);

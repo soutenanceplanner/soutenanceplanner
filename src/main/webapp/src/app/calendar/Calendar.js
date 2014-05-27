@@ -1,3 +1,7 @@
+/**
+ * @author Pierre Evers
+ */
+
 angular.module('soutenanceplanner.calendar', []);
 
 angular.module('soutenanceplanner.calendar')

@@ -6,14 +6,6 @@ angular.module('soutenanceplanner.account')
 
 		var AccountService = {
 
-			test: function(){
-				return $http({
-					method: 'POST',
-					url: WS_SERVER_URL + "/Test",
-					data: {}
-				});
-			},
-
 			oups: function(){
 				return $http({
 					method: 'GET',
@@ -22,16 +14,32 @@ angular.module('soutenanceplanner.account')
 				});
 			},
 
-			create:function(login, password, mail, flag){
+			createUser:function(user){
 				return $http({
 					method: 'POST',
 					url: WS_SERVER_URL + "/user/new",
-					data: {
-						login : login,
-						password : password,
-						mail : mail,
-						flag : flag
-					}
+					data: user
+				});
+			},
+
+			getUser:function(user){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/user/"+user.id,
+				});
+			},
+
+			deleteUser:function(user){
+				return $http({
+					method: 'DELETE',
+					url: WS_SERVER_URL + "/user/"+user.id,
+				});
+			},
+
+			listUser:function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/user/list",
 				});
 			}
 

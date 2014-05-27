@@ -23,6 +23,7 @@ module.exports = {
   vendor_files: {
     js: [
       'vendor/jquery/jquery.js',
+      'vendor/jquery-ui/ui/jquery-ui.js',
       'vendor/angular/angular.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-animate/angular-animate.js',

@@ -17,10 +17,10 @@
 package com.angers.m2sili.soutenance.web.example;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +43,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @ContextConfiguration("VisitsViewTests-config.xml")
 @ActiveProfiles("jdbc")
+@Ignore
 public class VisitsViewTests {
 
     @Autowired

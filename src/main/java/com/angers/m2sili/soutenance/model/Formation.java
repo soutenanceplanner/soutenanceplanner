@@ -20,13 +20,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "formation")
 public class Formation extends BaseEntity {
 
-	
 	@NotEmpty
 	@Column(name = "name")
 	private String name;
 
 	@OneToMany
 	private List<Calendar> ListCalendar;
+
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public Formation(){
+	}
 	
 	public String getName() {
 		return name;

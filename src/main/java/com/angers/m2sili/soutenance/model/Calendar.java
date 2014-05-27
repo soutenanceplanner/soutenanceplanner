@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 
 /**
  * Classe d'un calendrier.
@@ -22,7 +24,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "calendar")
 public class Calendar extends BaseEntity {
 
-	
 	@NotNull
 	@Column(name = "beginning_date")
 	private Date beginningDate;
@@ -43,8 +44,15 @@ public class Calendar extends BaseEntity {
 	@Column(name = "link")
 	private String link;
 
-	@OneToOne
-	private User user;
+	 @ManyToOne
+	 @JoinColumn(name = "user_id")
+	 private User user;
+	
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public Calendar(){
+	}
 	
 	@OneToMany
 	private List<DayConstraint> ListDayConstraint ;

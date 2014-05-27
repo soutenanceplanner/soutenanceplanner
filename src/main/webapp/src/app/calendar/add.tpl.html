@@ -1,40 +1,101 @@
-<h2>Ajouter un calendrier</h2>
+<!-- 
+	@author : Pierre Evers
+	@content : formulaire d'ajout d'un calendrier
+	@date : 22/05/2014
+ -->
 
-<div class="nav">
-		<div class="tab active"><a class="tab_link" id="tab_1" ui-sref="\#content1" rel="1">Création du calendrier</a></div>
-		<div class="tab"><a class="tab_link" id="tab_2" ui-sref="\#content2" rel="2">Configuration</a></div>
-</div>
-<div id="content1">
-	<fieldset>
-		<legend>Création du calendrier</legend>
-		<label class="obligatoire">Titre</label><input type="text" ng-model="title" ng-change="update_calendar()" />
-		<label class="">Formation</label><select ng-model="formation"></select>
-		<label class="obligatoire">Date de début</label><input type="text" ng-model="beginning_date" ng-change="update_calendar()" bs-datepicker/>
-		<label class="obligatoire">Date de fin</label><input type="text" ng-model="ending_date" ng-change="update_calendar()" bs-datepicker/>
-		<label class="obligatoire">Durée d'une soutenance</label>
-		<select ng-model="duration" ng-change="update_calendar()">
-			<option ng-selected="{{d.value==duration}}" ng-repeat="d in durations" value="{{d.value}}">{{d.text}}</option>
-		</select>
-		<label class="obligatoire">Plage(s) horaires</label>
-		<ul class="time_slots">
-			<li ng-repeat="time_slot in time_slot_list">
-				<select ng-model="time_slot.beginning">
-					<option ng-selected="{{h1.value==time_slot.beginning}}" ng-repeat="h1 in hours" value="{{h1.value}}">{{h1.text}}</option>
+<h2>Ajouter un calendrier</h2>
+<br/>
+
+<tabset>
+	<tab>
+		<tab-heading>
+			<i class="glyphicon glyphicon-bell">Création</i>
+		</tab-heading>
+		<div>
+			<br/>
+			<p class="input-group">
+				<label class="obligatoire" for="new_calendar.title">Titre</label>
+				<input type="text" name="new_calendar.title" class="form-control" id="new_calendar.title" ng-model="new_calendar.title" ng-change="refetchCalendar(myCalendar1)" required /> 
+			</p>
+			<p class="input-group">
+				<label class="" for="new_calendar.formation">Formation</label>
+				<select class="form-control" name="new_calendar.formation" id="new_calendar.formation" ng-model="new_calendar.formation" required ></select>
+			</p>
+			<p class="input-group">
+				<label class="obligatoire" for="new_calendar.beginning_date">Date de début</label>
+				<input type="text" class="form-control" name="new_calendar.beginning_date" id="new_calendar.beginning_date" ng-model="new_calendar.beginning_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker />
+			</p>
+			<p class="input-group">
+				<label class="obligatoire" for="new_calendar.ending_date">Date de fin</label>
+				<input type="text" class="form-control" name="new_calendar.ending_date" id="new_calendar.ending_date" ng-model="new_calendar.ending_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker/>
+			</p>
+			<p class="input-group">
+				<label class="obligatoire" for="new_calendar.duration">Durée d'une soutenance</label>
+				<select class="form-control" name="new_calendar.duration" id="new_calendar.duration" ng-model="new_calendar.duration" ng-change="refetchCalendar(myCalendar1)" required>
+					<option ng-selected="{{d.value==duration}}" ng-repeat="d in durations" value="{{d.value}}">{{d.text}}</option>
 				</select>
-				<span> à </span>
-				<select ng-model="time_slot.ending">
-					<option ng-selected="{{h2.value==time_slot.ending}}" ng-repeat="h2 in hours" value="{{h2.value}}">{{h2.text}}</option>
-				</select>
-				[<a href ng-click="time_slot_list.splice($index, 1)">X</a>]
-			</li>
-			<li><button ng-click="add_time_slot()">+</button></li>
-		</ul>
-	</fieldset>
-</div>
-<div id="content2">
-	<fieldset>
-		<legend>Configuration</legend>
-		<div ui-calendar="calendarOptions" ng-model="new_calendar" calendar="calendar">
-	</fieldset>
-</div>
+			</p>
+			<p class="input-group">
+				<label class="obligatoire">Plage(s) horaires</label>
+				<ul class="time_slots" style="list-style: none;">
+					<li ng-repeat="time_slot in new_calendar.time_slot_list">
+						<select class="" ng-model="time_slot.beginning" ng-change="refetchCalendar(myCalendar1)">
+							<option ng-selected="{{h1.value==time_slot.beginning}}" ng-repeat="h1 in hours" value="{{h1.value}}">{{h1.text}}</option>
+						</select>
+						<span> à </span>
+						<select class="" ng-model="time_slot.ending" ng-change="refetchCalendar(myCalendar1)">
+							<option ng-selected="{{h2.value==time_slot.ending}}" ng-repeat="h2 in hours" value="{{h2.value}}">{{h2.text}}</option>
+						</select>
+						<a class="btn btn-sm btn-default" ng-click="new_calendar.time_slot_list.splice($index, 1)">-</a>
+					</li>
+					<li><button class="add_time_slot btn btn-sm btn-default" ng-click="add_time_slot()">+</button></li>
+				</ul>
+			</p>
+		</div>
+	</tab>
+	<tab select="renderCalendar(myCalendar1);">
+		<tab-heading>
+			<i class="glyphicon glyphicon-bell">Configuration</i>
+		</tab-heading>
+		<div>
+		
+		<form ng-submit='addOral(titreSoutenance,jourSoutenance,heureSoutenance)'>
+			<h3> Exemple ajout d'une soutenance</h3> <br/>
+			Jours soutenance :<input type="number" min='1' max='31' ng-model='jourSoutenance'/>
+			Heure soutenance :<input type="number" min='9' max='20' ng-model='heureSoutenance'/>
+			Titre soutenance :<input type="text" ng-model='titreSoutenance'/>
+			<button type="submit" >Ajouter une soutenance</button>
+		
+		</form>
+		<div ng-repeat='events in eventSources'>
+			<div ng-repeat='event in events'>
+				{{event.title}}	
+			</div>
+		</div>
+		
+			<br/>
+			<div ui-calendar="uiConfig.calendar" calendar="myCalendar1"  class="span8 calendar" ng-model="eventSources"></div>
+		</div>
+	</tab>
+	<tab disabled="{{ !new_calendar.is_valid }}">
+		<tab-heading>
+			<i class="glyphicon glyphicon-bell">Url</i>
+		</tab-heading>
+		<div>
+			<br/>
+			<p class="">
+				<label for="new_calendar.url_code">Url d'accès</label>
+				<input type="text" name="new_calendar.url_code" class="form-control" id="new_calendar.url_code" ng-model="new_calendar.url_code" ng-disabled="true"/> 
+			</p>
+			<div class="alert alert-success" >
+				Le calendrier a été validé avec succès.<br>
+				<ul>
+					<li>Afin de partager ce calendrier en consultation avec d'autres membres, veuillez leur fournir le lien ci-dessus.</li>
+					<li>Ce lien est aussi disponible dans la rubrique  "Mes Calendriers".</li>
+				</ul>
+			</div>
+		</div>
+	</tab>
+</tabset>
 	
