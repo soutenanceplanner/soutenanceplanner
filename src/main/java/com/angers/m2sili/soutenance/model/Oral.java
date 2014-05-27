@@ -3,6 +3,8 @@ package com.angers.m2sili.soutenance.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -32,7 +34,8 @@ public class Oral extends BaseEntity {
 	@NotNull
 	private String participants;
 
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "user_id")
 	private User user ;
 	
 	@OneToOne
