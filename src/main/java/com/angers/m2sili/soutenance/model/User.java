@@ -1,6 +1,5 @@
 package com.angers.m2sili.soutenance.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
