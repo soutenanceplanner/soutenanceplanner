@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.UserService;
-import com.angers.m2sili.soutenance.web.dto.EnumDTO;
 
 /**
  * Controller de User.
