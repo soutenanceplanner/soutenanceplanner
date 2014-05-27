@@ -1,4 +1,5 @@
 <h2>Ajouter un calendrier</h2>
+<br/>
 
 <tabset>
 	<tab>
@@ -6,6 +7,7 @@
 			<i class="glyphicon glyphicon-bell">Création</i>
 		</tab-heading>
 		<div>
+			<br/>
 			<p class="input-group">
 				<label class="obligatoire" for="new_calendar.title">Titre</label>
 				<input type="text" name="new_calendar.title" class="form-control" id="new_calendar.title" ng-model="new_calendar.title" ng-change="refetchCalendar(myCalendar1)" required /> 
@@ -16,7 +18,7 @@
 			</p>
 			<p class="input-group">
 				<label class="obligatoire" for="new_calendar.beginning_date">Date de début</label>
-				<input type="text" class="form-control" name="new_calendar.beginning_date" id="new_calendar.beginning_date" ng-model="new_calendar.beginning_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker/>
+				<input type="text" class="form-control" name="new_calendar.beginning_date" id="new_calendar.beginning_date" ng-model="new_calendar.beginning_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker />
 			</p>
 			<p class="input-group">
 				<label class="obligatoire" for="new_calendar.ending_date">Date de fin</label>
@@ -51,6 +53,7 @@
 			<i class="glyphicon glyphicon-bell">Configuration</i>
 		</tab-heading>
 		<div>
+			<br/>
 			<div ui-calendar="uiConfig.calendar" calendar="myCalendar1"  class="span8 calendar" ng-model="eventSources"></div>
 		</div>
 </tabset>

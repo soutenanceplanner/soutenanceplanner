@@ -7,7 +7,7 @@ Calendar.controller('CalendarCtrl', [
 		function($scope, $log, $filter) {
 
 			$log.debug('CalendarCtrl');
-
+			
 			$scope.durations = [ {
 				value : 0.5,
 				text : "30min"
@@ -62,6 +62,15 @@ Calendar.controller('CalendarCtrl', [
 				value : 20,
 				text : "20h"
 			} ];
+			
+			$scope.add_time_slot = function() {
+				if ($scope.new_calendar.time_slot_list.length < 3) {
+					$scope.new_calendar.time_slot_list.push({
+						beginning : 8,
+						ending : 18
+					});
+				}
+			};
 
 			$scope.new_calendar = {
 				title : 'New calendar',
@@ -74,28 +83,7 @@ Calendar.controller('CalendarCtrl', [
 					ending : 18
 				} ]
 			};
-
-			/* event sources array */
-			$scope.eventSources = [ [ {
-				title : $scope.new_calendar.title,
-				start : new Date($scope.new_calendar.beginning_date),
-				end : new Date($scope.new_calendar.ending_date),
-				editable : true
-			} ] ];
-
-			/* Change View */
-			$scope.renderCalendar = function(calendar) {
-				calendar.fullCalendar('render');
-			};
-
-			/* Change View */
-			$scope.refetchCalendar = function(calendar) {
-				console.log($scope.new_calendar);
-				$scope.eventSources[0][0].title = $scope.new_calendar.title;
-				$scope.eventSources[0][0].start = new Date($scope.new_calendar.beginning_date);
-				$scope.eventSources[0][0].end = new Date($scope.new_calendar.ending_date);
-			};
-			/* config object */
+			
 			$scope.uiConfig = {
 				calendar : {
 					height : 450,
@@ -104,7 +92,9 @@ Calendar.controller('CalendarCtrl', [
 						left : 'prev,next today',
 						center : 'title',
 						right : 'month,agendaWeek,agendaDay'
-					},
+					}, 
+					weekends : false,
+					allDaySlot : true,
 					eventResize : function(event, dayDelta, minuteDelta,
 							revertFunc) {
 						$scope.new_calendar.beginning_date = new Date(event.start);
@@ -125,14 +115,24 @@ Calendar.controller('CalendarCtrl', [
 					}
 				}
 			};
-
-			$scope.add_time_slot = function() {
-				if ($scope.new_calendar.time_slot_list.length < 3) {
-					$scope.new_calendar.time_slot_list.push({
-						beginning : 8,
-						ending : 18
-					});
-				}
+			//$scope.new_calendar.beginning_date.setHours($scope.new_calendar.time_slot_list[0].beginning);
+			//$scope.new_calendar.ending_date.setHours($scope.new_calendar.time_slot_list[0].ending);
+			$scope.eventSources = [ [ {
+				title : $scope.new_calendar.title,
+				start : new Date($scope.new_calendar.beginning_date),
+				end : new Date($scope.new_calendar.ending_date),
+				editable : true
+			} ] ];
+			$scope.renderCalendar = function(calendar) {
+				calendar.fullCalendar('render');
+			};
+			$scope.refetchCalendar = function(calendar) {
+				//$scope.new_calendar.beginning_date.setHours($scope.new_calendar.time_slot_list[0].beginning);
+				//$scope.new_calendar.ending_date.setHours($scope.new_calendar.time_slot_list[0].ending);
+				$scope.eventSources[0][0].title = $scope.new_calendar.title;
+				$scope.eventSources[0][0].start = $scope.new_calendar.beginning_date;
+				$scope.eventSources[0][0].end = $scope.new_calendar.ending_date;
+				$scope.eventSources[0][0].allDay = true;
 			};
 
 		}
