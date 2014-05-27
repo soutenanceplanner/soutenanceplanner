@@ -19,11 +19,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "oral")
 public class Oral extends BaseEntity {
 
-	/**
-	 * Serial ID.
-	 */
-	private static final long serialVersionUID = 5041906236066097434L;
-
 	@NotEmpty
 	private String title;
 
@@ -42,6 +37,12 @@ public class Oral extends BaseEntity {
 	
 	@OneToOne
 	private Calendar calendar;
+	
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public Oral(){
+	}
 	
 	public String getTitle() {
 		return title;

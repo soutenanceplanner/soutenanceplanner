@@ -19,11 +19,6 @@ import javax.validation.constraints.NotNull;
 public class DayConstraint extends BaseEntity {
 
 	/**
-	 * Serial ID.
-	 */
-	private static final long serialVersionUID = -6433278782426107714L;
-
-	/**
 	 * Date de la contrainte.
 	 */
 	@NotNull
@@ -36,6 +31,12 @@ public class DayConstraint extends BaseEntity {
 	@NotNull
 	@Column(name = "state")
 	private Boolean state;
+	
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public DayConstraint(){
+	}
 
 	public Date getDate() {
 		return date;

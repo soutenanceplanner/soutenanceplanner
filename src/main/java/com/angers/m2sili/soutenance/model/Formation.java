@@ -20,17 +20,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "formation")
 public class Formation extends BaseEntity {
 
-	/**
-	 * Serial ID.
-	 */
-	private static final long serialVersionUID = -8642040419282105136L;
-
 	@NotEmpty
 	@Column(name = "name")
 	private String name;
 
 	@OneToMany
 	private List<Calendar> ListCalendar;
+
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public Formation(){
+	}
 	
 	public String getName() {
 		return name;

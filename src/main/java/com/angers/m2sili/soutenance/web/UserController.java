@@ -33,7 +33,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	String create(@RequestBody EnumDTO user) {
+	String create(@RequestBody User user) {
 		logger.debug(user.toString());
 		//User newUser = userService.create(user);
 		//return newUser;
