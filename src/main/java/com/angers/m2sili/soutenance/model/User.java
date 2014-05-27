@@ -24,12 +24,7 @@ import com.angers.m2sili.soutenance.model.enumeration.Droit;
 
 @Entity
 @Table(name = "user")
-public class User extends BaseEntity implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7415840455825414806L;
+public class User extends BaseEntity {
 
 	@NotEmpty
 	private String login;
