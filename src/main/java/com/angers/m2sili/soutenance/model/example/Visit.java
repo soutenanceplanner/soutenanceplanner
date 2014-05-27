@@ -16,10 +16,8 @@
 package com.angers.m2sili.soutenance.model.example;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -33,8 +31,8 @@ import com.angers.m2sili.soutenance.model.BaseEntity;
  *
  * @author Ken Krebs
  */
-@Entity
-@Table(name = "visits")
+//@Entity
+//@Table(name = "visits")
 public class Visit extends BaseEntity {
 
     /**

@@ -41,6 +41,12 @@
 			persistenceUnit will win -->
 		<property name="persistenceUnitName" value="soutenance" />
 		<property name="packagesToScan" value="com.angers.m2sili.soutenance" />
+
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+			</props>
+		</property>
 	</bean>
 
 	<!-- Transaction manager for a single JPA EntityManagerFactory -->
