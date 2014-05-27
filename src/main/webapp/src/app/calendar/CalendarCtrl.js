@@ -90,11 +90,10 @@ Calendar.controller('CalendarCtrl', [
 
 			/* Change View */
 			$scope.refetchCalendar = function(calendar) {
-				console.log($scope.eventSources[0][0].end);
+				console.log($scope.new_calendar);
 				$scope.eventSources[0][0].title = $scope.new_calendar.title;
 				$scope.eventSources[0][0].start = new Date($scope.new_calendar.beginning_date);
 				$scope.eventSources[0][0].end = new Date($scope.new_calendar.ending_date);
-				calendar.fullCalendar('rerenderEvents');
 			};
 			/* config object */
 			$scope.uiConfig = {
@@ -108,22 +107,21 @@ Calendar.controller('CalendarCtrl', [
 					},
 					eventResize : function(event, dayDelta, minuteDelta,
 							revertFunc) {
-						$scope.new_calendar.beginning_date = event.start;
+						$scope.new_calendar.beginning_date = new Date(event.start);
 						if (event.end != null) {
-							$scope.new_calendar.ending_date = event.end;
+							$scope.new_calendar.ending_date = new Date(event.end);
 						} else {
-							$scope.new_calendar.ending_date = event.start;
+							$scope.new_calendar.ending_date = new Date(event.start);
 						}
 					},
 					eventDrop : function(event, dayDelta, minuteDelta, allDay,
 							revertFunc) {
-						$scope.new_calendar.beginning_date = event.start;
+						$scope.new_calendar.beginning_date = new Date(event.start);
 						if (event.end != null) {
-							$scope.new_calendar.ending_date = event.end;
+							$scope.new_calendar.ending_date = new Date(event.end);
 						} else {
-							$scope.new_calendar.ending_date = event.start;
+							$scope.new_calendar.ending_date = new Date(event.start);
 						}
-						console.log($scope.new_calendar);
 					}
 				}
 			};
