@@ -56,7 +56,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<User> list(@PathVariable Integer id) {
+	List<User> list() {
 		return userService.getAll();
 	}
 	

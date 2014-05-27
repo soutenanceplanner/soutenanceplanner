@@ -36,7 +36,7 @@ angular.module('soutenanceplanner.account')
 				});
 			},
 
-			listUser:function(user){
+			listUser:function(){
 				return $http({
 					method: 'GET',
 					url: WS_SERVER_URL + "/user/list",
