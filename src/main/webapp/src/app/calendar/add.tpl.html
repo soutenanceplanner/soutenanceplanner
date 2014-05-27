@@ -1,3 +1,9 @@
+<!-- 
+	@author : Pierre Evers
+	@content : formulaire d'ajout d'un calendrier
+	@date : 22/05/2014
+ -->
+
 <h2>Ajouter un calendrier</h2>
 <br/>
 
@@ -56,5 +62,25 @@
 			<br/>
 			<div ui-calendar="uiConfig.calendar" calendar="myCalendar1"  class="span8 calendar" ng-model="eventSources"></div>
 		</div>
+	</tab>
+	<tab disabled="{{ !new_calendar.is_valid }}">
+		<tab-heading>
+			<i class="glyphicon glyphicon-bell">Url</i>
+		</tab-heading>
+		<div>
+			<br/>
+			<p class="">
+				<label for="new_calendar.url_code">Url d'accès</label>
+				<input type="text" name="new_calendar.url_code" class="form-control" id="new_calendar.url_code" ng-model="new_calendar.url_code" ng-disabled="true"/> 
+			</p>
+			<div class="alert alert-success" >
+				Le calendrier a été validé avec succès.<br>
+				<ul>
+					<li>Afin de partager ce calendrier en consultation avec d'autres membres, veuillez leur fournir le lien ci-dessus.</li>
+					<li>Ce lien est aussi disponible dans la rubrique  "Mes Calendriers".</li>
+				</ul>
+			</div>
+		</div>
+	</tab>
 </tabset>
 	

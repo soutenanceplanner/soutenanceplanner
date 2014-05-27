@@ -1,3 +1,7 @@
+/**
+ * @author Pierre Evers
+ */
+
 var Calendar = angular.module('soutenanceplanner.calendar');
 
 Calendar.controller('CalendarCtrl', [
@@ -8,6 +12,9 @@ Calendar.controller('CalendarCtrl', [
 
 			$log.debug('CalendarCtrl');
 			
+			/**
+			 * Liste des durées disponible dans le formulaire
+			 */
 			$scope.durations = [ {
 				value : 0.5,
 				text : "30min"
@@ -19,6 +26,9 @@ Calendar.controller('CalendarCtrl', [
 				text : "1h"
 			} ];
 
+			/**
+			 * Liste des heures disponible dans le formulaire
+			 */
 			$scope.hours = [ {
 				value : 7,
 				text : "7h"
@@ -63,6 +73,9 @@ Calendar.controller('CalendarCtrl', [
 				text : "20h"
 			} ];
 			
+			/**
+			 * Ajout d'une plage horaire à la volée
+			 */
 			$scope.add_time_slot = function() {
 				if ($scope.new_calendar.time_slot_list.length < 3) {
 					$scope.new_calendar.time_slot_list.push({
@@ -72,6 +85,9 @@ Calendar.controller('CalendarCtrl', [
 				}
 			};
 
+			/**
+			 * Initalisation du tableau de données du calendrier
+			 */
 			$scope.new_calendar = {
 				title : 'New calendar',
 				formation : '',
@@ -81,9 +97,14 @@ Calendar.controller('CalendarCtrl', [
 				time_slot_list : [ {
 					beginning : 8,
 					ending : 18
-				} ]
+				} ],
+				url_code :  '',
+				is_valid : false
 			};
 			
+			/**
+			 * Configuration de l'élément calendar
+			 */
 			$scope.uiConfig = {
 				calendar : {
 					height : 450,
@@ -115,6 +136,10 @@ Calendar.controller('CalendarCtrl', [
 					}
 				}
 			};
+			
+			/**
+			 * Initialisation de l'événement en fonction des valeurs par défaut du tableau de données
+			 */
 			//$scope.new_calendar.beginning_date.setHours($scope.new_calendar.time_slot_list[0].beginning);
 			//$scope.new_calendar.ending_date.setHours($scope.new_calendar.time_slot_list[0].ending);
 			$scope.eventSources = [ [ {
@@ -123,9 +148,17 @@ Calendar.controller('CalendarCtrl', [
 				end : new Date($scope.new_calendar.ending_date),
 				editable : true
 			} ] ];
+			
+			/**
+			 * Affichahe du calendrier
+			 */
 			$scope.renderCalendar = function(calendar) {
 				calendar.fullCalendar('render');
 			};
+			
+			/**
+			 * Mise à jour du calendrier en fonction du formulaire
+			 */
 			$scope.refetchCalendar = function(calendar) {
 				//$scope.new_calendar.beginning_date.setHours($scope.new_calendar.time_slot_list[0].beginning);
 				//$scope.new_calendar.ending_date.setHours($scope.new_calendar.time_slot_list[0].ending);
