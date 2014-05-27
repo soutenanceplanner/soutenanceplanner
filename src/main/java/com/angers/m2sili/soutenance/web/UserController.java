@@ -51,6 +51,8 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
 	List<User> list() {
+		logger.debug("test");
+		List<User> users = userService.getAll();
 		return userService.getAll();
 	}
 	

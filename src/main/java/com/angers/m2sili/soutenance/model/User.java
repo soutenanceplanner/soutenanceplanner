@@ -1,5 +1,6 @@
 package com.angers.m2sili.soutenance.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -23,7 +24,12 @@ import com.angers.m2sili.soutenance.model.enumeration.Droit;
 
 @Entity
 @Table(name = "user")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7415840455825414806L;
 
 	@NotEmpty
 	private String login;
