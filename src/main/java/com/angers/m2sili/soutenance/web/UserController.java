@@ -57,15 +57,4 @@ public class UserController extends BaseController {
 		return userService.getAll();
 	}
 	
-
-	/*@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public @ResponseBody
-	List<User> list() {
-		return userService.getAll();
-		this.logger.debug(user.toString());
-		User newUser = userService.create(user);
-		return newUser;
-	}
-	*/
-	
 }
