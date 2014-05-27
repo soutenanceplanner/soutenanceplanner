@@ -167,6 +167,30 @@ Calendar.controller('CalendarCtrl', [
 				$scope.eventSources[0][0].end = $scope.new_calendar.ending_date;
 				$scope.eventSources[0][0].allDay = true;
 			};
+			/**
+			 * ON ajoute une Soutenance 
+			 */
+			$scope.addOral = function(titreSoutenance,jours,heure){
+				var date = new Date();
+				var d = date.getDate();
+				var m = date.getMonth();
+				var y = date.getFullYear();	
+
+				//ici j'ajoute +1 à l'heure finale mais il faudrat ajouter la durée d'une session ( pré-renseigner )
+				var heureF = heure+1 ;
+
+				//on pousse un nouvel évenement dans notre tableau 
+				$scope.eventSources[0].push({
+					title: titreSoutenance,
+					start: new Date(y,m,jours,heure,0,0),
+					end: new Date(y,m,jours,heureF,0,0),
+					className: [titreSoutenance],
+					allDay:false
+				});				
+				
+				
+			};
+			
 
 		}
 

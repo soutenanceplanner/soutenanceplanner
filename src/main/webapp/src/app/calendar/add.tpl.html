@@ -59,6 +59,21 @@
 			<i class="glyphicon glyphicon-bell">Configuration</i>
 		</tab-heading>
 		<div>
+		
+		<form ng-submit='addOral(titreSoutenance,jourSoutenance,heureSoutenance)'>
+			<h3> Exemple ajout d'une soutenance</h3> <br/>
+			Jours soutenance :<input type="number" min='1' max='31' ng-model='jourSoutenance'/>
+			Heure soutenance :<input type="number" min='9' max='20' ng-model='heureSoutenance'/>
+			Titre soutenance :<input type="text" ng-model='titreSoutenance'/>
+			<button type="submit" >Ajouter une soutenance</button>
+		
+		</form>
+		<div ng-repeat='events in eventSources'>
+			<div ng-repeat='event in events'>
+				{{event.title}}	
+			</div>
+		</div>
+		
 			<br/>
 			<div ui-calendar="uiConfig.calendar" calendar="myCalendar1"  class="span8 calendar" ng-model="eventSources"></div>
 		</div>
