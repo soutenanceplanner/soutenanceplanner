@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.repository.UserRepository;
 import com.angers.m2sili.soutenance.service.UserService;
@@ -45,6 +46,27 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAll() {
 		return userRepository.findAll();
+	}
+
+	@Override
+	public List<Calendar> getCalendars(int id) {
+
+		//TODO remplacer les valeurs en dur		
+		Calendar c = new Calendar();
+			c.setTitle("Titre calendrier_1");
+			c.setLink("lienCalendrier_1");
+		
+		Calendar c1 = new Calendar();
+			c.setTitle("Titre calendrier_2");
+			c.setLink("lienCalendrier_2");	
+				
+		User us = new User();
+			us.getListeCalendrier().add(c); 
+			us.getListeCalendrier().add(c1); 
+			
+		List<Calendar> liste = us.getListeCalendrier();
+		
+		return liste;
 	}
 
 }

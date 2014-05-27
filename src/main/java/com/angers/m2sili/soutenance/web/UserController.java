@@ -1,4 +1,5 @@
 package com.angers.m2sili.soutenance.web;
+import java.util.List;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.UserService;
 
@@ -29,7 +31,7 @@ import com.angers.m2sili.soutenance.service.UserService;
 public class UserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
+	
 	@Autowired
 	private UserService userService;
 	
@@ -64,5 +66,15 @@ public class UserController {
 	public void handle(HttpMessageNotReadableException e) {
 	    logger.warn("Returning HTTP 400 Bad Request", e);
 	}
+	
+	
+	@RequestMapping(value = "/getCalendars", method = RequestMethod.GET)
+	public @ResponseBody List<Calendar> create(@RequestBody String id) {
+		
+			//List<Calendar> listeCalendar = userService.getCalendars(Integer.parseInt(id));	
+			return null;
+	}
+
+	
 
 }
