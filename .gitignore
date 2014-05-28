@@ -32,3 +32,6 @@ local.properties
 .texlipse
 /target
 /target
+
+# Database config
+src/main/resources/spring/data-access.properties

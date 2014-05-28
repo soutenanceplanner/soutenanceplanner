@@ -3,20 +3,20 @@
 	<div class="form-group">
 		<label for="login" class="col-sm-3 control-label">Identifiant</label>
 		<div class="col-sm-9">
-			<input data-ng-model="user.login" type="text" class="form-control" id="login" placeholder="Identifiant" required>
+			<input data-ng-model="user.login" type="text" class="form-control" id="login" placeholder="Identifiant" ng-disabled="true" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="email" class="col-sm-3 control-label">Email</label>
 		<div class="col-sm-9">
-			<input data-ng-model="user.email" type="email" class="form-control" id="email" placeholder="Email">
+			<input data-ng-model="user.mail" type="email" class="form-control" id="email" placeholder="Email">
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label for="flag" class="col-sm-3 control-label">Statut</label>
 		<div class="col-sm-9">
-			<select ng-model="user.flag" ng-options="flag.id as flag.name for flag in flags" class="form-control" id="flag" required></select>
+			<input ng-model="user.flag" ng-disabled="true" type="text" class="form-control" required></input>
 		</div>
 	</div>
 	<div class="form-group">
@@ -28,7 +28,7 @@
 	<div class="form-group">
 		<label for="passwordConfirm" class="col-sm-3 control-label">Confirmation</label>
 		<div class="col-sm-9" >
-			<input ng-model="user.passwordConfirm" type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" data-match="user.password" placeholder="Mot de passe" required>
+			<input ng-model="passwordConfirm" type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" data-match="user.password" placeholder="Mot de passe" required>
 		</div>
 	</div>
 	<div class="form-group">

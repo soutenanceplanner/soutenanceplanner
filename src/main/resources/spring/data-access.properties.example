@@ -32,7 +32,7 @@ jdbc.driverClassName=com.mysql.jdbc.Driver
 #jdbc.password=97d9d6b7b6204a629e2917a6429ad06e
 
 #--> local
-jdbc.url=jdbc:mysql://localhost:3306/soutenanceplanne
+jdbc.url=jdbc:mysql://localhost:3306/soutenanceplanner
 jdbc.username=root
 jdbc.password=root
 
@@ -50,3 +50,4 @@ hibernate.hbm2ddl.auto = validate
 jpa.database=MYSQL
 
 jpa.showSql=true
+

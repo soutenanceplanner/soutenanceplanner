@@ -76,9 +76,49 @@ angular
 							$scope.init();
 						} ])
 
-		.controller(
-				'MenuCtrl',
-				[ '$rootScope', '$scope', '$log', '$state', '$location',
-						function($rootScope, $scope, $log, $state, $location) {
-							$log.debug("MenuCtrl");
-						} ]);
+
+.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location',
+	function($rootScope, $scope, $log, $state, $location) {
+		$log.debug("MenuCtrl");
+	}
+])
+
+.directive('getmenucalendar',['$log','HomeService', function($log,HomeService) {
+	var def = {
+	scope : false,
+	template : '{{titre}}<span class="badge pull-right">{{badge}}</span>'+
+				'<ul class="nav " ng-repeat="calendrier in calendriers">'+
+					'<li><a href="{{calendrier.link}}">{{calendrier.title}}</a></li>'+	
+				'</ul>',
+	remplace : true,
+	link :	function link(scope, element, attrs) {	
+		//on récupère le titre passé en attributs et on le passe au scope du template
+		scope.titre = attrs.title ;
+		
+		//on passe le type qui correspond au badge
+		scope.badge = attrs.type;
+		
+		//si le type = 2 on récupère les calendrier à venir
+		if(attrs.type == 2){
+		HomeService.getFuturesCalendars().then(
+				function(response){
+					$log.debug(response.data);
+					scope.calendriers = response.data ;
+				}
+			);
+		//si le type = 3 on récupère les calendriers de l'user
+		}else if (attrs.type == 3){
+		HomeService.getCalendars().then(
+					function(response){
+						$log.debug(response.data);
+						scope.calendriers = response.data ;
+					}
+				);	
+		}
+		
+	}
+};
+return def ;	
+}]) 
+
+;

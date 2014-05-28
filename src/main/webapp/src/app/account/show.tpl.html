@@ -9,7 +9,7 @@
 	<div class="form-group">
 		<label for="email" class="col-sm-3 control-label">Email</label>
 		<div class="col-sm-9">
-			<p class="form-control-static">{{user.email}}</p>
+			<p class="form-control-static">{{user.mail}}</p>
 		</div>
 	</div>
 
@@ -27,7 +27,7 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-9">
-			<button ui-sref="accountEdit" class="btn btn-default">Editer</button>
+			<button ui-sref="accountEdit({id:user.id})" class="btn btn-default">Editer</button>
 		</div>
 	</div>
 </form>
