@@ -5,7 +5,7 @@ public class EnumDTO{
 	/**
 	 * Valeur dans l'énum.
 	 */
-	private int value;
+	private String value;
 	
 	/**
 	 * Nom dans l'énum.
@@ -15,16 +15,16 @@ public class EnumDTO{
 	public EnumDTO(){
 	}
 	
-	public EnumDTO(int value, String name){
+	public EnumDTO(String value, String name){
 		this.value = value;
 		this.name = name;
 	}
 
-	public int getValue() {
+	public String getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 
