@@ -116,7 +116,11 @@ Calendar.controller('CalendarCtrl', [
 						right : 'month,agendaWeek,agendaDay'
 					},
 					weekends : false,
+					allDaySlot : false,
+					minTime : 7,
+					maxTime : 20,
 					eventResize : function(event, dayDelta, minuteDelta, revertFunc) {
+						$scope.initializeConstraints(event);
 					}
 				}
 			};
@@ -128,6 +132,7 @@ Calendar.controller('CalendarCtrl', [
 				$scope.eventSources = [];
 				var events = [];
 				var date = new Date(beginning_date);
+				$i =  0;
 				var add_event = function(events, date) {
 					angular.forEach($scope.new_calendar.time_slot_list,
 							function(time_slot, key) {
@@ -136,6 +141,7 @@ Calendar.controller('CalendarCtrl', [
 								var d2 = new Date(date.setHours(
 										time_slot.ending, 0, 0));
 								events.push({
+									id : $i,
 									title : $scope.new_calendar.title,
 									start : d1,
 									end : d2,
@@ -143,8 +149,9 @@ Calendar.controller('CalendarCtrl', [
 									startEditable : false,
 									durationEditable : true
 								});
+								$i++;
 							});
-				};
+				}; 
 				do {
 					add_event(events, date);
 					date.setDate(date.getDate() + 1);
@@ -156,7 +163,16 @@ Calendar.controller('CalendarCtrl', [
 			 * Récupération/modification des contraintes au niveau de l'évènement 'resizable' du Calendar
 			 */
 			$scope.initializeConstraints = function(event) {
-				
+				var exists = false;
+				angular.forEach($scope.new_calendar.constraints, function(constraint, key) {
+					if(constraint.id == event.id) {
+						$scope.new_calendar.constraints[key] = event;
+						exists = true;
+					}
+				});
+				if(!exists) {
+					$scope.new_calendar.constraints.push(event);
+				}
 			};
 			
 			/**
@@ -176,6 +192,7 @@ Calendar.controller('CalendarCtrl', [
 			 * Mise à jour du calendrier en fonction du formulaire
 			 */
 			$scope.refetchCalendar = function(calendar) {
+				$scope.new_calendar.constraints = [];
 				calendar.fullCalendar('removeEvents');
 				calendar.fullCalendar('addEventSource', $scope.initializeEvents($scope.new_calendar.beginning_date, $scope.new_calendar.ending_date));
 			};
