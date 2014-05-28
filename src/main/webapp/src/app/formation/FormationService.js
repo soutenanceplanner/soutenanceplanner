@@ -14,17 +14,17 @@ angular.module('soutenanceplanner.formation')
 					});
 				},
 
-				getFormation:function(formation){
+				getFormation:function(id){
 					return $http({
 						method: 'GET',
-						url: WS_SERVER_URL + "/formation/"+formation.id,
+						url: WS_SERVER_URL + "/formation/"+id,
 					});
 				},
 
-				deleteFormation:function(formation){
+				deleteFormation:function(id){
 					return $http({
 						method: 'DELETE',
-						url: WS_SERVER_URL + "/formation/"+formation.id,
+						url: WS_SERVER_URL + "/formation/"+id,
 					});
 				},
 

@@ -9,7 +9,7 @@ angular.module('soutenanceplanner.formation')
 			templateUrl: 'formation/add.tpl.html',
 			controller: 'FormationAddCtrl'
 		}).state('formationEdit', {
-			url: '/formation/edit',
+			url: '/formation/edit/:id',
 			templateUrl: 'formation/edit.tpl.html',
 			controller: 'FormationEditCtrl',
 			directives : [ "directives" ]
@@ -18,7 +18,7 @@ angular.module('soutenanceplanner.formation')
 			templateUrl: 'formation/list.tpl.html',
 			controller: 'FormationListCtrl'
 		}).state('formationShow', {
-			url: '/formation',
+			url: '/formation/show/:id',
 			templateUrl: 'formation/show.tpl.html',
 			controller: 'FormationShowCtrl'
 		});
