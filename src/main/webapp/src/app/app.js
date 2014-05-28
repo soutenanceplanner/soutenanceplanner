@@ -52,25 +52,6 @@ angular
 						'$http',
 						function($rootScope, $state, $stateParams, $http) {
 							$http.defaults.headers.contentType = "application/json; charset=utf-8";
-							$rootScope.diffDate = function(dateold, datenew) {
-								var ynew = datenew.getFullYear();
-								var mnew = datenew.getMonth();
-								var dnew = datenew.getDate();
-								var yold = dateold.getFullYear();
-								var mold = dateold.getMonth();
-								var dold = dateold.getDate();
-								var diff = datenew - dateold;
-								if (mold > mnew) {
-									diff--;
-								} else {
-									if (mold == mnew) {
-										if (dold > dnew) {
-											diff--;
-										}
-									}
-								}
-								return diff;
-							};
 						} ])
 
 		.controller(
