@@ -39,7 +39,7 @@ public enum Droit{
 	public static List<EnumDTO> getAsList(){
 		List<EnumDTO> liste = new ArrayList<EnumDTO>();
 		for (Droit droit : Droit.values()){
-			liste.add(new EnumDTO(droit.ordinal(), droit.getLibelle()));
+			liste.add(new EnumDTO(droit.name(), droit.getLibelle()));
 		}
 		return liste;
 	}

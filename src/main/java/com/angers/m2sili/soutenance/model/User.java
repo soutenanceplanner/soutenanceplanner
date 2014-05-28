@@ -40,7 +40,7 @@ public class User extends BaseEntity {
 	private String mail;
 	
 	@NotNull
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private Droit flag;
 	
 	/**
