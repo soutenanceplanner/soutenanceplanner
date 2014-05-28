@@ -167,8 +167,13 @@ Calendar.controller('CalendarCtrl', [
 				$scope.eventSources[0][0].end = $scope.new_calendar.ending_date;
 				$scope.eventSources[0][0].allDay = true;
 			};
+			
+			$scope.initializeEvents = function() {
+				
+			}
+			
 			/**
-			 * ON ajoute une Soutenance 
+			 * On ajoute une Soutenance 
 			 */
 			$scope.addOral = function(titreSoutenance,jours,heure){
 				var date = new Date();
