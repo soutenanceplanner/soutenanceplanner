@@ -18,7 +18,7 @@ angular.module('soutenanceplanner.home')
 		} ];
 
 		//on récupère les Calendriers créer par l'utilisateur
-		HomeService.getCalendars().then(
+		/*HomeService.getCalendars().then(
 				function(response){
 					$log.debug(response.data);
 					//on passe la réponse au scope
@@ -33,7 +33,7 @@ angular.module('soutenanceplanner.home')
 					//on passe la réponse au scope
 					$scope.calendriersAvenir = response.data ;
 				}
-			);
+			);*/
 		
 		AccountService.oups().then(
 			function(response){

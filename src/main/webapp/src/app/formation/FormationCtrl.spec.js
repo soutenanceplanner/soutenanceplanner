@@ -1,4 +1,4 @@
-describe('FormationCtrl tester', function() {
+xdescribe('FormationCtrl tester', function() {
 
 	var FormationCtrl, scope, httpBackend, callBack, log;
 
