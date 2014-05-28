@@ -27,14 +27,14 @@
 jdbc.driverClassName=com.mysql.jdbc.Driver
 
 #--> integ
-#jdbc.url=jdbc:mysql://ec2-50-19-213-178.compute-1.amazonaws.com:3306/soutenanceplanne
-#jdbc.username=soutenanceplanne
-#jdbc.password=97d9d6b7b6204a629e2917a6429ad06e
+jdbc.url=jdbc:mysql://ec2-50-19-213-178.compute-1.amazonaws.com:3306/soutenanceplanne
+jdbc.username=soutenanceplanne
+jdbc.password=97d9d6b7b6204a629e2917a6429ad06e
 
 #--> local
-jdbc.url=jdbc:mysql://localhost:3306/soutenanceplanner
-jdbc.username=root
-jdbc.password=root
+#jdbc.url=jdbc:mysql://localhost:3306/soutenanceplanner
+#jdbc.username=root
+#jdbc.password=root
 
 
 # Properties that control the population of schema and data for a new data source
