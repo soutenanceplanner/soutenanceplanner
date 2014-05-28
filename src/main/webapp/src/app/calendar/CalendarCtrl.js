@@ -98,6 +98,7 @@ Calendar.controller('CalendarCtrl', [
 					beginning : 8,
 					ending : 18
 				} ],
+				constraints : [],
 				url_code : '',
 				is_valid : false
 			};
@@ -115,33 +116,14 @@ Calendar.controller('CalendarCtrl', [
 						right : 'month,agendaWeek,agendaDay'
 					},
 					weekends : false,
-					eventResize : function(event, dayDelta, minuteDelta,
-							revertFunc) {
-						/*$scope.new_calendar.beginning_date = new Date(
-								event.start);
-						if (event.end != null) {
-							$scope.new_calendar.ending_date = new Date(
-									event.end);
-						} else {
-							$scope.new_calendar.ending_date = new Date(
-									event.start);
-						}*/
-					},
-					eventDrop : function(event, dayDelta, minuteDelta, allDay,
-							revertFunc) {
-						$scope.new_calendar.beginning_date = new Date(
-								event.start);
-						/*if (event.end != null) {
-							$scope.new_calendar.ending_date = new Date(
-									event.end);
-						} else {
-							$scope.new_calendar.ending_date = new Date(
-									event.start);
-						}*/
+					eventResize : function(event, dayDelta, minuteDelta, revertFunc) {
 					}
 				}
 			};
 
+			/**
+			 * Construction du calendrier en fonction des différents éléments du formulaire
+			 */
 			$scope.initializeEvents = function(beginning_date, ending_date) {
 				$scope.eventSources = [];
 				var events = [];
@@ -157,7 +139,9 @@ Calendar.controller('CalendarCtrl', [
 									title : $scope.new_calendar.title,
 									start : d1,
 									end : d2,
-									allDay : false
+									allDay : false,
+									startEditable : false,
+									durationEditable : true
 								});
 							});
 				};
@@ -167,6 +151,14 @@ Calendar.controller('CalendarCtrl', [
 				} while (ending_date.getDate() >= date.getDate());
 				return events;
 			};
+			
+			/**
+			 * Récupération/modification des contraintes au niveau de l'évènement 'resizable' du Calendar
+			 */
+			$scope.initializeConstraints = function(event) {
+				
+			};
+			
 			/**
 			 * Initialisation de l'événement en fonction des valeurs par défaut
 			 * du tableau de données
