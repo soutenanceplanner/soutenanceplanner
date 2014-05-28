@@ -1,4 +1,4 @@
-describe('FormationService tester', function() {
+xdescribe('FormationService tester', function() {
 
 	var formationService, httpBackend, WS_SERVER_URL;
 

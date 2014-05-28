@@ -166,10 +166,11 @@ Calendar.controller('CalendarCtrl', [
 				$scope.eventSources[0][0].start = $scope.new_calendar.beginning_date;
 				$scope.eventSources[0][0].end = $scope.new_calendar.ending_date;
 				$scope.eventSources[0][0].allDay = true;
+				$scope.initializeEvents($scope.new_calendar.beginning_date, $scope.new_calendar.ending_date);
 			};
 			
 			$scope.initializeEvents = function(beginning_date, ending_date) {
-				
+				console.debug($scope.diffDate(beginning_date, ending_date));
 			};
 			
 			/**
