@@ -51,4 +51,10 @@ public class UserController extends BaseController {
 		return userService.getAll();
 	}
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public @ResponseBody
+	User update(@RequestBody User user) {
+		return userService.update(user);
+	}
+	
 }
