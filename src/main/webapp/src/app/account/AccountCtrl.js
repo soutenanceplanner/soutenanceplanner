@@ -55,6 +55,14 @@ angular.module('soutenanceplanner.account')
 			);
 		};
 
+		$scope.deleteUser = function(id){
+			AccountService.deleteUser(id).then(
+				function(response){
+					$log.debug(response.data);
+				}
+			);
+		};
+
 		//init
 		$scope.init();
 		

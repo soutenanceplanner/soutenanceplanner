@@ -29,10 +29,10 @@ angular.module('soutenanceplanner.account')
 				});
 			},
 
-			deleteUser:function(user){
+			deleteUser:function(id){
 				return $http({
 					method: 'DELETE',
-					url: WS_SERVER_URL + "/user/"+user.id,
+					url: WS_SERVER_URL + "/user/"+id,
 				});
 			},
 
