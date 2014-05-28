@@ -32,3 +32,6 @@ local.properties
 .texlipse
 /target
 /target
+
+# Database config
+*/data-access.properties
