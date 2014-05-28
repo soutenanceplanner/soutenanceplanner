@@ -6,21 +6,34 @@ angular.module('soutenanceplanner.formation')
 
 		var FormationService = {
 
-			test: function(){
-				return $http({
-					method: 'POST',
-					url: WS_SERVER_URL + "/Test",
-					data: {}
-				});
-			},
+				createFormation:function(formation){
+					return $http({
+						method: 'POST',
+						url: WS_SERVER_URL + "/formation/new",
+						data: formation
+					});
+				},
 
-			oups: function(){
-				return $http({
-					method: 'GET',
-					url: WS_SERVER_URL + "/oups",
-					data: {}
-				});
-			},
+				getFormation:function(formation){
+					return $http({
+						method: 'GET',
+						url: WS_SERVER_URL + "/formation/"+formation.id,
+					});
+				},
+
+				deleteFormation:function(formation){
+					return $http({
+						method: 'DELETE',
+						url: WS_SERVER_URL + "/formation/"+formation.id,
+					});
+				},
+
+				listFormation:function(){
+					return $http({
+						method: 'GET',
+						url: WS_SERVER_URL + "/formation/list",
+					});
+				}
 
 		};
 
