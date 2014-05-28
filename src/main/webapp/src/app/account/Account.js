@@ -9,7 +9,7 @@ angular.module('soutenanceplanner.account')
 			templateUrl: 'account/add.tpl.html',
 			controller: 'AccountAddCtrl'
 		}).state('accountEdit', {
-			url: '/account/edit',
+			url: '/account/edit/:id',
 			templateUrl: 'account/edit.tpl.html',
 			controller: 'AccountEditCtrl',
 			directives : [ "directives" ]
@@ -18,7 +18,7 @@ angular.module('soutenanceplanner.account')
 			templateUrl: 'account/list.tpl.html',
 			controller: 'AccountListCtrl'
 		}).state('accountShow', {
-			url: '/account',
+			url: '/account/show/:id',
 			templateUrl: 'account/show.tpl.html',
 			controller: 'AccountShowCtrl'
 		});

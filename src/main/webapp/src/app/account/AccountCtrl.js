@@ -23,7 +23,7 @@ angular.module('soutenanceplanner.account')
 			AccountService.createUser($scope.user).then(
 				function(response){
 					$log.debug(response.data);
-					//$state.go("accountList");
+					$state.go("accountList");
 				},
 				function(response){
 					$log.debug("Erreur serveur");
@@ -36,28 +36,27 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountEditCtrl', ['$scope', '$location', '$log',
-	function($scope, $location, $log) {
+.controller('AccountEditCtrl', ['$scope', '$location', '$log','$stateParams', 'AccountService', 'EnumService',
+	function($scope, $location, $log, $stateParams, AccountService, EnumService) {
 		$log.debug('AccountEditCtrl');
 
-		$scope.flags = [
-			{
-				id : 5,
-				name :'Utilisateur'
-			},
-			{
-				id : 10,
-				name : 'Administrateur'
-			}
-		];
+		$scope.init = function(){
+			AccountService.getUser($stateParams.id).then(
+				function(response){
+					$scope.user = response.data;
+					$log.debug(response.data);
+				}
+			);
 
-		$scope.user  = {
-				id : 1,
-				login : 'user',
-				password : 'user',
-				email : 'user@univ-angers.fr',
-				flag : 5
+			EnumService.droit().then(
+				function(response){
+					$scope.flags = response.data;
+				}
+			);
 		};
+
+		//init
+		$scope.init();
 		
 		$scope.accountUpdate = function () {
 			alert("Les données ont été mises à jour avec succès !");
@@ -74,7 +73,7 @@ angular.module('soutenanceplanner.account')
 			AccountService.listUser().then(
 				function(response){
 					$scope.users = response.data;
-					$log(response.data);
+					$log.debug(response.data);
 				}
 			);
 		};
@@ -84,19 +83,21 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountShowCtrl', ['$scope', '$log',
-	function($scope, $log) {
+.controller('AccountShowCtrl', ['$scope', '$log', '$stateParams', 'AccountService',
+	function($scope, $log, $stateParams, AccountService) {
 		$log.debug('AccountShowCtrl');
-		/**
-		 * Default user data
-		 */	
-		$scope.user  = {
-				id : 1,
-				login : 'user',
-				password : 'password',
-				email : 'user@univ-angers.fr',
-				flag : 5
+
+		$scope.init = function(){
+			AccountService.getUser($stateParams.id).then(
+				function(response){
+					$scope.user = response.data;
+					$log.debug(response.data);
+				}
+			);
 		};
+
+		//init
+		$scope.init();
 	}
 ])
 

@@ -8,8 +8,7 @@
 			<th></th>
 		</tr>
 		<tr ng-repeat="user in users">
-			<!--<th><a href="#/account/{{user.id}}"><span>{{user.login}}</span></a></th> -->
-			<th><a href="#/account/edit"><span>{{user.login}}</span></a></th>
+			<th><a ng-href="#/account/show/{{user.id}}"><span>{{user.login}}</span></a></th>
 			<td>{{user.email}}</td>
 			<td>{{user.flag}}</td>
 			<td><button ng-click="deleteAccount()" type="button" class="close">&times;</button></td>

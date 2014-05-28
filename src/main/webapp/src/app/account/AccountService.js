@@ -22,10 +22,10 @@ angular.module('soutenanceplanner.account')
 				});
 			},
 
-			getUser:function(user){
+			getUser:function(id){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/user/"+user.id,
+					url: WS_SERVER_URL + "/user/"+id,
 				});
 			},
 
