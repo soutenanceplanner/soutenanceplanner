@@ -11,7 +11,7 @@
 			<th><a ui-sref="accountShow({id:user.id})"><span>{{user.login}}</span></a></th>
 			<td>{{user.email}}</td>
 			<td>{{user.flag}}</td>
-			<td><button ng-click="deleteAccount()" type="button" class="close">&times;</button></td>
+			<td><button ng-click="deleteUser(user.id)" type="button" class="close">&times;</button></td>
 		</tr>
 		<tr>
 			<td colspan="4" align="center"></td>
