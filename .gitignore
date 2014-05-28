@@ -35,4 +35,3 @@ local.properties
 
 # Database config
 src/main/resources/spring/data-access.properties
-*/data-access.properties
