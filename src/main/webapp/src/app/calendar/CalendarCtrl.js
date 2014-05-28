@@ -168,9 +168,9 @@ Calendar.controller('CalendarCtrl', [
 				$scope.eventSources[0][0].allDay = true;
 			};
 			
-			$scope.initializeEvents = function() {
+			$scope.initializeEvents = function(beginning_date, ending_date) {
 				
-			}
+			};
 			
 			/**
 			 * On ajoute une Soutenance 
