@@ -9,7 +9,7 @@
 		</tr>
 		<tr ng-repeat="user in users">
 			<th><a ui-sref="accountShow({id:user.id})"><span>{{user.login}}</span></a></th>
-			<td>{{user.email}}</td>
+			<td>{{user.mail}}</td>
 			<td>{{user.flag}}</td>
 			<td><button ng-click="deleteUser(user.id)" type="button" class="close">&times;</button></td>
 		</tr>
