@@ -12,11 +12,13 @@ import com.angers.m2sili.soutenance.model.User;
 
 public interface UserService {
 
-	public User create(User user);
+	User create(User user);
 	
-	public void delete(Integer id);
+	void delete(Integer id);
 
 	User get(Integer id);
 	
 	List<User> getAll();
+	
+	User update(User user);
 }

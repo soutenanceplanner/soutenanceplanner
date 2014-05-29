@@ -29,8 +29,6 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
-	
-	
 	@Override
 	@Transactional(readOnly = true)
 	public User get(Integer id) {
@@ -47,6 +45,11 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void delete(Integer id) {
 		userRepository.delete(id);
+	}
+
+	@Override
+	public User update(User user) {
+		return userRepository.save(user);
 	}
 	
 }

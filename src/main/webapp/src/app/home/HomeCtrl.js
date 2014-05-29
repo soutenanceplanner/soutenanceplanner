@@ -34,12 +34,6 @@ angular.module('soutenanceplanner.home')
 					$scope.calendriersAvenir = response.data ;
 				}
 			);*/
-		
-		AccountService.oups().then(
-			function(response){
-				$log.debug(response.data);
-			}
-		);
 	}
 ])
 

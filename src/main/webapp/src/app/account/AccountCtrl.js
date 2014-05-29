@@ -58,9 +58,17 @@ angular.module('soutenanceplanner.account')
 		//init
 		$scope.init();
 		
-		$scope.accountUpdate = function () {
-			alert("Les données ont été mises à jour avec succès !");
-			$location.path( "/account" );
+		$scope.updateUser = function () {
+			AccountService.updateUser($scope.user).then(
+				function(response){
+					$scope.user = response.data;
+					$log.debug(response.data);
+					$scope.init();
+
+					//alert("Les données ont été mises à jour avec succès !");
+					//$location.path( "/account" );
+				}
+			);
 		};
 	}
 ])

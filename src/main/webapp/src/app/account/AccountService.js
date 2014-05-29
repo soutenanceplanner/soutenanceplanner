@@ -6,14 +6,6 @@ angular.module('soutenanceplanner.account')
 
 		var AccountService = {
 
-			oups: function(){
-				return $http({
-					method: 'GET',
-					url: WS_SERVER_URL + "/oups",
-					data: {}
-				});
-			},
-
 			createUser:function(user){
 				return $http({
 					method: 'POST',
@@ -40,6 +32,14 @@ angular.module('soutenanceplanner.account')
 				return $http({
 					method: 'GET',
 					url: WS_SERVER_URL + "/user/list",
+				});
+			},
+
+			updateUser:function(user){
+				return $http({
+					method: 'PUT',
+					url: WS_SERVER_URL + "/user/"+user.id,
+					data : user
 				});
 			}
 
