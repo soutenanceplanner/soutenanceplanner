@@ -47,9 +47,9 @@
 						<select class="" ng-model="time_slot.ending" ng-change="refetchCalendar(myCalendar1)">
 							<option ng-selected="{{h2.value==time_slot.ending}}" ng-repeat="h2 in hours" value="{{h2.value}}">{{h2.text}}</option>
 						</select>
-						<a class="btn btn-sm btn-default" ng-click="new_calendar.time_slot_list.splice($index, 1)">-</a>
+						<a ng-if="new_calendar.time_slot_list.length > 1" class="btn btn-sm btn-default" ng-click="new_calendar.time_slot_list.splice($index, 1)">-</a>
 					</li>
-					<li><button class="add_time_slot btn btn-sm btn-default" ng-click="add_time_slot()">+</button></li>
+					<li ng-if="new_calendar.time_slot_list.length < 3"><button class="add_time_slot btn btn-sm btn-default" ng-click="add_time_slot()">+</button></li>
 				</ul>
 			</p>
 		</div>
