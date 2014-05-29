@@ -1,6 +1,10 @@
 				<div class="col-md-6 span-fixed-sidebar">
 					<ol class="breadcrumb">
-						<li><a ui-sref='home'>Accueil</a></li>
-						<li><a ui-sref='accountShow'>Mon compte</a></li>
+						<li ng-repeat="step in steps | limitTo:(steps.length-1)">
+							<a href="{{step.ncyBreadcrumbLink}}">{{step.ncyBreadcrumbLabel}}</a>
+						</li>
+						<li ng-repeat="step in steps | limitTo:-1" class="active">
+							<span>{{step.ncyBreadcrumbLabel}}</span>
+						</li>
 					</ol>
 				</div>

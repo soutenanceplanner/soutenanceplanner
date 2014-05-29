@@ -4,24 +4,52 @@ angular.module('soutenanceplanner.formation')
 
 .config(['$stateProvider', '$urlRouterProvider',
 	function ($stateProvider, $urlRouterProvider) {
-		$stateProvider.state('formationAdd', {
-			url: '/formation/add',
-			templateUrl: 'formation/add.tpl.html',
-			controller: 'FormationAddCtrl'
-		}).state('formationEdit', {
-			url: '/formation/edit/:id',
-			templateUrl: 'formation/edit.tpl.html',
-			controller: 'FormationEditCtrl',
-			directives : [ "directives" ]
-		}).state('formationList', {
-			url: '/formation/list',
-			templateUrl: 'formation/list.tpl.html',
-			controller: 'FormationListCtrl'
-		}).state('formationShow', {
-			url: '/formation/show/:id',
-			templateUrl: 'formation/show.tpl.html',
-			controller: 'FormationShowCtrl'
-		});
+		$stateProvider
+			.state('formation', {
+				url: '/formation',
+				templateUrl: 'formation/list.tpl.html',
+				controller: 'FormationListCtrl',
+				data: {
+					ncyBreadcrumbLabel: 'Formations'
+				}
+			})
+			.state('formation.add', {
+				url: '/add',
+				views: {
+					"@" : {
+						templateUrl: 'formation/add.tpl.html',
+						controller: 'FormationAddCtrl'
+					}
+				},
+				data: {
+					ncyBreadcrumbLabel: 'Ajout'
+				}
+			})
+			.state('formation.detail', {
+				url: '/:id',
+				views: {
+					"@" : {
+						templateUrl: 'formation/detail.tpl.html',
+						controller: 'FormationDetailCtrl'
+					}
+				},
+				data: {
+					ncyBreadcrumbLabel: 'Formation {{user.login}}'
+				}
+			})
+			.state('formation.detail.edit', {
+				url: '/edit',
+				views: {
+					"@" : {
+						templateUrl: 'formation/edit.tpl.html',
+						controller: 'FormationEditCtrl'
+					}
+				},
+				data: {
+					ncyBreadcrumbLabel: 'Edition'
+				}
+			})
+		;
 	}
 ])
 

@@ -61,9 +61,9 @@ angular.module('soutenanceplanner.formation')
 	}
 ])
 
-.controller('FormationShowCtrl', ['$scope', '$log', '$stateParams', 'FormationService',
+.controller('FormationDetailCtrl', ['$scope', '$log', '$stateParams', 'FormationService',
 	function($scope, $log, $stateParams, FormationService) {
-		$log.debug('FormationShowCtrl');
+		$log.debug('FormationDetailCtrl');
 
 		$scope.init = function(){
 			FormationService.getFormation($stateParams.id).then(

@@ -2,7 +2,7 @@
 /*jshint unused:false */
 
 angular.module('soutenanceplanner', [ 'templates-app', 'templates-common',
-		'ui.router', 'ngAnimate', 'ui.calendar',
+		'ui.router', 'ngAnimate', 'ui.calendar', 'ncy-angular-breadcrumb',
 
 		// dans cet ordre là pour éviter conflits
 		'ui.bootstrap', 'mgcrea.ngStrap', 'angularFileUpload', 'services.i18n',
@@ -43,6 +43,14 @@ angular
 			// $httpProvider.defaults.useXDomain = true;
 			// delete $httpProvider.defaults.headers.common['X-Requested-With'];
 		} ])
+
+		// Breadcrumb config
+		.config(function($breadcrumbProvider) {
+			$breadcrumbProvider.setOptions({
+				prefixStateName: 'home',
+				templateUrl: 'breadcrumb.tpl.html'
+			});
+		})
 
 		.run(
 				[

@@ -34,7 +34,8 @@ module.exports = {
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/angular-ui-calendar/src/calendar.js',
       'vendor/fullcalendar/fullcalendar.js',
-      'vendor/fullcalendar/gcal.js'
+      'vendor/fullcalendar/gcal.js',
+      'vendor/angular-breadcrumb/dist/angular-breadcrumb.min.js'
     ],
     css: [
       'vendor/angular-motion/dist/angular-motion.min.css',

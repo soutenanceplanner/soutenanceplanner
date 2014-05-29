@@ -13,9 +13,11 @@
     "angular-ui-router": "0.2.10",
     "angular-file-upload": "0.5.5",
     "ionicons": "~1.4.1",
+    "bootstrap": "latest",
     "bootstrap-sass": "~3.0.2",
     "angular-bootstrap": "0.11.0",
-    "angular-ui-calendar": "latest"
+    "angular-ui-calendar": "latest",
+    "angular-breadcrumb": "latest"
   },
   "dependencies": {},
   "resolutions": {

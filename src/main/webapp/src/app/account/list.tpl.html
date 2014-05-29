@@ -1,21 +1,19 @@
-<fieldset>
-	<legend>Utilisateurs</legend>
-	<table class="table table-hover">
-		<tr>
-			<th>Identifiant</th>
-			<th>Email</th>
-			<th>Status</th>
-			<th></th>
-		</tr>
-		<tr ng-repeat="user in users">
-			<th><a ui-sref="accountShow({id:user.id})"><span>{{user.login}}</span></a></th>
-			<td>{{user.mail}}</td>
-			<td>{{user.flag}}</td>
-			<td><button ng-click="deleteUser(user.id)" type="button" class="close">&times;</button></td>
-		</tr>
-		<tr>
-			<td colspan="4" align="center"></td>
-		</tr>
-	</table>
-	<button ui-sref="accountAdd" class="btn btn-default center-block">Ajouter</button>
-</fieldset>
+<legend>Utilisateurs</legend>
+<table class="table table-hover">
+	<tr>
+		<th>Identifiant</th>
+		<th>Email</th>
+		<th>Status</th>
+		<th></th>
+	</tr>
+	<tr ng-repeat="user in users">
+		<th><a ui-sref="account.detail({id:user.id})"><span>{{user.login}}</span></a></th>
+		<td>{{user.mail}}</td>
+		<td>{{user.flag}}</td>
+		<td><button ng-click="deleteUser(user.id)" type="button" class="close">&times;</button></td>
+	</tr>
+	<tr>
+		<td colspan="4" align="center"></td>
+	</tr>
+</table>
+<button ui-sref="account.add" class="btn btn-default center-block">Ajouter</button>
