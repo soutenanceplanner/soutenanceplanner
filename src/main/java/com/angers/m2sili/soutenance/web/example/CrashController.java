@@ -15,7 +15,6 @@
  */
 package com.angers.m2sili.soutenance.web.example;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +33,6 @@ import com.angers.m2sili.soutenance.model.example.Pet;
 @Controller
 public class CrashController {
 
-	@PreAuthorize("denyAll()")
     @RequestMapping(value = "/oups", method = RequestMethod.GET)
     public @ResponseBody Pet triggerException() {
     	return new Pet();
