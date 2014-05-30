@@ -32,9 +32,10 @@ angular.module('soutenanceplanner')
     });
 }])
 
-.run(['$rootScope','$http','$location',
-    function($rootScope, $http, $location) {
+.run(['$rootScope','$http','$state',
+    function($rootScope, $http, $state) {
 
+        //check login lors d'un rechargement de page
         $rootScope.$on("$routeChangeStart", function() {
             SecurityService.retrieve().success(
                 function(data){
@@ -54,20 +55,20 @@ angular.module('soutenanceplanner')
         $rootScope.$on('event:loginRequired', function () {
             $rootScope.requests401 = [];
             
-            $location.path('/login');
+            $state.go('login');
         });
 
         /**
          * On 'event:loginConfirmed', resend all the 401 requests.
          */
         $rootScope.$on('event:loginConfirmed', function () {
-            var i,
-                requests = $rootScope.requests401,
-                retry = function (req) {
-                    $http(req.config).then(function (response) {
-                        req.deferred.resolve(response);
-                    });
-                };
+            var i;
+            var requests = $rootScope.requests401;
+            var retry = function (req) {
+                $http(req.config).then(function (response) {
+                    req.deferred.resolve(response);
+                });
+            };
 
             for (i = 0; i < requests.length; i += 1) {
                 retry(requests[i]);
@@ -92,7 +93,7 @@ angular.module('soutenanceplanner')
          */
         $rootScope.$on('event:logoutRequest', function () {
             httpHeaders.common['Authorization'] = null;
-            originalLocation = "/main";
+            $state.go("home");
         });
 
     }

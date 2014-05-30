@@ -16,6 +16,7 @@ angular.module('soutenanceplanner.login')
 						if ($scope.rememberMe) {
 							$cookieStore.put('authToken', authToken);
 						}
+					}
 				);
 			};
 
