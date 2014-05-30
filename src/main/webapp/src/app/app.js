@@ -76,17 +76,17 @@ angular.module('soutenanceplanner')
 			$rootScope.i18n = i18n;
 		};
 
-		$http({
-					method: 'GET',
-					url: WS_SERVER_URL + "/oups",
-				}).then(
-				function (response){
-					console.log(response.data);
-				},
-				function (argument) {
-					console.log("erreur serv");
-				}
-			);
+		//$http({
+		//			method: 'GET',
+		//			url: WS_SERVER_URL + "/oups",
+		//		}).then(
+		//		function (response){
+		//			console.log(response.data);
+		//		},
+		//		function (argument) {
+		//			console.log("erreur serv");
+		//		}
+		//);
 
 		$scope.init();
 } ])

@@ -3,7 +3,6 @@ package com.angers.m2sili.soutenance.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +21,7 @@ import com.angers.m2sili.soutenance.service.FormationService;
  */
 
 @Controller
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 @RequestMapping(value = "/formation")
 public class FormationController extends BaseController {
 	
