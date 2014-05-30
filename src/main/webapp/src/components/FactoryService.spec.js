@@ -28,4 +28,17 @@ describe('FactoryService tester', function() {
 		expect(responseStatus).toBe(200);
 	});
 
+	it('FactoryService - formation', function() {
+
+		expect(factoryService.formation).toBeDefined();
+		httpBackend.expect('GET', WS_SERVER_URL + "/factory/formation" ).respond();
+
+		var responseStatus;
+		factoryService.formation().then(function(response) {
+			responseStatus = response.status;
+		});
+		httpBackend.flush();
+		expect(responseStatus).toBe(200);
+	});
+
 });

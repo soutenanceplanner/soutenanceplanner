@@ -1,5 +1,6 @@
 package com.angers.m2sili.soutenance.service;
 
+import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.User;
 
 /**
@@ -11,5 +12,7 @@ import com.angers.m2sili.soutenance.model.User;
 public interface FactoryService {
 
 	public User user();
+
+	public Formation formation();
 
 }

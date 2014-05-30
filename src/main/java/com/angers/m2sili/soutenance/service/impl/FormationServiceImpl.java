@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.angers.m2sili.soutenance.model.Formation;
+import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.repository.FormationRepository;
 import com.angers.m2sili.soutenance.service.FormationService;
 
@@ -16,23 +18,32 @@ public class FormationServiceImpl implements FormationService {
 	private FormationRepository formationRepository;
 
 	@Override
+	@Transactional
 	public Formation create(Formation formation) {
 		return formationRepository.save(formation);
 	}
 
 	@Override
-	public void delete(Integer id) {
-		formationRepository.delete(id);
-	}
-
-	@Override
+	@Transactional(readOnly = true)
 	public Formation get(Integer id) {
 		return formationRepository.findOne(id);
 	}
-
+	
 	@Override
+	@Transactional(readOnly = true)
 	public List<Formation> getAll() {
 		return formationRepository.findAll();
+	}
+	
+	@Override
+	@Transactional
+	public void delete(Integer id) {
+		formationRepository.delete(id);
+	}	
+
+	@Override
+	public Formation update(Formation formation) {
+		return formationRepository.save(formation);
 	}
 
 }

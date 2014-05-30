@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.FactoryService;
 
@@ -18,8 +19,14 @@ public class FactoryController extends BaseController {
 	
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public @ResponseBody
-	User create(){
+	User user(){
 		return factoryService.user();
+	}
+	
+	@RequestMapping(value = "/formation", method = RequestMethod.GET)
+	public @ResponseBody
+	Formation formation(){
+		return factoryService.formation();
 	}
 
 }

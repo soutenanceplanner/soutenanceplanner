@@ -23,7 +23,7 @@ angular.module('soutenanceplanner.account')
 			AccountService.createUser($scope.user).then(
 				function(response){
 					$log.debug(response.data);
-					$state.go("accountList");
+					$state.go("account");
 				},
 				function(response){
 					$log.debug("Erreur serveur");
@@ -36,8 +36,8 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountEditCtrl', ['$scope', '$location', '$log','$stateParams', 'AccountService', 'EnumService',
-	function($scope, $location, $log, $stateParams, AccountService, EnumService) {
+.controller('AccountEditCtrl', ['$scope', '$location', '$log', '$state', '$stateParams', 'AccountService', 'EnumService',
+	function($scope, $location, $log, $state, $stateParams, AccountService, EnumService) {
 		$log.debug('AccountEditCtrl');
 
 		$scope.init = function(){
@@ -65,8 +65,9 @@ angular.module('soutenanceplanner.account')
 					$log.debug(response.data);
 					$scope.init();
 
-					//alert("Les données ont été mises à jour avec succès !");
+					alert("Les données ont été mises à jour avec succès !");
 					//$location.path( "/account" );
+					$state.go("account");
 				}
 			);
 		};
