@@ -6,22 +6,25 @@ angular.module('soutenanceplanner.login')
 
 		$scope.rememberMe = false;
 
-		$scope.verify = function () {
-
-			$scope.login = function() {
-				SecurityService.authenticate("login", "password").then(
-					function(response) {
-						var authToken = response.data.token;
-						$rootScope.authToken = authToken;
-						if ($scope.rememberMe) {
-							$cookieStore.put('authToken', authToken);
-						}
+		$scope.login = function() {
+			SecurityService.authenticate("login", "password").then(
+				function(response) {
+					var authToken = response.data.token;
+					$rootScope.authToken = authToken;
+					if ($scope.rememberMe) {
+						$cookieStore.put('authToken', authToken);
 					}
-				);
-			};
 
-			alert("Connected !");
-			$location.path( "/home" );
+					alert("Connected !");
+					$location.path( "/home" );
+				}
+			);
+		};
+
+		$scope.logout = function(){
+			delete $rootScope.user;
+			delete $rootScope.authToken;
+			$cookieStore.remove('authToken');
 		};
 	}
 ])

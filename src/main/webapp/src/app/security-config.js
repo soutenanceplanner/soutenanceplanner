@@ -30,10 +30,31 @@ angular.module('soutenanceplanner')
             );
         };
     });
+
+    var useAuthTokenHeader = true;
+
+    /* Registers auth token interceptor, auth token is either passed by header or by query parameter
+    * as soon as there is an authenticated user */
+    $httpProvider.interceptors.push(function ($q, $rootScope, $location) {
+        return {
+                    'request': function(config) {
+                        if (angular.isDefined($rootScope.authToken)) {
+                            var authToken = $rootScope.authToken;
+
+                            if (useAuthTokenHeader) {
+                                config.headers['X-Auth-Token'] = authToken;
+                            } else {
+                                config.url = config.url + "?token=" + authToken;
+                            }
+                        }
+                        return config || $q.when(config);
+                    }
+                };
+    });
 }])
 
-.run(['$rootScope','$http','$state',
-    function($rootScope, $http, $state) {
+.run(['$rootScope','$http','$state', '$location', '$cookieStore',
+    function($rootScope, $http, $state, $location, $cookieStore) {
 
         //check login lors d'un rechargement de page
         $rootScope.$on("$routeChangeStart", function() {
@@ -54,8 +75,20 @@ angular.module('soutenanceplanner')
 
         $rootScope.$on('event:loginRequired', function () {
             $rootScope.requests401 = [];
-            
-            $state.go('login');
+
+            /* Try getting valid user from cookie or go to login page */
+            var originalPath = $location.path();
+            var authToken = $cookieStore.get('authToken');
+            if (authToken !== undefined) {
+                $rootScope.authToken = authToken;
+                //UserService.get(function(user) {
+                    //$rootScope.user = user;
+                    $location.path(originalPath);
+                //});
+            }
+            else {
+                $state.go('login');
+            }
         });
 
         /**
