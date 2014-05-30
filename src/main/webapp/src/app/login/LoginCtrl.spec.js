@@ -1,6 +1,6 @@
 describe('LoginCtrl tester', function() {
 
-	var calendarCtrl, scope, httpBackend, callBack, log;
+	var loginCtrl, scope, httpBackend, callBack, log;
 
 	beforeEach(module('soutenanceplanner'));
 
@@ -9,7 +9,7 @@ describe('LoginCtrl tester', function() {
 
 		httpBackend = _$httpBackend_;
 		log = $log;
-		calendarCtrl = $controller('LoginCtrl', {
+		loginCtrl = $controller('LoginCtrl', {
 			$log : log,
 			$scope: scope
 		});
@@ -17,7 +17,7 @@ describe('LoginCtrl tester', function() {
 	}));
 
 	it('LoginCtrl', function() {
-		expect(calendarCtrl).toBeDefined();
+		expect(loginCtrl).toBeDefined();
 	});
 
 });

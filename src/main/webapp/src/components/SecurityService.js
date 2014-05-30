@@ -16,11 +16,14 @@ angular.module('soutenanceplanner.security')
 				});
 			},
 
-			authenticate: function(){
+			authenticate: function(login, password){
 				return $http({
 					method: 'POST',
 					url: WS_SERVER_URL + "/security/authenticate",
-					data: {}
+					data: {
+						login : login,
+						password : password
+					}
 				});
 			}
 

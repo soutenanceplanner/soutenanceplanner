@@ -6,6 +6,7 @@ angular.module('soutenanceplanner', [
 		'templates-common',
 		'ui.router',
 		'ngAnimate',
+		'ngCookies',
 		'ui.calendar',
 		'ncy-angular-breadcrumb',
 
@@ -78,6 +79,7 @@ angular.module('soutenanceplanner')
 			$rootScope.i18n = i18n;
 		};
 
+		//check security
 		SecurityService.retrieve();
 
 		$scope.init();
