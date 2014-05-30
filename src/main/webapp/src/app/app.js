@@ -67,14 +67,26 @@ angular.module('soutenanceplanner')
 		$http.defaults.headers.contentType = "application/json; charset=utf-8";
 } ])
 
-.controller('MainCtrl',['$scope','$rootScope','$location','$log','$state','i18n',
-	function($scope, $rootScope, $location, $log, $state, i18n) {
+.controller('MainCtrl',['$scope','$rootScope','$location','$log','$state', '$http', 'WS_SERVER_URL', 'i18n',
+	function($scope, $rootScope, $location, $log, $state, $http, WS_SERVER_URL, i18n) {
 		$log.debug("MainCtrl");
 
 		$scope.init = function() {
 			// i18n
 			$rootScope.i18n = i18n;
 		};
+
+		$http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/oups",
+				}).then(
+				function (response){
+					console.log(response.data);
+				},
+				function (argument) {
+					console.log("erreur serv");
+				}
+			);
 
 		$scope.init();
 } ])

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                    http://www.springframework.org/schema/security 
+                    http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+    
+    <!-- 
+		hasRole([role]) 
+			Returns true if the current principal has the specified role. 
+		hasAnyRole([role1,role2]) 
+			Returns true if the current principal has any of the supplied roles (given as a comma-separated list of strings) 
+		principal 
+			Allows direct access to the principal object representing the current user 
+		authentication 
+			Allows direct access to the current Authentication object obtained from the SecurityContext 
+		permitAll 
+			Always evaluates to true 
+		denyAll 
+			Always evaluates to false 
+		isAnonymous() 
+			Returns true if the current principal is an anonymous user 
+		isRememberMe() 
+			Returns true if the current principal is a remember-me user 
+		isAuthenticated() 
+			Returns true if the user is not anonymous 
+		isFullyAuthenticated() 
+			Returns true if the user is not an anonymous or a remember-me user 
+	 -->
+
+	<http auto-config='true' entry-point-ref="authenticationEntryPoint">
+		<form-login authentication-success-handler-ref="ajaxAuthenticationSuccessHandler"
+			authentication-failure-handler-ref="ajaxAuthenticationFailureHandler" />
+		<logout success-handler-ref="ajaxLogoutSuccessHandler" />
+	</http>
+
+	<beans:bean id="authenticationEntryPoint"
+		class="com.angers.m2sili.soutenance.web.security.Http401DeniedEntryPoint" />
+	<beans:bean id="ajaxAuthenticationSuccessHandler"
+		class="com.angers.m2sili.soutenance.web.security.AjaxAuthenticationSuccessHandler" />
+	<beans:bean id="ajaxAuthenticationFailureHandler"
+		class="com.angers.m2sili.soutenance.web.security.AjaxAuthenticationFailureHandler" />
+	<beans:bean id="ajaxLogoutSuccessHandler"
+		class="com.angers.m2sili.soutenance.web.security.AjaxLogoutSuccessHandler" />
+
+	<beans:bean id="encoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
+
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder ref="encoder" />
+			<user-service>
+				<user name="rod"
+					password="864acff7515e4e419d4266e474ea14a889dce340784038b704a30453e01245eed374f881f3df8e1e"
+					authorities="user" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>
