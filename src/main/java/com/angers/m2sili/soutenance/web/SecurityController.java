@@ -1,6 +1,7 @@
 package com.angers.m2sili.soutenance.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ public class SecurityController {
 	@Autowired
 	private UserService userService;
 	
+	@PreAuthorize(value="denyAll()")
 	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
 	public @ResponseBody Object authenticatedUser() {
 		return null;
