@@ -1,21 +1,19 @@
 describe('MainCtrl', function() {
-	var mainCtrl, location, scope, log, callBack, i18n_, state;
+	var mainCtrl, scope, log, callBack, i18n_, securityService;
 
 	beforeEach(module('soutenanceplanner'));
 
-	beforeEach(inject(function($controller, $rootScope, $location, $log, $state, i18n) {
-		location = $location;
+	beforeEach(inject(function($controller, $rootScope, $log, i18n, SecurityService) {
 		log = $log;
 		scope = $rootScope.$new();
 		i18n_ = i18n;
-		state = $state;
+		securityService = SecurityService;
 		mainCtrl = $controller('MainCtrl', {
-			$location: location,
 			$rootScope : scope,
 			$scope: scope,
 			$log: log,
-			$state : state,
-			i18n : i18n_
+			i18n : i18n_,
+			SecurityService : securityService
 		});
 		callBack = {};
 	}));

@@ -17,7 +17,9 @@ angular.module('soutenanceplanner', [
 		'services.i18n',
 
 		// Commons
-		'soutenanceplanner.factory', 'soutenanceplanner.enum',
+		'soutenanceplanner.factory',
+		'soutenanceplanner.enum',
+		'soutenanceplanner.security',
 
 		// modules
 		'soutenanceplanner.home',
@@ -67,8 +69,8 @@ angular.module('soutenanceplanner')
 		$http.defaults.headers.contentType = "application/json; charset=utf-8";
 } ])
 
-.controller('MainCtrl',['$scope','$rootScope','$location','$log','$state', '$http', 'WS_SERVER_URL', 'i18n',
-	function($scope, $rootScope, $location, $log, $state, $http, WS_SERVER_URL, i18n) {
+.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n',
+	function($rootScope, $scope, $log, SecurityService, i18n) {
 		$log.debug("MainCtrl");
 
 		$scope.init = function() {
@@ -76,17 +78,7 @@ angular.module('soutenanceplanner')
 			$rootScope.i18n = i18n;
 		};
 
-		//$http({
-		//			method: 'GET',
-		//			url: WS_SERVER_URL + "/oups",
-		//		}).then(
-		//		function (response){
-		//			console.log(response.data);
-		//		},
-		//		function (argument) {
-		//			console.log("erreur serv");
-		//		}
-		//);
+		SecurityService.retrieve();
 
 		$scope.init();
 } ])

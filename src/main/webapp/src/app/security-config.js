@@ -39,7 +39,7 @@ angular.module('soutenanceplanner')
             $http.get('user/authenticated/retrieve').success(function (data) {
                 $rootScope.user = data;
                 if (data === null){
-                    $location.path("/login");
+                    $rootScope.$broadcast('event:loginRequired');
                 }
             });
         });
