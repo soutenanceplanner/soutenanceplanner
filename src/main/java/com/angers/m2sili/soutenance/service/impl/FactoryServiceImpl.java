@@ -26,4 +26,9 @@ public class FactoryServiceImpl implements FactoryService {
 		return new Formation();
 	}
 
+	@Override
+	public Formation formation() {
+		return new Formation();
+	}
+
 }

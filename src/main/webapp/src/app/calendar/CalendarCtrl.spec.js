@@ -1,4 +1,4 @@
-describe('CalendarCtrl tester', function() {
+describe('CalendarAddCtrl tester', function() {
 
 	var calendarHtml, scope, httpBackend, callBack, log;
 
@@ -9,14 +9,14 @@ describe('CalendarCtrl tester', function() {
 
 		httpBackend = _$httpBackend_;
 		log = $log;
-		calendarHtml = $controller('CalendarCtrl', {
+		calendarHtml = $controller('CalendarAddCtrl', {
 			$log : log,
 			$scope: scope
 		});
 		callBack = {};
 	}));
 
-	it('CalendarCtrl', function() {
+	it('CalendarAddCtrl', function() {
 		expect(calendarHtml).toBeDefined();
 	});
 
