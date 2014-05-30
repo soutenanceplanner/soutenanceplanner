@@ -36,12 +36,14 @@ angular.module('soutenanceplanner')
     function($rootScope, $http, $location) {
 
         $rootScope.$on("$routeChangeStart", function() {
-            $http.get('user/authenticated/retrieve').success(function (data) {
-                $rootScope.user = data;
-                if (data === null){
-                    $rootScope.$broadcast('event:loginRequired');
+            SecurityService.retrieve().success(
+                function(data){
+                    $rootScope.user = data;
+                    if (data === null){
+                        $rootScope.$broadcast('event:loginRequired');
+                    }
                 }
-            });
+            );
         });
 
         /**
