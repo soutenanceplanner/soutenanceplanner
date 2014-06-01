@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.FactoryService;
+import com.angers.m2sili.soutenance.web.dto.AuthenticateDTO;
 
 @Controller
 @RequestMapping(value = "/factory")
@@ -21,6 +22,12 @@ public class FactoryController extends BaseController {
 	public @ResponseBody
 	User user(){
 		return factoryService.user();
+	}
+	
+	@RequestMapping(value = "/authenticate", method = RequestMethod.GET)
+	public @ResponseBody
+	AuthenticateDTO authenticate(){
+		return factoryService.authenticate();
 	}
 	
 	@RequestMapping(value = "/formation", method = RequestMethod.GET)

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.FactoryService;
+import com.angers.m2sili.soutenance.web.dto.AuthenticateDTO;
 
 /**
  * Classe d'implémentation du service de Factory.
@@ -24,6 +25,11 @@ public class FactoryServiceImpl implements FactoryService {
 	@Override
 	public Formation formation() {
 		return new Formation();
+	}
+
+	@Override
+	public AuthenticateDTO authenticate() {
+		return new AuthenticateDTO();
 	}
 
 }

@@ -3,6 +3,7 @@ package com.angers.m2sili.soutenance.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,33 +29,37 @@ import com.angers.m2sili.soutenance.model.enumeration.Droit;
 public class User extends BaseEntity {
 
 	@NotEmpty
+	@Column(name = "login", unique = true)
 	private String login;
-	
+
 	@NotEmpty
-	//@Pattern(regexp="")
+	// @Pattern(regexp="")
 	@SafeHtml
+	@Column(name = "password")
 	private String password;
-	
+
 	@NotEmpty
 	@Email
+	@Column(name = "mail")
 	private String mail;
-	
+
 	@NotNull
 	@Enumerated(EnumType.STRING)
+	@Column(name = "flag")
 	private Droit flag;
-	
+
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
 	 */
-	public User(){
+	public User() {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-	private List<Calendar> listeCalendrier ;
-	
+	private List<Calendar> listeCalendrier;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-	private List<Oral> listeOral ;
-	
+	private List<Oral> listeOral;
+
 	public List<Oral> getListeOral() {
 		return listeOral;
 	}
