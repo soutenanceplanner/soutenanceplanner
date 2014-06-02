@@ -2,6 +2,7 @@ package com.angers.m2sili.soutenance.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.FactoryService;
@@ -30,6 +31,12 @@ public class FactoryServiceImpl implements FactoryService {
 	@Override
 	public AuthenticateDTO authenticate() {
 		return new AuthenticateDTO();
+	}
+
+	@Override
+	public Calendar calendar() {
+		// TODO Auto-generated method stub
+		return new Calendar();
 	}
 
 }

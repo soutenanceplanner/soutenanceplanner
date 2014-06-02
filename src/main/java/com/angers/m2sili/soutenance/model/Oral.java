@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -37,10 +36,27 @@ public class Oral extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user ;
-	
-	@OneToOne
+
+	@ManyToOne
+	@JoinColumn(name = "calendar_id")
 	private Calendar calendar;
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
+	}
+
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
 	 */

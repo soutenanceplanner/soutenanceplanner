@@ -25,7 +25,7 @@
 			<div class="form-group">
 				<label for="new_calendar.formation" class="col-sm-3 control-label">Formation</label>
 				<div class="col-sm-9">
-					<select ng-model="new_calendar.formation" ng-options="formation.id as formation.name for formation in formations" 
+					<select ng-model="new_calendar.formation" ng-options="formation as formation.name for formation in formations" 
 						class="form-control" id="formation" required></select>
 				</div>
 			</div>
@@ -58,9 +58,8 @@
 				<div class="col-sm-3">
 					<select ng-model="new_calendar.duration" class="form-control"
 						id="new_calendar.duration" name="new_calendar.duration"
-						ng-change="refetchCalendar(myCalendar1)" required>
-						<option ng-selected="{{d.value==duration}}"
-							ng-repeat="d in durations" value="{{d.value}}">{{d.text}}</option>
+						ng-change="refetchCalendar(myCalendar1)"
+						ng-options="duration.value as duration.label for duration in durations" required>
 					</select>
 				</div>
 			</div>
@@ -70,18 +69,16 @@
 				<div class="col-md-7">
 					<table class="table table-hover">
 						<tr ng-repeat="time_slot in new_calendar.time_slot_list">
-							<td style="vertical-align: middle;"><select
-								class="form-control" ng-model="time_slot.beginning"
-								ng-change="refetchCalendar(myCalendar1)">
-									<option ng-selected="{{h1.value==time_slot.beginning}}"
-										ng-repeat="h1 in hours" value="{{h1.value}}">{{h1.text}}</option>
-							</select></td>
+							<td style="vertical-align: middle;">
+								<select class="form-control" ng-model="time_slot.beginning"
+									ng-change="refetchCalendar(myCalendar1)"
+									ng-options="hour.value as hour.label for hour in hours">
+								</select></td>
 							<td style="vertical-align: middle;"><span>à</span></td>
-							<td style="vertical-align: middle;"><select
-								class="form-control" ng-model="time_slot.ending"
-								ng-change="refetchCalendar(myCalendar1)">
-									<option ng-selected="{{h2.value==time_slot.ending}}"
-										ng-repeat="h2 in hours" value="{{h2.value}}">{{h2.text}}</option>
+							<td style="vertical-align: middle;">
+								<select class="form-control" ng-model="time_slot.ending"
+									ng-change="refetchCalendar(myCalendar1)"
+									ng-options="hour.value as hour.label for hour in hours">
 							</select></td>
 							<td style="vertical-align: middle;">
 								<button ng-if="new_calendar.time_slot_list.length > 1"
@@ -133,9 +130,9 @@
 <div>
 	<br />
 	<p class="">
-		<label for="new_calendar.url_code">Url d'accès</label> <input
-			type="text" name="new_calendar.url_code" class="form-control"
-			id="new_calendar.url_code" ng-model="new_calendar.url_code"
+		<label for="new_calendar.link">Url d'accès</label> <input
+			type="text" name="new_calendar.link" class="form-control"
+			id="new_calendar.link" ng-model="new_calendar.link"
 			ng-disabled="true" />
 	</p>
 	<div class="alert alert-success">

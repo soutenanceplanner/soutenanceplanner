@@ -24,6 +24,14 @@ angular.module('soutenanceplanner.factory')
 				});
 			},
 
+			calendar: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/factory/calendar",
+					data: {}
+				});
+			},
+
 			authenticate: function(){
 				return $http({
 					method: 'GET',
