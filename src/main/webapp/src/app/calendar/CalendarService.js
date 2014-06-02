@@ -19,7 +19,7 @@ angular.module('soutenanceplanner.calendar')
 						duration : calendar.duration,
 						formation : calendar.formation,
 						link : "test",
-						listeTimeSlot : 
+						listeTimeSlot : null
 					}
 				});
 			},
