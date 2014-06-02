@@ -247,15 +247,27 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarListCtrl', ['$scope', '$log', '$stateParams', 'CalendarService',
-	function($scope, $log, $stateParams, CalendarService) {
+.controller('CalendarListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService',
+	function($scope, $log, $state, $stateParams, CalendarService) {
 		$log.debug('CalendarListCtrl');
+		console.log($state.current.name);
 	}
 ])
 
-.controller('CalendarDetailCtrl', ['$scope', '$log', '$stateParams', 'CalendarService',
-	function($scope, $log, $stateParams, CalendarService) {
+.controller('CalendarDetailCtrl', ['$scope', '$log', '$stateParams', '$state', 'CalendarService',
+	function($scope, $log, $stateParams, $state, CalendarService) {
 		$log.debug('CalendarDetailCtrl');
+
+		console.log($state.current.name);
+
+
+	}
+])
+
+.controller('OralListCtrl', ['$scope', '$log', '$stateParams',
+	function($scope, $log, $stateParams) {
+		$log.debug('OralDetailCtrl');
+
 	}
 ])
 

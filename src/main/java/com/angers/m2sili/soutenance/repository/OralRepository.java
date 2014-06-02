@@ -3,18 +3,15 @@ package com.angers.m2sili.soutenance.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.angers.m2sili.soutenance.model.User;
+import com.angers.m2sili.soutenance.model.Oral;
 
 /**
  * Repository de User.
- * 
- * @author Benoît Caufriez
+ * @author typhoon
  *
  */
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
-	
-	User findByLogin(String login);
+public interface OralRepository extends JpaRepository<Oral, Integer> {
 
 }

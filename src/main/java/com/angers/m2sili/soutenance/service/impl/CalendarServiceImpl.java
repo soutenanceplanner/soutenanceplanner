@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.angers.m2sili.soutenance.model.Calendar;
-import com.angers.m2sili.soutenance.repository.CalendarRepository;
 import com.angers.m2sili.soutenance.service.CalendarService;
-
 
 @Service
 public class CalendarServiceImpl implements CalendarService{

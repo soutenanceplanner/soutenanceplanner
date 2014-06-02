@@ -24,6 +24,14 @@ angular.module('soutenanceplanner.factory')
 				});
 			},
 
+			oral: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/factory/oral",
+					data: {}
+				});
+			},
+
 			calendar: function(){
 				return $http({
 					method: 'GET',

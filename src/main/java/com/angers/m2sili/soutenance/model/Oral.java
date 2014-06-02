@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * Classe qui définit un oral durant une période de soutenance.
  * 
  * @author typhoon
+ * 
  */
 
 @Entity
@@ -25,9 +26,6 @@ public class Oral extends BaseEntity {
 
 	@NotNull
 	private Date beginningHour;
-
-	@NotNull
-	private Date endingHour;
 
 	// TODO : revoir ce modèle
 	@NotNull
@@ -77,14 +75,6 @@ public class Oral extends BaseEntity {
 
 	public void setBeginningHour(Date beginningHour) {
 		this.beginningHour = beginningHour;
-	}
-
-	public Date getEndingHour() {
-		return endingHour;
-	}
-
-	public void setEndingHour(Date endingHour) {
-		this.endingHour = endingHour;
 	}
 
 	public String getParticipants() {
