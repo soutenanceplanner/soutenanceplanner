@@ -2,13 +2,18 @@ package com.angers.m2sili.soutenance.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.angers.m2sili.soutenance.model.Calendar;
+import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.repository.CalendarRepository;
+import com.angers.m2sili.soutenance.repository.UserRepository;
 import com.angers.m2sili.soutenance.service.CalendarService;
+import com.angers.m2sili.soutenance.web.BaseController;
 
 
 @Service
@@ -17,7 +22,14 @@ public class CalendarServiceImpl implements CalendarService{
 	@Autowired
 	private CalendarRepository calendarRepository;
 
+	@Autowired
+	private UserRepository userReposituserRepositoryory;
+	
+	protected final Logger logger = LoggerFactory.getLogger(BaseController.class);
+
+	
 	@Override
+	@Transactional
 	public Calendar create(Calendar cal) {
 		return calendarRepository.save(cal);
 	}
@@ -30,13 +42,23 @@ public class CalendarServiceImpl implements CalendarService{
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Calendar> getAll() {
-		return calendarRepository.findAll();
+	public List<Calendar> getAll(String login) {
+		
+		User user = userReposituserRepositoryory.findByLogin(login);
+		
+		return calendarRepository.findAllByUser(user);
 	}
 
 	@Override
 	public List<Calendar> getAllFuturs() {
-		return calendarRepository.findAll();
+		//Date courante
+		java.util.Calendar cal = java.util.Calendar.getInstance();
+		java.util.Date utilDate = cal.getTime();
+		java.sql.Date sqlDate =  new java.sql.Date(utilDate.getTime());
+		
+		logger.debug("Recupération des Calendriers passés avant : "+sqlDate);
+		
+		return calendarRepository.findAllByBeginningDateGreaterThan(sqlDate);
 	}
 
 	@Override
@@ -52,7 +74,14 @@ public class CalendarServiceImpl implements CalendarService{
 
 	@Override
 	public List<Calendar> getAllPast() {
-		return calendarRepository.findAll();
+		//Date courante
+		java.util.Calendar cal = java.util.Calendar.getInstance();
+		java.util.Date utilDate = cal.getTime();
+		java.sql.Date sqlDate =  new java.sql.Date(utilDate.getTime());
+		
+		logger.debug("Recupération des Calendriers passés avant : "+sqlDate);
+		
+		return calendarRepository.findAllByEndingDateLessThan(sqlDate);
 	}
 	
 }
