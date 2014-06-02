@@ -52,6 +52,14 @@ public class TimeSlot extends BaseEntity {
 	public void setEndingHour(Date endingHour) {
 		this.endingHour = endingHour;
 	}
+	
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
+	}
 
 	public Calendar getCalendar() {
 		return calendar;

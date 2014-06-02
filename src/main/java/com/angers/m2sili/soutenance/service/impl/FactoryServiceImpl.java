@@ -2,6 +2,7 @@ package com.angers.m2sili.soutenance.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.User;
@@ -35,5 +36,11 @@ public class FactoryServiceImpl implements FactoryService {
 	@Override
 	public Oral oral() {
 		return new Oral();
+	}
+
+	@Override
+	public Calendar calendar() {
+		return new Calendar();
+	}
 
 }

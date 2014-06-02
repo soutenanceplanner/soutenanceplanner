@@ -1,5 +1,6 @@
 package com.angers.m2sili.soutenance.service;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.web.dto.AuthenticateDTO;
@@ -21,5 +22,7 @@ public interface FactoryService {
 	public AuthenticateDTO authenticate();
 
 	public Oral oral();
+
+	public Calendar calendar();
 
 }

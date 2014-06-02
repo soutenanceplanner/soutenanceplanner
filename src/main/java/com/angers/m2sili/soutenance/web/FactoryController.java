@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.User;
@@ -41,6 +42,12 @@ public class FactoryController extends BaseController {
 	public @ResponseBody
 	Oral oral(){
 		return factoryService.oral();
+	}
+
+	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
+	public @ResponseBody
+	Calendar calendar(){
+		return factoryService.calendar();
 	}
 
 }

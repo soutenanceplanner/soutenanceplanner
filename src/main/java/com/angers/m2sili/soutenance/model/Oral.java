@@ -34,7 +34,30 @@ public class Oral extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user ;
+<<<<<<< HEAD
+
+	@ManyToOne
+	@JoinColumn(name = "calendar_id")
+	private Calendar calendar;
+=======
+>>>>>>> branch 'dev' of git@github.com:soutenanceplanner/soutenanceplanner.git
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
+	}
+
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
 	 */

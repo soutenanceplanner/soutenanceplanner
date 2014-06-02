@@ -4,10 +4,10 @@
 
 angular.module('soutenanceplanner.calendar')
 
-.controller('CalendarAddCtrl', ['$scope', '$log', '$filter', '$stateParams', 'CalendarService', 'FormationService',
-	function($scope, $log, $filter, $stateParams, CalendarService, FormationService) {
+.controller('CalendarAddCtrl', ['$scope', '$log', '$state', '$filter', '$stateParams', 'CalendarService', 'FormationService',
+	function($scope, $log, $state, $filter, $stateParams, CalendarService, FormationService) {
 	
-		//$log.debug('CalendarAddCtrl');
+		$log.debug('CalendarAddCtrl');
 
 		$scope.init = function(){
 			FormationService.listFormation().then(
@@ -25,13 +25,13 @@ angular.module('soutenanceplanner.calendar')
 		 */
 		$scope.durations = [ {
 			value : 0.5,
-			text : "30min"
+			label : "30min"
 		}, {
 			value : 0.75,
-			text : "40min"
+			label : "40min"
 		}, {
 			value : 1,
-			text : "1h"
+			label : "1h"
 		} ];
 
 		/**
@@ -39,46 +39,46 @@ angular.module('soutenanceplanner.calendar')
 		 */
 		$scope.hours = [ {
 			value : 7,
-			text : "7h"
+			label : "7h"
 		}, {
 			value : 8,
-			text : "8h"
+			label : "8h"
 		}, {
 			value : 9,
-			text : "9h"
+			label : "9h"
 		}, {
 			value : 10,
-			text : "10h"
+			label : "10h"
 		}, {
 			value : 11,
-			text : "11h"
+			label : "11h"
 		}, {
 			value : 12,
-			text : "12h"
+			label : "12h"
 		}, {
 			value : 13,
-			text : "13h"
+			label : "13h"
 		}, {
 			value : 14,
-			text : "14h"
+			label : "14h"
 		}, {
 			value : 15,
-			text : "15h"
+			label : "15h"
 		}, {
 			value : 16,
-			text : "16h"
+			label : "16h"
 		}, {
 			value : 17,
-			text : "17h"
+			label : "17h"
 		}, {
 			value : 18,
-			text : "18h"
+			label : "18h"
 		}, {
 			value : 19,
-			text : "19h"
+			label : "19h"
 		}, {
 			value : 20,
-			text : "20h"
+			label : "20h"
 		} ];
 
 		/**
@@ -107,7 +107,7 @@ angular.module('soutenanceplanner.calendar')
 				ending : 18
 			} ],
 			constraints : [],
-			url_code : '',
+			link : '',
 			is_valid : false
 		};
 
@@ -212,7 +212,7 @@ angular.module('soutenanceplanner.calendar')
 					$state.go("calendar");
 				},
 				function(response){
-					$log.debug("Erreur serveur");
+					$log.debug(response);
 				}
 			);
 		};

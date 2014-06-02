@@ -29,9 +29,7 @@ public class CalendarController extends BaseController {
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
 	Calendar create(@RequestBody Calendar calendar) {
-		System.out.println(calendar);
-		Calendar newCalendar = calServiceImpl.create(calendar);
-		return newCalendar;
+		return calServiceImpl.create(calendar);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

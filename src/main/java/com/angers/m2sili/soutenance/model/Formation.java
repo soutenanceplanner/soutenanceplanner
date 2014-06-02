@@ -26,8 +26,21 @@ public class Formation extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
+<<<<<<< HEAD
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "formation", fetch = FetchType.EAGER)
+	private List<Calendar> listeCalendrier;
+
+	public List<Calendar> getListeCalendrier() {
+		return listeCalendrier;
+	}
+
+	public void setListeCalendrier(List<Calendar> listeCalendrier) {
+		this.listeCalendrier = listeCalendrier;
+	}
+=======
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "formation", fetch = FetchType.LAZY)
 	private List<Calendar> ListCalendar;
+>>>>>>> branch 'dev' of git@github.com:soutenanceplanner/soutenanceplanner.git
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).

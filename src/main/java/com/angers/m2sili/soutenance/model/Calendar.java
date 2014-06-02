@@ -35,7 +35,7 @@ public class Calendar extends BaseEntity {
 
 	@NotNull
 	@Column(name = "duration")
-	private Integer duration;
+	private Float duration;
 
 	@NotEmpty
 	@Column(name = "title")
@@ -53,14 +53,12 @@ public class Calendar extends BaseEntity {
 	@JoinColumn(name = "formation_id")
 	private Formation formation;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.LAZY)
-	private List<TimeSlot> timeSlot;
+<<<<<<< HEAD
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.EAGER)
+	private List<TimeSlot> listeTimeSlot;
 
-	/**
-	 * Constructeur par défaut (obligatoire pour Jackson).
-	 */
-	public Calendar() {
-	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.EAGER)
+	private List<Oral> listeOral;
 
 	public User getUser() {
 		return user;
@@ -70,6 +68,43 @@ public class Calendar extends BaseEntity {
 		this.user = user;
 	}
 
+	public Formation getFormation() {
+		return formation;
+	}
+
+	public void setFormation(Formation formation) {
+		this.formation = formation;
+	}
+
+	public List<TimeSlot> getListeTimeSlot() {
+		return listeTimeSlot;
+	}
+
+	public void setListeTimeSlot(List<TimeSlot> listeTimeSlot) {
+		this.listeTimeSlot = listeTimeSlot;
+	}
+=======
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.LAZY)
+	private List<TimeSlot> timeSlot;
+>>>>>>> branch 'dev' of git@github.com:soutenanceplanner/soutenanceplanner.git
+
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public Calendar() {
+	}
+
+<<<<<<< HEAD
+=======
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+>>>>>>> branch 'dev' of git@github.com:soutenanceplanner/soutenanceplanner.git
 	public String getTitle() {
 		return title;
 	}
@@ -102,11 +137,11 @@ public class Calendar extends BaseEntity {
 		this.endingDate = endingDate;
 	}
 
-	public Integer getDuration() {
+	public Float getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Integer duration) {
+	public void setDuration(Float duration) {
 		this.duration = duration;
 	}
 
