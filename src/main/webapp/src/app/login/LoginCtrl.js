@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.login')
 
-.controller('LoginCtrl', ['$rootScope', '$scope', '$log', '$location', '$cookieStore', 'FactoryService', 'SecurityService',
-	function($rootScope, $scope, $log, $location, $cookieStore, FactoryService, SecurityService) {
+.controller('LoginCtrl', ['$rootScope', '$scope', '$log', '$location', '$cookieStore', 'FactoryService', 'SecurityService', 'AuthenticationService',
+	function($rootScope, $scope, $log, $location, $cookieStore, FactoryService, SecurityService, AuthenticationService) {
 		$log.debug('LoginCtrl');
 
 		$scope.rememberMe = false;
@@ -15,37 +15,42 @@ angular.module('soutenanceplanner.login')
 		};
 
 		$scope.login = function() {
-			SecurityService.authenticate($scope.authenticateDTO).then(
-				function(response) {
-					var data = response.data;
+			$scope.$emit('event:loginRequest', $scope.authenticateDTO);
 
-					if (data.error !== null){
-						alert(data.error);
-					}
-					else {
-						var authToken = data.value;
-						$log.debug(authToken);
-						$rootScope.authToken = authToken;
+			//SecurityService.authenticate($scope.authenticateDTO).then(
+			//	function(response) {
+			//		var data = response.data;
 
-						if($scope.rememberMe){
-							console.log("put cookie");
-							$cookieStore.put('X-Auth-Token', authToken);
-						}
-						//$location.path( "/home" );
-						alert("Connected !");
-					}
+			//		if (data.error !== null){
+			//			alert(data.error);
+			//		}
+			//		else {
+			//			var authToken = data.value;
+			//			$log.debug(authToken);
+			//			$rootScope.authToken = authToken;
+
+			//			if($scope.rememberMe){
+			//				console.log("put cookie");
+			//				$cookieStore.put('X-Auth-Token', authToken);
+			//			}
+			//			//$location.path( "/home" );
+			//			alert("Connected !");
+			//		}
 					
-				},
-				function(response) {
-					alert("erreur serveur!");
-				}
-			);
+			//	},
+			//	function(response) {
+			//		alert("erreur serveur!");
+			//	}
+			//);
 		};
 
 		$scope.logout = function(){
-			//delete $rootScope.user;
-			delete $rootScope.authToken;
-			$cookieStore.remove('X-Auth-Token');
+			$scope.$emit('event:logoutRequest');
+
+			AuthenticationService.logout().then(function() {
+				$rootScope.user = null;
+				$state.go('home');
+			});
 		};
 
 		//init

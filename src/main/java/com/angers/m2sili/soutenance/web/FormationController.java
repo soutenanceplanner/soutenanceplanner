@@ -21,7 +21,6 @@ import com.angers.m2sili.soutenance.service.FormationService;
  */
 
 @Controller
-//@PreAuthorize("isAuthenticated()")
 @RequestMapping(value = "/formation")
 public class FormationController extends BaseController {
 	

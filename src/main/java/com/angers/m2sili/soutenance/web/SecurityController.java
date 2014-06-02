@@ -19,7 +19,6 @@ import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.AuthenticateDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 import com.angers.m2sili.soutenance.web.security.CustomUserDetailsService;
-import com.angers.m2sili.soutenance.web.security.TokenUtils;
 
 @Controller
 @RequestMapping(value = "/security")
@@ -42,15 +41,12 @@ public class SecurityController extends BaseController {
 
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
-		Object principal = authentication.getPrincipal();
-		if (principal instanceof String
-				&& ((String) principal).equals("anonymousUser")) {
-			throw new AccessDeniedException("");
+		if (authentication == null
+				|| !(authentication.getPrincipal() instanceof UserDetails)) {
+			return null;
 		}
-		UserDetails userDetails = (UserDetails) principal;
-		User user = userService.findByLogin(userDetails.getUsername());
 
-		return user;
+		return (UserDetails) authentication.getPrincipal();
 	}
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
@@ -59,39 +55,41 @@ public class SecurityController extends BaseController {
 			throws Exception {
 		// endpoint for the basic authentication request to pass
 		ReturnValueDTO returnValue = new ReturnValueDTO();
-
-		User user = userService.findByLogin(dto.getLogin());
-
-		// Erreur login
-		if (user == null) {
-			returnValue.setError("Utilisateur inexistant");
-			return returnValue;
-		}
-
-		// Password KO
-		if (user.getPassword().compareTo(dto.getPassword()) != 0) {
-			returnValue.setError("Mauvais mot de passe");
-			return returnValue;
-		}
-		// Password OK
-		else {
-			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-					dto.getLogin(), dto.getPassword());
-			Authentication authentication = this.authManager
-					.authenticate(authenticationToken);
-			SecurityContextHolder.getContext()
-					.setAuthentication(authentication);
-
-			/*
-			 * Reload user as password of authentication principal will be null
-			 * after authorization and password is needed for token generation
-			 */
-			UserDetails userDetails = this.customUserDetailsService
-					.loadUserByUsername(dto.getLogin());
-			returnValue.setValue(TokenUtils.createToken(userDetails));
-
-			return returnValue;
-		}
+//
+//		User user = userService.findByLogin(dto.getLogin());
+//
+//		// Erreur login
+//		if (user == null) {
+//			returnValue.setError("Utilisateur inexistant");
+//			return returnValue;
+//		}
+//
+//		// Password KO
+//		if (user.getPassword().compareTo(dto.getPassword()) != 0) {
+//			returnValue.setError("Mauvais mot de passe");
+//			return returnValue;
+//		}
+//		// Password OK
+//		else {
+//			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+//					dto.getLogin(), dto.getPassword());
+//			Authentication authentication = this.authManager
+//					.authenticate(authenticationToken);
+//			SecurityContextHolder.getContext()
+//					.setAuthentication(authentication);
+//
+//			/*
+//			 * Reload user as password of authentication principal will be null
+//			 * after authorization and password is needed for token generation
+//			 */
+//			UserDetails userDetails = this.customUserDetailsService
+//					.loadUserByUsername(dto.getLogin());
+//			returnValue.setValue(TokenUtils.createToken(userDetails));
+//
+//			return returnValue;
+//		}
+		// endpoint for the basic authentication request to pass
+		return returnValue;
 	}
 
 }
