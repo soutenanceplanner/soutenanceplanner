@@ -36,13 +36,10 @@ public class Oral extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user ;
-<<<<<<< HEAD
 
 	@ManyToOne
 	@JoinColumn(name = "calendar_id")
 	private Calendar calendar;
-=======
->>>>>>> branch 'dev' of git@github.com:soutenanceplanner/soutenanceplanner.git
 	
 	public User getUser() {
 		return user;
