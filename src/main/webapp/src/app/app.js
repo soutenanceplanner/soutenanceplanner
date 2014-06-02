@@ -6,6 +6,7 @@ angular.module('soutenanceplanner', [
 		'templates-common',
 		'ui.router',
 		'ngAnimate',
+		'ngCookies',
 		'ui.calendar',
 		'ncy-angular-breadcrumb',
 
@@ -17,7 +18,9 @@ angular.module('soutenanceplanner', [
 		'services.i18n',
 
 		// Commons
-		'soutenanceplanner.factory', 'soutenanceplanner.enum',
+		'soutenanceplanner.factory',
+		'soutenanceplanner.enum',
+		'soutenanceplanner.security',
 
 		// modules
 		'soutenanceplanner.home',
@@ -68,8 +71,8 @@ angular.module('soutenanceplanner')
 		$http.defaults.headers.contentType = "application/json; charset=utf-8";
 } ])
 
-.controller('MainCtrl',['$scope','$rootScope','$location','$log','$state','i18n',
-	function($scope, $rootScope, $location, $log, $state, i18n) {
+.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n',
+	function($rootScope, $scope, $log, SecurityService, i18n) {
 		$log.debug("MainCtrl");
 
 		$scope.init = function() {
@@ -77,13 +80,25 @@ angular.module('soutenanceplanner')
 			$rootScope.i18n = i18n;
 		};
 
+		//check security
+		SecurityService.retrieve();
+
 		$scope.init();
 } ])
 
 
-.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location',
-	function($rootScope, $scope, $log, $state, $location) {
+.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', 'AuthenticationService',
+	function($rootScope, $scope, $log, $state, $location, AuthenticationService) {
 		$log.debug("MenuCtrl");
+
+		$scope.logout = function(){
+			$scope.$emit('event:logoutRequest');
+
+			AuthenticationService.logout().then(function() {
+				$rootScope.user = null;
+				$state.go('home');
+			});
+		};
 	}
 ])
 
@@ -98,21 +113,26 @@ angular.module('soutenanceplanner')
 	link :	function link(scope, element, attrs) {	
 		//on récupère le titre passé en attributs et on le passe au scope du template
 		scope.titre = attrs.title ;
-		
 		//on passe le type qui correspond au badge
 		scope.badge = attrs.type;
-		
-		//si le type = 2 on récupère les calendrier à venir
-		if(attrs.type == 2){
-		HomeService.getFuturesCalendars().then(
-				function(response){
-					$log.debug(response.data);
-					scope.calendriers = response.data ;
+		//si le type = 1 on récupère les calendrier à passés
+		if(attrs.type == 1){
+			HomeService.getPastCalendars().then(
+					function(response){
+						$log.debug(response.data);
+						scope.calendriers = response.data ;
+					}
+				);
+		}else	if(attrs.type == 2){
+			HomeService.getFuturCalendars().then(
+					function(response){
+						$log.debug(response.data);
+						scope.calendriers = response.data ;
 				}
 			);
 		//si le type = 3 on récupère les calendriers de l'user
 		}else if (attrs.type == 3){
-		HomeService.getCalendars().then(
+			HomeService.getCalendars().then(
 					function(response){
 						$log.debug(response.data);
 						scope.calendriers = response.data ;

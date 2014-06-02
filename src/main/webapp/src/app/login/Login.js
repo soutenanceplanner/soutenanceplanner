@@ -13,6 +13,14 @@ angular.module('soutenanceplanner.login')
 					ncyBreadcrumbLabel: 'Connexion'
 				}
 			})
+			.state('loginRequired', {
+				url: '/401',
+				templateUrl: 'login/401.tpl.html',
+				controller: 'LoginCtrl',
+				data: {
+					ncyBreadcrumbLabel: 'Connexion'
+				}
+			})
 		;
 	}
 ])

@@ -27,6 +27,7 @@ module.exports = {
       'vendor/angular/angular.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-animate/angular-animate.js',
+      'vendor/angular-cookies/angular-cookies.js',
       'vendor/angular-strap/dist/angular-strap.js',
       'vendor/angular-strap/dist/angular-strap.tpl.js',
       'vendor/angular-file-upload/angular-file-upload.js',

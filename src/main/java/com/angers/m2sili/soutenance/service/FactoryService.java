@@ -2,6 +2,7 @@ package com.angers.m2sili.soutenance.service;
 
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.User;
+import com.angers.m2sili.soutenance.web.dto.AuthenticateDTO;
 import com.angers.m2sili.soutenance.model.Oral;
 
 /**
@@ -16,6 +17,8 @@ public interface FactoryService {
 	public User user();
 
 	public Formation formation();
+	
+	public AuthenticateDTO authenticate();
 
 	public Oral oral();
 

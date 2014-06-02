@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Formation;
-import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.FormationService;
 
 /**

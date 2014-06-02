@@ -2,6 +2,7 @@ package com.angers.m2sili.soutenance.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import com.angers.m2sili.soutenance.service.UserService;
  */
 
 @Controller
+//@PreAuthorize("isAuthenticated()")
 @RequestMapping(value = "/user")
 public class UserController extends BaseController {
 	
@@ -45,6 +47,7 @@ public class UserController extends BaseController {
 		return userService.get(id);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
 	List<User> list() {

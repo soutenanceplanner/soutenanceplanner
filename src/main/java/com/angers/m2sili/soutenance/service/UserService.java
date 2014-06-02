@@ -21,4 +21,6 @@ public interface UserService {
 	List<User> getAll();
 	
 	User update(User user);
+	
+	User findByLogin(String login);
 }

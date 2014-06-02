@@ -23,11 +23,19 @@ angular.module('soutenanceplanner.factory')
 					data: {}
 				});
 			},
-			
+
 			oral: function(){
 				return $http({
 					method: 'GET',
 					url: WS_SERVER_URL + "/factory/oral",
+					data: {}
+				});
+			},
+
+			authenticate: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/factory/authenticate",
 					data: {}
 				});
 			}

@@ -6,6 +6,7 @@ import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.FactoryService;
+import com.angers.m2sili.soutenance.web.dto.AuthenticateDTO;
 
 /**
  * Classe d'implémentation du service de Factory.
@@ -27,9 +28,12 @@ public class FactoryServiceImpl implements FactoryService {
 		return new Formation();
 	}
 	
+	public AuthenticateDTO authenticate() {
+		return new AuthenticateDTO();
+	}
+
 	@Override
 	public Oral oral() {
 		return new Oral();
-	}
 
 }
