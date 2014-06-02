@@ -86,9 +86,18 @@ angular.module('soutenanceplanner')
 } ])
 
 
-.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location',
-	function($rootScope, $scope, $log, $state, $location) {
+.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', 'AuthenticationService',
+	function($rootScope, $scope, $log, $state, $location, AuthenticationService) {
 		$log.debug("MenuCtrl");
+
+		$scope.logout = function(){
+			$scope.$emit('event:logoutRequest');
+
+			AuthenticationService.logout().then(function() {
+				$rootScope.user = null;
+				$state.go('home');
+			});
+		};
 	}
 ])
 

@@ -53,6 +53,7 @@ public class Calendar extends BaseEntity {
 	@JoinColumn(name = "formation_id")
 	private Formation formation;
 
+<<<<<<< HEAD
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.EAGER)
 	private List<TimeSlot> listeTimeSlot;
 
@@ -82,6 +83,10 @@ public class Calendar extends BaseEntity {
 	public void setListeTimeSlot(List<TimeSlot> listeTimeSlot) {
 		this.listeTimeSlot = listeTimeSlot;
 	}
+=======
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.LAZY)
+	private List<TimeSlot> timeSlot;
+>>>>>>> branch 'dev' of git@github.com:soutenanceplanner/soutenanceplanner.git
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
@@ -89,6 +94,17 @@ public class Calendar extends BaseEntity {
 	public Calendar() {
 	}
 
+<<<<<<< HEAD
+=======
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+>>>>>>> branch 'dev' of git@github.com:soutenanceplanner/soutenanceplanner.git
 	public String getTitle() {
 		return title;
 	}
@@ -127,6 +143,14 @@ public class Calendar extends BaseEntity {
 
 	public void setDuration(Float duration) {
 		this.duration = duration;
+	}
+
+	public Formation getFormation() {
+		return formation;
+	}
+
+	public void setFormation(Formation formation) {
+		this.formation = formation;
 	}
 
 }

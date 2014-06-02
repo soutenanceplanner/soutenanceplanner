@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-
 /**
  * Classe qui définit un créneau de soutenance sur un jour donné.
  * 
@@ -35,7 +34,7 @@ public class TimeSlot extends BaseEntity {
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
 	 */
-	public TimeSlot(){
+	public TimeSlot() {
 	}
 
 	public Date getBeginningHour() {
@@ -54,6 +53,14 @@ public class TimeSlot extends BaseEntity {
 		this.endingHour = endingHour;
 	}
 	
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
+	}
+
 	public Calendar getCalendar() {
 		return calendar;
 	}
