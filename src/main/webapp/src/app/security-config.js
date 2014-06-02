@@ -31,21 +31,18 @@ angular.module('soutenanceplanner')
         };
     });
 
-    var useAuthTokenHeader = true;
-
     /* Registers auth token interceptor, auth token is either passed by header or by query parameter
     * as soon as there is an authenticated user */
     $httpProvider.interceptors.push(function ($q, $rootScope, $location) {
         return {
                     'request': function(config) {
                         if (angular.isDefined($rootScope.authToken)) {
+                            console.log("test");
                             var authToken = $rootScope.authToken;
 
-                            if (useAuthTokenHeader) {
-                                config.headers['X-Auth-Token'] = authToken;
-                            } else {
-                                config.url = config.url + "?token=" + authToken;
-                            }
+                            console.log("test");
+                            $httpProvider.defaults.headers.common.Authorization = authToken;
+                            config.headers['X-Auth-Token'] = authToken;
                         }
                         return config || $q.when(config);
                     }
@@ -78,13 +75,10 @@ angular.module('soutenanceplanner')
 
             /* Try getting valid user from cookie or go to login page */
             var originalPath = $location.path();
-            var authToken = $cookieStore.get('authToken');
+            var authToken = $cookieStore.get('X-Auth-Token');
             if (authToken !== undefined) {
                 $rootScope.authToken = authToken;
-                //UserService.get(function(user) {
-                    //$rootScope.user = user;
-                    $location.path(originalPath);
-                //});
+                $location.path(originalPath);
             }
             else {
                 $state.go('login');

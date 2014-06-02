@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.login')
 
-.controller('LoginCtrl', ['$scope', '$log', '$location', '$cookieStore', 'FactoryService', 'SecurityService',
-	function($scope, $log, $location, $cookieStore, FactoryService, SecurityService) {
+.controller('LoginCtrl', ['$rootScope', '$scope', '$log', '$location', '$cookieStore', 'FactoryService', 'SecurityService',
+	function($rootScope, $scope, $log, $location, $cookieStore, FactoryService, SecurityService) {
 		$log.debug('LoginCtrl');
 
 		$scope.rememberMe = false;
@@ -23,14 +23,18 @@ angular.module('soutenanceplanner.login')
 						alert(data.error);
 					}
 					else {
-						$log.debug(data.returnValue);
+						var authToken = data.value;
+						$log.debug(authToken);
+						$rootScope.authToken = authToken;
+
+						if($scope.rememberMe){
+							console.log("put cookie");
+							$cookieStore.put('X-Auth-Token', authToken);
+						}
+						//$location.path( "/home" );
 						alert("Connected !");
 					}
-					//$rootScope.authToken = authToken;
-					//if ($scope.rememberMe) {
-					//	$cookieStore.put('authToken', authToken);
-					//}
-					//$location.path( "/home" );
+					
 				},
 				function(response) {
 					alert("erreur serveur!");
@@ -39,9 +43,9 @@ angular.module('soutenanceplanner.login')
 		};
 
 		$scope.logout = function(){
-			delete $rootScope.user;
+			//delete $rootScope.user;
 			delete $rootScope.authToken;
-			$cookieStore.remove('authToken');
+			$cookieStore.remove('X-Auth-Token');
 		};
 
 		//init

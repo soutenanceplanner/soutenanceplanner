@@ -6,11 +6,6 @@ import java.util.List;
 import com.angers.m2sili.soutenance.web.dto.EnumDTO;
 
 public enum Droit{
-
-	/**
-	 * SUPER-ADMIN.
-	 */
-	SUPER_ADMIN("Super admin"),
 	
 	/**
 	 * ADMIN.
