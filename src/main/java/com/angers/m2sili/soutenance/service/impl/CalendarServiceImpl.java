@@ -18,6 +18,7 @@ public class CalendarServiceImpl implements CalendarService{
 	private CalendarRepository calendarRepository;
 
 	@Override
+	@Transactional
 	public Calendar create(Calendar cal) {
 		return calendarRepository.save(cal);
 	}
