@@ -7,7 +7,6 @@ angular.module('soutenanceplanner.calendar')
 		var CalendarService = {
 
 			createCalendar:function(calendar){
-				console.log(calendar);
 				return $http({
 					method: 'POST',
 					url: WS_SERVER_URL + "/calendar/new",

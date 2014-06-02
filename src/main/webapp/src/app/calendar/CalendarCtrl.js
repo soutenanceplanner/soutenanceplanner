@@ -209,7 +209,7 @@ angular.module('soutenanceplanner.calendar')
 			CalendarService.createCalendar($scope.new_calendar).then(
 				function(response){
 					$log.debug(response.data);
-					$state.go("account");
+					$state.go("calendar");
 				},
 				function(response){
 					$log.debug("Erreur serveur");
