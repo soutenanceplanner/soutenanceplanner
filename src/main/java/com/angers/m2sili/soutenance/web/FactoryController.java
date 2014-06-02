@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Formation;
+import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.FactoryService;
 
@@ -27,6 +28,12 @@ public class FactoryController extends BaseController {
 	public @ResponseBody
 	Formation formation(){
 		return factoryService.formation();
+	}
+	
+	@RequestMapping(value = "/oral", method = RequestMethod.GET)
+	public @ResponseBody
+	Oral oral(){
+		return factoryService.oral();
 	}
 
 }

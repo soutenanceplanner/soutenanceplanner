@@ -24,7 +24,8 @@ angular.module('soutenanceplanner', [
 		'soutenanceplanner.calendar',
 		'soutenanceplanner.login', 
 		'soutenanceplanner.account',
-		'soutenanceplanner.formation' 
+		'soutenanceplanner.formation',
+		'soutenanceplanner.oral'
 ]);
 
 angular.module('soutenanceplanner')

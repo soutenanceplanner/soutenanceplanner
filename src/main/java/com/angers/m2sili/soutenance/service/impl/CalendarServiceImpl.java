@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
 import com.angers.m2sili.soutenance.model.Calendar;
-import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.CalendarService;
 
 

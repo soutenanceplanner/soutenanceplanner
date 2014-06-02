@@ -44,9 +44,13 @@ public class Calendar extends BaseEntity {
 	@Column(name = "link")
 	private String link;
 
-	 @ManyToOne
-	 @JoinColumn(name = "user_id")
-	 private User user;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "formation_id")
+	private Formation formation;
 	
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).

@@ -22,6 +22,14 @@ angular.module('soutenanceplanner.factory')
 					url: WS_SERVER_URL + "/factory/formation",
 					data: {}
 				});
+			},
+			
+			oral: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/factory/oral",
+					data: {}
+				});
 			}
 
 		};
