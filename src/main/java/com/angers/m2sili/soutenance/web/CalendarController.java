@@ -3,6 +3,8 @@ package com.angers.m2sili.soutenance.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +27,10 @@ public class CalendarController extends BaseController {
 
 	@Autowired
 	private CalendarService calServiceImpl;
+		
+	@Autowired
+	@Qualifier("authenticationManager")
+	private AuthenticationManager authManager;
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
@@ -52,7 +58,24 @@ public class CalendarController extends BaseController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody List<Calendar> getAll() {
-		return calServiceImpl.getAll(); 
+				
+		/*
+		 * On récupère le login
+		 * 
+		 * Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (authentication == null
+				|| !(authentication.getPrincipal() instanceof UserDetails)) {
+			return null;
+		}
+
+		UserDetails user = (UserDetails) authentication.getPrincipal();
+		
+		user.login();
+		*/
+		
+		
+		return calServiceImpl.getAll("admin1"); 
 	}
 	
 	@RequestMapping(value = "/list_futur", method = RequestMethod.GET)
