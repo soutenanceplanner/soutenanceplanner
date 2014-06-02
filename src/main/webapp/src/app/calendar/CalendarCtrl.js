@@ -143,7 +143,7 @@ angular.module('soutenanceplanner.calendar')
 								end : d2,
 								allDay : false,
 								startEditable : false,
-								durationEditable : true
+								durationEditable : false
 							});
 							$i++;
 						});
