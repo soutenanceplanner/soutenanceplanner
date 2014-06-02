@@ -15,6 +15,7 @@ public interface CalendarService {
 	public Calendar get(int idCal);
 	public List<Calendar> getAll();
 	public List<Calendar> getAllFuturs();
+	public List<Calendar> getAllPast();
 	void delete(Integer id);
 	Calendar update(Calendar calendar);
 	

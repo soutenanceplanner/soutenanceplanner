@@ -49,5 +49,10 @@ public class CalendarServiceImpl implements CalendarService{
 	public Calendar update(Calendar calendar) {
 		return calendarRepository.save(calendar);
 	}
+
+	@Override
+	public List<Calendar> getAllPast() {
+		return calendarRepository.findAll();
+	}
 	
 }
