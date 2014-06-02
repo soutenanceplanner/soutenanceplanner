@@ -52,16 +52,20 @@ public class CalendarController extends BaseController {
 		return calServiceImpl.get(id);
 	}
 	
-	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody List<Calendar> getAll() {
 		return calServiceImpl.getAll(); 
 	}
 	
 	@RequestMapping(value = "/list_futur", method = RequestMethod.GET)
-	public @ResponseBody List<Calendar> getFuturesCalendars() {
+	public @ResponseBody List<Calendar> getFuturCalendars() {
 		return calServiceImpl.getAllFuturs();
 	}
 	
+	@RequestMapping(value = "/list_past", method = RequestMethod.GET)
+	public @ResponseBody List<Calendar> getPastCalendars() {
+		return calServiceImpl.getAllPast();
+	}
 	
 	
 }
