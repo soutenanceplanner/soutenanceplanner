@@ -4,9 +4,21 @@
 
 angular.module('soutenanceplanner.calendar')
 
-.controller('CalendarAddCtrl', ['$scope', '$log', '$filter', '$stateParams', 'CalendarService',
-	function($scope, $log, $filter, $stateParams, CalendarService) {
-		$log.debug('CalendarAddCtrl');
+.controller('CalendarAddCtrl', ['$scope', '$log', '$filter', '$stateParams', 'CalendarService', 'FormationService',
+	function($scope, $log, $filter, $stateParams, CalendarService, FormationService) {
+	
+		//$log.debug('CalendarAddCtrl');
+
+		$scope.init = function(){
+			FormationService.listFormation().then(
+				function(response){
+					$scope.formations = response.data;
+					$log.debug(response.data);
+				}
+			);
+		};
+		
+		$scope.init();
 
 		/**
 		 * Liste des durées disponible dans le formulaire
@@ -116,7 +128,7 @@ angular.module('soutenanceplanner.calendar')
 				minTime : 7,
 				maxTime : 20,
 				eventResize : function(event, dayDelta, minuteDelta, revertFunc) {
-					$scope.initializeConstraints(event);
+					//$scope.initializeConstraints(event);
 				}
 			}
 		};
@@ -191,6 +203,18 @@ angular.module('soutenanceplanner.calendar')
 			$scope.new_calendar.constraints = [];
 			calendar.fullCalendar('removeEvents');
 			calendar.fullCalendar('addEventSource', $scope.initializeEvents($scope.new_calendar.beginning_date, $scope.new_calendar.ending_date));
+		};
+
+		$scope.createCalendar = function(){
+			CalendarService.createCalendar($scope.new_calendar).then(
+				function(response){
+					$log.debug(response.data);
+					$state.go("calendar");
+				},
+				function(response){
+					$log.debug("Erreur serveur");
+				}
+			);
 		};
 
 		/**

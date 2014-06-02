@@ -6,59 +6,111 @@
 
 <legend>Ajout d'un calendrier</legend>
 <tabset>
-	<tab>
+	<tab> 
 		<tab-heading>
 			<i class="glyphicon glyphicon-bell">Création</i>
 		</tab-heading>
 		<div>
-			<br/>
-			<p class="input-group">
-				<label class="obligatoire" for="new_calendar.title">Titre</label>
-				<input type="text" name="new_calendar.title" class="form-control" id="new_calendar.title" ng-model="new_calendar.title" ng-change="refetchCalendar(myCalendar1)" required /> 
-			</p>
-			<p class="input-group">
-				<label class="" for="new_calendar.formation">Formation</label>
-				<select class="form-control" name="new_calendar.formation" id="new_calendar.formation" ng-model="new_calendar.formation" required ></select>
-			</p>
-			<p class="input-group">
-				<label class="obligatoire" for="new_calendar.beginning_date">Date de début</label>
-				<input type="text" class="form-control" name="new_calendar.beginning_date" id="new_calendar.beginning_date" ng-model="new_calendar.beginning_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker />
-			</p>
-			<p class="input-group">
-				<label class="obligatoire" for="new_calendar.ending_date">Date de fin</label>
-				<input type="text" class="form-control" name="new_calendar.ending_date" id="new_calendar.ending_date" ng-model="new_calendar.ending_date" ng-change="refetchCalendar(myCalendar1)" required bs-datepicker/>
-			</p>
-			<p class="input-group">
-				<label class="obligatoire" for="new_calendar.duration">Durée d'une soutenance</label>
-				<select class="form-control" name="new_calendar.duration" id="new_calendar.duration" ng-model="new_calendar.duration" ng-change="refetchCalendar(myCalendar1)" required>
-					<option ng-selected="{{d.value==duration}}" ng-repeat="d in durations" value="{{d.value}}">{{d.text}}</option>
-				</select>
-			</p>
-			<p class="input-group">
-				<label class="obligatoire">Plage(s) horaires</label>
-				<ul class="time_slots" style="list-style: none;">
-					<li ng-repeat="time_slot in new_calendar.time_slot_list">
-						<select class="" ng-model="time_slot.beginning" ng-change="refetchCalendar(myCalendar1)">
-							<option ng-selected="{{h1.value==time_slot.beginning}}" ng-repeat="h1 in hours" value="{{h1.value}}">{{h1.text}}</option>
-						</select>
-						<span> à </span>
-						<select class="" ng-model="time_slot.ending" ng-change="refetchCalendar(myCalendar1)">
-							<option ng-selected="{{h2.value==time_slot.ending}}" ng-repeat="h2 in hours" value="{{h2.value}}">{{h2.text}}</option>
-						</select>
-						<a ng-if="new_calendar.time_slot_list.length > 1" class="btn btn-sm btn-default" ng-click="new_calendar.time_slot_list.splice($index, 1)">-</a>
-					</li>
-					<li ng-if="new_calendar.time_slot_list.length < 3"><button class="add_time_slot btn btn-sm btn-default" ng-click="add_time_slot()">+</button></li>
-				</ul>
-			</p>
+			<br />
+			<form name="addCalendarForm" class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="new_calendar.title" class="col-sm-3 control-label">Titre</label>
+				<div class="col-sm-9">
+					<input data-ng-model="new_calendar.title" type="text"
+						class="form-control" id="new_calendar.title"
+						name="new_calendar.title" placeholder="Titre du calendrier"
+						ng-change="refetchCalendar(myCalendar1)" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="new_calendar.formation" class="col-sm-3 control-label">Formation</label>
+				<div class="col-sm-9">
+					<select ng-model="new_calendar.formation" ng-options="formation.id as formation.name for formation in formations" 
+						class="form-control" id="formation" required></select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="new_calendar.beginning_date"
+					class="col-sm-3 control-label">Date de début</label>
+				<div class="col-sm-9">
+					<input ng-model="new_calendar.beginning_date" type="text"
+						class="form-control" id="new_calendar.beginning_date"
+						name="new_calendar.beginning_date"
+						data-max-date="{{new_calendar.ending_date}}" placeholder="Début"
+						ng-change="refetchCalendar(myCalendar1)"
+						bs-datepicker>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="new_calendar.ending_date" class="col-sm-3 control-label">Date
+					de fin</label>
+				<div class="col-sm-9">
+					<input ng-model="new_calendar.ending_date" type="text"
+						class="form-control" id="new_calendar.ending_date"
+						name="new_calendar.ending_date"
+						data-min-date="{{new_calendar.beginning_date}}" placeholder="Fin"
+						ng-change="refetchCalendar(myCalendar1)"
+						bs-datepicker>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="new_calendar.duration" class="col-sm-3 control-label">Durée</label>
+				<div class="col-sm-3">
+					<select ng-model="new_calendar.duration" class="form-control"
+						id="new_calendar.duration" name="new_calendar.duration"
+						ng-change="refetchCalendar(myCalendar1)" required>
+						<option ng-selected="{{d.value==duration}}"
+							ng-repeat="d in durations" value="{{d.value}}">{{d.text}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="time_slots" class="col-sm-3 control-label">Plages
+					horaires</label>
+				<div class="col-md-7">
+					<table class="table table-hover">
+						<tr ng-repeat="time_slot in new_calendar.time_slot_list">
+							<td style="vertical-align: middle;"><select
+								class="form-control" ng-model="time_slot.beginning"
+								ng-change="refetchCalendar(myCalendar1)">
+									<option ng-selected="{{h1.value==time_slot.beginning}}"
+										ng-repeat="h1 in hours" value="{{h1.value}}">{{h1.text}}</option>
+							</select></td>
+							<td style="vertical-align: middle;"><span>à</span></td>
+							<td style="vertical-align: middle;"><select
+								class="form-control" ng-model="time_slot.ending"
+								ng-change="refetchCalendar(myCalendar1)">
+									<option ng-selected="{{h2.value==time_slot.ending}}"
+										ng-repeat="h2 in hours" value="{{h2.value}}">{{h2.text}}</option>
+							</select></td>
+							<td style="vertical-align: middle;">
+								<button ng-if="new_calendar.time_slot_list.length > 1"
+									ng-click="new_calendar.time_slot_list.splice($index, 1)"
+									type="button" class="close">&times;</button>
+							</td>
+							<td style="vertical-align: middle;">
+								<button ng-if="$last && new_calendar.time_slot_list.length < 3"
+									type="button" class="add_time_slot close"
+									ng-click="add_time_slot()">+</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-9">
+			<button ui-sref="calendar" class="btn btn-default">Liste</button>
+			<button class="btn btn-default" ng-click="createCalendar()">Valider</button>
 		</div>
-	</tab>
-	<tab select="renderCalendar(myCalendar1);">
-		<tab-heading>
-			<i class="glyphicon glyphicon-bell">Configuration</i>
-		</tab-heading>
-		<div>
-		
-		<!-- <form ng-submit='addOral(titreSoutenance,jourSoutenance,heureSoutenance)'>
+	</div>
+</tab> 
+<tab select="renderCalendar(myCalendar1);"> <tab-heading>
+<i class="glyphicon glyphicon-bell">Configuration</i> </tab-heading>
+<div>
+
+	<!-- <form ng-submit='addOral(titreSoutenance,jourSoutenance,heureSoutenance)'>
 			<h3> Exemple ajout d'une soutenance</h3> <br/>
 			Jours soutenance :<input type="number" min='1' max='31' ng-model='jourSoutenance'/>
 			Heure soutenance :<input type="number" min='9' max='20' ng-model='heureSoutenance'/>
@@ -71,29 +123,29 @@
 				{{event.title}}	
 			</div>
 		</div> -->
-		
-			<br/>
-			<div ui-calendar="uiConfig.calendar" calendar="myCalendar1"  class="span8 calendar" ng-model="eventSources"></div>
-		</div>
-	</tab>
-	<tab disabled="{{ !new_calendar.is_valid }}">
-		<tab-heading>
-			<i class="glyphicon glyphicon-bell">Url</i>
-		</tab-heading>
-		<div>
-			<br/>
-			<p class="">
-				<label for="new_calendar.url_code">Url d'accès</label>
-				<input type="text" name="new_calendar.url_code" class="form-control" id="new_calendar.url_code" ng-model="new_calendar.url_code" ng-disabled="true"/> 
-			</p>
-			<div class="alert alert-success" >
-				Le calendrier a été validé avec succès.<br>
-				<ul>
-					<li>Afin de partager ce calendrier en consultation avec d'autres membres, veuillez leur fournir le lien ci-dessus.</li>
-					<li>Ce lien est aussi disponible dans la rubrique  "Mes Calendriers".</li>
-				</ul>
-			</div>
-		</div>
-	</tab>
-</tabset>
-	
+
+	<br />
+	<div ui-calendar="uiConfig.calendar" calendar="myCalendar1"
+		class="span8 calendar" ng-model="eventSources"></div>
+</div>
+</tab> <tab disabled="{{ !new_calendar.is_valid }}"> <tab-heading>
+<i class="glyphicon glyphicon-bell">Url</i> </tab-heading>
+<div>
+	<br />
+	<p class="">
+		<label for="new_calendar.url_code">Url d'accès</label> <input
+			type="text" name="new_calendar.url_code" class="form-control"
+			id="new_calendar.url_code" ng-model="new_calendar.url_code"
+			ng-disabled="true" />
+	</p>
+	<div class="alert alert-success">
+		Le calendrier a été validé avec succès.<br>
+		<ul>
+			<li>Afin de partager ce calendrier en consultation avec d'autres
+				membres, veuillez leur fournir le lien ci-dessus.</li>
+			<li>Ce lien est aussi disponible dans la rubrique "Mes
+				Calendriers".</li>
+		</ul>
+	</div>
+</div>
+</tab> </tabset>
