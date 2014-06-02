@@ -87,14 +87,14 @@ angular.module('soutenanceplanner')
 } ])
 
 
-.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', 'AuthenticationService',
-	function($rootScope, $scope, $log, $state, $location, AuthenticationService) {
+.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', 'SecurityService',
+	function($rootScope, $scope, $log, $state, $location, SecurityService) {
 		$log.debug("MenuCtrl");
 
 		$scope.logout = function(){
 			$scope.$emit('event:logoutRequest');
 
-			AuthenticationService.logout().then(function() {
+			SecurityService.logout().then(function() {
 				$rootScope.user = null;
 				$state.go('home');
 			});
@@ -104,18 +104,21 @@ angular.module('soutenanceplanner')
 
 .directive('getmenucalendar',['$log','HomeService', function($log,HomeService) {
 	var def = {
-	scope : false,
 	template : '{{titre}}<span class="badge pull-right">{{badge}}</span>'+
 				'<ul class="nav " ng-repeat="calendrier in calendriers">'+
 					'<li><a href="{{calendrier.link}}">{{calendrier.title}}</a></li>'+	
 				'</ul>',
 	remplace : true,
+	scope: { //permet de ne pas faire de mise à jour du scope ( même nom de variable dans le template ) 
+		subscription: '=',
+		index: '@'
+	},
 	link :	function link(scope, element, attrs) {	
 		//on récupère le titre passé en attributs et on le passe au scope du template
 		scope.titre = attrs.title ;
 		//on passe le type qui correspond au badge
 		scope.badge = attrs.type;
-		//si le type = 1 on récupère les calendrier à passés
+		//si le type = 1 on récupère les calendrier passés
 		if(attrs.type == 1){
 			HomeService.getPastCalendars().then(
 					function(response){

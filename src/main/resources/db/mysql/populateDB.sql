@@ -10,15 +10,15 @@ INSERT IGNORE INTO formation VALUES (2,	'M1 Info');
 INSERT IGNORE INTO formation VALUES (3,	'M2 ID');
 INSERT IGNORE INTO formation VALUES (4,	'M2 SILI');
 
-INSERT IGNORE INTO  calendar VALUES (1,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140602',		'Soutenance de stage',	1,	1);
-INSERT IGNORE INTO  calendar VALUES (2,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140603',		'Soutenance de stage',	2,	1);
-INSERT IGNORE INTO  calendar VALUES (3,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140604',		'Soutenance de stage',	3,	1);
-INSERT IGNORE INTO  calendar VALUES (4,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140605',		'Soutenance de stage',	4,	1);
+-- INSERT IGNORE INTO  calendar VALUES (1,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140602',		'Soutenance de stage',	1,	1);
+-- INSERT IGNORE INTO  calendar VALUES (2,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140603',		'Soutenance de stage',	2,	1);
+-- INSERT IGNORE INTO  calendar VALUES (3,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140604',		'Soutenance de stage',	3,	1);
+-- INSERT IGNORE INTO  calendar VALUES (4,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140605',		'Soutenance de stage',	4,	1);
 
-INSERT IGNORE INTO oral VALUES (1,	'2014-06-02 08:00:00',	'prof1, prof2, tuteur',		'Présentation Etudiant1',	1,	1);
-INSERT IGNORE INTO oral VALUES (2,	'2014-06-02 10:00:00',	'prof2, tuteur',			'Présentation Etudiant2',	1,	1);
-INSERT IGNORE INTO oral VALUES (3,	'2014-06-02 11:00:00',	'prof2, tuteur',			'Présentation Etudiant3',	1,	2);
-INSERT IGNORE INTO oral VALUES (4,	'2014-06-02 17:00:00',	'prof2, tuteur',			'Présentation Etudiant4',	1,	3);
-INSERT IGNORE INTO oral VALUES (5,	'2014-06-02 10:00:00',	'prof2, tuteur',			'Présentation Etudiant5',	2,	1);
-INSERT IGNORE INTO oral VALUES (6,	'2014-06-02 14:00:00',	'prof2, prof3, tuteur',		'Présentation Etudiant6',	2,	2);
-INSERT IGNORE INTO oral VALUES (7,	'2014-06-03 11:00:00',	'prof1, prof4, tuteur',		'Présentation Etudiant7',	2,	3);
+-- INSERT IGNORE INTO oral VALUES (1,	'2014-06-02 08:00:00',	'prof1, prof2, tuteur',		'Présentation Etudiant1',	1,	1);
+-- INSERT IGNORE INTO oral VALUES (2,	'2014-06-02 10:00:00',	'prof2, tuteur',			'Présentation Etudiant2',	1,	1);
+-- INSERT IGNORE INTO oral VALUES (3,	'2014-06-02 11:00:00',	'prof2, tuteur',			'Présentation Etudiant3',	1,	2);
+-- INSERT IGNORE INTO oral VALUES (4,	'2014-06-02 17:00:00',	'prof2, tuteur',			'Présentation Etudiant4',	1,	3);
+-- INSERT IGNORE INTO oral VALUES (5,	'2014-06-02 10:00:00',	'prof2, tuteur',			'Présentation Etudiant5',	2,	1);
+-- INSERT IGNORE INTO oral VALUES (6,	'2014-06-02 14:00:00',	'prof2, prof3, tuteur',		'Présentation Etudiant6',	2,	2);
+-- INSERT IGNORE INTO oral VALUES (7,	'2014-06-03 11:00:00',	'prof1, prof4, tuteur',		'Présentation Etudiant7',	2,	3);

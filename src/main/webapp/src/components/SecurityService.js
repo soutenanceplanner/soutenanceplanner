@@ -16,14 +16,28 @@ angular.module('soutenanceplanner.security')
 				});
 			},
 
+			retrieveUser: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/security/retrieveUser",
+					data: {}
+				});
+			},
+
 			authenticate: function(authenticateDTO){
 				return $http({
 					method: 'POST',
 					url: WS_SERVER_URL + "/security/authenticate",
 					data: authenticateDTO
 				});
-			}
+			},
 
+			logout : function() {
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/j_spring_security_logout",
+				});
+			}
 		};
 
 		return SecurityService;
