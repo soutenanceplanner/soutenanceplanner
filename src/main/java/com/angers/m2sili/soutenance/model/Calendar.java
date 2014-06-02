@@ -3,8 +3,10 @@ package com.angers.m2sili.soutenance.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -12,7 +14,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
 
 /**
  * Classe d'un calendrier.
@@ -44,19 +45,31 @@ public class Calendar extends BaseEntity {
 	@Column(name = "link")
 	private String link;
 
-	 @ManyToOne
-	 @JoinColumn(name = "user_id")
-	 private User user;
-	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "formation_id")
+	private Formation formation;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.LAZY)
+	private List<TimeSlot> timeSlot;
+
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
 	 */
-	public Calendar(){
+	public Calendar() {
 	}
-	
-	@OneToMany
-	private List<DayConstraint> ListDayConstraint ;
-	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -95,6 +108,14 @@ public class Calendar extends BaseEntity {
 
 	public void setDuration(Integer duration) {
 		this.duration = duration;
+	}
+
+	public Formation getFormation() {
+		return formation;
+	}
+
+	public void setFormation(Formation formation) {
+		this.formation = formation;
 	}
 
 }
