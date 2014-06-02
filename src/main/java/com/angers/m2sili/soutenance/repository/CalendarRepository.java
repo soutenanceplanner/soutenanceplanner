@@ -17,7 +17,6 @@ import com.angers.m2sili.soutenance.model.User;
 
 public interface CalendarRepository extends JpaRepository<Calendar, Integer> {
 	
-//	@Query("select c from Calendar c where c.ending_date < :currentDate")
 	public  List<Calendar> findAllByEndingDateLessThan(Date currentDate);
 	public  List<Calendar> findAllByBeginningDateGreaterThan(Date currentDate);
 	public 	 List<Calendar> findAllByUser(User user);

@@ -87,14 +87,14 @@ angular.module('soutenanceplanner')
 } ])
 
 
-.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', 'AuthenticationService',
-	function($rootScope, $scope, $log, $state, $location, AuthenticationService) {
+.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', 'SecurityService',
+	function($rootScope, $scope, $log, $state, $location, SecurityService) {
 		$log.debug("MenuCtrl");
 
 		$scope.logout = function(){
 			$scope.$emit('event:logoutRequest');
 
-			AuthenticationService.logout().then(function() {
+			SecurityService.logout().then(function() {
 				$rootScope.user = null;
 				$state.go('home');
 			});
@@ -107,7 +107,7 @@ angular.module('soutenanceplanner')
 	template : '{{titre}}<span class="badge pull-right">{{badge}}</span>'+
 				'<ul class="nav " ng-repeat="calendrier in calendriers">'+
 					'<li><a href="{{calendrier.link}}">{{calendrier.title}}</a></li>'+	
-				'</ul>',
+				'</ul><br/>{{calVide}}',
 	remplace : true,
 	scope: { //permet de ne pas faire de mise à jour du scope ( même nom de variable dans le template ) 
 		subscription: '=',
@@ -141,6 +141,11 @@ angular.module('soutenanceplanner')
 						scope.calendriers = response.data ;
 					}
 				);	
+		
+		}
+		
+		if(scope.calendriers == null){
+			scope.calVide = attrs.erreur ;
 		}
 		
 	}
