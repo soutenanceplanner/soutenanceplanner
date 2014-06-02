@@ -103,18 +103,6 @@ angular.module('soutenanceplanner')
     }
 ])
 
-.service('AuthenticationService', function($http, $q, WS_SERVER_URL) {
-    this.logout = function() {
-        var d = $q.defer();
-        
-        $http.get(WS_SERVER_URL + '/j_spring_security_logout').success(function() {
-            d.resolve();
-        });
-        
-        return d.promise;
-    };
-})
-
 .service('Base64Service', function () {
     var keyStr = "ABCDEFGHIJKLMNOP" +
         "QRSTUVWXYZabcdef" +

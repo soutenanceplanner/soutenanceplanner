@@ -28,7 +28,10 @@ angular.module('soutenanceplanner.security')
 				return $http({
 					method: 'POST',
 					url: WS_SERVER_URL + "/security/authenticate",
-					data: authenticateDTO
+					data: {
+						login : authenticateDTO.login,
+						password : ""
+					}
 				});
 			},
 
