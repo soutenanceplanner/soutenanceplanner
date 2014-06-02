@@ -31,6 +31,14 @@ public class TimeSlot extends BaseEntity {
 	@JoinColumn(name = "calendar_id")
 	private Calendar calendar;
 
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
+	}
+
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
 	 */
@@ -51,22 +59,6 @@ public class TimeSlot extends BaseEntity {
 
 	public void setEndingHour(Date endingHour) {
 		this.endingHour = endingHour;
-	}
-	
-	public Calendar getCalendar() {
-		return calendar;
-	}
-
-	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
-	}
-
-	public Calendar getCalendar() {
-		return calendar;
-	}
-
-	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
 	}
 
 }

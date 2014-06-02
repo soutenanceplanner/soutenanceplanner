@@ -62,12 +62,6 @@ public class User extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Oral> listeOral;
 
-	/**
-	 * Constructeur par défaut (obligatoire pour Jackson).
-	 */
-	public User() {
-	}
-
 	public List<Oral> getListeOral() {
 		return listeOral;
 	}
