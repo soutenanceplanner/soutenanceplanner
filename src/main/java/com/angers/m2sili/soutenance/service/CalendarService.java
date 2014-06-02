@@ -13,7 +13,7 @@ public interface CalendarService {
 	
 	public Calendar create(Calendar cal);
 	public Calendar get(int idCal);
-	public List<Calendar> getAll();
+	public List<Calendar> getAll(String login);
 	public List<Calendar> getAllFuturs();
 	public List<Calendar> getAllPast();
 	void delete(Integer id);

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.angers.m2sili.soutenance.model.Formation;
-import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.repository.FormationRepository;
 import com.angers.m2sili.soutenance.service.FormationService;
 

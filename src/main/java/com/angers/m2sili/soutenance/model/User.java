@@ -48,14 +48,16 @@ public class User extends BaseEntity {
 	@Column(name = "flag")
 	private Droit flag;
 
-	/**
-	 * Constructeur par défaut (obligatoire pour Jackson).
-	 */
-	public User() {
-	}
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Calendar> listeCalendrier;
+
+	public List<Calendar> getListeCalendrier() {
+		return listeCalendrier;
+	}
+
+	public void setListeCalendrier(List<Calendar> listeCalendrier) {
+		this.listeCalendrier = listeCalendrier;
+	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Oral> listeOral;
@@ -68,12 +70,10 @@ public class User extends BaseEntity {
 		this.listeOral = listeOral;
 	}
 
-	public List<Calendar> getListeCalendrier() {
-		return listeCalendrier;
-	}
-
-	public void setListeCalendrier(List<Calendar> listeCalendrier) {
-		this.listeCalendrier = listeCalendrier;
+	/**
+	 * Constructeur par défaut (obligatoire pour Jackson).
+	 */
+	public User() {
 	}
 
 	public String getLogin() {

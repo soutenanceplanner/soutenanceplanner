@@ -55,7 +55,7 @@ angular.module('soutenanceplanner')
         $rootScope.$on('event:loginRequired', function () {
             $rootScope.requests401 = [];
 
-            $state.go('login');
+            $state.go('loginRequired');
         });
 
         /**
@@ -73,6 +73,8 @@ angular.module('soutenanceplanner')
             for (i = 0; i < requests.length; i += 1) {
                 retry(requests[i]);
             }
+
+            $state.go('home');
             $rootScope.requests401 = [];
         });
 
@@ -101,11 +103,11 @@ angular.module('soutenanceplanner')
     }
 ])
 
-.service('AuthenticationService', function($http, $q) {
+.service('AuthenticationService', function($http, $q, WS_SERVER_URL) {
     this.logout = function() {
         var d = $q.defer();
         
-        $http.get('j_spring_security_logout').success(function() {
+        $http.get(WS_SERVER_URL + '/j_spring_security_logout').success(function() {
             d.resolve();
         });
         

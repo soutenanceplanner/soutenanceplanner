@@ -1,8 +1,8 @@
 package com.angers.m2sili.soutenance.web;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,54 +10,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.angers.m2sili.soutenance.model.User;
-import com.angers.m2sili.soutenance.service.UserService;
+import com.angers.m2sili.soutenance.model.Oral;
+import com.angers.m2sili.soutenance.service.OralService;
 
 /**
- * Controller de User.
+ * Controller de Oral.
  * 
- * @author typhoon
+ * @author Benoît Caufriez
  * 
  */
 
 @Controller
-//@PreAuthorize("isAuthenticated()")
-@RequestMapping(value = "/user")
-public class UserController extends BaseController {
+@RequestMapping(value = "/oral")
+public class OralController extends BaseController {
 	
 	@Autowired
-	private UserService userService;
+	private OralService oralService;
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	User create(@RequestBody User user) {
-		User newUser = userService.create(user);
-		return newUser;
+	Oral create(@RequestBody Oral oral) {
+		Oral newOral = oralService.create(oral);
+		return newOral;
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
-		userService.delete(id);
+		oralService.delete(id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	User get(@PathVariable Integer id) {
-		return userService.get(id);
+	Oral get(@PathVariable Integer id) {
+		return oralService.get(id);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<User> list() {
-		return userService.getAll();
+	List<Oral> list() {
+		return oralService.getAll();
+	}
+	
+	@RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Oral> userList(@PathVariable Integer user_id) {
+		return oralService.getUserOral(user_id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
-	User update(@RequestBody User user) {
-		return userService.update(user);
+	Oral update(@RequestBody Oral oral) {
+		return oralService.update(oral);
 	}
 	
 }

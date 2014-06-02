@@ -15,7 +15,6 @@ import com.angers.m2sili.soutenance.repository.UserRepository;
 import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.web.BaseController;
 
-
 @Service
 public class CalendarServiceImpl implements CalendarService{
 

@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * Classe qui définit un oral durant une période de soutenance.
  * 
  * @author typhoon
+ * 
  */
 
 @Entity
@@ -27,9 +27,6 @@ public class Oral extends BaseEntity {
 	@NotNull
 	private Date beginningHour;
 
-	@NotNull
-	private Date endingHour;
-
 	// TODO : revoir ce modèle
 	@NotNull
 	private String participants;
@@ -37,10 +34,27 @@ public class Oral extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user ;
-	
-	@OneToOne
+
+	@ManyToOne
+	@JoinColumn(name = "calendar_id")
 	private Calendar calendar;
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
+	}
+
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
 	 */
@@ -61,14 +75,6 @@ public class Oral extends BaseEntity {
 
 	public void setBeginningHour(Date beginningHour) {
 		this.beginningHour = beginningHour;
-	}
-
-	public Date getEndingHour() {
-		return endingHour;
-	}
-
-	public void setEndingHour(Date endingHour) {
-		this.endingHour = endingHour;
 	}
 
 	public String getParticipants() {
