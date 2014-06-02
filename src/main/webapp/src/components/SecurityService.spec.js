@@ -30,11 +30,16 @@ describe('SecurityService tester', function() {
 
 	it('SecurityService - authenticate', function() {
 
+		var authenticateDTO = {
+			login : "dd",
+			password: "dd"
+		};
+
 		expect(securityService.authenticate).toBeDefined();
-		httpBackend.expect('POST', WS_SERVER_URL + "/security/authenticate" ).respond();
+		httpBackend.expect('POST', WS_SERVER_URL + "/security/authenticate", {login : "dd", password: ""} ).respond();
 
 		var responseStatus;
-		securityService.authenticate().then(function(response) {
+		securityService.authenticate(authenticateDTO).then(function(response) {
 			responseStatus = response.status;
 		});
 		httpBackend.flush();

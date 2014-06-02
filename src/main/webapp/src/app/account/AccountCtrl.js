@@ -101,15 +101,15 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountDetailCtrl', ['$scope', '$log', '$stateParams', 'AccountService',
-	function($scope, $log, $stateParams, AccountService) {
+.controller('AccountDetailCtrl', ['$scope', '$log', '$stateParams', 'AccountService', 'SecurityService',
+	function($scope, $log, $stateParams, AccountService, SecurityService) {
 		$log.debug('AccountDetailCtrl');
 
 		$scope.init = function(){
-			AccountService.getUser($stateParams.id).then(
+			SecurityService.retrieveUser().then(
 				function(response){
-					$scope.user = response.data;
 					$log.debug(response.data);
+					$scope.user = response.data;
 				}
 			);
 		};
