@@ -8,6 +8,7 @@ angular.module('soutenanceplanner.calendar')
 
 			createCalendar:function(calendar){
 				console.log(calendar);
+				listeTimeSlot = [];
 				return $http({
 					method: 'POST',
 					url: WS_SERVER_URL + "/calendar/new",
@@ -17,7 +18,8 @@ angular.module('soutenanceplanner.calendar')
 						endingDate : calendar.ending_date,
 						duration : calendar.duration,
 						formation : calendar.formation,
-						link : "test"
+						link : "test",
+						listeTimeSlot : 
 					}
 				});
 			},
