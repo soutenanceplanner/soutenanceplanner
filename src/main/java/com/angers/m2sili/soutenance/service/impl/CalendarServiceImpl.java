@@ -1,69 +1,53 @@
 package com.angers.m2sili.soutenance.service.impl;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.angers.m2sili.soutenance.model.Calendar;
-import com.angers.m2sili.soutenance.model.User;
+import com.angers.m2sili.soutenance.repository.CalendarRepository;
 import com.angers.m2sili.soutenance.service.CalendarService;
 
 
 @Service
 public class CalendarServiceImpl implements CalendarService{
 
+	@Autowired
+	private CalendarRepository calendarRepository;
 
 	@Override
-	public Calendar createCalendar(Calendar cal) {
-		// TODO Auto-generated method stub
-		return null;
+	public Calendar create(Calendar cal) {
+		return calendarRepository.save(cal);
 	}
 
 	@Override
-	public Calendar getCalendar(int idCal) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional(readOnly = true)
+	public Calendar get(int idCal) {
+		return calendarRepository.findOne(idCal);
 	}
 
-
+	@Transactional(readOnly = true)
 	@Override
-	public ArrayList<Calendar> getListCalendars(String id) {
-
-		//TODO remplacer les valeurs en dur		
-		Calendar c = new Calendar();
-			c.setTitle("Titre calendrier_1");
-			c.setLink("lienCalendrier_1");
-		
-		Calendar c1 = new Calendar();
-			c1.setTitle("Titre calendrier_2");
-			c1.setLink("lienCalendrier_2");	
-				
-		ArrayList<Calendar> listeCal = new ArrayList<Calendar>(); 
-	
-		listeCal.add(c);
-		listeCal.add(c1);
-	
-		return listeCal;
-		
+	public List<Calendar> getAll() {
+		return calendarRepository.findAll();
 	}
 
 	@Override
-	public ArrayList<Calendar> getListFuturesCalendars() {
-		//TODO remplacer les valeurs en dur		
-		Calendar c = new Calendar();
-			c.setTitle("Titre calendrier à venir n°1");
-			c.setLink("lienCalendrier_1");
-		
-		Calendar c1 = new Calendar();
-			c1.setTitle("Titre calendrier à venir n°2");
-			c1.setLink("lienCalendrier_2");	
-				
-		ArrayList<Calendar> listeCal = new ArrayList<Calendar>(); 
-	
-		listeCal.add(c);
-		listeCal.add(c1);
-	
-		return listeCal;
+	public List<Calendar> getAllFuturs() {
+		return calendarRepository.findAll();
+	}
+
+	@Override
+	@Transactional
+	public void delete(Integer id) {
+		calendarRepository.delete(id);
+	}
+
+	@Override
+	public Calendar update(Calendar calendar) {
+		return calendarRepository.save(calendar);
 	}
 	
 }
