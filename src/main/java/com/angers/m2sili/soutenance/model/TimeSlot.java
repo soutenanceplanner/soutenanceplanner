@@ -1,6 +1,5 @@
 package com.angers.m2sili.soutenance.model;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,11 +28,11 @@ public class TimeSlot extends BaseEntity {
 
 	@NotNull
 	@Column(name = "beginning_hour")
-	private Date beginningHour;
+	private Integer beginningHour;
 
 	@NotNull
 	@Column(name = "ending_hour")
-	private Date endingHour;
+	private Integer endingHour;
 
 	@ManyToOne
 	// @NotNull
@@ -47,19 +46,19 @@ public class TimeSlot extends BaseEntity {
 	public TimeSlot() {
 	}
 
-	public Date getBeginningHour() {
+	public Integer getBeginningHour() {
 		return beginningHour;
 	}
 
-	public void setBeginningHour(Date beginningHour) {
+	public void setBeginningHour(Integer beginningHour) {
 		this.beginningHour = beginningHour;
 	}
 
-	public Date getEndingHour() {
+	public Integer getEndingHour() {
 		return endingHour;
 	}
 
-	public void setEndingHour(Date endingHour) {
+	public void setEndingHour(Integer endingHour) {
 		this.endingHour = endingHour;
 	}
 

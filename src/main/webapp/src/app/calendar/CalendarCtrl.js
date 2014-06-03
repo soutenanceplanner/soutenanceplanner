@@ -226,6 +226,7 @@ angular.module('soutenanceplanner.calendar')
 			$scope.new_calendar.constraints = [];
 			calendar.fullCalendar('removeEvents');
 			calendar.fullCalendar('addEventSource', $scope.initializeEvents($scope.new_calendar.beginning_date, $scope.new_calendar.ending_date));
+			console.log($scope.new_calendar);
 		};
 
 		$scope.createCalendar = function(){

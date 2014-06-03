@@ -1,7 +1,7 @@
 package com.angers.m2sili.soutenance.model;
 
-import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,13 +30,15 @@ public class Oral extends BaseEntity {
 	private static final long serialVersionUID = 3388675967371001907L;
 
 	@NotEmpty
+	@Column(name = "title")
 	private String title;
 
 	@NotNull
-	private Date beginningHour;
+	@Column(name = "beginning_hour")
+	private Integer beginningHour;
 
-	// TODO : revoir ce modèle
 	@NotNull
+	@Column(name = "participants")
 	private String participants;
 
 	@ManyToOne
@@ -63,11 +65,11 @@ public class Oral extends BaseEntity {
 		this.title = title;
 	}
 
-	public Date getBeginningHour() {
+	public Integer getBeginningHour() {
 		return beginningHour;
 	}
 
-	public void setBeginningHour(Date beginningHour) {
+	public void setBeginningHour(Integer beginningHour) {
 		this.beginningHour = beginningHour;
 	}
 

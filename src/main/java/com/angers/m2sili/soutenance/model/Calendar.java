@@ -1,7 +1,6 @@
 package com.angers.m2sili.soutenance.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -37,11 +37,11 @@ public class Calendar extends BaseEntity {
 
 	@NotNull
 	@Column(name = "beginning_date")
-	private Date beginningDate;
+	private DateTime beginningDate;
 
 	@NotNull
 	@Column(name = "ending_date")
-	private Date endingDate;
+	private DateTime endingDate;
 
 	@NotNull
 	@Column(name = "duration")
@@ -81,19 +81,19 @@ public class Calendar extends BaseEntity {
 	public Calendar() {
 	}
 
-	public Date getBeginningDate() {
+	public DateTime getBeginningDate() {
 		return beginningDate;
 	}
 
-	public void setBeginningDate(Date beginningDate) {
+	public void setBeginningDate(DateTime beginningDate) {
 		this.beginningDate = beginningDate;
 	}
 
-	public Date getEndingDate() {
+	public DateTime getEndingDate() {
 		return endingDate;
 	}
 
-	public void setEndingDate(Date endingDate) {
+	public void setEndingDate(DateTime endingDate) {
 		this.endingDate = endingDate;
 	}
 

@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +47,6 @@ public class CalendarController extends BaseController {
 			Gson gson = new GsonBuilder().create();
 			Calendar p = gson.fromJson(reader, Calendar.class);
 			System.out.println(p);
-
 			return calServiceImpl.create(p);
 		}
 	}
@@ -61,7 +59,6 @@ public class CalendarController extends BaseController {
 			Gson gson = new GsonBuilder().create();
 			Calendar p = gson.fromJson(reader, Calendar.class);
 			System.out.println(p);
-
 			return calServiceImpl.update(p);
 		}
 	}
