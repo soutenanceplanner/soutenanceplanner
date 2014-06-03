@@ -1,7 +1,6 @@
 package com.angers.m2sili.soutenance.model;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,6 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 /**
  * Classe d'un calendrier.
@@ -80,22 +80,6 @@ public class Calendar extends BaseEntity {
 	public Calendar() {
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
 	public Date getBeginningDate() {
 		return beginningDate;
 	}
@@ -120,6 +104,22 @@ public class Calendar extends BaseEntity {
 		this.duration = duration;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -136,41 +136,20 @@ public class Calendar extends BaseEntity {
 		this.formation = formation;
 	}
 
-	/**
-	 * Manipulation sur les plages horaires
-	 */
-
 	public Set<TimeSlot> getTimeSlots() {
-		if (this.timeSlots == null) {
-			this.timeSlots = new HashSet<TimeSlot>();
-		}
-		return this.timeSlots;
+		return timeSlots;
 	}
 
 	public void setTimeSlots(Set<TimeSlot> timeSlots) {
 		this.timeSlots = timeSlots;
 	}
 
-	public void addTimeSlot(TimeSlot timeSlot) {
-		getTimeSlots().add(timeSlot);
-	}
-
-	/**
-	 * Manipulation sur les oraux
-	 */
 	public Set<Oral> getOrals() {
-		if (this.orals == null) {
-			this.orals = new HashSet<Oral>();
-		}
 		return orals;
 	}
 
 	public void setOrals(Set<Oral> orals) {
 		this.orals = orals;
-	}
-
-	public void addOral(Oral oral) {
-		getOrals().add(oral);
 	}
 
 }

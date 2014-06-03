@@ -1,7 +1,6 @@
 package com.angers.m2sili.soutenance.service.impl;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,7 +58,7 @@ public class OralServiceImpl implements OralService {
 	}
 
 	@Override
-	public Set<Oral> getUserOrals(Integer user_id) {
+	public List<Oral> getUserOrals(Integer user_id) {
 		User user = userRepository.findOne(user_id);
 		return user.getOrals();
 	}

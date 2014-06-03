@@ -4,8 +4,8 @@
 
 angular.module('soutenanceplanner.calendar')
 
-.controller('CalendarAddCtrl', ['$scope', '$log', '$state', '$filter', '$stateParams', 'CalendarService', 'FormationService',
-	function($scope, $log, $state, $filter, $stateParams, CalendarService, FormationService) {
+.controller('CalendarAddCtrl', ['$scope', '$log', '$state', '$filter', '$stateParams', 'CalendarService', 'FormationService', 'SecurityService',
+	function($scope, $log, $state, $filter, $stateParams, CalendarService, FormationService, SecurityService) {
 	
 		$log.debug('CalendarAddCtrl');
 
@@ -14,6 +14,11 @@ angular.module('soutenanceplanner.calendar')
 				function(response){
 					$scope.formations = response.data;
 					$log.debug(response.data);
+				}
+			);
+			SecurityService.retrieveUser().then(
+				function(response) {
+					$scope.user = response.data;
 				}
 			);
 		};
@@ -187,6 +192,21 @@ angular.module('soutenanceplanner.calendar')
 		};
 		
 		/**
+		 * Génération du code d'accès au calendrier une fois les données validées
+		 */
+		$scope.generateLink = function() {
+			$scope.new_calendar.is_valid = true;
+			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+			var string_length = 10;
+			var randomstring = '';
+			for (var i=0; i<string_length; i++) {
+				var rnum = Math.floor(Math.random() * chars.length);
+				randomstring += chars.substring(rnum,rnum+1);
+			}
+			$scope.new_calendar.link = randomstring;
+		};
+		
+		/**
 		 * Initialisation de l'événement en fonction des valeurs par défaut
 		 * du tableau de données
 		 */
@@ -209,9 +229,10 @@ angular.module('soutenanceplanner.calendar')
 		};
 
 		$scope.createCalendar = function(){
-			CalendarService.createCalendar($scope.new_calendar).then(
+			$scope.generateLink();
+			console.log($scope.new_calendar);
+			CalendarService.createCalendar($scope.new_calendar, $scope.user).then(
 				function(response){
-					$log.debug(response.data);
 					$state.go("calendar");
 				},
 				function(response){

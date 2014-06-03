@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,10 +33,12 @@ public class CalendarController extends BaseController {
 	@Qualifier("authenticationManager")
 	private AuthenticationManager authManager;
 	
-	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	@RequestMapping(value = "/new", method = RequestMethod.POST, 
+			produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody
-	Calendar create(@RequestBody Calendar calendar) {
-		return calServiceImpl.create(calendar);
+	Calendar create(@RequestBody String calendar) {
+		return null;
+		//return calServiceImpl.create(calendar);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

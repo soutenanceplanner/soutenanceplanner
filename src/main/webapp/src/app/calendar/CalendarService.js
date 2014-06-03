@@ -6,11 +6,10 @@ angular.module('soutenanceplanner.calendar')
 
 		var CalendarService = {
 
-			createCalendar:function(calendar){
-				console.log(calendar);
-				listeTimeSlot = [];
+			createCalendar:function(calendar, user){
+				var timeSlots = [];
 				angular.forEach(calendar.time_slot_list, function(value, key) {
-					listeTimeSlot.push({
+					timeSlots.push({
 						beginningHour : value.beginning,
 						endingHour : value.ending
 					});
@@ -24,8 +23,9 @@ angular.module('soutenanceplanner.calendar')
 						endingDate : calendar.ending_date,
 						duration : calendar.duration,
 						formation : calendar.formation,
-						link : "test",
-						listeTimeSlot : listeTimeSlot
+						link : calendar.link,
+						timeSlots : timeSlots,
+						user : user
 					}
 				});
 			},

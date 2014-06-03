@@ -21,5 +21,11 @@ public class BaseController {
 	    logger.warn("Returning HTTP 401 Access Denied", e);
 	    throw e;
 	}
+	
+	@ExceptionHandler
+	public void handle(Exception e) throws Exception {
+	    logger.warn("General Controller Exception", e);
+	    throw e;
+	}
 
 }
