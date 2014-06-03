@@ -1,6 +1,7 @@
 package com.angers.m2sili.soutenance.model;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,15 +28,7 @@ public class Formation extends BaseEntity {
 	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "formation", fetch = FetchType.EAGER)
-	private List<Calendar> listeCalendrier;
-
-	public List<Calendar> getListeCalendrier() {
-		return listeCalendrier;
-	}
-
-	public void setListeCalendrier(List<Calendar> listeCalendrier) {
-		this.listeCalendrier = listeCalendrier;
-	}
+	private Set<Calendar> calendars;
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
@@ -49,6 +42,22 @@ public class Formation extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * Manipulation sur les calendriers
+	 */
+	public Set<Calendar> getCalendars() {
+		if(this.calendars == null) {
+			this.calendars = new HashSet<Calendar>();
+		}
+		return calendars;
+	}
+	public void setCalendars(Set<Calendar> calendars) {
+		this.calendars = calendars;
+	}
+	public void addCalendar(Calendar calendar) {
+		getCalendars().add(calendar);
 	}
 
 }

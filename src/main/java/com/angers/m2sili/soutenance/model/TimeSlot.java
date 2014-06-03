@@ -28,6 +28,7 @@ public class TimeSlot extends BaseEntity {
 	private Date endingHour;
 
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name = "calendar_id")
 	private Calendar calendar;
 

@@ -1,7 +1,8 @@
 package com.angers.m2sili.soutenance.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -46,50 +47,20 @@ public class Calendar extends BaseEntity {
 	private String link;
 
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name = "user_id")
 	private User user;
 
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name = "formation_id")
 	private Formation formation;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.EAGER)
-	private List<TimeSlot> listeTimeSlot;
+	private Set<TimeSlot> timeSlots;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.EAGER)
-	private List<Oral> listeOral;
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Formation getFormation() {
-		return formation;
-	}
-
-	public void setFormation(Formation formation) {
-		this.formation = formation;
-	}
-
-	public List<TimeSlot> getListeTimeSlot() {
-		return listeTimeSlot;
-	}
-
-	public void setListeTimeSlot(List<TimeSlot> listeTimeSlot) {
-		this.listeTimeSlot = listeTimeSlot;
-	}
-
-	public List<Oral> getListeOral() {
-		return listeOral;
-	}
-
-	public void setListeOral(List<Oral> listeOral) {
-		this.listeOral = listeOral;
-	}
+	private Set<Oral> orals;
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
@@ -135,6 +106,55 @@ public class Calendar extends BaseEntity {
 
 	public void setDuration(Float duration) {
 		this.duration = duration;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Formation getFormation() {
+		return formation;
+	}
+
+	public void setFormation(Formation formation) {
+		this.formation = formation;
+	}
+
+	/**
+	 * Manipulation sur les plages horaires
+	 */
+	
+	public Set<TimeSlot> getTimeSlots() {
+		if(this.timeSlots == null) {
+			this.timeSlots = new HashSet<TimeSlot>();
+		}
+		return this.timeSlots;
+	}
+	public void setTimeSlots(Set<TimeSlot> timeSlots) {
+		this.timeSlots = timeSlots;
+	}
+	public void addTimeSlot(TimeSlot timeSlot) {
+		getTimeSlots().add(timeSlot);
+	}
+
+	/**
+	 * Manipulation sur les oraux
+	 */
+	public Set<Oral> getOrals() {
+		if(this.orals == null) {
+			this.orals = new HashSet<Oral>();
+		}
+		return orals;
+	}
+	public void setOrals(Set<Oral> orals) {
+		this.orals = orals;
+	}
+	public void addOral(Oral oral) {
+		getOrals().add(oral);
 	}
 
 }

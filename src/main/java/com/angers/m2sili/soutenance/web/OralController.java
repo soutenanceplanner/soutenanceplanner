@@ -1,6 +1,7 @@
 package com.angers.m2sili.soutenance.web;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,8 +55,8 @@ public class OralController extends BaseController {
 	
 	@RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Oral> userList(@PathVariable Integer user_id) {
-		return oralService.getUserOral(user_id);
+	Set<Oral> userList(@PathVariable Integer user_id) {
+		return oralService.getUserOrals(user_id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
