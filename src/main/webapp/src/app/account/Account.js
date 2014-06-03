@@ -26,7 +26,7 @@ angular.module('soutenanceplanner.account')
 				}
 			})
 			.state('account.detail', {
-				url: '/:id',
+				url: '/detail',
 				views: {
 					"@" : {
 						templateUrl: 'account/detail.tpl.html',

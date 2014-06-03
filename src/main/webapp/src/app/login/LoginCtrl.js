@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.login')
 
-.controller('LoginCtrl', ['$rootScope', '$scope', '$log', '$location', '$cookieStore', 'FactoryService', 'SecurityService', 'AuthenticationService',
-	function($rootScope, $scope, $log, $location, $cookieStore, FactoryService, SecurityService, AuthenticationService) {
+.controller('LoginCtrl', ['$rootScope', '$scope', '$log', '$location', '$cookieStore', 'FactoryService', 'SecurityService',
+	function($rootScope, $scope, $log, $location, $cookieStore, FactoryService, SecurityService) {
 		$log.debug('LoginCtrl');
 
 		$scope.init = function (){
@@ -19,7 +19,7 @@ angular.module('soutenanceplanner.login')
 		$scope.logout = function(){
 			$scope.$emit('event:logoutRequest');
 
-			AuthenticationService.logout().then(function() {
+			SecurityService.logout().then(function() {
 				$rootScope.user = null;
 				$state.go('home');
 			});
