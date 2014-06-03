@@ -18,6 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
 
 import com.angers.m2sili.soutenance.model.enumeration.Droit;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * Classe qui définit un utilisateur.
@@ -28,6 +29,11 @@ import com.angers.m2sili.soutenance.model.enumeration.Droit;
 @Entity
 @Table(name = "user")
 public class User extends BaseEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4494720847310940601L;
 
 	@NotEmpty
 	@Column(name = "login", unique = true)
@@ -50,9 +56,11 @@ public class User extends BaseEntity {
 	private Droit flag;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Set<Calendar> calendars;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Set<Oral> orals;
 
 	/**

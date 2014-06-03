@@ -19,6 +19,11 @@ import javax.validation.constraints.NotNull;
 public class DayConstraint extends BaseEntity {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6433278782426107714L;
+
+	/**
 	 * Date de la contrainte.
 	 */
 	@NotNull

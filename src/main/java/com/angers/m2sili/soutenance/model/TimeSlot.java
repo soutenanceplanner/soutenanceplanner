@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * Classe qui définit un créneau de soutenance sur un jour donné.
  * 
@@ -19,6 +21,11 @@ import javax.validation.constraints.NotNull;
 @Table(name = "time_slot")
 public class TimeSlot extends BaseEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3301303780864412448L;
+
 	@NotNull
 	@Column(name = "beginning_hour")
 	private Date beginningHour;
@@ -28,8 +35,9 @@ public class TimeSlot extends BaseEntity {
 	private Date endingHour;
 
 	@ManyToOne
-	@NotNull
+	//@NotNull
 	@JoinColumn(name = "calendar_id")
+	@JsonBackReference
 	private Calendar calendar;
 
 	public Calendar getCalendar() {

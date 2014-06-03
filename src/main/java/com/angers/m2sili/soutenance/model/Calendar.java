@@ -16,6 +16,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * Classe d'un calendrier.
  * 
@@ -25,6 +28,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "calendar")
 public class Calendar extends BaseEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2940098450745307194L;
 
 	@NotNull
 	@Column(name = "beginning_date")
@@ -49,17 +57,21 @@ public class Calendar extends BaseEntity {
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name = "user_id")
+	@JsonBackReference
 	private User user;
 
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name = "formation_id")
+	@JsonBackReference
 	private Formation formation;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Set<TimeSlot> timeSlots;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Set<Oral> orals;
 
 	/**
@@ -127,16 +139,18 @@ public class Calendar extends BaseEntity {
 	/**
 	 * Manipulation sur les plages horaires
 	 */
-	
+
 	public Set<TimeSlot> getTimeSlots() {
-		if(this.timeSlots == null) {
+		if (this.timeSlots == null) {
 			this.timeSlots = new HashSet<TimeSlot>();
 		}
 		return this.timeSlots;
 	}
+
 	public void setTimeSlots(Set<TimeSlot> timeSlots) {
 		this.timeSlots = timeSlots;
 	}
+
 	public void addTimeSlot(TimeSlot timeSlot) {
 		getTimeSlots().add(timeSlot);
 	}
@@ -145,14 +159,16 @@ public class Calendar extends BaseEntity {
 	 * Manipulation sur les oraux
 	 */
 	public Set<Oral> getOrals() {
-		if(this.orals == null) {
+		if (this.orals == null) {
 			this.orals = new HashSet<Oral>();
 		}
 		return orals;
 	}
+
 	public void setOrals(Set<Oral> orals) {
 		this.orals = orals;
 	}
+
 	public void addOral(Oral oral) {
 		getOrals().add(oral);
 	}

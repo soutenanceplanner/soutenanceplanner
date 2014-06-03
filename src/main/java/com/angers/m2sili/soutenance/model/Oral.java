@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * Classe qui définit un oral durant une période de soutenance.
  * 
@@ -20,6 +22,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "oral")
 public class Oral extends BaseEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3388675967371001907L;
 
 	@NotEmpty
 	private String title;
@@ -33,10 +40,12 @@ public class Oral extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonBackReference
 	private User user ;
 
 	@ManyToOne
 	@JoinColumn(name = "calendar_id")
+	@JsonBackReference
 	private Calendar calendar;
 	
 	public User getUser() {

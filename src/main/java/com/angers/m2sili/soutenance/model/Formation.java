@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * Classe pour représenter la formation associée à un calendrier.
  * 
@@ -23,12 +25,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "formation")
 public class Formation extends BaseEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -390060889523898283L;
 	@NotEmpty
 	@Column(name = "name")
 	private String name;
 
-	//@OneToMany(cascade = CascadeType.ALL, mappedBy = "formation", fetch = FetchType.EAGER)
-	//private Set<Calendar> calendars;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "formation", fetch = FetchType.EAGER)
+	@JsonManagedReference
+	private Set<Calendar> calendars;
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
@@ -47,7 +54,7 @@ public class Formation extends BaseEntity {
 	/**
 	 * Manipulation sur les calendriers
 	 */
-	/*public Set<Calendar> getCalendars() {
+	public Set<Calendar> getCalendars() {
 		if(this.calendars == null) {
 			this.calendars = new HashSet<Calendar>();
 		}
@@ -58,6 +65,6 @@ public class Formation extends BaseEntity {
 	}
 	public void addCalendar(Calendar calendar) {
 		getCalendars().add(calendar);
-	}*/
+	}
 
 }
