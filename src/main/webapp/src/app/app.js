@@ -12,7 +12,7 @@ angular.module('soutenanceplanner', [
 
 		// dans cet ordre là pour éviter conflits
 		'ui.bootstrap',
-		//'mgcrea.ngStrap', 
+		'mgcrea.ngStrap', 
 
 		'angularFileUpload',
 		'services.i18n',
