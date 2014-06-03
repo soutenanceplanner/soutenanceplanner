@@ -6,7 +6,7 @@ angular.module('soutenanceplanner')
 	// ======== http configuration
 
 	//configure $http to view a login whenever a 401 unauthorized response arrives
-    $httpProvider.responseInterceptors.push(function ($rootScope, $q){
+    $httpProvider.responseInterceptors.push(function ($rootScope, $q, $injector){
         return function (promise) {
             return promise.then(
                 //success -> don't intercept
@@ -16,6 +16,13 @@ angular.module('soutenanceplanner')
                 //error -> if 401 save the request and broadcast an event
                 function (response) {
                     if (response.status === 401) {
+                        //si on est déjà dans le state 401, on ne fait rien
+                        var state = $injector.get('$state');
+                        if (state.current.name === "loginRequired" || 
+                            state.current.name === "login"){
+                            return $q.reject(response);
+                        }
+
                         var deferred = $q.defer(),
                         req = {
                             config: response.config,
@@ -35,8 +42,8 @@ angular.module('soutenanceplanner')
 
 }])
 
-.run(['$rootScope','$http','$state', '$location', '$cookieStore', 'SecurityService', 'Base64Service',
-    function($rootScope, $http, $state, $location, $cookieStore, SecurityService, Base64Service) {
+.run(['$rootScope','$http','$state', '$location', '$cookieStore', '$log', 'SecurityService', 'Base64Service', 'LoginService',
+    function($rootScope, $http, $state, $location, $cookieStore, $log, SecurityService, Base64Service, LoginService) {
 
         //check login lors d'un rechargement de page
         $rootScope.$on("$routeChangeStart", function() {
@@ -55,6 +62,7 @@ angular.module('soutenanceplanner')
         $rootScope.$on('event:loginRequired', function () {
             $rootScope.requests401 = [];
 
+            LoginService.setOldPath($location.path());
             $state.go('loginRequired');
         });
 
@@ -74,7 +82,9 @@ angular.module('soutenanceplanner')
                 retry(requests[i]);
             }
 
-            $state.go('home');
+            var path = LoginService.getOldPath();
+            $location.path(path);
+
             $rootScope.requests401 = [];
         });
 

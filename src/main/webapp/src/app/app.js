@@ -16,6 +16,10 @@ angular.module('soutenanceplanner', [
 
 		'angularFileUpload',
 		'services.i18n',
+		
+		'pascalprecht.translate',
+		'ngSanitize',
+		'dialogs.main',
 
 		// Commons
 		'soutenanceplanner.factory',
@@ -82,9 +86,6 @@ angular.module('soutenanceplanner')
 			// i18n
 			$rootScope.i18n = i18n;
 		};
-
-		//check security
-		SecurityService.retrieve();
 
 		$scope.init();
 } ])
