@@ -1,10 +1,5 @@
 package com.angers.m2sili.soutenance.web;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.service.FormationService;
 import com.angers.m2sili.soutenance.web.dto.FormationDTO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * Controller de Formation.
