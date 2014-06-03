@@ -1,10 +1,5 @@
 package com.angers.m2sili.soutenance.web;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.UserService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.angers.m2sili.soutenance.web.dto.UserDTO;
+import com.angers.m2sili.soutenance.web.gson.GsonParser;
 
 /**
  * Controller de User.
@@ -36,18 +31,21 @@ public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private GsonParser gsonParser;
+
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	User create(@RequestBody String user) throws UnsupportedEncodingException,
-			IOException {
-		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
-				user.getBytes()), "UTF-8")) {
-			Gson gson = new GsonBuilder().create();
-			User p = gson.fromJson(reader, User.class);
-			System.out.println(p);
-			User newUser = userService.create(p);
-			return newUser;
-		}
+	User create(@RequestBody UserDTO dto) {
+
+		User user = new User();
+		user.setLogin(dto.getLogin());
+		user.setPassword(dto.getPassword());
+		user.setMail(dto.getMail());
+		user.setFlag(dto.getFlag());
+
+		User newUser = userService.create(user);
+		return newUser;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -58,8 +56,8 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	User get(@PathVariable Integer id) {
-		return userService.get(id);
+	UserDTO get(@PathVariable Integer id) {
+		return userService.getAsDTO(id);
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
@@ -71,15 +69,14 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
-	User update(@RequestBody String user) throws UnsupportedEncodingException, IOException {
-		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
-				user.getBytes()), "UTF-8")) {
-			Gson gson = new GsonBuilder().create();
-			User p = gson.fromJson(reader, User.class);
-			System.out.println(p);
-			User newUser = userService.update(p);
-			return newUser;
-		}
+	User update(@RequestBody UserDTO dto) {
+		User user = userService.get(Integer.parseInt(dto.getId()));
+		
+		//user.setLogin(dto.getLogin());
+		user.setPassword(dto.getPassword());
+		user.setMail(dto.getMail());
+		
+		return userService.update(user);
 	}
 
 }

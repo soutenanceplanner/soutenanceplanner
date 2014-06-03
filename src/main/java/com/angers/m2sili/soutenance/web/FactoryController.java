@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Calendar;
-import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.Oral;
-import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.FactoryService;
 import com.angers.m2sili.soutenance.web.dto.AuthenticateDTO;
+import com.angers.m2sili.soutenance.web.dto.FormationDTO;
+import com.angers.m2sili.soutenance.web.dto.UserDTO;
 
 @Controller
 @RequestMapping(value = "/factory")
@@ -22,7 +22,7 @@ public class FactoryController extends BaseController {
 	
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public @ResponseBody
-	User user(){
+	UserDTO user(){
 		return factoryService.user();
 	}
 	
@@ -34,7 +34,7 @@ public class FactoryController extends BaseController {
 	
 	@RequestMapping(value = "/formation", method = RequestMethod.GET)
 	public @ResponseBody
-	Formation formation(){
+	FormationDTO formation(){
 		return factoryService.formation();
 	}
 	

@@ -22,10 +22,10 @@ angular.module('soutenanceplanner.calendar')
 						beginningDate : calendar.beginning_date,
 						endingDate : calendar.ending_date,
 						duration : calendar.duration,
-						formation : calendar.formation,
+						formationId : calendar.formation.id,
 						link : calendar.link,
 						timeSlots : timeSlots,
-						user : user
+						userId : user.id
 					}
 				});
 			},

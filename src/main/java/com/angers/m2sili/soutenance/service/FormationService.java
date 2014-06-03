@@ -3,6 +3,7 @@ package com.angers.m2sili.soutenance.service;
 import java.util.List;
 
 import com.angers.m2sili.soutenance.model.Formation;
+import com.angers.m2sili.soutenance.web.dto.FormationDTO;
 
 /**
  * Interface du service de User.
@@ -18,8 +19,11 @@ public interface FormationService {
 
 	Formation get(Integer id);
 	
+	FormationDTO getAsDTO(Integer id);
+	
 	List<Formation> getAll();
 	
 	Formation update(Formation formation);
+
 }
 

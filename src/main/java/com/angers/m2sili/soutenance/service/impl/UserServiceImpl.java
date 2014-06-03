@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.repository.UserRepository;
 import com.angers.m2sili.soutenance.service.UserService;
+import com.angers.m2sili.soutenance.web.dto.UserDTO;
 
 /**
  * Classe d'implémentation du service de User.
@@ -29,6 +30,21 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public UserDTO getAsDTO(Integer id) {
+		User user = userRepository.findOne(id);
+		
+		UserDTO dto = new UserDTO();
+		dto.setId(user.getId().toString());
+		dto.setFlag(user.getFlag());
+		dto.setLogin(user.getLogin());
+		dto.setMail(user.getMail());
+		dto.setPassword(user.getPassword());
+		
+		return dto;
+	}
+	
 	@Override
 	@Transactional(readOnly = true)
 	public User get(Integer id) {
