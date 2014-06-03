@@ -41,35 +41,19 @@ public class Oral extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@JsonBackReference
-	private User user ;
+	private User user;
 
 	@ManyToOne
 	@JoinColumn(name = "calendar_id")
 	@JsonBackReference
 	private Calendar calendar;
-	
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Calendar getCalendar() {
-		return calendar;
-	}
-
-	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
-	}
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
 	 */
-	public Oral(){
+	public Oral() {
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -92,6 +76,22 @@ public class Oral extends BaseEntity {
 
 	public void setParticipants(String participants) {
 		this.participants = participants;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Calendar getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(Calendar calendar) {
+		this.calendar = calendar;
 	}
 
 }

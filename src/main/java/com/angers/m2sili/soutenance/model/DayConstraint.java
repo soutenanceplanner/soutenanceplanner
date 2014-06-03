@@ -29,18 +29,18 @@ public class DayConstraint extends BaseEntity {
 	@NotNull
 	@Column(name = "date")
 	private Date date;
-	
+
 	/**
 	 * State de la contrainte.
 	 */
 	@NotNull
 	@Column(name = "state")
 	private Boolean state;
-	
+
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
 	 */
-	public DayConstraint(){
+	public DayConstraint() {
 	}
 
 	public Date getDate() {
