@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+
 /**
  * Classe pour représenter la formation associée à un calendrier.
  * 
