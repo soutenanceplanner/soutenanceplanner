@@ -9,6 +9,12 @@ angular.module('soutenanceplanner.calendar')
 			createCalendar:function(calendar){
 				console.log(calendar);
 				listeTimeSlot = [];
+				angular.forEach(calendar.time_slot_list, function(value, key) {
+					listeTimeSlot.push({
+						beginningHour : value.beginning,
+						endingHour : value.ending
+					});
+				});
 				return $http({
 					method: 'POST',
 					url: WS_SERVER_URL + "/calendar/new",
@@ -19,20 +25,11 @@ angular.module('soutenanceplanner.calendar')
 						duration : calendar.duration,
 						formation : calendar.formation,
 						link : "test",
-						listeTimeSlot : 
+						listeTimeSlot : listeTimeSlot
 					}
 				});
 			},
-
-/*			data: {
-				title : calendar.title,
-				beginningDate : calendar.beginning_date,
-				endingDate : calendar.ending_date,
-				duration : calendar.duration,
-				formation : calendar.formation,
-				link : "test"
-			}
-*/			
+			
 			getCalendar:function(calendar){
 				return $http({
 					method: 'GET',

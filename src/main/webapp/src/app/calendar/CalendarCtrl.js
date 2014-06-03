@@ -129,6 +129,9 @@ angular.module('soutenanceplanner.calendar')
 				maxTime : 20,
 				eventResize : function(event, dayDelta, minuteDelta, revertFunc) {
 					//$scope.initializeConstraints(event);
+				},
+				eventClick : function(event, jsEvent, view) {
+					alert(event.title);
 				}
 			}
 		};
