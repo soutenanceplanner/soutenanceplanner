@@ -87,8 +87,6 @@ angular.module('soutenanceplanner')
 			$rootScope.i18n = i18n;
 		};
 
-<<<<<<< HEAD
-
 		$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 			SecurityService.retrieve()
 				.success(function(data){
@@ -109,8 +107,6 @@ angular.module('soutenanceplanner')
 			
 		});
 		
-=======
->>>>>>> branch 'dev' of git@github.com:soutenanceplanner/soutenanceplanner.git
 		$scope.init();
 } ])
 
