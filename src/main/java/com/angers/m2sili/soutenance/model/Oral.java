@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+
 /**
  * Classe qui définit un oral durant une période de soutenance.
  * 

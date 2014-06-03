@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+
 /**
  * Classe qui définit un créneau de soutenance sur un jour donné.
  * 

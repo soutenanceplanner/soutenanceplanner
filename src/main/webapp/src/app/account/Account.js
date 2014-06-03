@@ -13,6 +13,18 @@ angular.module('soutenanceplanner.account')
 					ncyBreadcrumbLabel: 'Utilisateurs'
 				}
 			})
+			.state('account.current', {
+				url: '/current',
+				views: {
+					"@" : {
+						templateUrl: 'account/detail.tpl.html',
+						controller: 'AccountCurrentUserDetailCtrl'
+					}
+				},
+				data: {
+					ncyBreadcrumbLabel: 'Utilisateur {{user.login}}'
+				}
+			})
 			.state('account.add', {
 				url: '/add',
 				views: {
@@ -26,7 +38,7 @@ angular.module('soutenanceplanner.account')
 				}
 			})
 			.state('account.detail', {
-				url: '/detail',
+				url: '/:id',
 				views: {
 					"@" : {
 						templateUrl: 'account/detail.tpl.html',

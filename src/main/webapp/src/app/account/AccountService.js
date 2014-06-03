@@ -1,8 +1,8 @@
 angular.module('soutenanceplanner.account')
 
-.service('AccountService', [ '$http', 'WS_SERVER_URL',
+.service('AccountService', [ '$http', 'WS_SERVER_URL','transformRequestAsFormPost',
 
-	function($http, WS_SERVER_URL) {
+	function($http, WS_SERVER_URL, transformRequestAsFormPost) {
 
 		var AccountService = {
 
