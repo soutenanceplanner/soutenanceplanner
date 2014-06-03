@@ -86,22 +86,24 @@ public class CalendarController extends BaseController {
 		return calServiceImpl.get(id);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Calendar> getAll() {
 
 		/*
 		 * On récupère le login
-		 * 
-		 * Authentication authentication = SecurityContextHolder.getContext()
-		 * .getAuthentication(); if (authentication == null ||
-		 * !(authentication.getPrincipal() instanceof UserDetails)) { return
-		 * null; }
-		 * 
-		 * UserDetails user = (UserDetails) authentication.getPrincipal();
-		 * 
-		 * user.login();
-		 */
+		  
+		 
+		  Authentication authentication = SecurityContextHolder.getContext()
+		  .getAuthentication(); if (authentication == null ||
+		  !(authentication.getPrincipal() instanceof UserDetails)) { return
+		  null; }
+		  
+		  UserDetails user = (UserDetails) authentication.getPrincipal();
+		  
+		  user.login();
+		*/ 
 
 		return calServiceImpl.getAll("admin1");
 	}
