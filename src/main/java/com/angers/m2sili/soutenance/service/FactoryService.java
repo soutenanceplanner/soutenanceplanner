@@ -4,6 +4,7 @@ import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.web.dto.AuthenticateDTO;
+import com.angers.m2sili.soutenance.web.dto.UserDTO;
 import com.angers.m2sili.soutenance.model.Oral;
 
 /**
@@ -15,7 +16,7 @@ import com.angers.m2sili.soutenance.model.Oral;
 
 public interface FactoryService {
 
-	public User user();
+	public UserDTO user();
 
 	public Formation formation();
 	

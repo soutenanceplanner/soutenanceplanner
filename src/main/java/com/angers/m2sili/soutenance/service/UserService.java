@@ -3,6 +3,7 @@ package com.angers.m2sili.soutenance.service;
 import java.util.List;
 
 import com.angers.m2sili.soutenance.model.User;
+import com.angers.m2sili.soutenance.web.dto.UserDTO;
 
 /**
  * Interface du service de User.
@@ -16,6 +17,8 @@ public interface UserService {
 	
 	void delete(Integer id);
 
+	UserDTO getAsDTO(Integer id);
+	
 	User get(Integer id);
 	
 	List<User> getAll();
