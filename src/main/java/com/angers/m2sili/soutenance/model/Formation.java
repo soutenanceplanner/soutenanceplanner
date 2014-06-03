@@ -1,5 +1,6 @@
 package com.angers.m2sili.soutenance.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -52,6 +53,9 @@ public class Formation extends BaseEntity {
 	}
 
 	public List<Calendar> getCalendars() {
+		if(this.calendars == null) {
+			calendars = new ArrayList<Calendar>();
+		}
 		return calendars;
 	}
 

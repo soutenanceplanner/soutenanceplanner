@@ -45,7 +45,6 @@ public class UserController extends BaseController {
 			Gson gson = new GsonBuilder().create();
 			User p = gson.fromJson(reader, User.class);
 			System.out.println(p);
-
 			User newUser = userService.create(p);
 			return newUser;
 		}
@@ -80,7 +79,6 @@ public class UserController extends BaseController {
 			Gson gson = new GsonBuilder().create();
 			User p = gson.fromJson(reader, User.class);
 			System.out.println(p);
-
 			User newUser = userService.update(p);
 			return newUser;
 		}

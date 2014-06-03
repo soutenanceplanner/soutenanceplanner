@@ -1,5 +1,6 @@
 package com.angers.m2sili.soutenance.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -101,6 +102,9 @@ public class User extends BaseEntity {
 	}
 
 	public List<Calendar> getCalendars() {
+		if(this.calendars == null) {
+			calendars = new ArrayList<Calendar>();
+		}
 		return calendars;
 	}
 
@@ -109,6 +113,9 @@ public class User extends BaseEntity {
 	}
 
 	public List<Oral> getOrals() {
+		if(this.orals == null) {
+			orals = new ArrayList<Oral>();
+		}
 		return orals;
 	}
 
