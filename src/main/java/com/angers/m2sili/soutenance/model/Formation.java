@@ -27,8 +27,8 @@ public class Formation extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "formation", fetch = FetchType.EAGER)
-	private Set<Calendar> calendars;
+	//@OneToMany(cascade = CascadeType.ALL, mappedBy = "formation", fetch = FetchType.EAGER)
+	//private Set<Calendar> calendars;
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
@@ -47,7 +47,7 @@ public class Formation extends BaseEntity {
 	/**
 	 * Manipulation sur les calendriers
 	 */
-	public Set<Calendar> getCalendars() {
+	/*public Set<Calendar> getCalendars() {
 		if(this.calendars == null) {
 			this.calendars = new HashSet<Calendar>();
 		}
@@ -58,6 +58,6 @@ public class Formation extends BaseEntity {
 	}
 	public void addCalendar(Calendar calendar) {
 		getCalendars().add(calendar);
-	}
+	}*/
 
 }
