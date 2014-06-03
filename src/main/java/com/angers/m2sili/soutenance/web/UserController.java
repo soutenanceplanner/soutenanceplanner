@@ -48,8 +48,6 @@ public class UserController extends BaseController {
 			User newUser = userService.create(p);
 			return newUser;
 		}
-		// User newUser = userService.create(user);
-		// return new User();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

@@ -1,5 +1,10 @@
 package com.angers.m2sili.soutenance.web;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.service.FormationService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Controller de Formation.
@@ -29,9 +36,15 @@ public class FormationController extends BaseController {
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	Formation create(@RequestBody Formation formation) {
-		Formation newFormation = formationService.create(formation);
-		return newFormation;
+	Formation create(@RequestBody String formation) throws UnsupportedEncodingException, IOException {
+		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
+				formation.getBytes()), "UTF-8")) {
+			Gson gson = new GsonBuilder().create();
+			Formation p = gson.fromJson(reader, Formation.class);
+			System.out.println(p);
+
+			return formationService.create(p);
+		}
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -54,8 +67,15 @@ public class FormationController extends BaseController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
-	Formation update(@RequestBody Formation formation) {
-		return formationService.update(formation);
+	Formation update(@RequestBody String formation) throws UnsupportedEncodingException, IOException {
+		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
+				formation.getBytes()), "UTF-8")) {
+			Gson gson = new GsonBuilder().create();
+			Formation p = gson.fromJson(reader, Formation.class);
+			System.out.println(p);
+
+			return formationService.update(p);
+		}
 	}
 	
 }

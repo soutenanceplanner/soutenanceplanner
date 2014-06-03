@@ -1,5 +1,10 @@
 package com.angers.m2sili.soutenance.web;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.service.OralService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Controller de Oral.
@@ -29,9 +36,15 @@ public class OralController extends BaseController {
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	Oral create(@RequestBody Oral oral) {
-		Oral newOral = oralService.create(oral);
-		return newOral;
+	Oral create(@RequestBody String oral) throws UnsupportedEncodingException, IOException {
+		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
+				oral.getBytes()), "UTF-8")) {
+			Gson gson = new GsonBuilder().create();
+			Oral p = gson.fromJson(reader, Oral.class);
+			System.out.println(p);
+
+			return oralService.create(p);
+		}
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -60,8 +73,15 @@ public class OralController extends BaseController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
-	Oral update(@RequestBody Oral oral) {
-		return oralService.update(oral);
+	Oral update(@RequestBody String oral) throws UnsupportedEncodingException, IOException {
+		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
+				oral.getBytes()), "UTF-8")) {
+			Gson gson = new GsonBuilder().create();
+			Oral p = gson.fromJson(reader, Oral.class);
+			System.out.println(p);
+
+			return oralService.update(p);
+		}
 	}
 	
 }
