@@ -1,5 +1,10 @@
 package com.angers.m2sili.soutenance.web;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.service.CalendarService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * 
@@ -34,14 +41,28 @@ public class CalendarController extends BaseController {
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	Calendar create(@RequestBody Calendar calendar) {
-		return calServiceImpl.create(calendar);
+	Calendar create(@RequestBody String calendar) throws UnsupportedEncodingException, IOException {
+		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
+				calendar.getBytes()), "UTF-8")) {
+			Gson gson = new GsonBuilder().create();
+			Calendar p = gson.fromJson(reader, Calendar.class);
+			System.out.println(p);
+
+			return calServiceImpl.create(p);
+		}
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
-	Calendar update(@RequestBody Calendar calendar) {
-		return calServiceImpl.update(calendar);
+	Calendar update(@RequestBody String calendar) throws UnsupportedEncodingException, IOException {
+		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
+				calendar.getBytes()), "UTF-8")) {
+			Gson gson = new GsonBuilder().create();
+			Calendar p = gson.fromJson(reader, Calendar.class);
+			System.out.println(p);
+
+			return calServiceImpl.update(p);
+		}
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
