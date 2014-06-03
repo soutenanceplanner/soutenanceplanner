@@ -36,11 +36,15 @@ module.exports = {
       'vendor/angular-ui-calendar/src/calendar.js',
       'vendor/fullcalendar/fullcalendar.js',
       'vendor/fullcalendar/gcal.js',
-      'vendor/angular-breadcrumb/dist/angular-breadcrumb.min.js'
+      'vendor/angular-breadcrumb/dist/angular-breadcrumb.min.js',
+      'vendor/angular-sanitize/angular-sanitize.min.js',
+      'vendor/angular-translate/angular-translate.min.js',
+      'vendor/angular-dialog-service/dialogs.js'
     ],
     css: [
       'vendor/angular-motion/dist/angular-motion.min.css',
-      'vendor/fullcalendar/fullcalendar.css'
+      'vendor/fullcalendar/fullcalendar.css',
+      'vendor/angular-dialog-service/dialogs.min.css'
     ],
     assets: [
     ],

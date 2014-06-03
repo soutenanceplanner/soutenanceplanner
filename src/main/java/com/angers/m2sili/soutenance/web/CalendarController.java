@@ -1,10 +1,6 @@
 package com.angers.m2sili.soutenance.web;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +21,7 @@ import com.angers.m2sili.soutenance.service.FormationService;
 import com.angers.m2sili.soutenance.service.TimeSlotService;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 
 /**
  * 
@@ -77,19 +72,6 @@ public class CalendarController extends BaseController {
 			timeSlotServiceImpl.create(ts);
 		}
 		return c;
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public @ResponseBody
-	Calendar update(@RequestBody String calendar)
-			throws UnsupportedEncodingException, IOException {
-		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
-				calendar.getBytes()), "UTF-8")) {
-			Gson gson = new GsonBuilder().create();
-			Calendar p = gson.fromJson(reader, Calendar.class);
-			System.out.println(p);
-			return calServiceImpl.update(p);
-		}
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
