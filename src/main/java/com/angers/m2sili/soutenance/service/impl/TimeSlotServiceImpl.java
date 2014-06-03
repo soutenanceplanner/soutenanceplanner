@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.TimeSlot;
 import com.angers.m2sili.soutenance.repository.TimeSlotRepository;
 import com.angers.m2sili.soutenance.service.TimeSlotService;
@@ -18,8 +17,7 @@ public class TimeSlotServiceImpl implements TimeSlotService {
 	private TimeSlotRepository timeSlotRepository;
 
 	@Override
-	public TimeSlot create(TimeSlot timeSlot, Calendar calendar) {
-		timeSlot.setCalendar(calendar);
+	public TimeSlot create(TimeSlot timeSlot) {
 		return timeSlotRepository.save(timeSlot);
 	}
 
