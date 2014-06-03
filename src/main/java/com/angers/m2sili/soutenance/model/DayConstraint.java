@@ -1,12 +1,13 @@
 package com.angers.m2sili.soutenance.model;
 
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.joda.time.DateTime;
 
 /**
  * Classe de contrainte sur un jour d'un calendrier.
@@ -29,7 +30,7 @@ public class DayConstraint extends BaseEntity {
 	 */
 	@NotNull
 	@Column(name = "date")
-	private DateTime date;
+	private Date date;
 
 	/**
 	 * State de la contrainte.
@@ -44,11 +45,11 @@ public class DayConstraint extends BaseEntity {
 	public DayConstraint() {
 	}
 
-	public DateTime getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(DateTime date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
