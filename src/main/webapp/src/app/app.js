@@ -78,8 +78,8 @@ angular.module('soutenanceplanner')
 		//$http.defaults.headers.contentType = "application/x-www-form-urlencoded";
 } ])
 
-.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n',
-	function($rootScope, $scope, $log, SecurityService, i18n) {
+.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n','$state',
+	function($rootScope, $scope, $log, SecurityService, i18n,$state) {
 		$log.debug("MainCtrl");
 
 		$scope.init = function() {
@@ -87,9 +87,27 @@ angular.module('soutenanceplanner')
 			$rootScope.i18n = i18n;
 		};
 
-		//check security
-		SecurityService.retrieve();
 
+		$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+			SecurityService.retrieve()
+				.success(function(data){
+						$log.debug(data);
+						$scope.userLogin = data.username;
+						if(data.username == null){
+							$state.go('login');
+						}
+					}
+			)
+			.error(function(data, status, headers, config){
+				$state.go('login');
+			});
+			
+			/*if($scope.userLogin == null){
+				$state.go('login');
+			}*/
+			
+		});
+		
 		$scope.init();
 } ])
 
@@ -102,6 +120,7 @@ angular.module('soutenanceplanner')
 			$scope.$emit('event:logoutRequest');
 
 			SecurityService.logout().then(function() {
+				$scope.userLogin = null;
 				$rootScope.user = null;
 				$state.go('home');
 			});
@@ -121,16 +140,18 @@ angular.module('soutenanceplanner')
 		index: '@'
 	},
 	link :	function link(scope, element, attrs) {	
-		//on récupère le titre passé en attributs et on le passe au scope du template
 		scope.titre = attrs.title ;
-		//on passe le type qui correspond au badge
 		scope.badge = attrs.type;
+
 		//si le type = 1 on récupère les calendrier passés
 		if(attrs.type == 1){
 			HomeService.getPastCalendars().then(
 					function(response){
 						$log.debug(response.data);
 						scope.calendriers = response.data ;
+						if(response.data.length === 0){
+							scope.calVide = attrs.erreur ;
+						}
 					}
 				);
 		}else	if(attrs.type == 2){
@@ -138,6 +159,9 @@ angular.module('soutenanceplanner')
 					function(response){
 						$log.debug(response.data);
 						scope.calendriers = response.data ;
+						if(scope.calendriers === null){
+							scope.calVide = attrs.erreur ;
+						}
 				}
 			);
 		//si le type = 3 on récupère les calendriers de l'user
@@ -146,13 +170,12 @@ angular.module('soutenanceplanner')
 					function(response){
 						$log.debug(response.data);
 						scope.calendriers = response.data ;
+						if(scope.calendriers === null){
+							scope.calVide = attrs.erreur ;
+						}
 					}
 				);	
 		
-		}
-		
-		if(scope.calendriers == null){
-			scope.calVide = attrs.erreur ;
 		}
 		
 	}
