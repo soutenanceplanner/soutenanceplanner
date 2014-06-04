@@ -10,7 +10,7 @@
 				<div class="row">
 						<nav class="col-md-9 nav navbar-nav navbar-right" role="navigation">
 							<div class="btn-group navbar-brand navbar-right">
-								<div ng-show='userLogin != null' class="dropdown btn-group">
+								<div ng-if='userLogin != null' class="dropdown btn-group">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 										Administration <span class="caret"></span>
 									</button>
@@ -20,10 +20,10 @@
 										<li><a ui-sref='calendar'>Calendriers</a></li>
 									</ul>
 								</div>
-								<button ng-show='userLogin != null' ui-sref='account.current' type="button" class="btn btn-default">Mon compte</button>
+								<button ng-if='userLogin != null' ui-sref='account.current' type="button" class="btn btn-default">Mon compte</button>
 
-								<button ng-show='userLogin == null' ui-sref='login' type="button" class="btn btn-default">Connexion</button>
-								<button ng-show='userLogin != null' ng-click="logout()" type="button" class="btn btn-default">Déconnexion</button>
+								<button ng-if='userLogin == null' ui-sref='login' type="button" class="btn btn-default">Connexion</button>
+								<button ng-if='userLogin != null' ng-click="logout()" type="button" class="btn btn-default">Déconnexion</button>
 							</div>
 						</nav>
 				</div>
