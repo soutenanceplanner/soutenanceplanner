@@ -21,6 +21,7 @@ import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.FormationService;
 import com.angers.m2sili.soutenance.service.SecurityService;
 import com.angers.m2sili.soutenance.service.TimeSlotService;
+import com.angers.m2sili.soutenance.service.TransformerService;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
@@ -50,6 +51,9 @@ public class CalendarController extends BaseController {
 	
 	@Autowired
 	private SecurityService securityServiceImpl;
+	
+	@Autowired
+	private TransformerService transformerService;
 
 
 	@Autowired
@@ -83,6 +87,7 @@ public class CalendarController extends BaseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
+		logger.debug("REST Calendar - supression du calendrier avec id : "+id);
 		calServiceImpl.delete(id);
 	}
 
@@ -94,7 +99,7 @@ public class CalendarController extends BaseController {
 		if(!cal.getLink().contentEquals(link)) {
 			dto.setError("Non autorisé à accéder au calendrier.");
 		} else {
-			dto.setValue(cal);
+			dto.setValue(transformerService.beanToDto(cal));
 		}
 		return dto;
 	}
