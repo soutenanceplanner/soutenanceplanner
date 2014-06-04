@@ -3,6 +3,9 @@ package com.angers.m2sili.soutenance.web.dto;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.angers.m2sili.soutenance.model.Formation;
+import com.angers.m2sili.soutenance.model.User;
+
 public class CalendarDTO {
 
 	private Integer id;
@@ -15,6 +18,8 @@ public class CalendarDTO {
 	private String link;
 	private ArrayList<TimeSlotDTO> timeSlots;
 	private ArrayList<OralDTO> orals;
+//	private Formation formation;
+//	private User user;
 
 	public String getTitle() {
 		return title;
@@ -95,5 +100,21 @@ public class CalendarDTO {
 	public void setOrals(ArrayList<OralDTO> orals) {
 		this.orals = orals;
 	}
+
+//	public Formation getFormation() {
+//		return formation;
+//	}
+//
+//	public void setFormation(Formation formation) {
+//		this.formation = formation;
+//	}
+//
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 }
