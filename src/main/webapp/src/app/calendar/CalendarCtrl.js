@@ -271,25 +271,18 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 'SecurityService',
-	function($scope, $log, $state, $stateParams, CalendarService, SecurityService) {
+.controller('CalendarListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 
+	function($scope, $log, $state, $stateParams, CalendarService) {
 		$log.debug('CalendarListCtrl');
 
 		$scope.init = function(){
-			SecurityService.retrieveUser().then(
-				function(response) {
-					$scope.user = response.data;
-				}
-			);
-			$log.debug($scope.user);
-			/*CalendarService.listCalendar($scope.user).then(
+			CalendarService.listCalendar().then(
 				function(response){
 					$scope.calendars = response.data;
 				}
-			);*/
+			);
 		};
 
-		//init
 		$scope.init();
 
 		$scope.deleteCalendar = function(id){

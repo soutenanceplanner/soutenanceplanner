@@ -166,13 +166,7 @@ angular.module('soutenanceplanner')
 			);
 		//si le type = 3 on récupère les calendriers de l'user
 		}else if (attrs.type == 3){
-			SecurityService.retrieveUser().then(
-				function(response) {
-					scope.user = response.data;
-					$log.debug(scope.user);
-				}
-			);
-			HomeService.getCalendars(scope.user).then(
+			HomeService.getCalendars().then(
 				function(response){
 					$log.debug(response.data);
 					scope.calendriers = response.data ;

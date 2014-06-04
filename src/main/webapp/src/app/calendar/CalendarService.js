@@ -44,11 +44,10 @@ angular.module('soutenanceplanner.calendar')
 				});
 			},
 
-			listCalendar:function(user){
-				console.log(user);
+			listCalendar:function(){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/calendar/list/"+user.login,
+					url: WS_SERVER_URL + "/calendar/list",
 				});
 			}
 
