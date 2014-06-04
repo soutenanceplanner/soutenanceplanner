@@ -86,7 +86,7 @@ angular.module('soutenanceplanner')
 		$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 			
 			
-			if(toState.name != "login" && toState.name != "home"){
+		//	if(toState.name != "login" && toState.name != "home"){
 
 			SecurityService.retrieve()
 				.success(function(data){
@@ -104,10 +104,10 @@ angular.module('soutenanceplanner')
 			/*if($scope.userLogin == null){
 				$state.go('login');
 			}*/
-		}
+//		}
 		});
 	
-		$scope.toto = CalendarService.getListCalendar() ;
+//		$scope.toto = CalendarService.getListCalendar() ;
 		
 // watch current page for updates and set page value
 /*	$scope.$watch(CalendarService.getListCalendar(), function(newValue, oldValue, scope) {
