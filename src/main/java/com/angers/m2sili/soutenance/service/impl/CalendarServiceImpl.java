@@ -36,7 +36,7 @@ public class CalendarServiceImpl implements CalendarService{
 	@Override
 	@Transactional(readOnly = true)
 	public Calendar get(int idCal) {
-		return calendarRepository.findOne(idCal);
+		return calendarRepository.findById(idCal);
 	}
 
 	@Transactional(readOnly = true)

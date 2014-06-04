@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -77,7 +78,7 @@ public class OralController extends BaseController {
 	public @ResponseBody
 	Set<Oral> list() {
 		System.out.println("################# DEBUG #################");
-		return oralService.getAll();
+		return new HashSet<Oral>(oralService.getAll());
 	}
 	
 	@RequestMapping(value = "/list2", method = RequestMethod.GET)
@@ -89,11 +90,11 @@ public class OralController extends BaseController {
 	
 	@RequestMapping(value = "/list/{user_id}/{calendar_id}", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Oral> userList(@PathVariable Integer user_id, @PathVariable Integer calendar_id) {
+	Set<Oral> userList(@PathVariable Integer user_id, @PathVariable Integer calendar_id) {
 		User user = securityServiceImpl.retrieveUser();
 		if(user == null)
 			return null;
-		return oralService.getUserOrals(user.getId(), calendar_id);
+		return new HashSet<Oral>(oralService.getUserOrals(user.getId(), calendar_id));
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

@@ -74,13 +74,13 @@ public class OralServiceImpl implements OralService {
 		User user = userRepository.findOne(user_id);
 		Calendar calendar = calendarRepository.findOne(calendar_id);
 		//return user.getOrals();
-		return oralRepository.findAllByUserAndCalendar(user, calendar);
+		return new HashSet<Oral>(oralRepository.findAllByUserAndCalendar(user, calendar));
 	}
 
 	@Override
 	public Set<Oral> getList2() {
 		logger.debug("List2");
-		return oralRepository.findAll();
+		return new HashSet<Oral>(oralRepository.findAll());
 	}
 	
 }

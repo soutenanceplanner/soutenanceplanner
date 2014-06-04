@@ -25,7 +25,7 @@ public class TimeSlot extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 3301303780864412448L;
-
+	
 	@NotNull
 	@Column(name = "beginning_hour")
 	private Integer beginningHour;
@@ -35,7 +35,7 @@ public class TimeSlot extends BaseEntity {
 	private Integer endingHour;
 
 	@ManyToOne
-	// @NotNull
+	@NotNull
 	@JoinColumn(name = "calendar_id")
 	@JsonBackReference
 	private Calendar calendar;

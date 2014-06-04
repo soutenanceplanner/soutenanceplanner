@@ -1,7 +1,7 @@
 package com.angers.m2sili.soutenance.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,11 +57,11 @@ public class User extends BaseEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	@JsonManagedReference
-	private List<Calendar> calendars;
+	private Set<Calendar> calendars = new HashSet<Calendar>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	@JsonManagedReference
-	private List<Oral> orals;
+	private Set<Oral> orals = new HashSet<Oral>();
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
@@ -101,25 +101,19 @@ public class User extends BaseEntity {
 		this.flag = flag;
 	}
 
-	public List<Calendar> getCalendars() {
-		if(this.calendars == null) {
-			calendars = new ArrayList<Calendar>();
-		}
+	public Set<Calendar> getCalendars() {
 		return calendars;
 	}
 
-	public void setCalendars(List<Calendar> calendars) {
+	public void setCalendars(Set<Calendar> calendars) {
 		this.calendars = calendars;
 	}
 
-	public List<Oral> getOrals() {
-		if(this.orals == null) {
-			orals = new ArrayList<Oral>();
-		}
+	public Set<Oral> getOrals() {
 		return orals;
 	}
 
-	public void setOrals(List<Oral> orals) {
+	public void setOrals(Set<Oral> orals) {
 		this.orals = orals;
 	}
 

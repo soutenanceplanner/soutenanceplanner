@@ -22,8 +22,9 @@ public interface OralService {
 	Set<Oral> getAll();
 	
 	Oral update(Oral oral);
-
+	
 	Set<Oral> getUserOrals(Integer user_id, Integer calendar_id);
 
-	List<Oral> getList2();
+	Set<Oral> getList2();
+
 }
