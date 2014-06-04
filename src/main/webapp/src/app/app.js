@@ -74,8 +74,8 @@ angular.module('soutenanceplanner')
 		//$http.defaults.headers.contentType = "application/x-www-form-urlencoded";
 } ])
 
-.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n',
-	function($rootScope, $scope, $log, SecurityService, i18n) {
+.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n','CalendarService',
+	function($rootScope, $scope, $log, SecurityService, i18n,CalendarService) {
 		$log.debug("MainCtrl");
 
 		$scope.init = function() {
@@ -93,6 +93,13 @@ angular.module('soutenanceplanner')
 				}
 			);
 		};
+		
+		CalendarService.getCalendars().then(
+				function(response){
+					$log.debug("crétin");
+					$scope.mesCalendriers = response.data ;
+				}
+			);	
 
 		//reload MainCtrl when logged
 		$scope.$on('event:reloadMainCtrl', function(event, args) {
@@ -104,13 +111,15 @@ angular.module('soutenanceplanner')
 } ])
 
 
-.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', '$stateParams', 'SecurityService',
-	function($rootScope, $scope, $log, $state, $location, $stateParams, SecurityService) {
+.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', '$stateParams', 'SecurityService','CalendarService',
+	function($rootScope, $scope, $log, $state, $location, $stateParams, SecurityService,CalendarService) {
 		$log.debug("MenuCtrl");
 
 		$scope.logout = function(){
 			$rootScope.$broadcast('event:logoutRequest');
 		};
+		
+		
 	}
 ])
 
@@ -151,16 +160,6 @@ angular.module('soutenanceplanner')
 				}
 			);
 		//si le type = 3 on récupère les calendriers de l'user
-		}else if (attrs.type == 3){
-			CalendarService.getCalendars().then(
-				function(response){
-					$log.debug(response.data);
-					scope.calendriers = response.data ;
-					if(scope.calendriers === null){
-						scope.calVide = attrs.erreur ;
-					}
-				}
-			);	
 		}
 	}
 };
