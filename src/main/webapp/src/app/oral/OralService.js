@@ -35,10 +35,10 @@ angular.module('soutenanceplanner.oral')
 				});
 			},
 
-			listUserOral:function(user_id){
+			listUserOral:function(user_id, calendar_id){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/oral/list/"+user_id,
+					url: WS_SERVER_URL + "/oral/list/"+user_id+"/"+calendar_id,
 				});
 			},
 

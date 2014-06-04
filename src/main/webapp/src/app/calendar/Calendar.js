@@ -30,7 +30,7 @@ angular.module('soutenanceplanner.calendar')
 				}
 			})
 			.state('calendar.detail', {
-				url: '/:id/:link',
+				url: '/:id',
 				views: {
 					"@" : {
 						templateUrl: 'calendar/detail.tpl.html',

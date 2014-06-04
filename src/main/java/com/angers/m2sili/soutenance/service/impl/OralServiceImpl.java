@@ -1,16 +1,22 @@
 package com.angers.m2sili.soutenance.service.impl;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.User;
+import com.angers.m2sili.soutenance.repository.CalendarRepository;
 import com.angers.m2sili.soutenance.repository.OralRepository;
 import com.angers.m2sili.soutenance.repository.UserRepository;
 import com.angers.m2sili.soutenance.service.OralService;
+import com.angers.m2sili.soutenance.web.BaseController;
 
 /**
  * Classe d'implémentation du service de Oral.
@@ -27,6 +33,11 @@ public class OralServiceImpl implements OralService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private CalendarRepository calendarRepository;
+	
+	protected final Logger logger = LoggerFactory.getLogger(BaseController.class);
 	
 	@Override
 	@Transactional
@@ -48,8 +59,8 @@ public class OralServiceImpl implements OralService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Oral> getAll() {
-		return oralRepository.findAll();
+	public Set<Oral> getAll() {
+		return new HashSet<Oral>(oralRepository.findAll());
 	}
 
 	@Override
@@ -58,9 +69,18 @@ public class OralServiceImpl implements OralService {
 	}
 
 	@Override
-	public List<Oral> getUserOrals(Integer user_id) {
+	public Set<Oral> getUserOrals(Integer user_id, Integer calendar_id) {
+		logger.debug("Recupération des Oraux du user " + user_id);
 		User user = userRepository.findOne(user_id);
-		return user.getOrals();
+		Calendar calendar = calendarRepository.findOne(calendar_id);
+		//return user.getOrals();
+		return oralRepository.findAllByUserAndCalendar(user, calendar);
+	}
+
+	@Override
+	public Set<Oral> getList2() {
+		logger.debug("List2");
+		return oralRepository.findAll();
 	}
 	
 }

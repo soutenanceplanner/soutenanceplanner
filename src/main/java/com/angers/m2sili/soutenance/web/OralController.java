@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Oral;
+import com.angers.m2sili.soutenance.model.User;
+import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.OralService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.angers.m2sili.soutenance.service.SecurityService;
+import com.angers.m2sili.soutenance.service.UserService;
+import com.angers.m2sili.soutenance.web.dto.OralDTO;
 
 /**
  * Controller de Oral.
@@ -34,17 +39,26 @@ public class OralController extends BaseController {
 	@Autowired
 	private OralService oralService;
 	
+	@Autowired
+	private UserService userServiceImpl;
+	
+	@Autowired
+	private CalendarService calendarServiceImpl;
+	
+	@Autowired
+	private SecurityService securityServiceImpl;
+	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	Oral create(@RequestBody String oral) throws UnsupportedEncodingException, IOException {
-		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
-				oral.getBytes()), "UTF-8")) {
-			Gson gson = new GsonBuilder().create();
-			Oral p = gson.fromJson(reader, Oral.class);
-			System.out.println(p);
-
-			return oralService.create(p);
-		}
+	Oral create(@RequestBody OralDTO oral) {
+		logger.debug("REST - Création d'un oral");
+		Oral o = new Oral();
+		o.setBeginningHour(oral.getBeginning_hour());
+		o.setParticipants(oral.getParticipants());
+		o.setTitle(oral.getTitle());
+		o.setCalendar(calendarServiceImpl.get(oral.getCalendarId()));
+		o.setUser(userServiceImpl.get(oral.getUserId()));
+		return oralService.create(o);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -61,27 +75,38 @@ public class OralController extends BaseController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Oral> list() {
+	Set<Oral> list() {
+		System.out.println("################# DEBUG #################");
 		return oralService.getAll();
 	}
 	
-	@RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/list2", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Oral> userList(@PathVariable Integer user_id) {
-		return oralService.getUserOrals(user_id);
+	Set<Oral> getList2() {
+		System.out.println("################# DEBUG #################");
+		return oralService.getList2();
+	}
+	
+	@RequestMapping(value = "/list/{user_id}/{calendar_id}", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Oral> userList(@PathVariable Integer user_id, @PathVariable Integer calendar_id) {
+		User user = securityServiceImpl.retrieveUser();
+		if(user == null)
+			return null;
+		return oralService.getUserOrals(user.getId(), calendar_id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
-	Oral update(@RequestBody String oral) throws UnsupportedEncodingException, IOException {
-		try (Reader reader = new InputStreamReader(new ByteArrayInputStream(
-				oral.getBytes()), "UTF-8")) {
-			Gson gson = new GsonBuilder().create();
-			Oral p = gson.fromJson(reader, Oral.class);
-			System.out.println(p);
-
-			return oralService.update(p);
-		}
+	Oral update(@RequestBody OralDTO oral) {
+		Oral o = oralService.get(oral.getId());
+		o.setBeginningHour(oral.getBeginning_hour());
+		o.setParticipants(oral.getParticipants());
+		o.setTitle(oral.getTitle());
+		o.setCalendar(calendarServiceImpl.get(oral.getCalendarId()));
+		o.setUser(userServiceImpl.get(oral.getUserId()));
+		
+		return oralService.update(o);
 	}
 	
 }
