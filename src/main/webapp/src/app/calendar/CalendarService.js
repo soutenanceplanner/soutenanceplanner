@@ -30,10 +30,10 @@ angular.module('soutenanceplanner.calendar')
 				});
 			},
 			
-			getCalendar:function(calendar){
+			getCalendar:function(id, link){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/calendar/"+calendar.id,
+					url: WS_SERVER_URL + "/calendar/"+id+"/"+link,
 				});
 			},
 
