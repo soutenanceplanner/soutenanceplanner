@@ -8,10 +8,10 @@ angular.module('soutenanceplanner.calendar')
 
 			createCalendar:function(calendar, user){
 				var timeSlots = [];
-				angular.forEach(calendar.time_slot_list, function(value, key) {
+				angular.forEach(calendar.timeSlots, function(value, key) {
 					timeSlots.push({
-						beginningHour : value.beginning,
-						endingHour : value.ending
+						beginningHour : value.beginningHour,
+						endingHour : value.endingHour
 					});
 				});
 				return $http({
@@ -19,8 +19,8 @@ angular.module('soutenanceplanner.calendar')
 					url: WS_SERVER_URL + "/calendar/new",
 					data: {
 						title : calendar.title,
-						beginningDate : calendar.beginning_date,
-						endingDate : calendar.ending_date,
+						beginningDate : calendar.beginningDate,
+						endingDate : calendar.endingDate,
 						duration : calendar.duration,
 						formationId : calendar.formation.id,
 						link : calendar.link,
