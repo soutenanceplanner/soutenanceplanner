@@ -273,8 +273,8 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarDetailCtrl', ['$scope', '$log', '$stateParams', '$state', 'CalendarService',
-	function($scope, $log, $stateParams, $state, CalendarService) {
+.controller('CalendarDetailCtrl', ['$scope', '$log', '$stateParams', '$state', 'CalendarService', 'FormationService' ,
+	function($scope, $log, $stateParams, $state, CalendarService, FormationService) {
 		$log.debug('CalendarDetailCtrl');
 
 		/**
@@ -287,7 +287,7 @@ angular.module('soutenanceplanner.calendar')
 				header : {
 					left : 'prev,next today',
 					center : 'title',
-					right : 'month,agendaWeek,agendaDay'
+					right : 'month,agendaWeek'
 				},
 				weekends : false,
 				allDaySlot : false,
@@ -299,6 +299,12 @@ angular.module('soutenanceplanner.calendar')
 				eventClick : function(event, jsEvent, view) {
 				}
 			}
+		};		
+		/**
+		 * Affichahe du calendrier
+		 */
+		$scope.renderCalendar = function() {
+			$(".calendar").fullCalendar('render');
 		};
 		
 		/**
@@ -342,10 +348,14 @@ angular.module('soutenanceplanner.calendar')
 					} else {
 						$log.debug(response.data);
 						$scope.calendar = response.data.value;
-						console.log($scope.calendar);
-						$scope.eventSources = [];
+						FormationService.getFormation($scope.calendar.formationId).then(
+							function(response){
+								$scope.formation = response.data;
+							}
+						);
 						$(".calendar").fullCalendar('removeEventSource');
 						$(".calendar").fullCalendar('addEventSource', $scope.initializeEvents($scope.calendar));
+						//$(".calendar").fullCalendar( { eventSources : [ { events : $scope.initializeEvents($scope.calendar) } ] });
 					}
 				}
 			);

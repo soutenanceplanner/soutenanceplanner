@@ -48,11 +48,9 @@ public class TransformerServiceImpl implements TransformerService {
 		dto.setDuration(bean.getDuration());
 		dto.setEndingDate(bean.getEndingDate());
 		dto.setFormationId(bean.getFormation().getId());
-//		dto.setFormation(formationService.get(dto.getFormationId()));
 		dto.setLink(bean.getLink());
 		dto.setTitle(bean.getTitle());
 		dto.setUserId(bean.getUser().getId());
-//		dto.setUser(userService.get(dto.getUserId()));
 
 		ArrayList<TimeSlotDTO> slots = new ArrayList<TimeSlotDTO>();
 		for (TimeSlot slot : bean.getTimeSlots()) {
