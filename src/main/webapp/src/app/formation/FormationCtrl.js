@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.formation')
 
-.controller('FormationAddCtrl', ['$scope', '$log', '$state', 'FormationService', 'FactoryService',
-	function($scope, $log, $state, FormationService, FactoryService) {
+.controller('FormationAddCtrl', ['$scope', '$log', '$state', '$alert', 'FormationService', 'FactoryService',
+	function($scope, $log, $state, $alert, FormationService, FactoryService) {
 		$log.debug('FormationAddCtrl');
 
 		$scope.init = function(){
@@ -17,11 +17,28 @@ angular.module('soutenanceplanner.formation')
 			FormationService.createFormation($scope.formation).then(
 				function(response){
 					$log.debug(response.data);
+
+					var myAlert = $alert({
+						title: '', 
+						content: 'Formation ajoutée',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
 					$state.go("formation");
-					alert("La formation a été ajoutée avec succès !");
 				},
 				function(response){
 					$log.debug("Erreur serveur");
+
+					var myAlert = $alert({
+						title: '', 
+						content: 'Erreur serveur',
+						placement: 'top-right',
+						type: 'danger',
+						duration : '3',
+						show: true
+					});
 				}
 			);
 		};
@@ -31,8 +48,8 @@ angular.module('soutenanceplanner.formation')
 	}
 ])
 
-.controller('FormationEditCtrl', ['$scope', '$location', '$log', '$state', '$stateParams', 'FormationService',
-	function($scope, $location, $log, $state, $stateParams, FormationService) {
+.controller('FormationEditCtrl', ['$scope', '$location', '$log', '$state', '$stateParams', '$alert', 'FormationService',
+	function($scope, $location, $log, $state, $stateParams, $alert, FormationService) {
 		$log.debug('FormationEditCtrl');
 
 		$scope.init = function(){
@@ -54,7 +71,14 @@ angular.module('soutenanceplanner.formation')
 					$log.debug(response.data);
 					$scope.init();
 
-					alert("Les données ont été mises à jour avec succès !");
+					var myAlert = $alert({
+						title: '', 
+						content: 'Formation mise à jour',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
 					$state.go("formation");
 				}
 			);
@@ -62,8 +86,8 @@ angular.module('soutenanceplanner.formation')
 	}
 ])
 
-.controller('FormationListCtrl', ['$scope', '$log', 'FormationService',
-	function($scope, $log, FormationService) {
+.controller('FormationListCtrl', ['$scope', '$log', '$alert', 'FormationService',
+	function($scope, $log, $alert, FormationService) {
 		$log.debug('FormationListCtrl');
 
 		$scope.init = function(){
@@ -79,6 +103,16 @@ angular.module('soutenanceplanner.formation')
 			FormationService.deleteFormation(id).then(
 				function(response){
 					$log.debug(response.data);
+
+					var myAlert = $alert({
+						title: '', 
+						content: 'Formation supprimée',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
+
 					$scope.init();
 				}
 			);

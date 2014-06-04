@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.account')
 
-.controller('AccountAddCtrl', ['$scope', '$log', '$state', 'AccountService', 'FactoryService', 'EnumService',
-	function($scope, $log, $state, AccountService, FactoryService, EnumService) {
+.controller('AccountAddCtrl', ['$scope', '$log', '$state', '$alert', 'AccountService', 'FactoryService', 'EnumService',
+	function($scope, $log, $state, $alert, AccountService, FactoryService, EnumService) {
 		$log.debug('AccountAddCtrl');
 
 		$scope.init = function(){
@@ -23,10 +23,28 @@ angular.module('soutenanceplanner.account')
 			AccountService.createUser($scope.user).then(
 				function(response){
 					$log.debug(response.data);
+
+					var myAlert = $alert({
+						title: '', 
+						content: 'Utilisateur ajouté',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
 					$state.go("account");
 				},
 				function(response){
 					$log.debug("Erreur serveur");
+
+					var myAlert = $alert({
+						title: '', 
+						content: 'Erreur serveur',
+						placement: 'top-right',
+						type: 'danger',
+						duration : '3',
+						show: true
+					});
 				}
 			);
 		};
@@ -36,8 +54,8 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountEditCtrl', ['$scope', '$location', '$log', '$state', '$stateParams', 'AccountService', 'EnumService',
-	function($scope, $location, $log, $state, $stateParams, AccountService, EnumService) {
+.controller('AccountEditCtrl', ['$scope', '$location', '$log', '$state', '$stateParams', '$alert', 'AccountService', 'EnumService',
+	function($scope, $location, $log, $state, $stateParams, $alert, AccountService, EnumService) {
 		$log.debug('AccountEditCtrl');
 
 		$scope.init = function(){
@@ -65,8 +83,15 @@ angular.module('soutenanceplanner.account')
 					$log.debug(response.data);
 					$scope.init();
 
-					alert("Les données ont été mises à jour avec succès !");
-					//$location.path( "/account" );
+					var myAlert = $alert({
+						title: '', 
+						content: 'Données mises à jour',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
+
 					$state.go("account");
 				}
 			);
