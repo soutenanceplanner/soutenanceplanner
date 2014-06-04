@@ -86,7 +86,7 @@ angular.module('soutenanceplanner')
 		$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 			
 			
-		//	if(toState.name != "login" && toState.name != "home"){
+//			if(toState.name != "login" && toState.name != "home"){
 
 			SecurityService.retrieve()
 				.success(function(data){
@@ -100,29 +100,29 @@ angular.module('soutenanceplanner')
 			.error(function(data, status, headers, config){
 				$state.go('login');
 			});
-			
-			/*if($scope.userLogin == null){
-				$state.go('login');
-			}*/
 //		}
 		});
 	
-//		$scope.toto = CalendarService.getListCalendar() ;
-		
-// watch current page for updates and set page value
-/*	$scope.$watch(CalendarService.getListCalendar(), function(newValue, oldValue, scope) {
-		if (newValue && newValue !== oldValue) {
-$scope.toto = newVal;
-}
-});
-	*/	
-		
-/*		$scope.$watch(  
-			function () {
-				$scope.toto = CalendarService.getListCalendar(); ;
-			}, 
-			true);		
-	*/	$scope.init();
+		$log.debug("toto");
+
+			CalendarService.listCalendar().then(
+				function(response){
+					$log.debug(response.data);
+					$scope.mesCalendriers = response.data ;
+			}
+		);
+		/*
+		$scope.$watch(function () {
+			return CalendarService.getListCalendar();
+		},                       
+		function(newVal, oldVal) {
+			$scope.calendriersAvenir = CalendarService.getListCalendar() ;
+		}, 
+		true);
+		*/
+
+	
+		$scope.init();
 } ])
 
 
@@ -142,7 +142,7 @@ $scope.toto = newVal;
 	}
 ])
 
-.directive('getmenucalendar',['$log','HomeService','SecurityService', function($log,HomeService,SecurityService) {
+.directive('getmenucalendar',['$log','HomeService','SecurityService','CalendarService', function($log,HomeService,SecurityService,CalendarService) {
 	var def = {
 	template : '{{titre}}<span class="badge pull-right">{{calendriers.length}}</span>'+
 				'<ul class="nav " ng-repeat="calendrier in calendriers">'+
@@ -161,7 +161,7 @@ $scope.toto = newVal;
 		if(attrs.type == 1){
 			HomeService.getPastCalendars().then(
 					function(response){
-						$log.debug(response.data);
+						$log.debug("DIRECTIVE -- "+response.data);
 						scope.calendriers = response.data ;
 						if(response.data.length === 0){
 							scope.calVide = attrs.erreur ;
@@ -171,24 +171,13 @@ $scope.toto = newVal;
 		}else	if(attrs.type == 2){
 			HomeService.getFuturCalendars().then(
 					function(response){
-						$log.debug(response.data);
+						$log.debug("DIRECTIVE -- "+response.data);
 						scope.calendriers = response.data ;
 						if(scope.calendriers === null){
 							scope.calVide = attrs.erreur ;
 						}
 				}
 			);
-		//si le type = 3 on récupère les calendriers de l'user
-		}else if (attrs.type == 3){
-			HomeService.getCalendars().then(
-				function(response){
-					$log.debug(response.data);
-					scope.calendriers = response.data ;
-					if(scope.calendriers === null){
-						scope.calVide = attrs.erreur ;
-					}
-				}
-			);	
 		}
 	}
 };
