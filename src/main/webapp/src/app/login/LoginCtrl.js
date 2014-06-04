@@ -22,15 +22,6 @@ angular.module('soutenanceplanner.login')
 			$scope.essais = $scope.essais + 1;
 		};
 
-		$scope.logout = function(){
-			$scope.$emit('event:logoutRequest');
-
-			SecurityService.logout().then(function() {
-				$rootScope.user = null;
-				$state.go('home');
-			});
-		};
-
 		//init
 		$scope.init();
 	}

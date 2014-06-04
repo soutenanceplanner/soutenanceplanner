@@ -49,6 +49,39 @@ angular.module('soutenanceplanner.calendar')
 					method: 'GET',
 					url: WS_SERVER_URL + "/calendar/list",
 				});
+			},
+
+			/**
+			 * Service pour retourner une liste de calendrier
+			 */
+			getCalendars: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/list",
+					data: {}
+				});
+			},
+
+			/**
+			 * Service pour retourner une liste de calendrier à venir
+			 */
+			getFuturCalendars: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/list_futur",
+					data: {}
+				});
+			},
+
+			/**
+			 * Service pour retourner une liste de calendrier à venir
+			 */
+			getPastCalendars: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/list_past",
+					data: {}
+				});
 			}
 
 		};
