@@ -71,8 +71,6 @@ public class UserController extends BaseController {
 	public @ResponseBody
 	User update(@RequestBody UserDTO dto) {
 		User user = userService.get(Integer.parseInt(dto.getId()));
-		
-		//user.setLogin(dto.getLogin());
 		user.setPassword(dto.getPassword());
 		user.setMail(dto.getMail());
 		
