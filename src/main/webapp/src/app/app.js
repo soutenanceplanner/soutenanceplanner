@@ -74,75 +74,47 @@ angular.module('soutenanceplanner')
 		//$http.defaults.headers.contentType = "application/x-www-form-urlencoded";
 } ])
 
-.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n','$state','CalendarService',
-	function($rootScope, $scope, $log, SecurityService, i18n,$state,CalendarService) {
+.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n',
+	function($rootScope, $scope, $log, SecurityService, i18n) {
 		$log.debug("MainCtrl");
 
 		$scope.init = function() {
 			// i18n
 			$rootScope.i18n = i18n;
+
+			SecurityService.retrieve().then(
+				function(response){
+					if (response.data === ""){
+						$scope.userLogin = null;
+					}
+					else {
+						$scope.userLogin = response.data.username;
+					}
+				}
+			);
 		};
 
-		$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-			
-			
-//			if(toState.name != "login" && toState.name != "home"){
-
-			SecurityService.retrieve()
-				.success(function(data){
-						$log.debug(data);
-						$scope.userLogin = data.username;
-						if(data.username == null){
-							$state.go('login');
-						}
-					}
-			)
-			.error(function(data, status, headers, config){
-				$state.go('login');
-			});
-//		}
+		//reload MainCtrl when logged
+		$scope.$on('event:reloadMainCtrl', function(event, args) {
+			$log.debug("reload");
+			$scope.init();
 		});
-	
-		$log.debug("toto");
 
-			CalendarService.listCalendar().then(
-				function(response){
-					$log.debug(response.data);
-					$scope.mesCalendriers = response.data ;
-			}
-		);
-		/*
-		$scope.$watch(function () {
-			return CalendarService.getListCalendar();
-		},                       
-		function(newVal, oldVal) {
-			$scope.calendriersAvenir = CalendarService.getListCalendar() ;
-		}, 
-		true);
-		*/
-
-	
 		$scope.init();
 } ])
 
 
-.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', 'SecurityService',
-	function($rootScope, $scope, $log, $state, $location, SecurityService) {
+.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', '$stateParams', 'SecurityService',
+	function($rootScope, $scope, $log, $state, $location, $stateParams, SecurityService) {
 		$log.debug("MenuCtrl");
 
 		$scope.logout = function(){
-			$scope.$emit('event:logoutRequest');
-
-			SecurityService.logout().then(function() {
-				$scope.userLogin = null;
-				$rootScope.user = null;
-				$state.go('home');
-			});
+			$rootScope.$broadcast('event:logoutRequest');
 		};
 	}
 ])
 
-.directive('getmenucalendar',['$log','HomeService','SecurityService','CalendarService', function($log,HomeService,SecurityService,CalendarService) {
+.directive('getmenucalendar',['$log','CalendarService','SecurityService', function($log,CalendarService,SecurityService) {
 	var def = {
 	template : '{{titre}}<span class="badge pull-right">{{calendriers.length}}</span>'+
 				'<ul class="nav " ng-repeat="calendrier in calendriers">'+
@@ -159,9 +131,9 @@ angular.module('soutenanceplanner')
 
 		//si le type = 1 on récupère les calendrier passés
 		if(attrs.type == 1){
-			HomeService.getPastCalendars().then(
+			CalendarService.getPastCalendars().then(
 					function(response){
-						$log.debug("DIRECTIVE -- "+response.data);
+						$log.debug(response.data);
 						scope.calendriers = response.data ;
 						if(response.data.length === 0){
 							scope.calVide = attrs.erreur ;
@@ -169,15 +141,26 @@ angular.module('soutenanceplanner')
 					}
 				);
 		}else	if(attrs.type == 2){
-			HomeService.getFuturCalendars().then(
+			CalendarService.getFuturCalendars().then(
 					function(response){
-						$log.debug("DIRECTIVE -- "+response.data);
+						$log.debug(response.data);
 						scope.calendriers = response.data ;
 						if(scope.calendriers === null){
 							scope.calVide = attrs.erreur ;
 						}
 				}
 			);
+		//si le type = 3 on récupère les calendriers de l'user
+		}else if (attrs.type == 3){
+			CalendarService.getCalendars().then(
+				function(response){
+					$log.debug(response.data);
+					scope.calendriers = response.data ;
+					if(scope.calendriers === null){
+						scope.calVide = attrs.erreur ;
+					}
+				}
+			);	
 		}
 	}
 };

@@ -30,25 +30,25 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="new_calendar.beginning_date"
+				<label for="new_calendar.beginningDate"
 					class="col-sm-3 control-label">Date de début</label>
 				<div class="col-sm-9">
-					<input ng-model="new_calendar.beginning_date" type="text"
-						class="form-control" id="new_calendar.beginning_date"
-						name="new_calendar.beginning_date"
-						data-max-date="{{new_calendar.ending_date}}" placeholder="Début"
+					<input ng-model="new_calendar.beginningDate" type="text"
+						class="form-control" id="new_calendar.beginningDate"
+						name="new_calendar.beginningDate"
+						data-max-date="{{new_calendar.endingDate}}" placeholder="Début"
 						ng-change="refetchCalendar(myCalendar1)"
 						required bs-datepicker>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="new_calendar.ending_date" class="col-sm-3 control-label">Date
+				<label for="new_calendar.endingDate" class="col-sm-3 control-label">Date
 					de fin</label>
 				<div class="col-sm-9">
-					<input ng-model="new_calendar.ending_date" type="text"
-						class="form-control" id="new_calendar.ending_date"
-						name="new_calendar.ending_date"
-						data-min-date="{{new_calendar.beginning_date}}" placeholder="Fin"
+					<input ng-model="new_calendar.endingDate" type="text"
+						class="form-control" id="new_calendar.endingDate"
+						name="new_calendar.endingDate"
+						data-min-date="{{new_calendar.beginningDate}}" placeholder="Fin"
 						ng-change="refetchCalendar(myCalendar1)"
 						required bs-datepicker>
 				</div>
@@ -64,29 +64,28 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="time_slots" class="col-sm-3 control-label">Plages
-					horaires</label>
+				<label for="timeSlots" class="col-sm-3 control-label">Plages horaires</label>
 				<div class="col-md-7">
 					<table class="table table-hover">
-						<tr ng-repeat="time_slot in new_calendar.time_slot_list">
+						<tr ng-repeat="timeSlot in new_calendar.timeSlots">
 							<td style="vertical-align: middle;">
-								<select class="form-control" ng-model="time_slot.beginning"
+								<select class="form-control" ng-model="timeSlot.beginningHour"
 									ng-change="refetchCalendar(myCalendar1)"
 									ng-options="hour.value as hour.label for hour in hours">
 								</select></td>
 							<td style="vertical-align: middle;"><span>à</span></td>
 							<td style="vertical-align: middle;">
-								<select class="form-control" ng-model="time_slot.ending"
+								<select class="form-control" ng-model="timeSlot.endingHour"
 									ng-change="refetchCalendar(myCalendar1)"
 									ng-options="hour.value as hour.label for hour in hours">
 							</select></td>
 							<td style="vertical-align: middle;">
-								<button ng-if="new_calendar.time_slot_list.length > 1"
-									ng-click="new_calendar.time_slot_list.splice($index, 1)"
+								<button ng-if="new_calendar.timeSlots.length > 1"
+									ng-click="new_calendar.timeSlots.splice($index, 1)"
 									type="button" class="close">&times;</button>
 							</td>
 							<td style="vertical-align: middle;">
-								<button ng-if="$last && new_calendar.time_slot_list.length < 3"
+								<button ng-if="$last && new_calendar.timeSlots.length < 3"
 									type="button" class="add_time_slot close"
 									ng-click="add_time_slot()">+</button>
 							</td>
@@ -106,21 +105,6 @@
 <tab select="renderCalendar(myCalendar1);"> <tab-heading>
 <i class="glyphicon glyphicon-bell">Configuration</i> </tab-heading>
 <div>
-
-	<!-- <form ng-submit='addOral(titreSoutenance,jourSoutenance,heureSoutenance)'>
-			<h3> Exemple ajout d'une soutenance</h3> <br/>
-			Jours soutenance :<input type="number" min='1' max='31' ng-model='jourSoutenance'/>
-			Heure soutenance :<input type="number" min='9' max='20' ng-model='heureSoutenance'/>
-			Titre soutenance :<input type="text" ng-model='titreSoutenance'/>
-			<button type="submit" >Ajouter une soutenance</button>
-		
-		</form>
-		<div ng-repeat='events in eventSources'>
-			<div ng-repeat='event in events'>
-				{{event.title}}	
-			</div>
-		</div> -->
-
 	<br />
 	<div ui-calendar="uiConfig.calendar" calendar="myCalendar1"
 		class="span8 calendar" ng-model="eventSources"></div>

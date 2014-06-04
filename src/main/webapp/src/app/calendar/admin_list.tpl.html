@@ -2,12 +2,14 @@
 <table class="table table-hover">
 	<tr>
 		<th>Titre</th>
+		<th>Formation</th>
 		<th>Début</th>
 		<th>Fin</th>
-		<th>Durée</th>
+		<th>Créateur</th>
 	</tr>
 	<tr ng-repeat="calendar in calendars">
 		<td><a ui-sref="calendar.detail({id:calendar.id, link:calendar.link})"><span>{{calendar.title}}</span></a></td>
+		<td></td>
 		<td>{{calendar.beginningDate | date:'MM/dd/yyyy'}}</td>
 		<td>{{calendar.endingDate | date:'MM/dd/yyyy'}}</td>
 		<td>{{calendar.duration*60}}</td>

@@ -50,6 +50,12 @@ angular.module('soutenanceplanner')
             SecurityService.retrieve().success(
                 function(data){
                     $rootScope.user = data;
+
+                    $scope.userLogin = data.username;
+                    if(data.username == null){
+                        $state.go($state.$current, null, { reload: true });
+                        $state.go('loginRequired');
+                    }
                 }
             );
         });
@@ -82,6 +88,9 @@ angular.module('soutenanceplanner')
                 retry(requests[i]);
             }
 
+            //reload Menus
+            $rootScope.$broadcast('event:reloadMainCtrl');
+
             var path = LoginService.getOldPath();
             $location.path(path);
 
@@ -107,7 +116,14 @@ angular.module('soutenanceplanner')
          */
         $rootScope.$on('event:logoutRequest', function () {
             httpHeaders.common['Authorization'] = null;
-            $state.go("home");
+            SecurityService.logout().then(//renvoie une 302 sans Allow-Origin -> erreur
+                function() {
+                },
+                function(){//donc get ici en principe
+                    $rootScope.$broadcast('event:reloadMainCtrl');
+                    $state.go("home");
+                }
+            );
         });
 
     }
