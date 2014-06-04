@@ -152,7 +152,6 @@ angular.module('soutenanceplanner')
 							scope.calVide = attrs.erreur ;
 						}
 					}
-				}
 				);
 		}else	if(attrs.type == 2){
 			HomeService.getFuturCalendars().then(
