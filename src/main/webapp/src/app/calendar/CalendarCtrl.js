@@ -228,7 +228,7 @@ angular.module('soutenanceplanner.calendar')
 		};
 
 		$scope.createCalendar = function(){
-			$scope.mesCalendriers.push($scope.new_calendar);
+			//$scope.mesCalendriers.push($scope.new_calendar);
 			$scope.generateLink();
 			CalendarService.createCalendar($scope.new_calendar, $scope.user).then(
 				function(response){
@@ -276,23 +276,47 @@ angular.module('soutenanceplanner.calendar')
 .controller('CalendarDetailCtrl', ['$scope', '$log', '$stateParams', '$state', 'CalendarService',
 	function($scope, $log, $stateParams, $state, CalendarService) {
 		$log.debug('CalendarDetailCtrl');
+
+		/**
+		 * Configuration de l'élément calendar
+		 */
+		$scope.uiConfig = {
+			calendar : {
+				height : 450,
+				editable : true,
+				header : {
+					left : 'prev,next today',
+					center : 'title',
+					right : 'month,agendaWeek,agendaDay'
+				},
+				weekends : false,
+				allDaySlot : false,
+				minTime : 7,
+				maxTime : 20,
+				eventResize : function(event, dayDelta, minuteDelta, revertFunc) {
+					//$scope.initializeConstraints(event);
+				},
+				eventClick : function(event, jsEvent, view) {
+				}
+			}
+		};
 		
 		/**
 		 * Construction du calendrier en fonction des différents éléments du formulaire
 		 */
-		$scope.initializeEvents = function(beginningDate, endingDate) {
+		$scope.initializeEvents = function(calendar) {
 			$scope.eventSources = [];
 			var events = [];
-			var date = new Date(beginningDate);
+			var date = new Date(calendar.beginningDate);
 			$i =  0;
 			var add_event = function(events, date) {
-				angular.forEach($scope.new_calendar.timeSlots,
+				angular.forEach(calendar.timeSlots,
 						function(timeSlot, key) {
 							var d1 = new Date(date.setHours(timeSlot.beginningHour, 0, 0));
 							var d2 = new Date(date.setHours(timeSlot.endingHour, 0, 0));
 							events.push({
 								id : $i,
-								title : $scope.new_calendar.title,
+								title : calendar.title,
 								start : d1,
 								end : d2,
 								allDay : false,
@@ -305,17 +329,10 @@ angular.module('soutenanceplanner.calendar')
 			do {
 				add_event(events, date);
 				date.setDate(date.getDate() + 1);
-			} while (endingDate.getDate() >= date.getDate());
+			} while (new Date(calendar.endingDate).getDate() >= date.getDate());
 			return events;
 		};
 		
-		/**
-		 * Affichahe du calendrier
-		 */
-		$scope.renderCalendar = function(calendar) {
-			calendar.fullCalendar('render');
-		};
-
 		$scope.init = function(){
 			CalendarService.getCalendar($stateParams.id, $stateParams.link).then(
 				function(response){
@@ -325,12 +342,14 @@ angular.module('soutenanceplanner.calendar')
 					} else {
 						$log.debug(response.data);
 						$scope.calendar = response.data.value;
-						$scope.eventSources = [ $scope.initializeEvents($scope.calendar.beginningDate, $scope.calendar.endingDate) ];
+						console.log($scope.calendar);
+						$scope.eventSources = [];
+						$(".calendar").fullCalendar('removeEventSource');
+						$(".calendar").fullCalendar('addEventSource', $scope.initializeEvents($scope.calendar));
 					}
 				}
 			);
 		};
-
 		$scope.init();
 	}
 ])

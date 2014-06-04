@@ -1,8 +1,8 @@
 package com.angers.m2sili.soutenance.service.impl;
 
+
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,12 +43,14 @@ public class TransformerServiceImpl implements TransformerService {
 	@Override
 	public CalendarDTO beanToDto(Calendar bean) {
 		CalendarDTO dto = new CalendarDTO();
+		dto.setId(bean.getId());
 		dto.setBeginningDate(bean.getBeginningDate());
 		dto.setDuration(bean.getDuration());
 		dto.setEndingDate(bean.getEndingDate());
 		dto.setFormationId(bean.getFormation().getId());
 		dto.setLink(bean.getLink());
 		dto.setTitle(bean.getTitle());
+		dto.setUserId(bean.getUser().getId());
 
 		ArrayList<TimeSlotDTO> slots = new ArrayList<TimeSlotDTO>();
 		for (TimeSlot slot : bean.getTimeSlots()) {
@@ -75,20 +77,23 @@ public class TransformerServiceImpl implements TransformerService {
 		Formation formation = formationService.get(dto.getFormationId());
 		bean.setFormation(formation);
 		
+		User user = userService.get(dto.getUserId());
+		bean.setUser(user);
+		
 		bean.setId(dto.getId());
 		bean.setLink(dto.getLink());
 		
-		Set<TimeSlot> timeSlots = new HashSet<TimeSlot>();
+		ArrayList<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
 		for (TimeSlotDTO slotDTO : dto.getTimeSlots()) {
 			timeSlots.add(dtoToBean(slotDTO));
 		}
-		bean.setTimeSlots(timeSlots);
+		bean.setTimeSlots(new HashSet<>(timeSlots));
 		
-		Set<Oral> oraux = new HashSet<Oral>();
+		ArrayList<Oral> oraux = new ArrayList<Oral>();
 		for (OralDTO oralDTO : dto.getOrals()) {
 			oraux.add(dtoToBean(oralDTO));
 		}
-		bean.setOrals(oraux);
+		bean.setOrals(new HashSet<>(oraux));
 
 		return bean;
 	}
