@@ -37,17 +37,18 @@ angular.module('soutenanceplanner.calendar')
 				});
 			},
 
-			deleteCalendar:function(calendar){
+			deleteCalendar:function(id){
 				return $http({
 					method: 'DELETE',
-					url: WS_SERVER_URL + "/calendar/"+calendar.id,
+					url: WS_SERVER_URL + "/calendar/"+id,
 				});
 			},
 
-			listCalendar:function(){
+			listCalendar:function(user){
+				console.log(user);
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/calendar/list",
+					url: WS_SERVER_URL + "/calendar/list/"+user.login,
 				});
 			}
 

@@ -38,7 +38,7 @@
 						name="new_calendar.beginning_date"
 						data-max-date="{{new_calendar.ending_date}}" placeholder="Début"
 						ng-change="refetchCalendar(myCalendar1)"
-						bs-datepicker>
+						required bs-datepicker>
 				</div>
 			</div>
 			<div class="form-group">
@@ -50,7 +50,7 @@
 						name="new_calendar.ending_date"
 						data-min-date="{{new_calendar.beginning_date}}" placeholder="Fin"
 						ng-change="refetchCalendar(myCalendar1)"
-						bs-datepicker>
+						required bs-datepicker>
 				</div>
 			</div>
 			<div class="form-group">

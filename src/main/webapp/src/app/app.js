@@ -109,7 +109,7 @@ angular.module('soutenanceplanner')
 	}
 ])
 
-.directive('getmenucalendar',['$log','HomeService', function($log,HomeService) {
+.directive('getmenucalendar',['$log','HomeService','SecurityService', function($log,HomeService,SecurityService) {
 	var def = {
 	template : '{{titre}}<span class="badge pull-right">{{badge}}</span>'+
 				'<ul class="nav " ng-repeat="calendrier in calendriers">'+
@@ -128,33 +128,36 @@ angular.module('soutenanceplanner')
 		//si le type = 1 on récupère les calendrier passés
 		if(attrs.type == 1){
 			HomeService.getPastCalendars().then(
-					function(response){
-						$log.debug(response.data);
-						scope.calendriers = response.data ;
-					}
+				function(response){
+					$log.debug(response.data);
+					scope.calendriers = response.data ;
+				}
 				);
 		}else	if(attrs.type == 2){
 			HomeService.getFuturCalendars().then(
-					function(response){
-						$log.debug(response.data);
-						scope.calendriers = response.data ;
+				function(response){
+					$log.debug(response.data);
+					scope.calendriers = response.data ;
 				}
 			);
 		//si le type = 3 on récupère les calendriers de l'user
 		}else if (attrs.type == 3){
-			HomeService.getCalendars().then(
-					function(response){
-						$log.debug(response.data);
-						scope.calendriers = response.data ;
-					}
-				);	
-		
+			SecurityService.retrieveUser().then(
+				function(response) {
+					scope.user = response.data;
+					$log.debug(scope.user);
+				}
+			);
+			HomeService.getCalendars(scope.user).then(
+				function(response){
+					$log.debug(response.data);
+					scope.calendriers = response.data ;
+				}
+			);	
 		}
-		
 		if(scope.calendriers == null){
 			scope.calVide = attrs.erreur ;
 		}
-		
 	}
 };
 return def ;	

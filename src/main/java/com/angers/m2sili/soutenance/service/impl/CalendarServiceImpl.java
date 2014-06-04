@@ -22,7 +22,7 @@ public class CalendarServiceImpl implements CalendarService{
 	private CalendarRepository calendarRepository;
 
 	@Autowired
-	private UserRepository userReposituserRepositoryory;
+	private UserRepository userRepository;
 	
 	protected final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
@@ -43,7 +43,7 @@ public class CalendarServiceImpl implements CalendarService{
 	@Override
 	public List<Calendar> getAll(String login) {
 		
-		User user = userReposituserRepositoryory.findByLogin(login);
+		User user = userRepository.findByLogin(login);
 		
 		return calendarRepository.findAllByUser(user);
 	}

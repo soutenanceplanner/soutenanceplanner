@@ -13,7 +13,6 @@ angular.module('soutenanceplanner.calendar')
 			FormationService.listFormation().then(
 				function(response){
 					$scope.formations = response.data;
-					$log.debug(response.data);
 				}
 			);
 			SecurityService.retrieveUser().then(
@@ -29,11 +28,14 @@ angular.module('soutenanceplanner.calendar')
 		 * Liste des durées disponible dans le formulaire
 		 */
 		$scope.durations = [ {
+			value : 0.25,
+			label : "15min"
+		}, {
 			value : 0.5,
 			label : "30min"
 		}, {
 			value : 0.75,
-			label : "40min"
+			label : "45min"
 		}, {
 			value : 1,
 			label : "1h"
@@ -136,7 +138,6 @@ angular.module('soutenanceplanner.calendar')
 					//$scope.initializeConstraints(event);
 				},
 				eventClick : function(event, jsEvent, view) {
-					alert(event.title);
 				}
 			}
 		};
@@ -226,12 +227,10 @@ angular.module('soutenanceplanner.calendar')
 			$scope.new_calendar.constraints = [];
 			calendar.fullCalendar('removeEvents');
 			calendar.fullCalendar('addEventSource', $scope.initializeEvents($scope.new_calendar.beginning_date, $scope.new_calendar.ending_date));
-			console.log($scope.new_calendar);
 		};
 
 		$scope.createCalendar = function(){
 			$scope.generateLink();
-			console.log($scope.new_calendar);
 			CalendarService.createCalendar($scope.new_calendar, $scope.user).then(
 				function(response){
 					$state.go("calendar");
@@ -272,10 +271,35 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService',
-	function($scope, $log, $state, $stateParams, CalendarService) {
+.controller('CalendarListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 'SecurityService',
+	function($scope, $log, $state, $stateParams, CalendarService, SecurityService) {
 		$log.debug('CalendarListCtrl');
-		console.log($state.current.name);
+
+		$scope.init = function(){
+			SecurityService.retrieveUser().then(
+				function(response) {
+					$scope.user = response.data;
+				}
+			);
+			$log.debug($scope.user);
+			/*CalendarService.listCalendar($scope.user).then(
+				function(response){
+					$scope.calendars = response.data;
+				}
+			);*/
+		};
+
+		//init
+		$scope.init();
+
+		$scope.deleteCalendar = function(id){
+			CalendarService.deleteCalendar(id).then(
+				function(response){
+					$log.debug(response.data);
+					$scope.init();
+				}
+			);
+		};
 	}
 ])
 

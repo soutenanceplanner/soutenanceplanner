@@ -1,2 +1,21 @@
 <legend>Calendriers</legend>
+<table class="table table-hover">
+	<tr>
+		<th>Titre</th>
+		<th>Début</th>
+		<th>Fin</th>
+		<th>Plage(s)</th>
+		<th>Durée</th>
+		<th>Accès</th>
+	</tr>
+	<tr ng-repeat="calendar in calendars">
+		<th><a ui-sref="calendar.detail({id:calendar.id})"><span>{{calendar.list}}</span></a></th>
+		<td>{{calendar.beginning_date}}</td>
+		<td>{{calendar.ending_date}}</td>
+		<td></td>
+		<td>{{calendar.duration*60}}</td>
+		<td>{{calendar.link}}</td>
+		<td><button ng-click="deleteCalendar(calendar.id)" type="button" class="close">&times;</button></td>
+	</tr>
+</table>
 <button ui-sref="calendar.add" class="btn btn-default center-block">Ajouter</button>

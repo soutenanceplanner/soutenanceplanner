@@ -9,10 +9,10 @@ angular.module('soutenanceplanner.home')
 			/**
 			 * Service pour retourner une liste de calendrier
 			 */
-			getCalendars: function(){
+			getCalendars: function(user){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/calendar/list/",
+					url: WS_SERVER_URL + "/calendar/list/"+user.id,
 					data: {}
 				});
 			},
