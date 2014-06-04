@@ -92,16 +92,17 @@ public class CalendarController extends BaseController {
 	List<Calendar> getAll(@PathVariable String user_login) {
 		/*
 		 * On récupère le login
-		 * 
-		 * Authentication authentication = SecurityContextHolder.getContext()
-		 * .getAuthentication(); if (authentication == null ||
-		 * !(authentication.getPrincipal() instanceof UserDetails)) { return
-		 * null; }
-		 * 
-		 * UserDetails user = (UserDetails) authentication.getPrincipal();
-		 * 
-		 * user.login();
-		 */
+		  
+		 
+		  Authentication authentication = SecurityContextHolder.getContext()
+		  .getAuthentication(); if (authentication == null ||
+		  !(authentication.getPrincipal() instanceof UserDetails)) { return
+		  null; }
+		  
+		  UserDetails user = (UserDetails) authentication.getPrincipal();
+		  
+		  user.login();
+		*/ 
 		return calServiceImpl.getAll(user_login);
 	}
 
