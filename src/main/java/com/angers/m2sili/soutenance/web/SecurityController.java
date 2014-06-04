@@ -36,6 +36,8 @@ public class SecurityController extends BaseController {
 	public @ResponseBody
 	UserDetails authenticatedUser() throws AccessDeniedException {
 
+		logger.debug("authentication retrieve");
+		
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
 		if (authentication == null

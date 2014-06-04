@@ -139,26 +139,26 @@ angular.module('soutenanceplanner')
 		index: '@'
 	},
 	link :	function link(scope, element, attrs) {	
-		//on récupère le titre passé en attributs et on le passe au scope du template
 		scope.titre = attrs.title ;
-		//on passe le type qui correspond au badge
 		scope.badge = attrs.type;
+
 		//si le type = 1 on récupère les calendrier passés
 		if(attrs.type == 1){
 			HomeService.getPastCalendars().then(
-				function(response){
-					$log.debug(response.data);
-					scope.calendriers = response.data ;
-					if(response.data.length === 0){
-						scope.calVide = attrs.erreur ;
+					function(response){
+						$log.debug(response.data);
+						scope.calendriers = response.data ;
+						if(response.data.length === 0){
+							scope.calVide = attrs.erreur ;
+						}
 					}
 				}
 				);
 		}else	if(attrs.type == 2){
 			HomeService.getFuturCalendars().then(
-				function(response){
-					$log.debug(response.data);
-					scope.calendriers = response.data ;
+					function(response){
+						$log.debug(response.data);
+						scope.calendriers = response.data ;
 						if(scope.calendriers === null){
 							scope.calVide = attrs.erreur ;
 						}

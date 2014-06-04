@@ -87,7 +87,7 @@ public class CalendarController extends BaseController {
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(value = "/list/{user_login}", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Calendar> getAll(@PathVariable String user_login) {
 		/*
@@ -103,7 +103,7 @@ public class CalendarController extends BaseController {
 		  
 		  user.login();
 		*/ 
-		return calServiceImpl.getAll(user_login);
+		return calServiceImpl.getAll("admin1");
 	}
 
 	@RequestMapping(value = "/list_futur", method = RequestMethod.GET)
