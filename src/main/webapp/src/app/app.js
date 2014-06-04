@@ -96,7 +96,6 @@ angular.module('soutenanceplanner')
 		
 		CalendarService.getCalendars().then(
 				function(response){
-					$log.debug("crétin");
 					$scope.mesCalendriers = response.data ;
 				}
 			);	
