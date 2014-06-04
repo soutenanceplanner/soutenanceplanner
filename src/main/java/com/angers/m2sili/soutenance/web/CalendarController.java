@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.TimeSlot;
+import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.FormationService;
+import com.angers.m2sili.soutenance.service.SecurityService;
 import com.angers.m2sili.soutenance.service.TimeSlotService;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
+import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 
 
 /**
@@ -44,6 +47,9 @@ public class CalendarController extends BaseController {
 	
 	@Autowired
 	private TimeSlotService timeSlotServiceImpl;
+	
+	@Autowired
+	private SecurityService securityServiceImpl;
 
 
 	@Autowired
@@ -80,30 +86,27 @@ public class CalendarController extends BaseController {
 		calServiceImpl.delete(id);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/{link}", method = RequestMethod.GET)
 	public @ResponseBody
-	Calendar get(@PathVariable Integer id) {
-		return calServiceImpl.get(id);
+	ReturnValueDTO get(@PathVariable Integer id, @PathVariable String link) {
+		ReturnValueDTO dto = new ReturnValueDTO();
+		Calendar cal = calServiceImpl.get(id);
+		if(!cal.getLink().contentEquals(link)) {
+			dto.setError("Non autorisé à accéder au calendrier.");
+		} else {
+			dto.setValue(cal);
+		}
+		return dto;
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Calendar> getAll(@PathVariable String user_login) {
-		/*
-		 * On récupère le login
-		  
-		 
-		  Authentication authentication = SecurityContextHolder.getContext()
-		  .getAuthentication(); if (authentication == null ||
-		  !(authentication.getPrincipal() instanceof UserDetails)) { return
-		  null; }
-		  
-		  UserDetails user = (UserDetails) authentication.getPrincipal();
-		  
-		  user.login();
-		*/ 
-		return calServiceImpl.getAll("admin1");
+	List<Calendar> getAll() {
+		User user = securityServiceImpl.retrieveUser();
+		if(user == null)
+			return null;
+		return calServiceImpl.getAll(user.getLogin());
 	}
 
 	@RequestMapping(value = "/list_futur", method = RequestMethod.GET)

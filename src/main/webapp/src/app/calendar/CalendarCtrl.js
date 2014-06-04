@@ -300,9 +300,21 @@ angular.module('soutenanceplanner.calendar')
 	function($scope, $log, $stateParams, $state, CalendarService) {
 		$log.debug('CalendarDetailCtrl');
 
-		console.log($state.current.name);
+		$scope.init = function(){
+			CalendarService.getCalendar($stateParams.id, $stateParams.link).then(
+				function(response){
+					if(response.data.error !== null) {
+						$log.debug(response.data);
+						$state.go('calendar');
+					} else {
+						$log.debug(response.data);
+						$scope.calendar = response.data.value;
+					}
+				}
+			);
+		};
 
-
+		$scope.init();
 	}
 ])
 

@@ -15,6 +15,13 @@ INSERT IGNORE INTO  calendar VALUES (2,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 
 INSERT IGNORE INTO  calendar VALUES (3,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140604',		'Soutenance de stage',	3,	3);
 INSERT IGNORE INTO  calendar VALUES (4,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140605',		'Soutenance de stage',	4,	4);
 
+INSERT IGNORE INTO time_slot VALUES (1, 8, 12, 1);
+INSERT IGNORE INTO time_slot VALUES (2, 14, 18, 1);
+INSERT IGNORE INTO time_slot VALUES (3, 8, 18, 2);
+INSERT IGNORE INTO time_slot VALUES (4, 8, 10, 3);
+INSERT IGNORE INTO time_slot VALUES (5, 11, 12, 3);
+INSERT IGNORE INTO time_slot VALUES (6, 14, 18, 3);
+
 INSERT IGNORE INTO oral VALUES (1,	'2014-06-02 08:00:00',	'prof1, prof2, tuteur',		'Présentation Etudiant1',	1,	1);
 INSERT IGNORE INTO oral VALUES (2,	'2014-06-02 10:00:00',	'prof2, tuteur',			'Présentation Etudiant2',	1,	1);
 INSERT IGNORE INTO oral VALUES (3,	'2014-06-02 11:00:00',	'prof2, tuteur',			'Présentation Etudiant3',	1,	2);
