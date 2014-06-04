@@ -1,37 +1,44 @@
-<div>
-	<p>Sed si ille hac tam eximia fortuna propter utilitatem rei
-		publicae frui non properat, ut omnia illa conficiat, quid ego,
-		senator, facere debeo, quem, etiamsi ille aliud vellet, rei publicae
-		consulere oporteret?</p>
+	<div>
+		<p>Sed si ille hac tam eximia fortuna propter utilitatem rei
+			publicae frui non properat, ut omnia illa conficiat, quid ego,
+			senator, facere debeo, quem, etiamsi ille aliud vellet, rei publicae
+			consulere oporteret?</p>
 
-	<p>Hac ita persuasione reducti intra moenia bellatores obseratis
-		undique portarum aditibus, propugnaculis insistebant et pinnis,
-		congesta undique saxa telaque habentes in promptu, ut si quis se
-		proripuisset interius, multitudine missilium sterneretur et lapidum.</p>
+		<p>Hac ita persuasione reducti intra moenia bellatores obseratis
+			undique portarum aditibus, propugnaculis insistebant et pinnis,
+			congesta undique saxa telaque habentes in promptu, ut si quis se
+			proripuisset interius, multitudine missilium sterneretur et lapidum.</p>
 
-	<p>Postremo ad id indignitatis est ventum, ut cum peregrini ob
-		formidatam haut ita dudum alimentorum inopiam pellerentur ab urbe
-		praecipites, sectatoribus disciplinarum liberalium inpendio paucis
-		sine respiratione ulla extrusis, tenerentur minimarum adseclae veri,
-		quique id simularunt ad tempus, et tria milia saltatricum ne
-		interpellata quidem cum choris totidemque remanerent magistris.</p>
-</div>
-	<div class="row">
-		<div class="col-md-12">
-			<button class="btn btn-danger" ng-click="open()">Error
-				Dialog</button>
-
-			<button class="btn btn-primary" ng-click="">Wait
-				Dialog</button>
-
-			<button class="btn btn-default" ng-click="">Notify
-				Dialog</button>
-
-			<button class="btn btn-success" ng-click="">Confirm
-				Dialog</button>
-
-			<button class="btn btn-warning" ng-click="">Custom
-				Dialog</button>
-		</div>
+		<p>Postremo ad id indignitatis est ventum, ut cum peregrini ob
+			formidatam haut ita dudum alimentorum inopiam pellerentur ab urbe
+			praecipites, sectatoribus disciplinarum liberalium inpendio paucis
+			sine respiratione ulla extrusis, tenerentur minimarum adseclae veri,
+			quique id simularunt ad tempus, et tria milia saltatricum ne
+			interpellata quidem cum choris totidemque remanerent magistris.</p>
 	</div>
-	<br />
+
+<div id="alertbody">
+	<button type="button" class="btn btn-lg btn-primary" data-placement="top-right" data-container="body" data-duration="3" bs-alert="alert">Click to toggle alert
+  <br>
+  <small>(using an object)</small>
+</button>
+
+<!-- You can also use data-attrs to assign scope variables -->
+<button type="button" class="btn btn-lg btn-danger" title="{{alert.title}}" data-content="{{alert.content}}" data-type="success" data-container="#alertbody" bs-alert>Click to toggle alert
+  <br>
+  <small>(using data-attrs)</small>
+</button>
+
+<button ng-click="showAlert()" type="button" class="btn btn-lg btn-warning" data-container="#alertbody" bs-alert>Click to toggle alert
+  <br>
+  <small>(using service)</small>
+</button>
+
+<!-- You can use a custom html template with the `data-template` attr -->
+<button type="button" class="btn btn-lg btn-success" data-template="home/alert.tpl.html" data-placement="top" data-duration="3" data-animation="am-fadeAndSlideTop" data-container="body" data-type="success" data-keyboard="true" bs-alert="alert">Custom alert
+  <br>
+  <small>(using data-template)</small>
+</button>
+
+</div>
+

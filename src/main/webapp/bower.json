@@ -16,8 +16,7 @@
     "bootstrap-sass": "~3.0.2",
     "angular-bootstrap": "0.11.0",
     "angular-ui-calendar": "latest",
-    "angular-breadcrumb": "latest",
-    "angular-dialog-service": "latest"
+    "angular-breadcrumb": "latest"
   },
   "dependencies": {},
   "resolutions": {

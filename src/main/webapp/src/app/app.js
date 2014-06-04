@@ -17,10 +17,6 @@ angular.module('soutenanceplanner', [
 		'angularFileUpload',
 		'services.i18n',
 		
-		'pascalprecht.translate',
-		'ngSanitize',
-		'dialogs.main',
-
 		// Commons
 		'soutenanceplanner.factory',
 		'soutenanceplanner.enum',
