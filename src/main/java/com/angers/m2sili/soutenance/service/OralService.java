@@ -1,6 +1,6 @@
 package com.angers.m2sili.soutenance.service;
 
-import java.util.List;
+import java.util.Set;
 
 import com.angers.m2sili.soutenance.model.Oral;
 
@@ -19,9 +19,9 @@ public interface OralService {
 
 	Oral get(Integer id);
 	
-	List<Oral> getAll();
+	Set<Oral> getAll();
 	
 	Oral update(Oral oral);
 
-	List<Oral> getUserOrals(Integer user_id);
+	Set<Oral> getUserOrals(Integer user_id);
 }

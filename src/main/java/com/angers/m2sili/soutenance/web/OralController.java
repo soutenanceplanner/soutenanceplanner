@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,13 +62,13 @@ public class OralController extends BaseController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Oral> list() {
+	Set<Oral> list() {
 		return oralService.getAll();
 	}
 	
 	@RequestMapping(value = "/list/{user_id}", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Oral> userList(@PathVariable Integer user_id) {
+	Set<Oral> userList(@PathVariable Integer user_id) {
 		return oralService.getUserOrals(user_id);
 	}
 	

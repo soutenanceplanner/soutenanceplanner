@@ -1,8 +1,8 @@
 package com.angers.m2sili.soutenance.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -67,13 +67,13 @@ public class Calendar extends BaseEntity {
 	@JsonBackReference
 	private Formation formation;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.EAGER)
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "calendar", fetch = FetchType.EAGER)
 	@JsonManagedReference
-	private List<TimeSlot> timeSlots;
+	private Set<TimeSlot> timeSlots = new HashSet<TimeSlot>();
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "calendar", fetch = FetchType.EAGER)
+	@OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "calendar", fetch = FetchType.EAGER)
 	@JsonManagedReference
-	private List<Oral> orals;
+	private Set<Oral> orals = new HashSet<Oral>();
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).
@@ -137,25 +137,19 @@ public class Calendar extends BaseEntity {
 		this.formation = formation;
 	}
 
-	public List<TimeSlot> getTimeSlots() {
-		if(this.timeSlots == null) {
-			this.timeSlots = new ArrayList<TimeSlot>();
-		}
+	public Set<TimeSlot> getTimeSlots() {
 		return timeSlots;
 	}
 
-	public void setTimeSlots(List<TimeSlot> timeSlots) {
+	public void setTimeSlots(Set<TimeSlot> timeSlots) {
 		this.timeSlots = timeSlots;
 	}
 
-	public List<Oral> getOrals() {
-		if(this.timeSlots == null) {
-			this.timeSlots = new ArrayList<TimeSlot>();
-		}
+	public Set<Oral> getOrals() {
 		return orals;
 	}
 
-	public void setOrals(List<Oral> orals) {
+	public void setOrals(Set<Oral> orals) {
 		this.orals = orals;
 	}
 

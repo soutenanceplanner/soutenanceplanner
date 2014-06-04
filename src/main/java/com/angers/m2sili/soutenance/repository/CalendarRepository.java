@@ -18,5 +18,6 @@ public interface CalendarRepository extends JpaRepository<Calendar, Integer> {
 	public  List<Calendar> findAllByEndingDateLessThan(Date currentDate);
 	public  List<Calendar> findAllByBeginningDateGreaterThan(Date currentDate);
 	public 	 List<Calendar> findAllByUser(User user);
+	public Calendar findById(Integer id);
 	
 }

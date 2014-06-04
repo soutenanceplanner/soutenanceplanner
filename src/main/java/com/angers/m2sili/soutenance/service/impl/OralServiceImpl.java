@@ -1,6 +1,7 @@
 package com.angers.m2sili.soutenance.service.impl;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,8 +49,8 @@ public class OralServiceImpl implements OralService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Oral> getAll() {
-		return oralRepository.findAll();
+	public Set<Oral> getAll() {
+		return new HashSet<Oral>(oralRepository.findAll());
 	}
 
 	@Override
@@ -58,7 +59,7 @@ public class OralServiceImpl implements OralService {
 	}
 
 	@Override
-	public List<Oral> getUserOrals(Integer user_id) {
+	public Set<Oral> getUserOrals(Integer user_id) {
 		User user = userRepository.findOne(user_id);
 		return user.getOrals();
 	}
