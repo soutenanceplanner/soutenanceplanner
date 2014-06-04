@@ -74,75 +74,47 @@ angular.module('soutenanceplanner')
 		//$http.defaults.headers.contentType = "application/x-www-form-urlencoded";
 } ])
 
-.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n','$state','CalendarService',
-	function($rootScope, $scope, $log, SecurityService, i18n,$state,CalendarService) {
+.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n',
+	function($rootScope, $scope, $log, SecurityService, i18n) {
 		$log.debug("MainCtrl");
 
 		$scope.init = function() {
 			// i18n
 			$rootScope.i18n = i18n;
+
+			SecurityService.retrieve().then(
+				function(response){
+					if (response.data === ""){
+						$scope.userLogin = null;
+					}
+					else {
+						$scope.userLogin = response.data.username;
+					}
+				}
+			);
 		};
 
-		$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-			
-			
-		//	if(toState.name != "login" && toState.name != "home"){
-
-			SecurityService.retrieve()
-				.success(function(data){
-						$log.debug(data);
-						$scope.userLogin = data.username;
-						if(data.username == null){
-							$state.go('login');
-						}
-					}
-			)
-			.error(function(data, status, headers, config){
-				$state.go('login');
-			});
-			
-			/*if($scope.userLogin == null){
-				$state.go('login');
-			}*/
-//		}
+		//reload MainCtrl when logged
+		$scope.$on('event:reloadMainCtrl', function(event, args) {
+			$log.debug("reload");
+			$scope.init();
 		});
-	
-//		$scope.toto = CalendarService.getListCalendar() ;
-		
-// watch current page for updates and set page value
-/*	$scope.$watch(CalendarService.getListCalendar(), function(newValue, oldValue, scope) {
-		if (newValue && newValue !== oldValue) {
-$scope.toto = newVal;
-}
-});
-	*/	
-		
-/*		$scope.$watch(  
-			function () {
-				$scope.toto = CalendarService.getListCalendar(); ;
-			}, 
-			true);		
-	*/	$scope.init();
+
+		$scope.init();
 } ])
 
 
-.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', 'SecurityService',
-	function($rootScope, $scope, $log, $state, $location, SecurityService) {
+.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', '$stateParams', 'SecurityService',
+	function($rootScope, $scope, $log, $state, $location, $stateParams, SecurityService) {
 		$log.debug("MenuCtrl");
 
 		$scope.logout = function(){
-			$scope.$emit('event:logoutRequest');
-
-			SecurityService.logout().then(function() {
-				$scope.userLogin = null;
-				$rootScope.user = null;
-				$state.go('home');
-			});
+			$rootScope.$broadcast('event:logoutRequest');
 		};
 	}
 ])
 
-.directive('getmenucalendar',['$log','HomeService','SecurityService', function($log,HomeService,SecurityService) {
+.directive('getmenucalendar',['$log','CalendarService','SecurityService', function($log,CalendarService,SecurityService) {
 	var def = {
 	template : '{{titre}}<span class="badge pull-right">{{calendriers.length}}</span>'+
 				'<ul class="nav " ng-repeat="calendrier in calendriers">'+
@@ -159,7 +131,7 @@ $scope.toto = newVal;
 
 		//si le type = 1 on récupère les calendrier passés
 		if(attrs.type == 1){
-			HomeService.getPastCalendars().then(
+			CalendarService.getPastCalendars().then(
 					function(response){
 						$log.debug(response.data);
 						scope.calendriers = response.data ;
@@ -169,7 +141,7 @@ $scope.toto = newVal;
 					}
 				);
 		}else	if(attrs.type == 2){
-			HomeService.getFuturCalendars().then(
+			CalendarService.getFuturCalendars().then(
 					function(response){
 						$log.debug(response.data);
 						scope.calendriers = response.data ;
@@ -180,7 +152,7 @@ $scope.toto = newVal;
 			);
 		//si le type = 3 on récupère les calendriers de l'user
 		}else if (attrs.type == 3){
-			HomeService.getCalendars().then(
+			CalendarService.getCalendars().then(
 				function(response){
 					$log.debug(response.data);
 					scope.calendriers = response.data ;
