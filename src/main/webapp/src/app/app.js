@@ -74,8 +74,8 @@ angular.module('soutenanceplanner')
 		//$http.defaults.headers.contentType = "application/x-www-form-urlencoded";
 } ])
 
-.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n','$state',
-	function($rootScope, $scope, $log, SecurityService, i18n,$state) {
+.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n','$state','CalendarService',
+	function($rootScope, $scope, $log, SecurityService, i18n,$state,CalendarService) {
 		$log.debug("MainCtrl");
 
 		$scope.init = function() {
@@ -84,6 +84,10 @@ angular.module('soutenanceplanner')
 		};
 
 		$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+			
+			
+			if(toState.name != "login" && toState.name != "home"){
+
 			SecurityService.retrieve()
 				.success(function(data){
 						$log.debug(data);
@@ -100,10 +104,25 @@ angular.module('soutenanceplanner')
 			/*if($scope.userLogin == null){
 				$state.go('login');
 			}*/
-			
+		}
 		});
+	
+		$scope.toto = CalendarService.getListCalendar() ;
 		
-		$scope.init();
+// watch current page for updates and set page value
+/*	$scope.$watch(CalendarService.getListCalendar(), function(newValue, oldValue, scope) {
+		if (newValue && newValue !== oldValue) {
+$scope.toto = newVal;
+}
+});
+	*/	
+		
+/*		$scope.$watch(  
+			function () {
+				$scope.toto = CalendarService.getListCalendar(); ;
+			}, 
+			true);		
+	*/	$scope.init();
 } ])
 
 
@@ -125,7 +144,7 @@ angular.module('soutenanceplanner')
 
 .directive('getmenucalendar',['$log','HomeService','SecurityService', function($log,HomeService,SecurityService) {
 	var def = {
-	template : '{{titre}}<span class="badge pull-right">{{badge}}</span>'+
+	template : '{{titre}}<span class="badge pull-right">{{calendriers.length}}</span>'+
 				'<ul class="nav " ng-repeat="calendrier in calendriers">'+
 					'<li><a href="{{calendrier.link}}">{{calendrier.title}}</a></li>'+	
 				'</ul><br/>{{calVide}}',
