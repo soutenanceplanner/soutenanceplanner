@@ -25,6 +25,7 @@ import com.angers.m2sili.soutenance.service.OralService;
 import com.angers.m2sili.soutenance.service.SecurityService;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
+import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 
 /**
  * Controller de Oral.
@@ -88,13 +89,21 @@ public class OralController extends BaseController {
 		return oralService.getList2();
 	}
 	
-	@RequestMapping(value = "/list/{user_id}/{calendar_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/list/{id}/{link}", method = RequestMethod.GET)
 	public @ResponseBody
-	Set<Oral> userList(@PathVariable Integer user_id, @PathVariable Integer calendar_id) {
+	ReturnValueDTO userList(@PathVariable Integer id, @PathVariable String link) {
 		User user = securityServiceImpl.retrieveUser();
 		if(user == null)
 			return null;
-		return new HashSet<Oral>(oralService.getUserOrals(user.getId(), calendar_id));
+		ReturnValueDTO dto = new ReturnValueDTO();
+		Calendar cal = calendarServiceImpl.get(id);
+		if(!cal.getLink().contentEquals(link)) {
+			logger.debug("test");
+			dto.setError("Non autorisé à accéder au calendrier.");
+		} else {
+			dto.setValue(oralService.getUserOrals(user.getId(), id));
+		}
+		return dto;
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

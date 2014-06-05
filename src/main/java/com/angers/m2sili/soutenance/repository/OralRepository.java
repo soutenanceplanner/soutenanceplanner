@@ -1,6 +1,6 @@
 package com.angers.m2sili.soutenance.repository;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,8 +18,8 @@ import com.angers.m2sili.soutenance.model.User;
 @Repository
 public interface OralRepository extends JpaRepository<Oral, Integer> {
 
-	List<Oral> findAllByUser(User user);
+	Set<Oral> findAllByUser(User user);
 
-	List<Oral> findAllByUserAndCalendar(User user, Calendar calendar);
+	Set<Oral> findAllByUserAndCalendar(User user, Calendar calendar);
 
 }
