@@ -39,19 +39,7 @@ angular.module('soutenanceplanner.calendar')
 					ncyBreadcrumbLabel: 'Ajout'
 				}
 			})
-			.state('calendar.admin.detail', {
-				url: '/:id/:link',
-				views: {
-					"@" : {
-						templateUrl: 'calendar/detail.tpl.html',
-						controller: 'CalendarDetailCtrl'
-					}
-				},
-				data: {
-					ncyBreadcrumbLabel: 'Calendrier - {{calendar.title}}'
-				}
-			})
-			.state('calendar.user.detail', {
+			.state('calendar.detail', {
 				url: '/:id/:link',
 				views: {
 					"@" : {

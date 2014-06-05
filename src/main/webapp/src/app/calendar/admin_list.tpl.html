@@ -9,7 +9,7 @@
 		<th></th>
 	</tr>
 	<tr ng-repeat="calendar in calendars">
-		<td><a ui-sref="calendar.admin.detail({id:calendar.id, link:calendar.link})"><span>{{calendar.title}}</span></a></td>
+		<td><a ui-sref="calendar.detail({id:calendar.id, link:calendar.link})"><span>{{calendar.title}}</span></a></td>
 		<td>{{calendar.formation.name}}</td>
 		<td>{{calendar.beginningDate | date:'dd/MM/yyyy'}}</td>
 		<td>{{calendar.endingDate | date:'dd/MM/yyyy'}}</td>
