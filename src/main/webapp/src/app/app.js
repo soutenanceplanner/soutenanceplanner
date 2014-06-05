@@ -89,13 +89,23 @@ angular.module('soutenanceplanner')
 					}
 					else {
 						$scope.userLogin = response.data.username;
-						
+
 						//get calendars
 						CalendarService.getCalendars().then(
 							function(response){
 								$scope.mesCalendriers = response.data ;
 							}
-						);	
+						);
+						CalendarService.getPastCalendars().then(
+							function(response){
+								$scope.pastCalendars = response.data ;
+							}
+						);
+						CalendarService.getFuturCalendars().then(
+							function(response){
+								$scope.futurCalendars = response.data ;
+							}
+						);
 					}
 				}
 			);
@@ -122,48 +132,5 @@ angular.module('soutenanceplanner')
 		
 	}
 ])
-
-.directive('getmenucalendar',['$log','CalendarService','SecurityService', function($log,CalendarService,SecurityService) {
-	var def = {
-	template : '{{titre}}<span class="badge pull-right">{{calendriers.length}}</span>'+
-				'<ul class="nav " ng-repeat="calendrier in calendriers">'+
-					'<li><a href="{{calendrier.link}}">{{calendrier.title}}</a></li>'+	
-				'</ul><br/>{{calVide}}',
-	remplace : true,
-	scope: { //permet de ne pas faire de mise à jour du scope ( même nom de variable dans le template ) 
-		subscription: '=',
-		index: '@'
-	},
-	link :	function link(scope, element, attrs) {	
-		scope.titre = attrs.title ;
-		scope.badge = attrs.type;
-
-		//si le type = 1 on récupère les calendrier passés
-		if(attrs.type == 1){
-			CalendarService.getPastCalendars().then(
-					function(response){
-						$log.debug(response.data);
-						scope.calendriers = response.data ;
-						if(response.data.length === 0){
-							scope.calVide = attrs.erreur ;
-						}
-					}
-				);
-		}else	if(attrs.type == 2){
-			CalendarService.getFuturCalendars().then(
-					function(response){
-						$log.debug(response.data);
-						scope.calendriers = response.data ;
-						if(scope.calendriers === null){
-							scope.calVide = attrs.erreur ;
-						}
-				}
-			);
-		//si le type = 3 on récupère les calendriers de l'user
-		}
-	}
-};
-return def ;	
-}])
 
 ;
