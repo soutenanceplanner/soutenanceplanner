@@ -66,6 +66,13 @@ angular.module('soutenanceplanner')
 	});
 })
 
+//Breadcrumb config
+.config(function($datepickerProvider) {
+	angular.extend($datepickerProvider.defaults, {
+		autoclose : true
+	});
+})
+
 .run(['$rootScope','$state','$stateParams','$http',
 	function($rootScope, $state, $stateParams, $http) {
 		$http.defaults.headers.post = {
