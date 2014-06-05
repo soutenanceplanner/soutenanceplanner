@@ -4,8 +4,8 @@
 
 angular.module('soutenanceplanner.calendar')
 
-.controller('CalendarAddCtrl', ['$scope', '$log', '$state', '$filter', '$stateParams', 'CalendarService', 'FormationService', 'SecurityService',
-	function($scope, $log, $state, $filter, $stateParams, CalendarService, FormationService, SecurityService) {
+.controller('CalendarAddCtrl', ['$scope', '$log', '$state', '$filter', '$stateParams', 'CalendarService', 'FormationService', 'SecurityService','$alert', '$sce',
+	function($scope, $log, $state, $filter, $stateParams, CalendarService, FormationService, SecurityService,$alert, $sce) {
 	
 		$log.debug('CalendarAddCtrl');
 
@@ -286,10 +286,15 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarUserListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 
-	function($scope, $log, $state, $stateParams, CalendarService) {
+.controller('CalendarUserListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService','$alert', '$sce', 
+	function($scope, $log, $state, $stateParams, CalendarService,$alert, $sce) {
 		$log.debug('CalendarUserListCtrl');
 
+		
+		$scope.wait = function(id){
+			$scope.idTem = id ;
+		};
+		
 		$scope.init = function(){
 			CalendarService.userListCalendar().then(
 				function(response){
