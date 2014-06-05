@@ -286,12 +286,12 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 
+.controller('CalendarUserListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 
 	function($scope, $log, $state, $stateParams, CalendarService) {
-		$log.debug('CalendarListCtrl');
+		$log.debug('CalendarUserListCtrl');
 
 		$scope.init = function(){
-			CalendarService.listCalendar().then(
+			CalendarService.userListCalendar().then(
 				function(response){
 					$scope.calendars = response.data;
 				}

@@ -45,17 +45,16 @@ angular.module('soutenanceplanner.calendar')
 			},
 
 			adminListCalendar:function(){
-				console.log("test");
 				return $http({
 					method: 'GET',
 					url: WS_SERVER_URL + "/calendar/admin_list",
 				});
 			},
 
-			listCalendar:function(){
+			userListCalendar:function(){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/calendar/list",
+					url: WS_SERVER_URL + "/calendar/user_list",
 				});
 			},
 

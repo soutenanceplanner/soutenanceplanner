@@ -116,7 +116,7 @@ public class CalendarController extends BaseController {
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/user_list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Calendar> getAll() {
+	List<Calendar> getAllUser() {
 		User user = securityServiceImpl.retrieveUser();
 		if(user == null)
 			return null;
