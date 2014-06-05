@@ -59,6 +59,10 @@ public class SecurityController extends BaseController {
 			throws Exception {
 
 		ReturnValueDTO returnValue = new ReturnValueDTO();
+		if (dto.getLogin() == null || dto.getPassword() == null) {
+			returnValue.setError("Champs manquants");
+			return returnValue;
+		}
 
 		User user = userService.findByLogin(dto.getLogin());
 		if (user == null) {

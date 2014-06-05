@@ -89,16 +89,17 @@ angular.module('soutenanceplanner')
 					}
 					else {
 						$scope.userLogin = response.data.username;
+
+						//get calendars
+						CalendarService.getCalendars().then(
+							function(response){
+								$scope.mesCalendriers = response.data ;
+							}
+						);	
 					}
 				}
 			);
 		};
-		
-		CalendarService.getCalendars().then(
-				function(response){
-					$scope.mesCalendriers = response.data ;
-				}
-			);	
 
 		//reload MainCtrl when logged
 		$scope.$on('event:reloadMainCtrl', function(event, args) {
