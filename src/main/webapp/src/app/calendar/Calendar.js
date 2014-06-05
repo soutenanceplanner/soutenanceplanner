@@ -11,8 +11,13 @@ angular.module('soutenanceplanner.calendar')
 		$stateProvider
 			.state('calendar', {
 				url: '/calendar',
-				templateUrl: 'calendar/list.tpl.html',
-				controller: 'CalendarListCtrl',
+				abstract: true,
+				template : '<div ui-view></div>'
+			})
+			.state('calendar.user', {
+				url: '/user',
+				templateUrl: 'calendar/user_list.tpl.html',
+				controller: 'CalendarUserListCtrl',
 				data: {
 					ncyBreadcrumbLabel: 'Calendriers'
 				}

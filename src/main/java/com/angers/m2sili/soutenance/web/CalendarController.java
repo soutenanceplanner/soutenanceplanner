@@ -113,7 +113,7 @@ public class CalendarController extends BaseController {
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/user_list", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Calendar> getAll() {
 		User user = securityServiceImpl.retrieveUser();

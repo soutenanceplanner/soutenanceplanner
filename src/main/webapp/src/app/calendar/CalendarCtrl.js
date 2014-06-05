@@ -250,7 +250,7 @@ angular.module('soutenanceplanner.calendar')
 
 .controller('CalendarAdminListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 'FormationService', 'AccountService', 
 	function($scope, $log, $state, $stateParams, CalendarService, FormationService, AccountService) {
-		$log.debug('CalendarListCtrl');
+		$log.debug('CalendarAdminListCtrl');
 
 		$scope.init = function(){
 			CalendarService.adminListCalendar().then(

@@ -20,7 +20,7 @@
 										<li><a ui-sref='calendar.admin'>Calendriers</a></li>
 									</ul>
 								</div>
-								<button ng-if='userLogin != null' ui-sref='calendar' type="button" class="btn btn-default">Mes Calendriers</button>
+								<button ng-if='userLogin != null' ui-sref='calendar.user' type="button" class="btn btn-default">Mes Calendriers</button>
 								<button ng-if='userLogin' ui-sref='account.current' type="button" class="btn btn-default">Mon compte</button>
 								<button ng-if='userLogin === null' ui-sref='login' type="button" class="btn btn-default">Connexion</button>
 								<button ng-if='userLogin !== null' ng-click="logout()" type="button" class="btn btn-default">Déconnexion</button>
