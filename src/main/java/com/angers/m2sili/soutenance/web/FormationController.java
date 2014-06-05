@@ -48,9 +48,9 @@ public class FormationController extends BaseController {
 		return formationService.getAsDTO(id);
 	}
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin_list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Formation> list() {
+	List<Formation> getAllAdmin() {
 		return formationService.getAll();
 	}
 

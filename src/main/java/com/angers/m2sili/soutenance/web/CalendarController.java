@@ -1,6 +1,7 @@
 package com.angers.m2sili.soutenance.web;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +103,20 @@ public class CalendarController extends BaseController {
 			dto.setValue(transformerService.beanToDto(cal));
 		}
 		return dto;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@RequestMapping(value = "/admin_list", method = RequestMethod.GET)
+	public @ResponseBody
+	List<ReturnValueDTO> getAllAdmin() {
+		List<Calendar> cals = calServiceImpl.getAll();
+		List<ReturnValueDTO> dtos = new ArrayList<ReturnValueDTO>();
+		for(int i=0; i<cals.size(); ++i) {
+			ReturnValueDTO dto = new ReturnValueDTO();
+			dto.setValue(transformerService.beanToDto(cals.get(i)));
+			dtos.add(dto);
+		}
+		return dtos;
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")

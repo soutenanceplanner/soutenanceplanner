@@ -10,10 +10,10 @@ INSERT IGNORE INTO formation VALUES (2,	'M1 Info');
 INSERT IGNORE INTO formation VALUES (3,	'M2 ID');
 INSERT IGNORE INTO formation VALUES (4,	'M2 SILI');
 
-INSERT IGNORE INTO  calendar VALUES (1,	'2014-06-06 04:13:54',	1.0,	'2014-06-06 18:00:00',	'20140602',		'Soutenance de stage',	1,	1);
-INSERT IGNORE INTO  calendar VALUES (2,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140603',		'Soutenance de stage',	2,	2);
-INSERT IGNORE INTO  calendar VALUES (3,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140604',		'Soutenance de stage',	3,	3);
-INSERT IGNORE INTO  calendar VALUES (4,	'2014-06-02 08:00:00',	1.0,	'2014-06-06 18:00:00',	'20140605',		'Soutenance de stage',	4,	4);
+INSERT IGNORE INTO  calendar VALUES (1,	'2014-06-06 04:13:54',	0.25,	'2014-06-10 18:00:00',	'84dfsc2xcv5jkv556',		'Soutenance de stage 1',	1,	1);
+INSERT IGNORE INTO  calendar VALUES (2,	'2014-04-01 08:00:00',	1.0,	'2014-04-06 18:00:00',	'a521sdf5541vvcbr8',		'Soutenance de stage 2',	2,	2);
+INSERT IGNORE INTO  calendar VALUES (3,	'2014-10-10 08:00:00',	0.75,	'2014-11-10 18:00:00',	'5sd145561sdf165dd',		'Soutenance de stage 3',	3,	3);
+INSERT IGNORE INTO  calendar VALUES (4,	'2014-09-01 08:00:00',	0.5,	'2014-10-01 18:00:00',	'sdfsd5102sdfdsf51',		'Soutenance de stage 4',	4,	4);
 
 INSERT IGNORE INTO time_slot VALUES (1, 8, 12, 1);
 INSERT IGNORE INTO time_slot VALUES (2, 14, 18, 1);

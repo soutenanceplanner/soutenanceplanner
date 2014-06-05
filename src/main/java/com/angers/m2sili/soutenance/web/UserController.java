@@ -61,9 +61,9 @@ public class UserController extends BaseController {
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin_list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<User> list() {
+	List<User> getAllAdmin() {
 		return userService.getAll();
 	}
 

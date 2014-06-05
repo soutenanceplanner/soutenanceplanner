@@ -44,6 +44,13 @@ angular.module('soutenanceplanner.calendar')
 				});
 			},
 
+			adminListCalendar:function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/admin_list",
+				});
+			},
+
 			listCalendar:function(){
 				return $http({
 					method: 'GET',
