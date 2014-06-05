@@ -1,12 +1,11 @@
 package com.angers.m2sili.soutenance.web;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,10 +18,12 @@ import com.angers.m2sili.soutenance.model.TimeSlot;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.FormationService;
+import com.angers.m2sili.soutenance.service.OralService;
 import com.angers.m2sili.soutenance.service.SecurityService;
 import com.angers.m2sili.soutenance.service.TimeSlotService;
 import com.angers.m2sili.soutenance.service.TransformerService;
 import com.angers.m2sili.soutenance.service.UserService;
+import com.angers.m2sili.soutenance.service.impl.OralServiceImpl;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 
@@ -53,14 +54,12 @@ public class CalendarController extends BaseController {
 	private SecurityService securityServiceImpl;
 	
 	@Autowired
+	private OralService oralService;
+	
+	@Autowired
 	private TransformerService transformerService;
 
-
-	@Autowired
-	@Qualifier("authenticationManager")
-	private AuthenticationManager authManager;
-
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
 	Calendar create(@RequestBody CalendarDTO calendar) {
@@ -84,10 +83,15 @@ public class CalendarController extends BaseController {
 		return c;
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
 		logger.debug("REST Calendar - supression du calendrier avec id : "+id);
+		
+		timeSlotServiceImpl.deleteListTimeSlotByCalendarId(id);
+		oralService.deleteListOralByCalendarId(id);
+		
 		calServiceImpl.delete(id);
 	}
 
@@ -103,23 +107,40 @@ public class CalendarController extends BaseController {
 		}
 		return dto;
 	}
-
+	
 	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin_list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Calendar> getAll() {
+	List<ReturnValueDTO> getAllAdmin() {
+		List<Calendar> cals = calServiceImpl.getAll();
+		List<ReturnValueDTO> dtos = new ArrayList<ReturnValueDTO>();
+		for(int i=0; i<cals.size(); ++i) {
+			ReturnValueDTO dto = new ReturnValueDTO();
+			dto.setValue(transformerService.beanToDto(cals.get(i)));
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+	
+	
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping(value = "/user_list", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Calendar> getAllUser() {
 		User user = securityServiceImpl.retrieveUser();
 		if(user == null)
 			return null;
 		return calServiceImpl.getAll(user.getLogin());
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/list_futur", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Calendar> getFuturCalendars() {
 		return calServiceImpl.getAllFuturs();
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/list_past", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Calendar> getPastCalendars() {

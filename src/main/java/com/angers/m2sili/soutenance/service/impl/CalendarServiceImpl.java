@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.angers.m2sili.soutenance.model.Calendar;
+import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.repository.CalendarRepository;
+import com.angers.m2sili.soutenance.repository.OralRepository;
+import com.angers.m2sili.soutenance.repository.TimeSlotRepository;
 import com.angers.m2sili.soutenance.repository.UserRepository;
 import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.web.BaseController;
@@ -24,9 +27,15 @@ public class CalendarServiceImpl implements CalendarService{
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private OralRepository oralRepository;
+	
+	@Autowired
+	private TimeSlotRepository timeSlotRepository;
+	
+	
 	protected final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
-	
 	@Override
 	@Transactional
 	public Calendar create(Calendar cal) {
@@ -39,6 +48,12 @@ public class CalendarServiceImpl implements CalendarService{
 		return calendarRepository.findById(idCal);
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public List<Calendar> getAll() {
+		return calendarRepository.findAll();
+	}
+	
 	@Transactional(readOnly = true)
 	@Override
 	public List<Calendar> getAll(String login) {
@@ -63,7 +78,15 @@ public class CalendarServiceImpl implements CalendarService{
 	@Override
 	@Transactional
 	public void delete(Integer id) {
-		calendarRepository.delete(id);
+		
+		Calendar c = calendarRepository.findById(id);
+			
+			c.getFormation().getCalendars().remove(c);			
+			c.getUser().getCalendars().remove(c);
+			c.getUser().getOrals().removeAll(c.getOrals());
+			
+		calendarRepository.delete(c);
+		
 	}
 
 	@Override

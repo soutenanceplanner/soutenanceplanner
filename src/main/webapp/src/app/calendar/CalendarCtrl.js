@@ -10,7 +10,7 @@ angular.module('soutenanceplanner.calendar')
 		$log.debug('CalendarAddCtrl');
 
 		$scope.init = function(){
-			FormationService.listFormation().then(
+			FormationService.adminListFormation().then(
 				function(response){
 					$scope.formations = response.data;
 				}
@@ -248,12 +248,50 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 
-	function($scope, $log, $state, $stateParams, CalendarService) {
-		$log.debug('CalendarListCtrl');
+.controller('CalendarAdminListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 'FormationService', 'AccountService', 
+	function($scope, $log, $state, $stateParams, CalendarService, FormationService, AccountService) {
+		$log.debug('CalendarAdminListCtrl');
 
 		$scope.init = function(){
-			CalendarService.listCalendar().then(
+			CalendarService.adminListCalendar().then(
+				function(response){
+					$scope.calendars = [];
+					angular.forEach(response.data, function(calendar, key) {
+						$scope.calendars.push(calendar.value);
+						FormationService.getFormation(calendar.value.formationId).then(
+							function(response){
+								$scope.calendars[key]['formation'] = response.data;
+							}
+						);
+						AccountService.getUser(calendar.value.userId).then(
+							function(response){
+								$scope.calendars[key]['user'] = response.data;
+							}
+						);
+					});
+				}
+			);
+		};
+
+		$scope.init();
+
+		$scope.deleteCalendar = function(id){
+			CalendarService.deleteCalendar(id).then(
+				function(response){
+					$log.debug(response.data);
+					$scope.init();
+				}
+			);
+		};
+	}
+])
+
+.controller('CalendarUserListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 
+	function($scope, $log, $state, $stateParams, CalendarService) {
+		$log.debug('CalendarUserListCtrl');
+
+		$scope.init = function(){
+			CalendarService.userListCalendar().then(
 				function(response){
 					$scope.calendars = response.data;
 				}
