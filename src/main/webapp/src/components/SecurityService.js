@@ -52,12 +52,14 @@ angular.module('soutenanceplanner.security')
 			},
 
 			hasAuthority: function(userDetails, authority){
+				var found = false;
 				angular.forEach(userDetails.authorities, function(value, key) {
 					if(value.authority === authority){
-						return true;
+						found = true;
+						return;
 					}
 				});
-				return false;
+				return found;
 			}
 			
 		};

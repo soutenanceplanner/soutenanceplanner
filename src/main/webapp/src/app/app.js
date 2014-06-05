@@ -93,16 +93,18 @@ angular.module('soutenanceplanner')
 				function(response){
 					if (response.data === ""){
 						$scope.userLogin = null;
+						$scope.isAdmin = null;
 					}
 					else {
-						$scope.userLogin = response.data.username;
+						var userDetails = response.data;
 
-						//get calendars
-						CalendarService.getCalendars().then(
-							function(response){
-								$scope.mesCalendriers = response.data ;
-							}
-						);
+						//variables pour les templates
+						$scope.userLogin = userDetails.username;
+						$log.debug("isAdmin");
+						$scope.isAdmin = SecurityService.hasAuthority(userDetails, "ADMIN");
+						$log.debug("isAdmin");
+						$log.debug($scope.isAdmin);
+
 						CalendarService.getPastCalendars().then(
 							function(response){
 								$scope.pastCalendars = response.data ;
@@ -120,7 +122,7 @@ angular.module('soutenanceplanner')
 
 		//reload MainCtrl when logged
 		$scope.$on('event:reloadMainCtrl', function(event, args) {
-			$log.debug("reload");
+			//$log.debug("reload");
 			$scope.init();
 		});
 
