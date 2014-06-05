@@ -11,13 +11,23 @@ angular.module('soutenanceplanner.calendar')
 		$stateProvider
 			.state('calendar', {
 				url: '/calendar',
-				templateUrl: 'calendar/list.tpl.html',
-				controller: 'CalendarListCtrl',
+				abstract: true,
+				template : '<div ui-view></div>',
 				data: {
 					ncyBreadcrumbLabel: 'Calendriers'
 				}
 			})
-			.state('calendar.add', {
+			.state('calendar.user', {
+				url: '/user',
+				templateUrl: 'calendar/user_list.tpl.html',
+				controller: 'CalendarUserListCtrl'
+			})
+			.state('calendar.admin', {
+				url: '/admin',
+				templateUrl: 'calendar/admin_list.tpl.html',
+				controller: 'CalendarAdminListCtrl'
+			})
+			.state('calendar.user.add', {
 				url: '/add',
 				views: {
 					"@" : {
@@ -29,7 +39,7 @@ angular.module('soutenanceplanner.calendar')
 					ncyBreadcrumbLabel: 'Ajout'
 				}
 			})
-			.state('calendar.detail', {
+			.state('calendar.admin.detail', {
 				url: '/:id/:link',
 				views: {
 					"@" : {
@@ -41,16 +51,16 @@ angular.module('soutenanceplanner.calendar')
 					ncyBreadcrumbLabel: 'Calendrier - {{calendar.title}}'
 				}
 			})
-			.state('calendar.detail.edit', {
-				url: '/edit',
+			.state('calendar.user.detail', {
+				url: '/:id/:link',
 				views: {
 					"@" : {
-						templateUrl: 'calendar/edit.tpl.html',
-						controller: 'CalendarEditCtrl'
+						templateUrl: 'calendar/detail.tpl.html',
+						controller: 'CalendarDetailCtrl'
 					}
 				},
 				data: {
-					ncyBreadcrumbLabel: 'Edition',
+					ncyBreadcrumbLabel: 'Calendrier - {{calendar.title}}'
 				}
 			})
 		;

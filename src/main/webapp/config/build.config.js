@@ -45,7 +45,8 @@ module.exports = {
     assets: [
     ],
     fonts: [
-      'vendor/ionicons/fonts/*'
+      'vendor/ionicons/fonts/*',
+      'vendor/bootstrap/fonts/*'
     ]
   },
 };

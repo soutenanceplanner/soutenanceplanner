@@ -13,4 +13,7 @@ public interface TimeSlotService {
 	void delete(Integer id);
 	TimeSlot update(TimeSlot timeSlot);
 
+	void deleteListTimeSlotByCalendarId(Integer id);
+
+	
 }

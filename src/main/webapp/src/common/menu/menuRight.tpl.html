@@ -1,17 +1,15 @@
-				<div ng-if='userLogin != null' class="col-md-3">
-					<div class="sidebar-nav-fixed">
-						<div class="well">
-						
-						Mes Calendriers
+<div ng-if='userLogin != null' class="col-md-2">
+	<div class="sidebar-nav-fixed">
+		<div class="well">
 			<span class="badge pull-right">{{mesCalendriers.length}}</span>
-				<ul class="nav " ng-repeat="monCalendrier in mesCalendriers">
-					<li><a ui-sref='calendar.detail({id:monCalendrier.id, link:monCalendrier.link})'>{{monCalendrier.title}} </a></li>	
-				</ul><br/>
+			Mes calendriers
+			<ul class="nav " ng-repeat="monCalendrier in mesCalendriers">
+				<li><a ui-sref='calendar.detail({id:monCalendrier.id, link:monCalendrier.link})'>{{monCalendrier.title}} </a></li>	
+			</ul><br/>
 			<hr>
-
-							<button ui-sref='calendar.add' class="btn btn-default center-block">Créer un calendrier</button>
-						</div>
-						<!--/.well -->
-					</div>
-					<!--/sidebar-nav-fixed -->
-				</div>
+			<button ui-sref='calendar.add' class="btn btn-default center-block">Créer un calendrier</button>
+		</div>
+		<!--/.well -->
+	</div>
+<!--/sidebar-nav-fixed -->
+</div>

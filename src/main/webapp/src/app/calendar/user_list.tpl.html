@@ -7,11 +7,11 @@
 		<th>Durée</th>
 	</tr>
 	<tr ng-repeat="calendar in calendars">
-		<td><a ui-sref="calendar.detail({id:calendar.id, link:calendar.link})"><span>{{calendar.title}}</span></a></td>
-		<td>{{calendar.beginningDate | date:'MM/dd/yyyy'}}</td>
-		<td>{{calendar.endingDate | date:'MM/dd/yyyy'}}</td>
+		<td><a ui-sref="calendar.user.detail({id:calendar.id, link:calendar.link})"><span>{{calendar.title}}</span></a></td>
+		<td>{{calendar.beginningDate | date:'dd/MM/yyyy'}}</td>
+		<td>{{calendar.endingDate | date:'dd/MM/yyyy'}}</td>
 		<td>{{calendar.duration*60}}</td>
 		<td><button ng-click="deleteCalendar(calendar.id)" type="button" class="close">&times;</button></td>
 	</tr>
 </table>
-<button ui-sref="calendar.add" class="btn btn-default center-block">Ajouter</button>
+<button ui-sref="calendar.user.add" class="btn btn-default center-block">Ajouter</button>

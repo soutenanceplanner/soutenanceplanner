@@ -28,10 +28,10 @@ angular.module('soutenanceplanner.account')
 				});
 			},
 
-			listUser:function(){
+			adminListUser:function(){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/user/list",
+					url: WS_SERVER_URL + "/user/admin_list",
 				});
 			},
 

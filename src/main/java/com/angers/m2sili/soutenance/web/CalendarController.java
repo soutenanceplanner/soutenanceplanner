@@ -121,8 +121,7 @@ public class CalendarController extends BaseController {
 		}
 		return dtos;
 	}
-	
-	
+
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/user_list", method = RequestMethod.GET)
 	public @ResponseBody

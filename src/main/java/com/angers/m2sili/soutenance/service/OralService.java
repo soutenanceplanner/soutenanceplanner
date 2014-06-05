@@ -25,7 +25,6 @@ public interface OralService {
 	
 	Set<Oral> getUserOrals(Integer user_id, Integer calendar_id);
 
-	Set<Oral> getUserOrals(Integer user_id);
-	
 	void deleteListOralByCalendarId(Integer id);
+	Set<Oral> getList2();
 }

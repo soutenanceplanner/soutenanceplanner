@@ -86,12 +86,12 @@ angular.module('soutenanceplanner.formation')
 	}
 ])
 
-.controller('FormationListCtrl', ['$scope', '$log', '$alert', 'FormationService',
+.controller('FormationAdminListCtrl', ['$scope', '$log', '$alert', 'FormationService',
 	function($scope, $log, $alert, FormationService) {
 		$log.debug('FormationListCtrl');
 
 		$scope.init = function(){
-			FormationService.listFormation().then(
+			FormationService.adminListFormation().then(
 				function(response){
 					$scope.formations = response.data;
 					$log.debug(response.data);

@@ -53,7 +53,7 @@ public class CalendarServiceImpl implements CalendarService{
 	public List<Calendar> getAll() {
 		return calendarRepository.findAll();
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<Calendar> getAll(String login) {

@@ -47,7 +47,7 @@ public class User extends BaseEntity {
 
 	@NotEmpty
 	@Email
-	@Column(name = "mail")
+	@Column(name = "mail", unique = true)
 	private String mail;
 
 	@NotNull

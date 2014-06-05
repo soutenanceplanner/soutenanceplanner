@@ -77,6 +77,7 @@ public class OralServiceImpl implements OralService {
 		//return user.getOrals();
 		return oralRepository.findAllByUserAndCalendar(user, calendar);
 	}
+
 	
 	public Set<Oral> getList2() {
 		logger.debug("List2");
@@ -93,7 +94,7 @@ public class OralServiceImpl implements OralService {
 			o.getUser().getOrals().remove(o);
 			oralRepository.delete(o);
 		}
-		
+
 	}
 	
 }
