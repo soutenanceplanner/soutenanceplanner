@@ -54,7 +54,7 @@ public class CalendarController extends BaseController {
 	@Autowired
 	private TransformerService transformerService;
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
 	Calendar create(@RequestBody CalendarDTO calendar) {
@@ -78,6 +78,7 @@ public class CalendarController extends BaseController {
 		return c;
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
@@ -112,7 +113,7 @@ public class CalendarController extends BaseController {
 		return dtos;
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Calendar> getAll() {
@@ -122,12 +123,14 @@ public class CalendarController extends BaseController {
 		return calServiceImpl.getAll(user.getLogin());
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/list_futur", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Calendar> getFuturCalendars() {
 		return calServiceImpl.getAllFuturs();
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/list_past", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Calendar> getPastCalendars() {

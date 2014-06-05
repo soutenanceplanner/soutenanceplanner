@@ -28,11 +28,11 @@ public class OralDTO {
 		this.id = id;
 	}
 
-	public Date getBeginning_hour() {
+	public Date getBeginningHour() {
 		return beginning_hour;
 	}
 
-	public void setBeginning_hour(Date beginning_hour) {
+	public void setBeginningHour(Date beginning_hour) {
 		this.beginning_hour = beginning_hour;
 	}
 

@@ -1,10 +1,5 @@
 package com.angers.m2sili.soutenance.web;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,7 +49,7 @@ public class OralController extends BaseController {
 	Oral create(@RequestBody OralDTO oral) {
 		logger.debug("REST - Création d'un oral");
 		Oral o = new Oral();
-		o.setBeginningHour(oral.getBeginning_hour());
+		o.setBeginningHour(oral.getBeginningHour());
 		o.setParticipants(oral.getParticipants());
 		o.setTitle(oral.getTitle());
 		o.setCalendar(calendarServiceImpl.get(oral.getCalendarId()));
@@ -109,7 +104,7 @@ public class OralController extends BaseController {
 	public @ResponseBody
 	Oral update(@RequestBody OralDTO oral) {
 		Oral o = oralService.get(oral.getId());
-		o.setBeginningHour(oral.getBeginning_hour());
+		o.setBeginningHour(oral.getBeginningHour());
 		o.setParticipants(oral.getParticipants());
 		o.setTitle(oral.getTitle());
 		o.setCalendar(calendarServiceImpl.get(oral.getCalendarId()));
