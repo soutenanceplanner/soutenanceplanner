@@ -1,16 +1,16 @@
-<div class="col-md-2">
+<div class="col-md-3">
 	<div class="sidebar-nav-fixed">
 		<div class="well">
-			Calendriers passés
 			<span class="badge pull-right">{{pastCalendars.length}}</span>
+			Calendriers passés
 			<ul class="nav " ng-repeat="monCalendrier in pastCalendars">
 				<li><a ui-sref='calendar.detail({id:monCalendrier.id, link:monCalendrier.link})'>{{monCalendrier.title}} </a></li>	
 			</ul><br/>
 		</div>
 
 		<div class="well">
-			Calendriers à venir	
 			<span class="badge pull-right">{{futurCalendars.length}}</span>
+			Calendriers à venir	
 			<ul class="nav " ng-repeat="monCalendrier in futurCalendars">
 				<li><a ui-sref='calendar.detail({id:monCalendrier.id, link:monCalendrier.link})'>{{monCalendrier.title}} </a></li>	
 			</ul><br/>
