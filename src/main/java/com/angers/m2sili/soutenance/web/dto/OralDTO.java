@@ -1,18 +1,24 @@
 package com.angers.m2sili.soutenance.web.dto;
 
+import java.util.Date;
+
 public class OralDTO {
 
 	private Integer id;
 
-	private String title;
-
-	private Integer beginningHour;
-
+	private Date beginning_hour;
+	
 	private String participants;
+	
+	private String title;
+	
+	private Integer calendar_id;
 
-	private Integer userId;
+	private Integer user_id;
+	
+	public OralDTO() {
 
-	private Integer calendarId;
+	}
 
 	public Integer getId() {
 		return id;
@@ -22,20 +28,12 @@ public class OralDTO {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public Date getBeginningHour() {
+		return beginning_hour;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Integer getBeginningHour() {
-		return beginningHour;
-	}
-
-	public void setBeginningHour(Integer beginningHour) {
-		this.beginningHour = beginningHour;
+	public void setBeginningHour(Date beginning_hour) {
+		this.beginning_hour = beginning_hour;
 	}
 
 	public String getParticipants() {
@@ -46,20 +44,28 @@ public class OralDTO {
 		this.participants = participants;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Integer getCalendarId() {
-		return calendarId;
+		return calendar_id;
 	}
 
-	public void setCalendarId(Integer calendarId) {
-		this.calendarId = calendarId;
+	public void setCalendarId(Integer calendar_id) {
+		this.calendar_id = calendar_id;
+	}
+
+	public Integer getUserId() {
+		return user_id;
+	}
+
+	public void setUserId(Integer user_id) {
+		this.user_id = user_id;
 	}
 
 }
