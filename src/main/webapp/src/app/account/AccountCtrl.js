@@ -99,12 +99,12 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountListCtrl', ['$scope', '$log', 'AccountService',
+.controller('AccountAdminListCtrl', ['$scope', '$log', 'AccountService',
 	function($scope, $log, AccountService) {
-		$log.debug('AccountListCtrl');
+		$log.debug('AccountAdminListCtrl');
 
 		$scope.init = function(){
-			AccountService.listUser().then(
+			AccountService.adminListUser().then(
 				function(response){
 					$scope.users = response.data;
 					$log.debug(response.data);

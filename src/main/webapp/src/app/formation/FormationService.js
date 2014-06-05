@@ -28,10 +28,10 @@ angular.module('soutenanceplanner.formation')
 				});
 			},
 
-			listFormation:function(){
+			adminListFormation:function(){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/formation/list",
+					url: WS_SERVER_URL + "/formation/admin_list",
 				});
 			},
 

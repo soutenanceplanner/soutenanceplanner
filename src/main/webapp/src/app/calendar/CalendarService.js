@@ -8,10 +8,10 @@ angular.module('soutenanceplanner.calendar')
 
 			createCalendar:function(calendar, user){
 				var timeSlots = [];
-				angular.forEach(calendar.time_slot_list, function(value, key) {
+				angular.forEach(calendar.timeSlots, function(value, key) {
 					timeSlots.push({
-						beginningHour : value.beginning,
-						endingHour : value.ending
+						beginningHour : value.beginningHour,
+						endingHour : value.endingHour
 					});
 				});
 				return $http({
@@ -19,8 +19,8 @@ angular.module('soutenanceplanner.calendar')
 					url: WS_SERVER_URL + "/calendar/new",
 					data: {
 						title : calendar.title,
-						beginningDate : calendar.beginning_date,
-						endingDate : calendar.ending_date,
+						beginningDate : calendar.beginningDate,
+						endingDate : calendar.endingDate,
 						duration : calendar.duration,
 						formationId : calendar.formation.id,
 						link : calendar.link,
@@ -44,10 +44,50 @@ angular.module('soutenanceplanner.calendar')
 				});
 			},
 
+			adminListCalendar:function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/admin_list",
+				});
+			},
+
 			listCalendar:function(){
 				return $http({
 					method: 'GET',
 					url: WS_SERVER_URL + "/calendar/list",
+				});
+			},
+
+			/**
+			 * Service pour retourner une liste de calendrier
+			 */
+			getCalendars: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/list",
+					data: {}
+				});
+			},
+
+			/**
+			 * Service pour retourner une liste de calendrier à venir
+			 */
+			getFuturCalendars: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/list_futur",
+					data: {}
+				});
+			},
+
+			/**
+			 * Service pour retourner une liste de calendrier à venir
+			 */
+			getPastCalendars: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/list_past",
+					data: {}
 				});
 			}
 

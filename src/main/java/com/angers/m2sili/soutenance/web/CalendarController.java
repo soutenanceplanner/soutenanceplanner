@@ -1,12 +1,11 @@
 package com.angers.m2sili.soutenance.web;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +20,7 @@ import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.FormationService;
 import com.angers.m2sili.soutenance.service.SecurityService;
 import com.angers.m2sili.soutenance.service.TimeSlotService;
+import com.angers.m2sili.soutenance.service.TransformerService;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
@@ -50,11 +50,9 @@ public class CalendarController extends BaseController {
 	
 	@Autowired
 	private SecurityService securityServiceImpl;
-
-
+	
 	@Autowired
-	@Qualifier("authenticationManager")
-	private AuthenticationManager authManager;
+	private TransformerService transformerService;
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
@@ -83,6 +81,7 @@ public class CalendarController extends BaseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
+		logger.debug("REST Calendar - supression du calendrier avec id : "+id);
 		calServiceImpl.delete(id);
 	}
 
@@ -94,9 +93,23 @@ public class CalendarController extends BaseController {
 		if(!cal.getLink().contentEquals(link)) {
 			dto.setError("Non autorisé à accéder au calendrier.");
 		} else {
-			dto.setValue(cal);
+			dto.setValue(transformerService.beanToDto(cal));
 		}
 		return dto;
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@RequestMapping(value = "/admin_list", method = RequestMethod.GET)
+	public @ResponseBody
+	List<ReturnValueDTO> getAllAdmin() {
+		List<Calendar> cals = calServiceImpl.getAll();
+		List<ReturnValueDTO> dtos = new ArrayList<ReturnValueDTO>();
+		for(int i=0; i<cals.size(); ++i) {
+			ReturnValueDTO dto = new ReturnValueDTO();
+			dto.setValue(transformerService.beanToDto(cals.get(i)));
+			dtos.add(dto);
+		}
+		return dtos;
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")

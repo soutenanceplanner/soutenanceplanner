@@ -41,6 +41,12 @@ public class CalendarServiceImpl implements CalendarService{
 
 	@Transactional(readOnly = true)
 	@Override
+	public List<Calendar> getAll() {
+		return calendarRepository.findAll();
+	}
+
+	@Transactional(readOnly = true)
+	@Override
 	public List<Calendar> getAll(String login) {
 		
 		User user = userRepository.findByLogin(login);

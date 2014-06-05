@@ -7,8 +7,13 @@ angular.module('soutenanceplanner.formation')
 		$stateProvider
 			.state('formation', {
 				url: '/formation',
-				templateUrl: 'formation/list.tpl.html',
-				controller: 'FormationListCtrl',
+				abstract: true,
+				template : '<div ui-view></div>'
+			})
+			.state('formation.admin', {
+				url: '/admin',
+				templateUrl: 'formation/admin_list.tpl.html',
+				controller: 'FormationAdminListCtrl',
 				data: {
 					ncyBreadcrumbLabel: 'Formations'
 				}

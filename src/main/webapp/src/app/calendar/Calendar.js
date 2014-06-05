@@ -17,6 +17,14 @@ angular.module('soutenanceplanner.calendar')
 					ncyBreadcrumbLabel: 'Calendriers'
 				}
 			})
+			.state('calendar.admin', {
+				url: '/admin',
+				templateUrl: 'calendar/admin_list.tpl.html',
+				controller: 'CalendarAdminListCtrl',
+				data: {
+					ncyBreadcrumbLabel: 'Calendriers'
+				}
+			})
 			.state('calendar.add', {
 				url: '/add',
 				views: {

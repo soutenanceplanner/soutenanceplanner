@@ -41,7 +41,25 @@ angular.module('soutenanceplanner.security')
 					method: 'GET',
 					url: WS_SERVER_URL + "/j_spring_security_logout",
 				});
+			},
+
+			attemptLogin: function(authenticateDTO){
+				return $http({
+					method: 'POST',
+					url: WS_SERVER_URL + "/security/attemptLogin",
+					data: authenticateDTO
+				});
+			},
+
+			hasAuthority: function(userDetails, authority){
+				angular.forEach(userDetails.authorities, function(value, key) {
+					if(value.authority === authority){
+						return true;
+					}
+				});
+				return false;
 			}
+			
 		};
 
 		return SecurityService;

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.UserDTO;
-import com.angers.m2sili.soutenance.web.gson.GsonParser;
 
 /**
  * Controller de User.
@@ -24,16 +23,14 @@ import com.angers.m2sili.soutenance.web.gson.GsonParser;
  */
 
 @Controller
-// @PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 @RequestMapping(value = "/user")
 public class UserController extends BaseController {
 
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private GsonParser gsonParser;
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
 	User create(@RequestBody UserDTO dto) {
@@ -48,6 +45,7 @@ public class UserController extends BaseController {
 		return newUser;
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
@@ -61,9 +59,9 @@ public class UserController extends BaseController {
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin_list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<User> list() {
+	List<User> getAllAdmin() {
 		return userService.getAll();
 	}
 
@@ -71,8 +69,6 @@ public class UserController extends BaseController {
 	public @ResponseBody
 	User update(@RequestBody UserDTO dto) {
 		User user = userService.get(Integer.parseInt(dto.getId()));
-		
-		//user.setLogin(dto.getLogin());
 		user.setPassword(dto.getPassword());
 		user.setMail(dto.getMail());
 		

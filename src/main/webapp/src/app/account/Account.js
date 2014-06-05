@@ -7,8 +7,13 @@ angular.module('soutenanceplanner.account')
 		$stateProvider
 			.state('account', {
 				url: '/account',
-				templateUrl: 'account/list.tpl.html',
-				controller: 'AccountListCtrl',
+				abstract: true,
+				template : '<div ui-view></div>'
+			})
+			.state('account.admin', {
+				url: '/admin',
+				templateUrl: 'account/admin_list.tpl.html',
+				controller: 'AccountAdminListCtrl',
 				data: {
 					ncyBreadcrumbLabel: 'Utilisateurs'
 				}

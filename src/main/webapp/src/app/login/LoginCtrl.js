@@ -18,17 +18,16 @@ angular.module('soutenanceplanner.login')
 		};
 
 		$scope.login = function() {
-			$scope.$emit('event:loginRequest', $scope.authenticateDTO);
-			$scope.essais = $scope.essais + 1;
-		};
-
-		$scope.logout = function(){
-			$scope.$emit('event:logoutRequest');
-
-			SecurityService.logout().then(function() {
-				$rootScope.user = null;
-				$state.go('home');
-			});
+			SecurityService.attemptLogin($scope.authenticateDTO).then(
+				function(response){
+					if (response.data.error !== null){
+						$scope.essais = $scope.essais + 1;
+					}
+					else {
+						$scope.$emit('event:loginRequest', $scope.authenticateDTO);
+					}
+				}
+			);
 		};
 
 		//init

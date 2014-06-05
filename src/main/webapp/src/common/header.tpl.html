@@ -15,15 +15,15 @@
 										Administration <span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li><a ui-sref='account'>Utilisateurs</a></li>
-										<li><a ui-sref='formation'>Formations</a></li>
-										<li><a ui-sref='calendar'>Calendriers</a></li>
+										<li><a ui-sref='account.admin'>Utilisateurs</a></li>
+										<li><a ui-sref='formation.admin'>Formations</a></li>
+										<li><a ui-sref='calendar.admin'>Calendriers</a></li>
 									</ul>
 								</div>
-								<button ng-if='userLogin != null' ui-sref='account.current' type="button" class="btn btn-default">Mon compte</button>
-
-								<button ng-if='userLogin == null' ui-sref='login' type="button" class="btn btn-default">Connexion</button>
-								<button ng-if='userLogin != null' ng-click="logout()" type="button" class="btn btn-default">Déconnexion</button>
+								<button ng-if='userLogin != null' ui-sref='calendar' type="button" class="btn btn-default">Mes Calendriers</button>
+								<button ng-if='userLogin' ui-sref='account.current' type="button" class="btn btn-default">Mon compte</button>
+								<button ng-if='userLogin === null' ui-sref='login' type="button" class="btn btn-default">Connexion</button>
+								<button ng-if='userLogin !== null' ng-click="logout()" type="button" class="btn btn-default">Déconnexion</button>
 							</div>
 						</nav>
 				</div>
