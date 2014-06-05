@@ -100,10 +100,7 @@ angular.module('soutenanceplanner')
 
 						//variables pour les templates
 						$scope.userLogin = userDetails.username;
-						$log.debug("isAdmin");
 						$scope.isAdmin = SecurityService.hasAuthority(userDetails, "ADMIN");
-						$log.debug("isAdmin");
-						$log.debug($scope.isAdmin);
 
 						CalendarService.getPastCalendars().then(
 							function(response){
