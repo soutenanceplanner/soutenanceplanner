@@ -1,9 +1,7 @@
 package com.angers.m2sili.soutenance.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,15 +25,9 @@ public class SecurityController extends BaseController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	@Qualifier("authenticationManager")
-	private AuthenticationManager authManager;
-
 	@RequestMapping(value = "/retrieve", method = RequestMethod.GET)
 	public @ResponseBody
 	UserDetails authenticatedUser() throws AccessDeniedException {
-
-		logger.debug("authentication retrieve");
 
 		return securityService.retrieve();
 	}

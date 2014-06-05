@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,11 +53,6 @@ public class CalendarController extends BaseController {
 	
 	@Autowired
 	private TransformerService transformerService;
-
-
-	@Autowired
-	@Qualifier("authenticationManager")
-	private AuthenticationManager authManager;
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/new", method = RequestMethod.POST)

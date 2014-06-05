@@ -1,16 +1,21 @@
-	
-		<div class="col-md-3">
-					<div class="sidebar-nav-fixed">
-						<div class="well">
-							<!-- Appel de directive getmenucalendar  -->
-							<div getmenucalendar type='2' title='Calendriers à venir' erreur="Il n'y a pas de calendriers à venir."></div>
-							
-						</div>
-						<div class="well">
-							  <div getmenucalendar type='1' title='Calendriers passés' erreur="Il n'y a pas de calendriers passés."></div>	
-						</div>
-					</div>
+<div class="col-md-3">
+	<div class="sidebar-nav-fixed">
+		<div class="well">
+			Calendriers passés
+			<span class="badge pull-right">{{pastCalendars.length}}</span>
+			<ul class="nav " ng-repeat="monCalendrier in pastCalendars">
+				<li><a ui-sref='calendar.detail({id:monCalendrier.id, link:monCalendrier.link})'>{{monCalendrier.title}} </a></li>	
+			</ul><br/>
+		</div>
 
-				</div>
+		<div class="well">
+			Calendriers à venir	
+			<span class="badge pull-right">{{futurCalendars.length}}</span>
+			<ul class="nav " ng-repeat="monCalendrier in futurCalendars">
+				<li><a ui-sref='calendar.detail({id:monCalendrier.id, link:monCalendrier.link})'>{{monCalendrier.title}} </a></li>	
+			</ul><br/>
+		</div>
+	</div>
+</div>
 				
 		
