@@ -49,6 +49,15 @@ angular.module('soutenanceplanner.security')
 					url: WS_SERVER_URL + "/security/attemptLogin",
 					data: authenticateDTO
 				});
+			},
+
+			hasAuthority: function(userDetails, authority){
+				angular.forEach(userDetails.authorities, function(value, key) {
+					if(value.authority === authority){
+						return true;
+					}
+				});
+				return false;
 			}
 			
 		};

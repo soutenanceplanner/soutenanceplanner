@@ -89,7 +89,7 @@ angular.module('soutenanceplanner')
 					}
 					else {
 						$scope.userLogin = response.data.username;
-
+						
 						//get calendars
 						CalendarService.getCalendars().then(
 							function(response){
