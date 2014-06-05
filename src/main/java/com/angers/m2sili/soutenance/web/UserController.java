@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.UserDTO;
-import com.angers.m2sili.soutenance.web.gson.GsonParser;
 
 /**
  * Controller de User.
@@ -24,16 +23,14 @@ import com.angers.m2sili.soutenance.web.gson.GsonParser;
  */
 
 @Controller
-// @PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 @RequestMapping(value = "/user")
 public class UserController extends BaseController {
 
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private GsonParser gsonParser;
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
 	User create(@RequestBody UserDTO dto) {
@@ -48,6 +45,7 @@ public class UserController extends BaseController {
 		return newUser;
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
