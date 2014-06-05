@@ -30,18 +30,6 @@ angular.module('soutenanceplanner.account')
 					ncyBreadcrumbLabel: 'Utilisateur {{user.login}}'
 				}
 			})
-			.state('account.add', {
-				url: '/add',
-				views: {
-					"@" : {
-						templateUrl: 'account/add.tpl.html',
-						controller: 'AccountAddCtrl'
-					}
-				},
-				data: {
-					ncyBreadcrumbLabel: 'Ajout'
-				}
-			})
 			.state('account.detail', {
 				url: '/:id',
 				views: {
@@ -52,6 +40,18 @@ angular.module('soutenanceplanner.account')
 				},
 				data: {
 					ncyBreadcrumbLabel: 'Utilisateur {{user.login}}'
+				}
+			})
+			.state('account.add', {
+				url: '/add',
+				views: {
+					"@" : {
+						templateUrl: 'account/add.tpl.html',
+						controller: 'AccountAddCtrl'
+					}
+				},
+				data: {
+					ncyBreadcrumbLabel: 'Ajout'
 				}
 			})
 			.state('account.detail.edit', {
