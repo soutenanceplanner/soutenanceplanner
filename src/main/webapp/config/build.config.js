@@ -36,11 +36,13 @@ module.exports = {
       'vendor/angular-ui-calendar/src/calendar.js',
       'vendor/fullcalendar/fullcalendar.js',
       'vendor/fullcalendar/gcal.js',
-      'vendor/angular-breadcrumb/dist/angular-breadcrumb.min.js'
+      'vendor/angular-breadcrumb/dist/angular-breadcrumb.min.js',
+      'vendor/ng-table/ng-table.js'
     ],
     css: [
       'vendor/angular-motion/dist/angular-motion.min.css',
-      'vendor/fullcalendar/fullcalendar.css'
+      'vendor/fullcalendar/fullcalendar.css',
+      'vendor/ng-table/ng-table.css'
     ],
     assets: [
     ],

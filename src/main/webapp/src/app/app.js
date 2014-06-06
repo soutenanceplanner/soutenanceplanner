@@ -9,6 +9,7 @@ angular.module('soutenanceplanner', [
 		'ngCookies',
 		'ui.calendar',
 		'ncy-angular-breadcrumb',
+		'ngTable',
 
 		// dans cet ordre là pour éviter conflits
 		'ui.bootstrap',

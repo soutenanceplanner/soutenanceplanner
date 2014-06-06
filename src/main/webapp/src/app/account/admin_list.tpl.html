@@ -1,5 +1,5 @@
 <legend>Utilisateurs</legend>
-<table class="table table-hover">
+<!-- <table class="table table-hover">
 	<tr>
 		<th>Identifiant</th>
 		<th>Email</th>
@@ -12,5 +12,19 @@
 		<td>{{user.flag}}</td>
 		<td><button ng-click="deleteUser(user.id)" type="button" class="close">&times;</button></td>
 	</tr>
+</table> -->
+
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tr ng-repeat="user in $data">
+	    <td data-title="'Identifiant'" filter="{ 'login': 'text' }">
+	        <a ui-sref="account.detail({id:user.id})"><strong>{{user.login}}</strong></a>
+	    </td>
+	    <td data-title="'Email'" filter="{ 'email': 'text' }">
+	        {{user.mail}}
+	    </td>
+	    <td data-title="'Status'" filter="{ 'flag': 'text' }">
+	        {{user.flag}}
+	    </td>
+    </tr>
 </table>
 <button ui-sref="account.admin.add" class="btn btn-default center-block">Ajouter</button>

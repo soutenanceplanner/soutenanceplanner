@@ -90,17 +90,45 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountAdminListCtrl', ['$scope', '$log', '$alert', 'AccountService',
-	function($scope, $log, $alert, AccountService) {
+.controller('AccountAdminListCtrl', ['$scope', '$log', '$alert', '$filter', 'AccountService', 'ngTableParams',
+	function($scope, $log, $alert, $filter, AccountService, ngTableParams) {
 		$log.debug('AccountAdminListCtrl');
 
 		$scope.init = function(){
 			AccountService.adminListUser().then(
 				function(response){
-					$scope.users = response.data;
-					$log.debug(response.data);
+					var data = response.data;
+					$log.debug(data);
+
+					//init tableau
+					$scope.initTableau(data);
 				}
 			);
+		};
+
+		$scope.initTableau = function(data){
+			$scope.tableParams = new ngTableParams(// jshint ignore:line
+				{
+					page: 1,// show first page
+					count: 10,// count per page
+					filter: {
+						login: '',// initial filter
+						mail: '',// initial filter,
+						flag: ''// initial filter
+					},
+				}, 
+				{
+				total: data.length, // length of data
+				getData: function($defer, params) {
+					// use build-in angular filter
+					var orderedData = params.filter() ?
+					$filter('filter')(data, params.filter()):data;
+
+					$scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+					params.total(orderedData.length); // set total for recalc pagination
+					$defer.resolve($scope.users);
+				}
+			});
 		};
 
 		$scope.deleteUser = function(id){
