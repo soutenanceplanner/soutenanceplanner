@@ -228,7 +228,6 @@ angular.module('soutenanceplanner.calendar')
 		};
 
 		$scope.createCalendar = function(){
-			//$scope.mesCalendriers.push($scope.new_calendar);
 			$scope.generateLink();
 			CalendarService.createCalendar($scope.new_calendar, $scope.user).then(
 				function(response){
