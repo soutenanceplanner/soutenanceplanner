@@ -241,7 +241,7 @@ angular.module('soutenanceplanner.calendar')
 				return true;
 			}
 			return false;
-		}
+		};
 
 		$scope.createCalendar = function(){
 			$scope.generateLink();
