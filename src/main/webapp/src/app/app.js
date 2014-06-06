@@ -69,8 +69,8 @@ angular.module('soutenanceplanner')
 //DatePicker config
 .config(function($datepickerProvider) {
 	angular.extend($datepickerProvider.defaults, {
-		autoclose : true,
-		minDate : new Date()
+		minDate : new Date(),
+		autoclose : true
 	});
 })
 
