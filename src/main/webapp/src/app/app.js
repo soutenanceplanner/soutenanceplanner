@@ -66,12 +66,21 @@ angular.module('soutenanceplanner')
 	});
 })
 
-//Breadcrumb config
+//DatePicker config
 .config(function($datepickerProvider) {
 	angular.extend($datepickerProvider.defaults, {
 		autoclose : true,
 		minDate : new Date()
 	});
+})
+
+//Alert config
+.config(function($alertProvider) {
+  angular.extend($alertProvider.defaults, {
+    animation: 'am-fade-and-slide-top',
+    placement: 'top-right',
+    duration : '3'
+  });
 })
 
 .run(['$rootScope','$state','$stateParams','$http',
