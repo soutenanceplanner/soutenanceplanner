@@ -232,7 +232,7 @@ angular.module('soutenanceplanner.calendar')
 			$scope.generateLink();
 			CalendarService.createCalendar($scope.new_calendar, $scope.user).then(
 				function(response){
-					$state.go("calendar");
+					$state.go("calendar.user");
 				},
 				function(response){
 					$log.debug(response);
