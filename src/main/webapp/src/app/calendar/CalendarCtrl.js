@@ -24,6 +24,8 @@ angular.module('soutenanceplanner.calendar')
 		
 		$scope.init();
 
+		$scope.today = new Date();
+		
 		/**
 		 * Liste des durées disponible dans le formulaire
 		 */
@@ -225,6 +227,12 @@ angular.module('soutenanceplanner.calendar')
 			$scope.new_calendar.constraints = [];
 			calendar.fullCalendar('removeEvents');
 			calendar.fullCalendar('addEventSource', $scope.initializeEvents($scope.new_calendar.beginningDate, $scope.new_calendar.endingDate));
+		};
+		
+		$scope.updateDate = function() {
+			if($scope.new_calendar.beginningDate >= $scope.new_calendar.endingDate) {
+				$scope.new_calendar.endingDate = $scope.new_calendar.beginningDate;
+			}
 		};
 
 		$scope.createCalendar = function(){

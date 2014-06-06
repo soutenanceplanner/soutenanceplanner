@@ -36,8 +36,8 @@
 					<input ng-model="new_calendar.beginningDate" type="text"
 						class="form-control" id="new_calendar.beginningDate"
 						name="new_calendar.beginningDate"
-						data-max-date="{{new_calendar.endingDate}}" placeholder="Début"
-						ng-change="refetchCalendar(myCalendar1)"
+						placeholder="Début"
+						ng-change="updateDate(); refetchCalendar(myCalendar1);"
 						required bs-datepicker>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 					<input ng-model="new_calendar.endingDate" type="text"
 						class="form-control" id="new_calendar.endingDate"
 						name="new_calendar.endingDate"
-						data-min-date="{{new_calendar.beginningDate}}" placeholder="Fin"
+						placeholder="Fin"
 						ng-change="refetchCalendar(myCalendar1)"
 						required bs-datepicker>
 				</div>

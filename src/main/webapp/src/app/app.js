@@ -69,7 +69,8 @@ angular.module('soutenanceplanner')
 //Breadcrumb config
 .config(function($datepickerProvider) {
 	angular.extend($datepickerProvider.defaults, {
-		autoclose : true
+		autoclose : true,
+		minDate : new Date()
 	});
 })
 
