@@ -94,9 +94,36 @@ angular.module('soutenanceplanner.formation')
 			FormationService.adminListFormation().then(
 				function(response){
 					$scope.formations = response.data;
-					$log.debug(response.data);
+					var data = response.data;
+					$log.debug(data);
+
+					//init tableau
+					$scope.initTableau(data);
 				}
 			);
+		};
+
+		$scope.initTableau = function(data){
+			$scope.tableParams = new ngTableParams(// jshint ignore:line
+				{
+					page: 1,// show first page
+					count: 10,// count per page
+					filter: {
+						name: ''// initial filter
+					},
+				}, 
+				{
+				total: data.length, // length of data
+				getData: function($defer, params) {
+					// use build-in angular filter
+					var orderedData = params.filter() ?
+					$filter('filter')(data, params.filter()):data;
+
+					$scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+					params.total(orderedData.length); // set total for recalc pagination
+					$defer.resolve($scope.users);
+				}
+			});
 		};
 
 		$scope.deleteFormation = function(id){
