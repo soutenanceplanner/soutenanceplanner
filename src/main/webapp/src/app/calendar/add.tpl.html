@@ -28,25 +28,25 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="new_calendar.beginningDate"
-						class="col-sm-3 control-label">Date de début</label>
+					<label for="new_calendar.beginningDate" class="col-sm-3 control-label">Date de début</label>
 					<div class="col-sm-9">
 						<input ng-model="new_calendar.beginningDate" type="text"
 							class="form-control" id="new_calendar.beginningDate"
 							name="new_calendar.beginningDate"
 							placeholder="Début"
-							ng-change="updateDate(); refetchCalendar(myCalendar1);"
+							max-date="{{new_calendar.endingDate}}"
+							ng-change="refetchCalendar(myCalendar1);"
 							required bs-datepicker>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="new_calendar.endingDate" class="col-sm-3 control-label">Date
-						de fin</label>
+					<label for="new_calendar.endingDate" class="col-sm-3 control-label">Date de fin</label>
 					<div class="col-sm-9">
 						<input ng-model="new_calendar.endingDate" type="text"
 							class="form-control" id="new_calendar.endingDate"
 							name="new_calendar.endingDate"
 							placeholder="Fin"
+							min-date="{{new_calendar.beginningDate}}"
 							ng-change="refetchCalendar(myCalendar1)"
 							required bs-datepicker>
 					</div>
@@ -113,7 +113,7 @@
 		<div>
 			<br />
 			<p class="">
-				<label for="new_calendar.link">Url d'accès</label> <input
+				<label for="new_calendar.link">Code d'accès</label> <input
 					type="text" name="new_calendar.link" class="form-control"
 					id="new_calendar.link" ng-model="new_calendar.link"
 					ng-disabled="true" />
