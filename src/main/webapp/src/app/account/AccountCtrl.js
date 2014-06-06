@@ -76,7 +76,19 @@ angular.module('soutenanceplanner.account')
 		//init
 		$scope.init();
 		
-		$scope.updateUser = function () {
+		$scope.validate = function(){
+			
+			if( ($scope.editAccountForm.$invalid === false)&& 
+				($scope.passwordConfirm == $scope.user.password)){
+				updateUser();
+			}else{
+				$log.debug("Erreur formulaire");
+						
+			}
+			
+		};
+		
+		var updateUser = function () {
 			AccountService.updateUser($scope.user).then(
 				function(response){
 					$scope.user = response.data;
@@ -84,7 +96,7 @@ angular.module('soutenanceplanner.account')
 					$scope.init();
 
 					var myAlert = $alert({
-						title: '', 
+						title: 'Mise à jour', 
 						content: 'Données mises à jour',
 						placement: 'top-right',
 						type: 'success',
@@ -92,7 +104,7 @@ angular.module('soutenanceplanner.account')
 						show: true
 					});
 
-					$state.go("account");
+			//		$state.go("account");
 				}
 			);
 		};
