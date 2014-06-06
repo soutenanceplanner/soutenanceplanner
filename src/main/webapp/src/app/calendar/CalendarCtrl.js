@@ -116,8 +116,7 @@ angular.module('soutenanceplanner.calendar')
 				endingHour : 18
 			} ],
 			constraints : [],
-			link : '',
-			is_valid : false
+			link : ''
 		};
 
 		/**
@@ -224,6 +223,7 @@ angular.module('soutenanceplanner.calendar')
 		 * Mise à jour du calendrier en fonction du formulaire
 		 */
 		$scope.refetchCalendar = function(calendar) {
+			$log.debug($scope);
 			$scope.new_calendar.constraints = [];
 			calendar.fullCalendar('removeEvents');
 			calendar.fullCalendar('addEventSource', $scope.initializeEvents($scope.new_calendar.beginningDate, $scope.new_calendar.endingDate));
@@ -234,6 +234,14 @@ angular.module('soutenanceplanner.calendar')
 				$scope.new_calendar.endingDate = $scope.new_calendar.beginningDate;
 			}
 		};
+		
+		$scope.validate = function(isValid) {
+			if(isValid) {
+				$scope.generateLink();
+				return true;
+			}
+			return false;
+		}
 
 		$scope.createCalendar = function(){
 			$scope.generateLink();
