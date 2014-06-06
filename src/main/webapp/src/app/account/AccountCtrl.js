@@ -70,6 +70,18 @@ angular.module('soutenanceplanner.account')
 		//init
 		$scope.init();
 		
+		$scope.validate = function(){
+			
+			if( ($scope.editAccountForm.$invalid === false)&& 
+				($scope.passwordConfirm == $scope.user.password)){
+				$scope.updateUser();
+			}else{
+				$log.debug("Erreur formulaire");
+						
+			}
+			
+		};
+		
 		$scope.updateUser = function () {
 			AccountService.updateUser($scope.user).then(
 				function(response){
@@ -78,6 +90,7 @@ angular.module('soutenanceplanner.account')
 					$scope.init();
 
 					var myAlert = $alert({
+						title: 'Mise à jour', 
 						content: 'Données mises à jour',
 						type: 'success',
 						show: true
@@ -95,15 +108,7 @@ angular.module('soutenanceplanner.account')
 		$log.debug('AccountAdminListCtrl');
 
 		$scope.init = function(){
-			AccountService.adminListUser().then(
-				function(response){
-					var data = response.data;
-					$log.debug(data);
-
-					//init tableau
-					$scope.initTableau(data);
-				}
-			);
+			$scope.initTableau();
 		};
 
 		$scope.initTableau = function(data){
@@ -118,15 +123,24 @@ angular.module('soutenanceplanner.account')
 					},
 				}, 
 				{
-				total: data.length, // length of data
+				total: 0,// length of data
 				getData: function($defer, params) {
-					// use build-in angular filter
-					var orderedData = params.filter() ?
-					$filter('filter')(data, params.filter()):data;
+					//request to api
+					AccountService.adminListUser().then(
+						function(response) {
+							var data = response.data;
+							
+							// update table params
+							params.total(data.length);
 
-					$scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-					params.total(orderedData.length); // set total for recalc pagination
-					$defer.resolve($scope.users);
+							// use build-in angular filter
+							var orderedData = params.filter() ?
+							$filter('filter')(data, params.filter()):data;
+
+							$scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+							params.total(orderedData.length); // set total for recalc pagination
+							$defer.resolve($scope.users);
+					});
 				}
 			});
 		};
@@ -141,8 +155,7 @@ angular.module('soutenanceplanner.account')
 						type: 'success',
 						show: true
 					});
-
-					$scope.init();
+					$scope.tableParams.reload();
 				}
 			);
 		};
