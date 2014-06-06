@@ -42,7 +42,7 @@ angular.module('soutenanceplanner.account')
 					ncyBreadcrumbLabel: 'Utilisateur {{user.login}}'
 				}
 			})
-			.state('account.add', {
+			.state('account.admin.add', {
 				url: '/add',
 				views: {
 					"@" : {

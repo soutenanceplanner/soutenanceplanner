@@ -25,24 +25,18 @@ angular.module('soutenanceplanner.account')
 					$log.debug(response.data);
 
 					var myAlert = $alert({
-						title: '', 
 						content: 'Utilisateur ajouté',
-						placement: 'top-right',
 						type: 'success',
-						duration : '3',
 						show: true
 					});
-					$state.go("account");
+					$state.go("account.admin");
 				},
 				function(response){
 					$log.debug("Erreur serveur");
 
 					var myAlert = $alert({
-						title: '', 
 						content: 'Erreur serveur',
-						placement: 'top-right',
 						type: 'danger',
-						duration : '3',
 						show: true
 					});
 				}
@@ -84,23 +78,20 @@ angular.module('soutenanceplanner.account')
 					$scope.init();
 
 					var myAlert = $alert({
-						title: '', 
 						content: 'Données mises à jour',
-						placement: 'top-right',
 						type: 'success',
-						duration : '3',
 						show: true
 					});
 
-					$state.go("account");
+					$state.go("account.admin");
 				}
 			);
 		};
 	}
 ])
 
-.controller('AccountAdminListCtrl', ['$scope', '$log', 'AccountService',
-	function($scope, $log, AccountService) {
+.controller('AccountAdminListCtrl', ['$scope', '$log', '$alert', 'AccountService',
+	function($scope, $log, $alert, AccountService) {
 		$log.debug('AccountAdminListCtrl');
 
 		$scope.init = function(){
@@ -116,6 +107,13 @@ angular.module('soutenanceplanner.account')
 			AccountService.deleteUser(id).then(
 				function(response){
 					$log.debug(response.data);
+
+					var myAlert = $alert({
+						content: 'Utilisateur supprimé',
+						type: 'success',
+						show: true
+					});
+
 					$scope.init();
 				}
 			);
