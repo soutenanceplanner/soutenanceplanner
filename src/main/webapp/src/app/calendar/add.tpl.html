@@ -12,50 +12,53 @@
 			<br />
 			<form name="new_calendar_form" class="form-horizontal" role="form" novalidate>
 				<div class="form-group">
-					<label for="new_calendar.title" class="col-sm-3 control-label">Titre</label>
+					<label for="title" class="col-sm-3 control-label">Titre</label>
 					<div class="col-sm-9">
 						<input data-ng-model="new_calendar.title" type="text"
-							class="form-control" id="new_calendar.title"
-							name="new_calendar.title" placeholder="Titre du calendrier"
+							class="form-control" id="title"
+							name="title" placeholder="Titre du calendrier"
 							ng-change="refetchCalendar(myCalendar1)" required>
+					</div>
+					<div class="error" ng-show="new_calendar_form.title.$dirty && new_calendar_form.title.$invalid">
+						<span class="error" ng-show="new_calendar_form.title.$error.required">Un titre est requis</span>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="new_calendar.formation" class="col-sm-3 control-label">Formation</label>
+					<label for="formation" class="col-sm-3 control-label">Formation</label>
 					<div class="col-sm-9">
 						<select ng-model="new_calendar.formation" ng-options="formation as formation.name for formation in formations" 
 							class="form-control" id="formation" required></select>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="new_calendar.beginningDate"
-						class="col-sm-3 control-label">Date de début</label>
+					<label for="beginningDate" class="col-sm-3 control-label">Date de début</label>
 					<div class="col-sm-9">
 						<input ng-model="new_calendar.beginningDate" type="text"
-							class="form-control" id="new_calendar.beginningDate"
-							name="new_calendar.beginningDate"
+							class="form-control" id="beginningDate"
+							name="beginningDate"
 							placeholder="Début"
-							ng-change="updateDate(); refetchCalendar(myCalendar1);"
+							max-date="{{new_calendar.endingDate}}"
+							ng-change="refetchCalendar(myCalendar1);"
 							required bs-datepicker>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="new_calendar.endingDate" class="col-sm-3 control-label">Date
-						de fin</label>
+					<label for="endingDate" class="col-sm-3 control-label">Date de fin</label>
 					<div class="col-sm-9">
 						<input ng-model="new_calendar.endingDate" type="text"
-							class="form-control" id="new_calendar.endingDate"
-							name="new_calendar.endingDate"
+							class="form-control" id="endingDate"
+							name="endingDate"
 							placeholder="Fin"
+							min-date="{{new_calendar.beginningDate}}"
 							ng-change="refetchCalendar(myCalendar1)"
 							required bs-datepicker>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="new_calendar.duration" class="col-sm-3 control-label">Durée</label>
+					<label for="duration" class="col-sm-3 control-label">Durée</label>
 					<div class="col-sm-3">
 						<select ng-model="new_calendar.duration" class="form-control"
-							id="new_calendar.duration" name="new_calendar.duration"
+							id="duration" name="duration"
 							ng-change="refetchCalendar(myCalendar1)"
 							ng-options="duration.value as duration.label for duration in durations" required>
 						</select>
@@ -113,7 +116,7 @@
 		<div>
 			<br />
 			<p class="">
-				<label for="new_calendar.link">Url d'accès</label> <input
+				<label for="new_calendar.link">Code d'accès</label> <input
 					type="text" name="new_calendar.link" class="form-control"
 					id="new_calendar.link" ng-model="new_calendar.link"
 					ng-disabled="true" />

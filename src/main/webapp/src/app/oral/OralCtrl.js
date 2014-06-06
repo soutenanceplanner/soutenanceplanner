@@ -132,10 +132,14 @@ angular.module('soutenanceplanner.oral')
 		// END DATA
 		$scope.init = function(){
 			// Récupération du calendrier
+			
 			CalendarService.getCalendar($stateParams.id, $stateParams.link).then(
 				function(response){
 					$scope.calendar = response.data.value;
 
+					$log.debug('response :');
+					$log.debug(response.data);
+					
 					$scope.orals = $scope.calendar.orals;
 
 					/* Configuration du calendrier */
@@ -257,6 +261,7 @@ angular.module('soutenanceplanner.oral')
 					};
 					$scope.generateFreeSlots();
 				}
+				
 			);
 
 			// Récupération de la liste des oral du user connecté pour le calendrier passé en paramètre

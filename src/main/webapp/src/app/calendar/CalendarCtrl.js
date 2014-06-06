@@ -106,7 +106,7 @@ angular.module('soutenanceplanner.calendar')
 		 * Initalisation du tableau de données du calendrier
 		 */
 		$scope.new_calendar = {
-			title : 'New calendar',
+			title : '',
 			formation : '',
 			beginningDate : new Date(),
 			endingDate : new Date(),
@@ -223,16 +223,9 @@ angular.module('soutenanceplanner.calendar')
 		 * Mise à jour du calendrier en fonction du formulaire
 		 */
 		$scope.refetchCalendar = function(calendar) {
-			$log.debug($scope);
 			$scope.new_calendar.constraints = [];
 			calendar.fullCalendar('removeEvents');
 			calendar.fullCalendar('addEventSource', $scope.initializeEvents($scope.new_calendar.beginningDate, $scope.new_calendar.endingDate));
-		};
-		
-		$scope.updateDate = function() {
-			if($scope.new_calendar.beginningDate >= $scope.new_calendar.endingDate) {
-				$scope.new_calendar.endingDate = $scope.new_calendar.beginningDate;
-			}
 		};
 		
 		$scope.validate = function(isValid) {

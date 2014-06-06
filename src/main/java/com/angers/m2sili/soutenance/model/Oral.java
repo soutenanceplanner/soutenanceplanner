@@ -43,6 +43,7 @@ public class Oral extends BaseEntity {
 	@Column(name = "participants")
 	private String participants;
 
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@JsonBackReference
