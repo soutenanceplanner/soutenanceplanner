@@ -106,7 +106,7 @@ angular.module('soutenanceplanner.calendar')
 		 * Initalisation du tableau de données du calendrier
 		 */
 		$scope.new_calendar = {
-			title : 'New calendar',
+			title : '',
 			formation : '',
 			beginningDate : new Date(),
 			endingDate : new Date(),
