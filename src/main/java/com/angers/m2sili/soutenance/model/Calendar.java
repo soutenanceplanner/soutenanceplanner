@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -69,16 +67,15 @@ public class Calendar extends BaseEntity {
 	@JsonBackReference
 	private Formation formation;
 
-	@OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "calendar", fetch = FetchType.EAGER)
 	@JsonManagedReference
 	private Set<TimeSlot> timeSlots = new HashSet<TimeSlot>();
 
-	
-	@OneToMany( mappedBy = "calendar", fetch = FetchType.EAGER)
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "calendar", fetch = FetchType.EAGER)
 	@JsonManagedReference
 	private Set<Oral> orals = new HashSet<Oral>();
+
 
 	/**
 	 * Constructeur par défaut (obligatoire pour Jackson).

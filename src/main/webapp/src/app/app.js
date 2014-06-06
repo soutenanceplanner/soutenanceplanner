@@ -9,7 +9,10 @@ angular.module('soutenanceplanner', [
 		'ngCookies',
 		'ui.calendar',
 		'ncy-angular-breadcrumb',
-
+		
+		//ng-table
+		'ngTable',
+		
 		// dans cet ordre là pour éviter conflits
 		'ui.bootstrap',
 		'mgcrea.ngStrap', 
@@ -66,12 +69,21 @@ angular.module('soutenanceplanner')
 	});
 })
 
-//Breadcrumb config
+//DatePicker config
 .config(function($datepickerProvider) {
 	angular.extend($datepickerProvider.defaults, {
-		autoclose : true,
-		minDate : new Date()
+		minDate : new Date(),
+		autoclose : true
 	});
+})
+
+//Alert config
+.config(function($alertProvider) {
+  angular.extend($alertProvider.defaults, {
+    animation: 'am-fade-and-slide-top',
+    placement: 'top-right',
+    duration : '3'
+  });
 })
 
 .run(['$rootScope','$state','$stateParams','$http',

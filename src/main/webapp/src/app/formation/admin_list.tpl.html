@@ -1,4 +1,4 @@
-<fieldset>
+<!-- <fieldset>
 	<legend>Formations</legend>
 	<table class="table table-hover">
 		<tr>
@@ -6,10 +6,20 @@
 			<th></th>
 		</tr>
 		<tr ng-repeat="formation in formations">
-			<!--<th><a href="#/formation/{{formation.id}}"><span>{{formation.name}}</span></a></th> -->
 			<th><a ui-sref="formation.detail({id:formation.id})"><span>{{formation.name}}</span></a></th>
 			<td><button ng-click="deleteFormation(formation.id)" type="button" class="close">&times;</button></td>
 		</tr>
 	</table>
 	<button ui-sref="formation.add" class="btn btn-default center-block">Ajouter</button>
-</fieldset>
+</fieldset> -->
+
+<legend>Formations</legend>
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tr ng-repeat="formation in $data">
+	    <td filter="{ 'name': 'text' }">
+	    	<a ui-sref="formation.detail({id:formation.id})"><strong>{{formation.name}}</strong></a>
+	    </td>
+	    <td><button ng-click="deleteFormation(formation.id)" type="button" class="close">&times;</button></td>
+    </tr>
+</table>
+<button ui-sref="formation.add" class="btn btn-default center-block">Ajouter</button>

@@ -25,24 +25,18 @@ angular.module('soutenanceplanner.account')
 					$log.debug(response.data);
 
 					var myAlert = $alert({
-						title: '', 
 						content: 'Utilisateur ajouté',
-						placement: 'top-right',
 						type: 'success',
-						duration : '3',
 						show: true
 					});
-					$state.go("account");
+					$state.go("account.admin");
 				},
 				function(response){
 					$log.debug("Erreur serveur");
 
 					var myAlert = $alert({
-						title: '', 
 						content: 'Erreur serveur',
-						placement: 'top-right',
 						type: 'danger',
-						duration : '3',
 						show: true
 					});
 				}
@@ -76,6 +70,18 @@ angular.module('soutenanceplanner.account')
 		//init
 		$scope.init();
 		
+		$scope.validate = function(){
+			
+			if( ($scope.editAccountForm.$invalid === false)&& 
+				($scope.passwordConfirm == $scope.user.password)){
+				$scope.updateUser();
+			}else{
+				$log.debug("Erreur formulaire");
+						
+			}
+			
+		};
+		
 		$scope.updateUser = function () {
 			AccountService.updateUser($scope.user).then(
 				function(response){
@@ -84,39 +90,72 @@ angular.module('soutenanceplanner.account')
 					$scope.init();
 
 					var myAlert = $alert({
-						title: '', 
+						title: 'Mise à jour', 
 						content: 'Données mises à jour',
-						placement: 'top-right',
 						type: 'success',
-						duration : '3',
 						show: true
 					});
 
-					$state.go("account");
+					$state.go("account.admin");
 				}
 			);
 		};
 	}
 ])
 
-.controller('AccountAdminListCtrl', ['$scope', '$log', 'AccountService',
-	function($scope, $log, AccountService) {
+.controller('AccountAdminListCtrl', ['$scope', '$log', '$alert', '$filter', 'AccountService', 'ngTableParams',
+	function($scope, $log, $alert, $filter, AccountService, ngTableParams) {
 		$log.debug('AccountAdminListCtrl');
 
 		$scope.init = function(){
-			AccountService.adminListUser().then(
-				function(response){
-					$scope.users = response.data;
-					$log.debug(response.data);
+			$scope.initTableau();
+		};
+
+		$scope.initTableau = function(data){
+			$scope.tableParams = new ngTableParams(// jshint ignore:line
+				{
+					page: 1,// show first page
+					count: 10,// count per page
+					filter: {
+						login: '',// initial filter
+						mail: '',// initial filter,
+						flag: ''// initial filter
+					},
+				}, 
+				{
+				total: 0,// length of data
+				getData: function($defer, params) {
+					//request to api
+					AccountService.adminListUser().then(
+						function(response) {
+							var data = response.data;
+							
+							// update table params
+							params.total(data.length);
+
+							// use build-in angular filter
+							var orderedData = params.filter() ?
+							$filter('filter')(data, params.filter()):data;
+
+							$scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+							params.total(orderedData.length); // set total for recalc pagination
+							$defer.resolve($scope.users);
+					});
 				}
-			);
+			});
 		};
 
 		$scope.deleteUser = function(id){
 			AccountService.deleteUser(id).then(
 				function(response){
 					$log.debug(response.data);
-					$scope.init();
+
+					var myAlert = $alert({
+						content: 'Utilisateur supprimé',
+						type: 'success',
+						show: true
+					});
+					$scope.tableParams.reload();
 				}
 			);
 		};

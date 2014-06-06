@@ -86,17 +86,44 @@ angular.module('soutenanceplanner.formation')
 	}
 ])
 
-.controller('FormationAdminListCtrl', ['$scope', '$log', '$alert', 'FormationService',
-	function($scope, $log, $alert, FormationService) {
+.controller('FormationAdminListCtrl', ['$scope', '$log', '$alert', '$filter', 'FormationService', 'ngTableParams',
+	function($scope, $log, $alert, $filter, FormationService, ngTableParams) {
 		$log.debug('FormationListCtrl');
 
 		$scope.init = function(){
-			FormationService.adminListFormation().then(
-				function(response){
-					$scope.formations = response.data;
-					$log.debug(response.data);
+			$scope.initTableau();
+		};
+
+		$scope.initTableau = function(data){
+			$scope.tableParams = new ngTableParams(// jshint ignore:line
+				{
+					page: 1,// show first page
+					count: 10,// count per page
+					filter: {
+						name: ''// initial filter
+					},
+				}, 
+				{
+				total: 0,// length of data
+				getData: function($defer, params) {
+					//request to api
+					FormationService.adminListFormation().then(
+						function(response) {
+							var data = response.data;
+							
+							// update table params
+							params.total(data.length);
+
+							// use build-in angular filter
+							var orderedData = params.filter() ?
+							$filter('filter')(data, params.filter()):data;
+
+							$scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+							params.total(orderedData.length); // set total for recalc pagination
+							$defer.resolve($scope.users);
+					});
 				}
-			);
+			});
 		};
 
 		$scope.deleteFormation = function(id){
@@ -113,7 +140,7 @@ angular.module('soutenanceplanner.formation')
 						show: true
 					});
 
-					$scope.init();
+					$scope.tableParams.reload();
 				}
 			);
 		};
