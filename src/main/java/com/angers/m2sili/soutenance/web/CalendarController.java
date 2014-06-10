@@ -2,7 +2,9 @@ package com.angers.m2sili.soutenance.web;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Calendar;
+import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.TimeSlot;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.CalendarService;
@@ -25,6 +28,7 @@ import com.angers.m2sili.soutenance.service.TransformerService;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.service.impl.OralServiceImpl;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
+import com.angers.m2sili.soutenance.web.dto.OralDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 
 
@@ -98,12 +102,18 @@ public class CalendarController extends BaseController {
 	@RequestMapping(value = "/{id}/{link}", method = RequestMethod.GET)
 	public @ResponseBody
 	ReturnValueDTO get(@PathVariable Integer id, @PathVariable String link) {
+		
 		ReturnValueDTO dto = new ReturnValueDTO();
 		Calendar cal = calServiceImpl.get(id);
+		//on récupère la liste des oraux filtrés
+		ArrayList<OralDTO> listOral = oralService.getOralsByCalendar(cal);
+	    	
 		if(!cal.getLink().contentEquals(link)) {
 			dto.setError("Non autorisé à accéder au calendrier.");
 		} else {
-			dto.setValue(transformerService.beanToDto(cal));
+			CalendarDTO calDTO = transformerService.beanToDto(cal);
+						calDTO.setOrals(listOral);
+			dto.setValue(calDTO);
 		}
 		return dto;
 	}

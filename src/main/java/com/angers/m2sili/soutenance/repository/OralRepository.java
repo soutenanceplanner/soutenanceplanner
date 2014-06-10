@@ -22,5 +22,6 @@ public interface OralRepository extends JpaRepository<Oral, Integer> {
 	public List<Oral> findAllByCalendarId(Integer id);
 	Set<Oral> findAllByUser(User user);
 	Set<Oral> findAllByUserAndCalendar(User user, Calendar calendar);
+	Set<Oral> findAllByCalendar(Calendar cal);
 
 }

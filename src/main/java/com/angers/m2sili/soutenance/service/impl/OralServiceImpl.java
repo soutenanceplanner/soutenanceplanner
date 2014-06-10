@@ -1,6 +1,8 @@
 package com.angers.m2sili.soutenance.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +20,7 @@ import com.angers.m2sili.soutenance.repository.OralRepository;
 import com.angers.m2sili.soutenance.repository.UserRepository;
 import com.angers.m2sili.soutenance.service.OralService;
 import com.angers.m2sili.soutenance.web.BaseController;
+import com.angers.m2sili.soutenance.web.dto.OralDTO;
 
 /**
  * Classe d'implémentation du service de Oral.
@@ -95,6 +98,29 @@ public class OralServiceImpl implements OralService {
 			oralRepository.delete(o);
 		}
 
+	}
+
+	@Override
+	public ArrayList<OralDTO> getOralsByCalendar(Calendar cal) {
+
+		ArrayList<OralDTO> listeRetour = new ArrayList<OralDTO>() ;
+		Set<Oral>  orals = oralRepository.findAllByCalendar(cal);
+		
+		//on trie le retour et on garde uniquement les informations qui nous intéressent
+	    for (Iterator<Oral> it = orals.iterator(); it.hasNext(); ) {
+	        Oral f = it.next();
+	        OralDTO o = new OralDTO();
+	        	o.setBeginningHour(f.getBeginningHour());
+	        	o.setId(f.getId());
+	        	o.setUserId(f.getUser().getId());
+	        	o.setParticipants(f.getParticipants());
+	        	o.setTitle(f.getTitle());
+	        	o.setCalendarId(f.getCalendar().getId());
+	        	listeRetour.add(o);
+	    }
+		
+		
+		return listeRetour;
 	}
 	
 }

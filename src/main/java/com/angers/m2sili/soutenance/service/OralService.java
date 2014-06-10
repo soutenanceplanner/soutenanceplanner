@@ -1,8 +1,11 @@
 package com.angers.m2sili.soutenance.service;
 
+import java.util.ArrayList;
 import java.util.Set;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Oral;
+import com.angers.m2sili.soutenance.web.dto.OralDTO;
 
 /**
  * Interface du service de Oral.
@@ -20,6 +23,8 @@ public interface OralService {
 	Oral get(Integer id);
 	
 	Set<Oral> getAll();
+	
+	ArrayList<OralDTO> getOralsByCalendar(Calendar cal);
 	
 	Oral update(Oral oral);
 	
