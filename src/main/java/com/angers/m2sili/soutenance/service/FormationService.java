@@ -23,6 +23,8 @@ public interface FormationService {
 	
 	List<Formation> getAll();
 	
+	Formation findByName(String name);
+	
 	Formation update(Formation formation);
 
 }

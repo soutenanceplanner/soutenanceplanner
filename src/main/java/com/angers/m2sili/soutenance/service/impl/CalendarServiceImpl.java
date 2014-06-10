@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.angers.m2sili.soutenance.model.Calendar;
-import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.repository.CalendarRepository;
 import com.angers.m2sili.soutenance.repository.OralRepository;
@@ -64,6 +63,7 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Calendar> getAllFuturs() {
 		//Date courante
 		java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -90,11 +90,13 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 
 	@Override
+	@Transactional
 	public Calendar update(Calendar calendar) {
 		return calendarRepository.save(calendar);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Calendar> getAllPast() {
 		//Date courante
 		java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -104,6 +106,12 @@ public class CalendarServiceImpl implements CalendarService{
 		logger.debug("Recupération des Calendriers passés avant : "+sqlDate);
 		
 		return calendarRepository.findAllByEndingDateLessThan(sqlDate);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Calendar> findAllByFormationName(String formation) {
+		return calendarRepository.findAllByFormationName(formation);
 	}
 
 	

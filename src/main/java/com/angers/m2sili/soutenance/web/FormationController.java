@@ -10,9 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Formation;
+import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.FormationService;
+import com.angers.m2sili.soutenance.service.OralService;
+import com.angers.m2sili.soutenance.service.TimeSlotService;
 import com.angers.m2sili.soutenance.web.dto.FormationDTO;
+import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 
 /**
  * Controller de Formation.
@@ -27,18 +32,45 @@ public class FormationController extends BaseController {
 
 	@Autowired
 	private FormationService formationService;
+	
+	@Autowired
+	private CalendarService calendarService;
+	
+	@Autowired
+	private TimeSlotService timeSlotService;
+	
+	@Autowired
+	private OralService oralService;
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	Formation create(@RequestBody FormationDTO formation) {
-		Formation p = new Formation();
-		p.setName(formation.getName());
-		return formationService.create(p);
+	ReturnValueDTO create(@RequestBody FormationDTO formation) {
+		ReturnValueDTO returnValue = new ReturnValueDTO();
+
+		if (formationService.findByName(formation.getName()) != null) {
+			returnValue.setError("Cette formation existe déjà");
+		} else {
+			Formation p = new Formation();
+			p.setName(formation.getName());
+			p = formationService.create(p);
+			returnValue.setValue(p);
+		}
+
+		return returnValue;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
+		Formation formation = formationService.get(id);
+		List<Calendar> calendars = calendarService.findAllByFormationName(formation.getName());
+		for (Calendar cal : calendars){
+			logger.debug("REST Calendar - supression du calendrier avec id : "+cal.getId());
+			timeSlotService.deleteListTimeSlotByCalendarId(cal.getId());
+			oralService.deleteListOralByCalendarId(cal.getId());
+			calendarService.delete(cal.getId());
+		}
+		
 		formationService.delete(id);
 	}
 
@@ -59,7 +91,7 @@ public class FormationController extends BaseController {
 	Formation update(@RequestBody FormationDTO formation) {
 		Formation p = formationService.get(Integer.parseInt(formation.getId()));
 		p.setName(formation.getName());
-		
+
 		return formationService.update(p);
 	}
 }

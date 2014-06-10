@@ -73,6 +73,7 @@ public class OralServiceImpl implements OralService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Set<Oral> getUserOrals(Integer user_id, Integer calendar_id) {
 		logger.debug("Recupération des Oraux du user " + user_id);
 		User user = userRepository.findOne(user_id);
@@ -101,6 +102,7 @@ public class OralServiceImpl implements OralService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public ArrayList<OralDTO> getOralsByCalendar(Calendar cal) {
 
 		ArrayList<OralDTO> listeRetour = new ArrayList<OralDTO>() ;

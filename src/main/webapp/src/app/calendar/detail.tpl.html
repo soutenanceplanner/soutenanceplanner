@@ -44,16 +44,24 @@
 			</div>
 			<div class="form-group">
 				<label for="timeSlots" class="col-sm-3 control-label">Plage(s) horaires</label>
-				<div class="col-sm-9" ng-repeat="timeSlot in calendar.timeSlots">
+
+				<!-- un seul timeSlot => affichage de coté -->
+				<div ng-if="calendar.timeSlots.length === 1" class="col-sm-9" ng-repeat="timeSlot in calendar.timeSlots">
+					<p class="form-control-static">{{timeSlot.beginningHour}}h - {{timeSlot.endingHour}}h</p>
+				</div>
+
+				<!-- plusieurs timeSlots => affichage en liste -->
+				<div ng-if="calendar.timeSlots.length !== 1" class="col-sm-offset-3 col-sm-9" ng-repeat="timeSlot in calendar.timeSlots">
 					<p class="form-control-static">{{timeSlot.beginningHour}}h - {{timeSlot.endingHour}}h</p>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="link" class="col-sm-3 control-label">Code d'accès</label>
 				<div class="col-sm-9">
-					<p class="form-control-static"><a ng-href="{{fullLink}}">{{fullLink}}</a>
+					<p class="form-control-static">
+						<a ng-href="{{fullLink}}">{{fullLink}}</a>
 						&nbsp;&nbsp;
-						<i class="icon ion-clipboard" clip-copy="copyFullLink()" clip-click="alertCopyLink()" style="font-size: 32px;"></i>
+						<icon class="icon ion-clipboard" title="Copier dans le presse papier" clip-copy="copyFullLink()" clip-click="alertCopyLink()" style="font-size: 32px;"></icon>
 					</p>
 				</div>
 			</div>

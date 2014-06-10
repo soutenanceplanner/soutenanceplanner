@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.User;
-import com.angers.m2sili.soutenance.repository.UserRepository;
 import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.OralService;
 import com.angers.m2sili.soutenance.service.TimeSlotService;
 import com.angers.m2sili.soutenance.service.TransformerService;
 import com.angers.m2sili.soutenance.service.UserService;
-import com.angers.m2sili.soutenance.service.impl.TransformerServiceImpl;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 import com.angers.m2sili.soutenance.web.dto.UserDTO;
 
