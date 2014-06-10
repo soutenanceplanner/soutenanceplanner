@@ -19,5 +19,6 @@ public interface CalendarService {
 	public List<Calendar> getAllPast();
 	void delete(Integer id);
 	Calendar update(Calendar calendar);
+	public List<Calendar> findAllByFormationName(String formation);
 	
 }

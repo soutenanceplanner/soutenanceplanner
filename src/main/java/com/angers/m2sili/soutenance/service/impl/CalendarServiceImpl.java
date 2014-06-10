@@ -105,5 +105,10 @@ public class CalendarServiceImpl implements CalendarService{
 		return calendarRepository.findAllByEndingDateLessThan(sqlDate);
 	}
 
+	@Override
+	public List<Calendar> findAllByFormationName(String formation) {
+		return calendarRepository.findAllByFormationName(formation);
+	}
+
 	
 }
