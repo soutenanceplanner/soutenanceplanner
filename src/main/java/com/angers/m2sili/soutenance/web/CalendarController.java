@@ -30,6 +30,7 @@ import com.angers.m2sili.soutenance.service.impl.OralServiceImpl;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
+import com.angers.m2sili.soutenance.web.dto.UserDTO;
 
 
 /**
@@ -117,6 +118,34 @@ public class CalendarController extends BaseController {
 		}
 		return dto;
 	}
+	
+	
+	@RequestMapping(value = "soutenance/{id}/{link}", method = RequestMethod.GET)
+	public @ResponseBody
+	ReturnValueDTO getCalendarSoutenance(@PathVariable Integer id, @PathVariable String link) {
+		User user = securityServiceImpl.retrieveUser();
+		
+		ReturnValueDTO dto = new ReturnValueDTO();
+		Calendar cal = calServiceImpl.get(id);
+		//on récupère la liste des oraux filtrés
+		ArrayList<OralDTO> listOral = oralService.getOralsByCalendar(cal);
+	    	
+		if(!cal.getLink().contentEquals(link)) {
+			dto.setError("Non autorisé à accéder au calendrier.");
+		} else {
+			CalendarDTO calDTO = transformerService.beanToDto(cal);
+						calDTO.setOrals(listOral);
+			
+			UserDTO 	userDTO = transformerService.beanToDto(user);
+			ArrayList<Object> list = new ArrayList<Object>();
+			list.add(calDTO);
+			list.add(userDTO);
+			
+			dto.setValue(list);
+		}
+		return dto;
+	}
+	
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/admin_list", method = RequestMethod.GET)
