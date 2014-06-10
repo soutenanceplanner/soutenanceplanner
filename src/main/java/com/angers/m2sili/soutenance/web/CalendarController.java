@@ -135,9 +135,11 @@ public class CalendarController extends BaseController {
 		} else {
 			CalendarDTO calDTO = transformerService.beanToDto(cal);
 						calDTO.setOrals(listOral);
+			UserDTO userDTO = null ;
+		if(user !=null)				
+			 userDTO = transformerService.beanToDto(user);
 			
-			UserDTO 	userDTO = transformerService.beanToDto(user);
-			ArrayList<Object> list = new ArrayList<Object>();
+		ArrayList<Object> list = new ArrayList<Object>();
 			list.add(calDTO);
 			list.add(userDTO);
 			
