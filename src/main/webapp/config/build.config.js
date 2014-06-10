@@ -37,7 +37,9 @@ module.exports = {
       'vendor/fullcalendar/fullcalendar.js',
       'vendor/fullcalendar/gcal.js',
       'vendor/angular-breadcrumb/dist/angular-breadcrumb.min.js',
-      'vendor/ng-table/ng-table.js'
+      'vendor/ng-table/ng-table.js',
+      'vendor/ng-clip/src/ngClip.js',
+      'vendor/zeroclipboard/ZeroClipboard.js'
     ],
     css: [
       'vendor/angular-motion/dist/angular-motion.min.css',

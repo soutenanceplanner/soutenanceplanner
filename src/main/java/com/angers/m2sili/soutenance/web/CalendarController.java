@@ -2,9 +2,7 @@ package com.angers.m2sili.soutenance.web;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.Calendar;
-import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.TimeSlot;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.service.CalendarService;
@@ -26,7 +23,6 @@ import com.angers.m2sili.soutenance.service.SecurityService;
 import com.angers.m2sili.soutenance.service.TimeSlotService;
 import com.angers.m2sili.soutenance.service.TransformerService;
 import com.angers.m2sili.soutenance.service.UserService;
-import com.angers.m2sili.soutenance.service.impl.OralServiceImpl;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;

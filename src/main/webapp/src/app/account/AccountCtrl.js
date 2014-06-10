@@ -73,7 +73,7 @@ angular.module('soutenanceplanner.account')
 		$scope.validate = function(){
 			
 			if( ($scope.editAccountForm.$invalid === false)&& 
-				($scope.passwordConfirm == $scope.user.password)){
+				($scope.passwordConfirm == $scope.user.password || $scope.isAdmin === true)){
 				$scope.updateUser();
 			}else{
 				$log.debug("Erreur formulaire");

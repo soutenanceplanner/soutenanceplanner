@@ -19,7 +19,8 @@
 	    <td filter="{ 'name': 'text' }">
 	    	<a ui-sref="formation.detail({id:formation.id})"><strong>{{formation.name}}</strong></a>
 	    </td>
-	    <td><button ng-click="deleteFormation(formation.id)" type="button" class="close">&times;</button></td>
+	    <td><button  class="close" type="button" data-placement="top" data-duration="3" data-animation="am-fadeAndSlideTop" data-container="body" data-type="success" data-keyboard="true" bs-alert="alert"
+			data-template="formation/confirmation.tpl.html" data-scope="formation" bs-modal="">&times;</button>
     </tr>
 </table>
 <button ui-sref="formation.add" class="btn btn-default center-block">Ajouter</button>

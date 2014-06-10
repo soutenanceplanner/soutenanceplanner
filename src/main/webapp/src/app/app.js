@@ -12,6 +12,9 @@ angular.module('soutenanceplanner', [
 		
 		//ng-table
 		'ngTable',
+
+		//ng-clip
+		'ngClipboard',
 		
 		// dans cet ordre là pour éviter conflits
 		'ui.bootstrap',
@@ -85,6 +88,11 @@ angular.module('soutenanceplanner')
     duration : '3'
   });
 })
+
+//Ng-Clip config
+.config(['ngClipProvider', function(ngClipProvider) {
+	ngClipProvider.setPath("assets/ZeroClipboard.swf");
+}])
 
 .run(['$rootScope','$state','$stateParams','$http',
 	function($rootScope, $state, $stateParams, $http) {
