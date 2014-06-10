@@ -1,8 +1,29 @@
-<form name="editOralForm" ng-submit="updateOral()" class="form-horizontal" role="form">
-	<legend>Mise à jour</legend>
-	<div class="form-group">
-		<div class="col-sm-offset-3 col-sm-9">
-			<button class="btn btn-default">Valider</button>
+	<div ng-controller="OralEditCtrl" class="modal  ng-scope center am-fadeAndSlideTop fade" style="opacity:1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">Mise à jour du créneau du {{event.start | date:'dd/MM/yyyy'}} à {{event.start | date:'HH:mm'}}</h3>
+				</div>
+				<form name="editOralForm"  class="form-horizontal" role="form">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="title" class="col-sm-3 control-label">Titre</label>
+							<div class="col-sm-9">
+								<input data-ng-model="event.title" type="text" class="form-control" id="title" placeholder="Titre" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="participants" class="col-sm-3 control-label">Participants</label>
+							<div class="col-sm-9">
+								<textarea data-ng-model="event.participants" type="text" class="form-control" rows="3" id="participants" placeholder="Liste des participants"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-success" ng-click="createOral()">Valider</button>
+						<button class="btn btn-danger" ng-click="$hide()">Annuler</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
-</form>
