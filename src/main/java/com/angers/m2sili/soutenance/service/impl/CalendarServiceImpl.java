@@ -63,6 +63,7 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Calendar> getAllFuturs() {
 		//Date courante
 		java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -89,11 +90,13 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 
 	@Override
+	@Transactional
 	public Calendar update(Calendar calendar) {
 		return calendarRepository.save(calendar);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Calendar> getAllPast() {
 		//Date courante
 		java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -106,6 +109,7 @@ public class CalendarServiceImpl implements CalendarService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Calendar> findAllByFormationName(String formation) {
 		return calendarRepository.findAllByFormationName(formation);
 	}

@@ -30,6 +30,7 @@ public class FormationServiceImpl implements FormationService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public FormationDTO getAsDTO(Integer id) {
 		Formation formation = formationRepository.findOne(id);
 		
@@ -53,6 +54,7 @@ public class FormationServiceImpl implements FormationService {
 	}	
 
 	@Override
+	@Transactional
 	public Formation update(Formation formation) {
 		return formationRepository.save(formation);
 	}
