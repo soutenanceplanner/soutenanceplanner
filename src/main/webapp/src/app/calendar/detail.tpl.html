@@ -50,7 +50,7 @@
 					<p class="form-control-static">{{timeSlot.beginningHour}}h - {{timeSlot.endingHour}}h</p>
 				</div>
 
-				<!-- un seul timeSlot => affichage en liste -->
+				<!-- plusieurs timeSlots => affichage en liste -->
 				<div ng-if="calendar.timeSlots.length !== 1" class="col-sm-offset-3 col-sm-9" ng-repeat="timeSlot in calendar.timeSlots">
 					<p class="form-control-static">{{timeSlot.beginningHour}}h - {{timeSlot.endingHour}}h</p>
 				</div>
