@@ -77,6 +77,12 @@ angular.module('soutenanceplanner.account')
 				$scope.updateUser();
 			}else{
 				$log.debug("Erreur formulaire");
+				var myAlert = $alert({
+					title: 'Erreur dans le formulaire !', 
+					content: 'Merci de corriger les erreurs.',
+					type: 'warning',
+					show: true
+				});
 						
 			}
 			
@@ -85,18 +91,33 @@ angular.module('soutenanceplanner.account')
 		$scope.updateUser = function () {
 			AccountService.updateUser($scope.user).then(
 				function(response){
-					$scope.user = response.data;
 					$log.debug(response.data);
-					$scope.init();
+					
+					if(response.data.error != null){
+						var alertMail = $alert({
+							title: 'Erreur :', 
+							content: response.data.error,
+							type: 'warning',
+							show: true
+						});
+					}else{
+						$scope.user = response.data.value;
+						$scope.init();
 
-					var myAlert = $alert({
-						title: 'Mise à jour', 
-						content: 'Données mises à jour',
-						type: 'success',
-						show: true
-					});
-
-					$state.go("account.admin");
+						var myAlert = $alert({
+							title: 'Mise à jour', 
+							content: 'Données mises à jour',
+							type: 'success',
+							show: true
+						});
+						
+						$log.debug($scope.isAdmin);
+						if($scope.isAdmin === true){
+						$state.go("account.admin");
+						}else{
+						$state.go("account.current");	
+						}
+					}
 				}
 			);
 		};

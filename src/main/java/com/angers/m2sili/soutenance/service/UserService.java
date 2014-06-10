@@ -26,4 +26,8 @@ public interface UserService {
 	User update(User user);
 	
 	User findByLogin(String login);
+
+	User getUserByMail(String mail);
+	
+	//User findByMail(String mail);
 }

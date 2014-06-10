@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.angers.m2sili.soutenance.model.User;
+import com.angers.m2sili.soutenance.service.TransformerService;
 import com.angers.m2sili.soutenance.service.UserService;
+import com.angers.m2sili.soutenance.service.impl.TransformerServiceImpl;
+import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 import com.angers.m2sili.soutenance.web.dto.UserDTO;
 
 /**
@@ -30,6 +33,9 @@ public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private TransformerService transformService;
+	
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
@@ -67,12 +73,30 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
-	User update(@RequestBody UserDTO dto) {
+	ReturnValueDTO update(@RequestBody UserDTO dto) {
 		User user = userService.get(Integer.parseInt(dto.getId()));
-		user.setPassword(dto.getPassword());
-		user.setMail(dto.getMail());
+		ReturnValueDTO retour = new ReturnValueDTO();
+		User mail = null ;
+		//si le mail n'est pas identique on verifie si il est pas déjà utilisé
+		if(!dto.getMail().equals(user.getMail())){
+			 mail =	userService.getUserByMail(dto.getMail());
+			if(mail != null){
+				retour.setError("Le mail est déjà utilisé par un utilisateur !");
+			}
+		}
 		
-		return userService.update(user);
+		if(mail == null){
+			user.setPassword(dto.getPassword());
+			user.setMail(dto.getMail());
+			
+			try{	
+				User u = userService.update(user);
+				retour.setValue(u);
+			}catch(Exception e){
+				retour.setError("Le mail est déjà utilisé par un utilisateur !");
+			}
+		}
+		return retour ;
 	}
 
 }

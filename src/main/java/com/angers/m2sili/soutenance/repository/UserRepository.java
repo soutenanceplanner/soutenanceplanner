@@ -16,5 +16,6 @@ import com.angers.m2sili.soutenance.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	User findByLogin(String login);
+	User findByMail(String mail);
 
 }
