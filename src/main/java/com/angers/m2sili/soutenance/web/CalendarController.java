@@ -93,10 +93,8 @@ public class CalendarController extends BaseController {
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
 		logger.debug("REST Calendar - supression du calendrier avec id : "+id);
-		
 		timeSlotServiceImpl.deleteListTimeSlotByCalendarId(id);
 		oralService.deleteListOralByCalendarId(id);
-		
 		calServiceImpl.delete(id);
 	}
 

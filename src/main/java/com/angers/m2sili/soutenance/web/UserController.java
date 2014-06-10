@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.User;
+import com.angers.m2sili.soutenance.repository.UserRepository;
+import com.angers.m2sili.soutenance.service.CalendarService;
+import com.angers.m2sili.soutenance.service.OralService;
+import com.angers.m2sili.soutenance.service.TimeSlotService;
 import com.angers.m2sili.soutenance.service.TransformerService;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.service.impl.TransformerServiceImpl;
@@ -34,6 +39,16 @@ public class UserController extends BaseController {
 	private UserService userService;
 
 	@Autowired
+	private CalendarService calendarService;
+	
+	@Autowired
+	private TimeSlotService timeSlotService;
+	
+	@Autowired
+	private OralService oralService;
+	
+	
+	@Autowired
 	private TransformerService transformService;
 	
 	@PreAuthorize("hasRole('ADMIN')")
@@ -55,6 +70,16 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
+		User user = userService.get(id);
+		List<Calendar> cal = calendarService.getAll(user.getLogin());
+		
+		//on supprime les calendrier de l'utilisateurs
+		for(int i = 0 ; i < cal.size() ; i++){
+			timeSlotService.deleteListTimeSlotByCalendarId(cal.get(i).getId());
+			oralService.deleteListOralByCalendarId(cal.get(i).getId());
+			calendarService.delete(cal.get(i).getId());
+		}
+				
 		userService.delete(id);
 	}
 

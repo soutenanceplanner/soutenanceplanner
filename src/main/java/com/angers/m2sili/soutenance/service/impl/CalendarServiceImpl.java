@@ -105,5 +105,6 @@ public class CalendarServiceImpl implements CalendarService{
 		
 		return calendarRepository.findAllByEndingDateLessThan(sqlDate);
 	}
+
 	
 }
