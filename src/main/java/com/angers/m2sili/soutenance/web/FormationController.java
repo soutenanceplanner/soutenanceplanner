@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Formation;
+import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.FormationService;
+import com.angers.m2sili.soutenance.service.OralService;
+import com.angers.m2sili.soutenance.service.TimeSlotService;
 import com.angers.m2sili.soutenance.web.dto.FormationDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 
@@ -28,6 +32,15 @@ public class FormationController extends BaseController {
 
 	@Autowired
 	private FormationService formationService;
+	
+	@Autowired
+	private CalendarService calendarService;
+	
+	@Autowired
+	private TimeSlotService timeSlotService;
+	
+	@Autowired
+	private OralService oralService;
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
@@ -49,6 +62,15 @@ public class FormationController extends BaseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
+		Formation formation = formationService.get(id);
+		List<Calendar> calendars = calendarService.findAllByFormationName(formation.getName());
+		for (Calendar cal : calendars){
+			logger.debug("REST Calendar - supression du calendrier avec id : "+cal.getId());
+			timeSlotService.deleteListTimeSlotByCalendarId(cal.getId());
+			oralService.deleteListOralByCalendarId(cal.getId());
+			calendarService.delete(cal.getId());
+		}
+		
 		formationService.delete(id);
 	}
 
