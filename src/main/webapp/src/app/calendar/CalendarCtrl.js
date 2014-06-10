@@ -256,29 +256,72 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarAdminListCtrl', ['$scope', '$log', '$state', '$stateParams', 'CalendarService', 'FormationService', 'AccountService', 
-	function($scope, $log, $state, $stateParams, CalendarService, FormationService, AccountService) {
+.controller('CalendarAdminListCtrl', ['$scope', '$log', '$state', '$stateParams', '$filter', 'CalendarService', 'FormationService', 'AccountService', 'ngTableParams',
+	function($scope, $log, $state, $stateParams, $filter, CalendarService, FormationService, AccountService, ngTableParams) {
 		$log.debug('CalendarAdminListCtrl');
 
 		$scope.init = function(){
-			CalendarService.adminListCalendar().then(
-				function(response){
-					$scope.calendars = [];
-					angular.forEach(response.data, function(calendar, key) {
-						$scope.calendars.push(calendar.value);
-						FormationService.getFormation(calendar.value.formationId).then(
-							function(response){
-								$scope.calendars[key]['formation'] = response.data;
-							}
-						);
-						AccountService.getUser(calendar.value.userId).then(
-							function(response){
-								$scope.calendars[key]['user'] = response.data;
-							}
-						);
-					});
+			//CalendarService.adminListCalendar().then(
+			//	function(response){
+			//		$scope.calendars = [];
+			//		angular.forEach(response.data, function(calendar, key) {
+			//			$scope.calendars.push(calendar.value);
+			//			FormationService.getFormation(calendar.value.formationId).then(
+			//				function(response){
+			//					$scope.calendars[key]['formation'] = response.data;
+			//				}
+			//			);
+			//			AccountService.getUser(calendar.value.userId).then(
+			//				function(response){
+			//					$scope.calendars[key]['user'] = response.data;
+			//				}
+			//			);
+			//		});
+			//	}
+			//);
+			$scope.initTableau();
+		};
+
+		$scope.initTableau = function(data){
+			$scope.tableParams = new ngTableParams(// jshint ignore:line
+				{
+					page: 1,// show first page
+					count: 10,// count per page
+					filter : {
+						formation : '',
+						beginningDate : '',
+						endingDate : '',
+						user : ''
+					},
+				},
+				{
+				total: 0,// length of data
+				getData: function($defer, params) {
+					CalendarService.adminListCalendar().then(
+						function(response){
+							$scope.calendars = [];
+							angular.forEach(response.data, function(calendar, key) {
+								$scope.calendars.push(calendar.value);
+							});
+
+							var data = $scope.calendars;
+							
+							// update table params
+							params.total(data.length);
+
+							// use build-in angular filter
+							var filteredData = params.filter() ?
+							$filter('filter')(data, params.filter()):data;
+							var orderedData = params.sorting() ?
+							$filter('orderBy')(filteredData, params.orderBy()) :filteredData;
+
+							$scope.calendriers = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+							params.total(orderedData.length); // set total for recalc pagination
+							$defer.resolve($scope.calendriers);
+						}
+					);
 				}
-			);
+			});
 		};
 
 		$scope.init();

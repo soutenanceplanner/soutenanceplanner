@@ -162,6 +162,20 @@ public class CalendarController extends BaseController {
 		}
 		return dtos;
 	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@RequestMapping(value = "/admin_list2", method = RequestMethod.GET)
+	public @ResponseBody
+	List<ReturnValueDTO> getAllAdmin2() {
+		List<Calendar> cals = calServiceImpl.getAll();
+		List<ReturnValueDTO> dtos = new ArrayList<ReturnValueDTO>();
+		for(int i=0; i<cals.size(); ++i) {
+			ReturnValueDTO dto = new ReturnValueDTO();
+			dto.setValue(transformerService.beanToDto2(cals.get(i)));
+			dtos.add(dto);
+		}
+		return dtos;
+	}
 
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/user_list", method = RequestMethod.GET)

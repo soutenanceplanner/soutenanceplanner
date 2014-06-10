@@ -124,8 +124,8 @@ angular.module('soutenanceplanner.account')
 	}
 ])
 
-.controller('AccountAdminListCtrl', ['$scope', '$log', '$alert', '$filter', 'AccountService', 'ngTableParams',
-	function($scope, $log, $alert, $filter, AccountService, ngTableParams) {
+.controller('AccountAdminListCtrl', ['$scope', '$log', '$alert', '$filter', '$q', 'AccountService', 'ngTableParams',
+	function($scope, $log, $alert, $filter, $q, AccountService, ngTableParams) {
 		$log.debug('AccountAdminListCtrl');
 
 		$scope.init = function(){
@@ -179,6 +179,21 @@ angular.module('soutenanceplanner.account')
 					$scope.tableParams.reload();
 				}
 			);
+		};
+
+		$scope.names = function(column) {
+			var def = $q.defer();
+			var names = [];
+			names.push({
+				'id': "ADMIN",
+				'title': "ADMIN"
+			});
+			names.push({
+				'id': "USER",
+				'title': "USER"
+			});
+			def.resolve(names);
+			return def;
 		};
 
 		//init

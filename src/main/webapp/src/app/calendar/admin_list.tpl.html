@@ -1,4 +1,4 @@
-<legend>Calendriers</legend>
+<!-- <legend>Calendriers</legend>
 <table class="table table-hover">
 	<tr>
 		<th>Titre</th>
@@ -17,5 +17,30 @@
 		<td><button  class="close" type="button" data-placement="top" data-duration="3" data-animation="am-fadeAndSlideTop" data-container="body" data-type="success" data-keyboard="true" bs-alert="alert"
 		data-template="calendar/confirmation.tpl.html" data-scope="calendar" bs-modal="">&times;</button></td>
 	</tr>
+</table> -->
+
+<legend>Calendriers</legend>
+<table ng-table="tableParams" show-filter="true" class="table">
+    <tr ng-repeat="calendar in $data">
+	    <td data-title="'Titre'" filter="{ 'title': 'text' }">
+	    	<a ui-sref="calendar.detail({id:calendar.id, link:calendar.link})"><strong>{{calendar.title}}</strong></a>
+	    </td>
+	    <td data-title="'Formation'" filter="{ 'formation': 'text' }">
+	        {{calendar.formation.name}}
+	    </td>
+	    <td data-title="'Début'" sortable="'beginningDate'" filter="{ 'beginningDate': 'text' }">
+	        {{calendar.beginningDate | date:'dd/MM/yyyy'}}
+	    </td>
+	    <td data-title="'Fin'" sortable="'endingDate'" filter="{ 'endingDate': 'text' }">
+	        {{calendar.endingDate | date:'dd/MM/yyyy'}}
+	    </td>
+	    <td data-title="'Créateur'" filter="{ 'user': 'text' }">
+	        {{calendar.user.login}}
+	    </td>
+	    <td>
+	    	<button  class="close" type="button" data-placement="top" data-duration="3" data-animation="am-fadeAndSlideTop" data-container="body" data-type="success" data-keyboard="true" bs-alert="alert"
+			data-template="calendar/confirmation.tpl.html" data-scope="calendar" bs-modal="">&times;</button>
+		</td>
+    </tr>
 </table>
 <button ui-sref="calendar.user.add" class="btn btn-default center-block">Ajouter</button>

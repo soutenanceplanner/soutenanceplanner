@@ -5,6 +5,7 @@ import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.TimeSlot;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
+import com.angers.m2sili.soutenance.web.dto.CalendarDTOFull;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
 import com.angers.m2sili.soutenance.web.dto.TimeSlotDTO;
 import com.angers.m2sili.soutenance.web.dto.UserDTO;
@@ -16,6 +17,7 @@ public interface TransformerService {
 	 */
 	public CalendarDTO beanToDto(Calendar bean);
 	public Calendar dtoToBean(CalendarDTO dto);
+	CalendarDTOFull beanToDto2(Calendar bean);
 	
 	/**
 	 * TimeSlot
