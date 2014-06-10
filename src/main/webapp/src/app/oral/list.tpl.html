@@ -9,7 +9,7 @@
 		<th></th>
 	</tr>
 	<tr ng-repeat="oral in orals">
-		<th><a ui-sref="calendar.detail.oral.detail({id:oral.id})"><span>{{oral.title}}</span></a></th>
+		<th><a ui-sref="calendar.detail.oral.detail({id:oral.id})"><strong>{{oral.title}}</strong></a></th>
 		<td>{{oral.beginningHour | date:'dd-MM-yyyy'}}</td>
 		<td>{{oral.beginningHour | date:'HH:mm'}}</td>
 		<td>{{oral.participants}}</td>

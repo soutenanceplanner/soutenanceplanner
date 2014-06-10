@@ -240,6 +240,7 @@ angular.module('soutenanceplanner.calendar')
 			$scope.generateLink();
 			CalendarService.createCalendar($scope.new_calendar, $scope.user).then(
 				function(response){
+					$scope.$emit('event:reloadMainCtrl');
 					$state.go("calendar.user");
 				},
 				function(response){
@@ -313,6 +314,7 @@ angular.module('soutenanceplanner.calendar')
 				function(response){
 					$log.debug(response.data);
 					$scope.tableParams.reload();
+					$scope.$emit('event:reloadMainCtrl');
 				}
 			);
 		};
@@ -342,6 +344,7 @@ angular.module('soutenanceplanner.calendar')
 			CalendarService.deleteCalendar(id).then(
 				function(response){
 					$log.debug(response.data);
+					$scope.$emit('event:reloadMainCtrl');
 					$scope.init();
 				}
 			);
