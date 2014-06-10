@@ -76,6 +76,7 @@ angular.module('soutenanceplanner.oral')
 		};
 
 		$scope.init = function(){
+
 			/* Initialisation des variables */
 			$scope.eventSources = [];
 			$scope.uiConfig = {};
@@ -99,24 +100,12 @@ angular.module('soutenanceplanner.oral')
 
 			var deferred = $q.defer();
 			/* Récupération du calendrier */
-			CalendarService.getCalendar($stateParams.id, $stateParams.link).then(
+			CalendarService.getCalendarSoutenance($stateParams.id, $stateParams.link).then(
 				function(response){
-					$scope.calendar = response.data.value;
-					$log.debug($scope.calendar);
-
-					/* Récupération de la liste des oral du user connecté pour le calendrier passé en paramètre */
-					OralService.listUserOral($stateParams.id, $stateParams.link).then(
-						function(response){
-							if(response.data.error !== null) {
-								$log.debug(response.data);
-								deferred.resolve();
-							} else {
-								$scope.orals = response.data.value;
-								$log.debug($scope.orals);
-								deferred.resolve();
-							}
-						}
-					);
+					$scope.calendar = response.data.value[0];
+					$scope.user = response.data.value[1];
+					$scope.orals = $scope.calendar.orals;
+					deferred.resolve();
 				}
 			);
 
@@ -142,34 +131,49 @@ angular.module('soutenanceplanner.oral')
 							//$scope.initializeConstraints(event);
 						},
 						eventClick : function(event, jsEvent, view) {
+							//if (event.status == STATUS.AVAILABLE) {
+							$scope.event = event;
+							$scope.oral = {}; 
+							$scope.oral.beginningHour = event.start;
+							var addOralModal;
+							
 							if (event.status == STATUS.AVAILABLE) {
-								$scope.event = event;
-								$scope.oral = {}; 
-								$scope.oral.beginningHour = event.start;
-								var addOralModal = $modal(
+								addOralModal = $modal(
 									{
 										scope: $scope,
 										template: 'oral/add.tpl.html', 
 										show: false
 									}
 								);
-								
-								$scope.showModal = function() {
-									addOralModal.$promise.then(addOralModal.show);
-								};
-
-								$scope.hideModal = function() {
-									addOralModal.$promise.then(addOralModal.hide);
-								};
-
-								$scope.showModal();
 							}
 							else if (event.status == STATUS.UNAVAILABLE) {
-								alert("Le créneau est déjà réservé pour l'événement : " + event.title);
+								addOralModal = $modal(
+									{
+										scope: $scope,
+										template: 'oral/edit.tpl.html', 
+										show: false
+									}
+								);
 							}
 							else if (event.status == STATUS.RESERVED) {
-								alert("Vous avez déjà réservé le créneau pour l'événement : " + event.title);
+								addOralModal = $modal(
+									{
+										scope: $scope,
+										template: 'oral/edit.tpl.html', 
+										show: false
+									}
+								);
 							}
+
+							$scope.showModal = function() {
+								addOralModal.$promise.then(addOralModal.show);
+							};
+
+							$scope.hideModal = function() {
+								addOralModal.$promise.then(addOralModal.hide);
+							};
+
+							$scope.showModal();
 						}
 					}
 				};
@@ -193,7 +197,7 @@ angular.module('soutenanceplanner.oral')
 							status : STATUS.UNAVAILABLE,
 							title : oral.title,
 							participants : oral.participants,
-							user_id : oral.user_id,
+							userId : oral.user_id,
 							start : beginningHour,
 							end : endingHour,
 							allDay : false,
@@ -206,35 +210,68 @@ angular.module('soutenanceplanner.oral')
 				$log.debug("unavailableSlots");
 				$log.debug($scope.unavailableSlots.events);
 
-				/* Fonction qui permet de générer les créneaux réservés par l'utilisateur
+				/* Fonction qui permet de générer les créneaux réservés
 				 */
 				$scope.generateReservedSlots = function() {
 					$log.debug($scope.orals);
+					var duration = $scope.calendar.duration * 60;
 					angular.forEach($scope.orals, function(oral, key) {
 						var beginningHour = new Date(oral.beginningHour);
 						var endingHour = new Date(oral.beginningHour);
-						endingHour.setHours(beginningHour.getHours()+1);
-						//if( oral.user_id == 1) {
+						endingHour.setMinutes(beginningHour.getMinutes() + duration );
+						//endingHour.setHours(beginningHour.getHours()+1);
+						
+						if( $scope.user.id == oral.userId) {
 							$scope.reservedSlots.events.push({
 								id : oral.id,
 								status : STATUS.RESERVED,
 								title : oral.title,
 								participants : oral.participants,
-								user_id : oral.user_id,
+								userId : oral.userId,
 								start : beginningHour,
 								end : endingHour,
 								allDay : false,
 								startEditable : false,
 								durationEditable : false
 							});
-						//}
+						}
+						else {
+							$scope.unavailableSlots.events.push({
+								id : oral.id,
+								status : STATUS.UNAVAILABLE,
+								title : oral.title,
+								participants : oral.participants,
+								userId : oral.userId,
+								start : beginningHour,
+								end : endingHour,
+								allDay : false,
+								startEditable : false,
+								durationEditable : false
+							});
+						}
 					});
 				};
 				$scope.generateReservedSlots();
 				$log.debug("reservedSlots");
 				$log.debug($scope.reservedSlots.events);
 
-				/* Fonction qui permet de générer les créneaux libres 
+				isEqual = function(date1, date2) {
+					return date1.valueOf() == date2.valueOf();
+				};
+
+				eventExist = function(date, events) {
+					var bool = false;
+					angular.forEach(events, function(event, key) {
+						if (isEqual(date, event.start)) {
+							bool = true;
+							return true;
+						}
+					});
+					return bool;
+				};
+
+				/* 
+				 * Fonction qui permet de générer les créneaux libres 
 				 */
 				$scope.generateAvailableSlots = function() {
 					var date = new Date($scope.calendar.beginningDate);
@@ -242,24 +279,36 @@ angular.module('soutenanceplanner.oral')
 					
 					addDaySlots = function() {
 						angular.forEach($scope.calendar.timeSlots, function(time_slot, key) {
-							var current_hour = time_slot.beginningHour;
-							while ( current_hour + $scope.calendar.duration <= time_slot.endingHour) {
-								var d1 = new Date(date.setHours(current_hour, 0, 0));
-								var d2 = new Date(date.setHours(current_hour + $scope.calendar.duration, 0, 0));
+							// On fixe la durée en minute
+							var duration = $scope.calendar.duration * 60;
+							var current_hour = new Date(date.setHours(time_slot.beginningHour, 0, 0));
+							var ending_hour = new Date(date.setHours(time_slot.endingHour, 0, 0));
+							var tmp = new Date(current_hour);
 
-								$scope.availableSlots.events.push({
-									status : STATUS.AVAILABLE,
-									title : "Libre",
-									userId : 1,
-									calendarId : $scope.calendar.id,
-									start : d1,
-									end : d2,
-									allDay : false,
-									startEditable : false,
-									durationEditable : false
-								});
+							while ( tmp <= ending_hour) {
+								// d1 date de début de l'événement
+								var d1 = new Date(current_hour);
+								// d2 date de fin de l'événement (d1 + durée)
+								var d2 = new Date(d1);
+								d2.setMinutes ( d1.getMinutes() + duration );
 
-								current_hour += $scope.calendar.duration;
+								if ( (!eventExist(d1, $scope.reservedSlots.events)) && (!eventExist(d1, $scope.unavailableSlots.events)) )  {
+									$scope.availableSlots.events.push({
+										status : STATUS.AVAILABLE,
+										title : "Libre",
+										userId : $scope.user.id,
+										calendarId : $scope.calendar.id,
+										start : d1,
+										end : d2,
+										allDay : false,
+										startEditable : false,
+										durationEditable : false
+									});
+								}
+
+								current_hour = new Date(d2);
+								tmp = new Date(d2);
+								tmp.setMinutes ( d2.getMinutes() + duration );
 							}			
 						});
 					};
