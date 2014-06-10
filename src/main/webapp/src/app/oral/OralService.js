@@ -13,6 +13,7 @@ angular.module('soutenanceplanner.oral')
 					data: oral
 				});
 			},
+			
 
 			getOral:function(id){
 				return $http({

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.Oral;
+import com.angers.m2sili.soutenance.web.dto.FormationDTO;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
 
 /**
@@ -32,4 +33,7 @@ public interface OralService {
 
 	void deleteListOralByCalendarId(Integer id);
 	Set<Oral> getList2();
+
+	OralDTO getAsDTO(Integer id);
+	
 }

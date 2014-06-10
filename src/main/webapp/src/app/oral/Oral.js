@@ -38,7 +38,7 @@ angular.module('soutenanceplanner.oral')
 					}
 				},
 				data: {
-					ncyBreadcrumbLabel: 'Soutenance - {{oral.name}}'
+					ncyBreadcrumbLabel: 'Soutenance {{oral.name}}'
 				}
 			})
 			.state('calendar.detail.oral.detail.edit', {

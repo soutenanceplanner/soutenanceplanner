@@ -18,6 +18,7 @@ import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.OralService;
 import com.angers.m2sili.soutenance.service.SecurityService;
 import com.angers.m2sili.soutenance.service.UserService;
+import com.angers.m2sili.soutenance.web.dto.FormationDTO;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 
@@ -65,8 +66,8 @@ public class OralController extends BaseController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	Oral get(@PathVariable Integer id) {
-		return oralService.get(id);
+	OralDTO get(@PathVariable Integer id) {
+		return oralService.getAsDTO(id);
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
