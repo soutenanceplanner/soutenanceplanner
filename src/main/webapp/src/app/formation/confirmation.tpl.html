@@ -1,0 +1,16 @@
+	<div class="modal  ng-scope center am-fadeAndSlideTop fade" style="opacity:1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">Suppression {{formation.name}}</h3>
+				</div>
+				<div class="modal-body">
+				Si vous supprimez la formation {{formation.name}}, les calendriers qui y sont rattachés seront également supprimés.</div>
+				<div class="modal-footer">
+					<button class="btn btn-success"
+						ng-click="deleteFormation(formation.id)">Confirmer</button>
+					<button class="btn btn-danger" ng-click="$hide()">Annuler</button>
+				</div>
+			</div>
+		</div>
+	</div>
