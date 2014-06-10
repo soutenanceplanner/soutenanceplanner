@@ -21,6 +21,7 @@ import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
 import com.angers.m2sili.soutenance.web.dto.TimeSlotDTO;
+import com.angers.m2sili.soutenance.web.dto.UserDTO;
 
 @Service
 public class TransformerServiceImpl implements TransformerService {
@@ -138,16 +139,26 @@ public class TransformerServiceImpl implements TransformerService {
 	public Oral dtoToBean(OralDTO dto) {
 		Oral bean = oralService.get(dto.getId());
 
-		bean.setBeginningHour(dto.getBeginningHour());
-		Calendar calendar = calendarService.get(dto.getCalendarId());
-		bean.setCalendar(calendar);
-		bean.setId(dto.getId());
-		bean.setParticipants(dto.getParticipants());
-		bean.setTitle(dto.getTitle());
+			bean.setBeginningHour(dto.getBeginningHour());
+			Calendar calendar = calendarService.get(dto.getCalendarId());
+			bean.setCalendar(calendar);
+			bean.setId(dto.getId());
+			bean.setParticipants(dto.getParticipants());
+			bean.setTitle(dto.getTitle());
+		
 		User user = userService.get(dto.getUserId());
-		bean.setUser(user);
+			bean.setUser(user);
 
 		return bean;
+	}
+
+	@Override
+	public UserDTO beanToDto(User user) {
+		UserDTO userdto = new UserDTO();
+				userdto.setId(user.getId()+"");
+				userdto.setLogin(user.getLogin());
+				userdto.setMail(user.getMail());
+		return userdto;
 	}
 
 }
