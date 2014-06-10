@@ -352,8 +352,8 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarDetailCtrl', ['$scope', '$log', '$stateParams', '$state', '$location', 'CalendarService', 'FormationService' ,
-	function($scope, $log, $stateParams, $state, $location, CalendarService, FormationService) {
+.controller('CalendarDetailCtrl', ['$scope', '$log', '$stateParams', '$state', '$location', '$alert', 'CalendarService', 'FormationService' ,
+	function($scope, $log, $stateParams, $state, $location, $alert, CalendarService, FormationService) {
 		$log.debug('CalendarDetailCtrl');
 
 		/**
@@ -442,6 +442,23 @@ angular.module('soutenanceplanner.calendar')
 				}
 			);
 		};
+
+		/**
+		*Copie auto dans presse papier
+		*/
+		$scope.alertCopyLink = function(){
+			$log.debug("test");
+			$alert({
+				content: 'Lien ajouté au presse-papier',
+				type: 'success',
+				show: true
+				});
+		};
+
+		$scope.copyFullLink = function(){
+			return $scope.fullLink;
+		};
+
 		$scope.init();
 	}
 ])

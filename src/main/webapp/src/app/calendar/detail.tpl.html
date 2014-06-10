@@ -51,7 +51,10 @@
 			<div class="form-group">
 				<label for="link" class="col-sm-3 control-label">Code d'accès</label>
 				<div class="col-sm-9">
-					<p class="form-control-static">{{fullLink}}</p>
+					<p class="form-control-static"><a ng-href="{{fullLink}}">{{fullLink}}</a>
+						&nbsp;&nbsp;
+						<i class="icon ion-clipboard" clip-copy="copyFullLink()" clip-click="alertCopyLink()" style="font-size: 32px;"></i>
+					</p>
 				</div>
 			</div>
 			<div class="form-group">
