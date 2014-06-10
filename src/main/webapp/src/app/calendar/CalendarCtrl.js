@@ -261,24 +261,6 @@ angular.module('soutenanceplanner.calendar')
 		$log.debug('CalendarAdminListCtrl');
 
 		$scope.init = function(){
-			//CalendarService.adminListCalendar().then(
-			//	function(response){
-			//		$scope.calendars = [];
-			//		angular.forEach(response.data, function(calendar, key) {
-			//			$scope.calendars.push(calendar.value);
-			//			FormationService.getFormation(calendar.value.formationId).then(
-			//				function(response){
-			//					$scope.calendars[key]['formation'] = response.data;
-			//				}
-			//			);
-			//			AccountService.getUser(calendar.value.userId).then(
-			//				function(response){
-			//					$scope.calendars[key]['user'] = response.data;
-			//				}
-			//			);
-			//		});
-			//	}
-			//);
 			$scope.initTableau();
 		};
 
@@ -330,7 +312,7 @@ angular.module('soutenanceplanner.calendar')
 			CalendarService.deleteCalendar(id).then(
 				function(response){
 					$log.debug(response.data);
-					$scope.init();
+					$scope.tableParams.reload();
 				}
 			);
 		};
@@ -367,8 +349,8 @@ angular.module('soutenanceplanner.calendar')
 	}
 ])
 
-.controller('CalendarDetailCtrl', ['$scope', '$log', '$stateParams', '$state', 'CalendarService', 'FormationService' ,
-	function($scope, $log, $stateParams, $state, CalendarService, FormationService) {
+.controller('CalendarDetailCtrl', ['$scope', '$log', '$stateParams', '$state', '$location', 'CalendarService', 'FormationService' ,
+	function($scope, $log, $stateParams, $state, $location, CalendarService, FormationService) {
 		$log.debug('CalendarDetailCtrl');
 
 		/**
@@ -450,6 +432,9 @@ angular.module('soutenanceplanner.calendar')
 						$(".calendar").fullCalendar('removeEventSource');
 						$(".calendar").fullCalendar('addEventSource', $scope.initializeEvents($scope.calendar));
 						//$(".calendar").fullCalendar( { eventSources : [ { events : $scope.initializeEvents($scope.calendar) } ] });
+
+						//full link
+						$scope.fullLink = $location.absUrl();
 					}
 				}
 			);
