@@ -57,4 +57,10 @@ public class FormationServiceImpl implements FormationService {
 		return formationRepository.save(formation);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public Formation findByName(String name) {
+		return formationRepository.findByName(name);
+	}
+
 }

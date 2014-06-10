@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.angers.m2sili.soutenance.model.Formation;
 import com.angers.m2sili.soutenance.service.FormationService;
 import com.angers.m2sili.soutenance.web.dto.FormationDTO;
+import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 
 /**
  * Controller de Formation.
@@ -30,10 +31,19 @@ public class FormationController extends BaseController {
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public @ResponseBody
-	Formation create(@RequestBody FormationDTO formation) {
-		Formation p = new Formation();
-		p.setName(formation.getName());
-		return formationService.create(p);
+	ReturnValueDTO create(@RequestBody FormationDTO formation) {
+		ReturnValueDTO returnValue = new ReturnValueDTO();
+
+		if (formationService.findByName(formation.getName()) != null) {
+			returnValue.setError("Cette formation existe déjà");
+		} else {
+			Formation p = new Formation();
+			p.setName(formation.getName());
+			p = formationService.create(p);
+			returnValue.setValue(p);
+		}
+
+		return returnValue;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -59,7 +69,7 @@ public class FormationController extends BaseController {
 	Formation update(@RequestBody FormationDTO formation) {
 		Formation p = formationService.get(Integer.parseInt(formation.getId()));
 		p.setName(formation.getName());
-		
+
 		return formationService.update(p);
 	}
 }

@@ -17,16 +17,29 @@ angular.module('soutenanceplanner.formation')
 			FormationService.createFormation($scope.formation).then(
 				function(response){
 					$log.debug(response.data);
+					var data = response.data;
 
-					var myAlert = $alert({
-						title: '', 
-						content: 'Formation ajoutée',
-						placement: 'top-right',
-						type: 'success',
-						duration : '3',
-						show: true
-					});
-					$state.go("formation.admin");
+					if (data.error !== null){
+						$alert({
+							title: '', 
+							content: data.error,
+							placement: 'top-right',
+							type: 'danger',
+							duration : '3',
+							show: true
+						});
+					}
+					else {
+						var myAlert = $alert({
+							title: '', 
+							content: 'Formation ajoutée',
+							placement: 'top-right',
+							type: 'success',
+							duration : '3',
+							show: true
+						});
+						$state.go("formation.admin");
+					}
 				},
 				function(response){
 					$log.debug("Erreur serveur");

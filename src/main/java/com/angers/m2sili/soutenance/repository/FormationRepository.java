@@ -13,5 +13,7 @@ import com.angers.m2sili.soutenance.model.Formation;
 
 @Repository
 public interface FormationRepository extends JpaRepository<Formation, Integer> {
+	
+	public Formation findByName(String name);
 
 }
