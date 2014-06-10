@@ -181,6 +181,7 @@ angular.module('soutenanceplanner.account')
 			);
 		};
 
+		//SELECT pour le status
 		$scope.names = function(column) {
 			var def = $q.defer();
 			var names = [];
