@@ -26,7 +26,7 @@ angular.module('soutenanceplanner.formation')
 						duration : '3',
 						show: true
 					});
-					$state.go("formation");
+					$state.go("formation.admin");
 				},
 				function(response){
 					$log.debug("Erreur serveur");
@@ -79,7 +79,7 @@ angular.module('soutenanceplanner.formation')
 						duration : '3',
 						show: true
 					});
-					$state.go("formation");
+					$state.go("formation.admin");
 				}
 			);
 		};
