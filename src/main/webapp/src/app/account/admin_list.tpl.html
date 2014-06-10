@@ -22,7 +22,7 @@
 	    <td data-title="'Email'" filter="{ 'mail': 'text' }">
 	        {{user.mail}}
 	    </td>
-	    <td data-title="'Status'" filter="{ 'flag': 'text' }">
+	    <td data-title="'Status'" filter="{ 'flag': 'select' }" filter-data="names($column)">
 	        {{user.flag}}
 	    </td>
 	    <td><button ng-click="deleteUser(user.id)" type="button" class="close">&times;</button></td>

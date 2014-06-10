@@ -19,8 +19,11 @@ import com.angers.m2sili.soutenance.service.TimeSlotService;
 import com.angers.m2sili.soutenance.service.TransformerService;
 import com.angers.m2sili.soutenance.service.UserService;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
+import com.angers.m2sili.soutenance.web.dto.CalendarDTOFull;
+import com.angers.m2sili.soutenance.web.dto.FormationDTO;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
 import com.angers.m2sili.soutenance.web.dto.TimeSlotDTO;
+import com.angers.m2sili.soutenance.web.dto.UserDTO;
 
 @Service
 public class TransformerServiceImpl implements TransformerService {
@@ -51,6 +54,44 @@ public class TransformerServiceImpl implements TransformerService {
 		dto.setLink(bean.getLink());
 		dto.setTitle(bean.getTitle());
 		dto.setUserId(bean.getUser().getId());
+
+		ArrayList<TimeSlotDTO> slots = new ArrayList<TimeSlotDTO>();
+		for (TimeSlot slot : bean.getTimeSlots()) {
+			slots.add(beanToDto(slot));
+		}
+		dto.setTimeSlots(slots);
+
+		ArrayList<OralDTO> oraux = new ArrayList<OralDTO>();
+		for (Oral oral : bean.getOrals()) {
+			oraux.add(beanToDto(oral));
+		}
+		dto.setTimeSlots(slots);
+		return dto;
+	}
+	
+	@Override
+	public CalendarDTOFull beanToDto2(Calendar bean) {
+		CalendarDTOFull dto = new CalendarDTOFull();
+		dto.setId(bean.getId());
+		dto.setBeginningDate(bean.getBeginningDate());
+		dto.setDuration(bean.getDuration());
+		dto.setEndingDate(bean.getEndingDate());
+		
+		Formation formation = bean.getFormation();
+		FormationDTO formationDTO = new FormationDTO();
+		formationDTO.setId(formation.getId().toString());
+		formationDTO.setName(formation.getName());
+		dto.setFormation(formationDTO);
+		
+		dto.setLink(bean.getLink());
+		dto.setTitle(bean.getTitle());
+		
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(bean.getUser().getId().toString());
+		userDTO.setFlag(bean.getUser().getFlag());
+		userDTO.setLogin(bean.getUser().getLogin());
+		userDTO.setMail(bean.getUser().getMail());
+		dto.setUser(userDTO);
 
 		ArrayList<TimeSlotDTO> slots = new ArrayList<TimeSlotDTO>();
 		for (TimeSlot slot : bean.getTimeSlots()) {
@@ -138,16 +179,26 @@ public class TransformerServiceImpl implements TransformerService {
 	public Oral dtoToBean(OralDTO dto) {
 		Oral bean = oralService.get(dto.getId());
 
-		bean.setBeginningHour(dto.getBeginningHour());
-		Calendar calendar = calendarService.get(dto.getCalendarId());
-		bean.setCalendar(calendar);
-		bean.setId(dto.getId());
-		bean.setParticipants(dto.getParticipants());
-		bean.setTitle(dto.getTitle());
+			bean.setBeginningHour(dto.getBeginningHour());
+			Calendar calendar = calendarService.get(dto.getCalendarId());
+			bean.setCalendar(calendar);
+			bean.setId(dto.getId());
+			bean.setParticipants(dto.getParticipants());
+			bean.setTitle(dto.getTitle());
+		
 		User user = userService.get(dto.getUserId());
-		bean.setUser(user);
+			bean.setUser(user);
 
 		return bean;
+	}
+
+	@Override
+	public UserDTO beanToDto(User user) {
+		UserDTO userdto = new UserDTO();
+				userdto.setId(user.getId()+"");
+				userdto.setLogin(user.getLogin());
+				userdto.setMail(user.getMail());
+		return userdto;
 	}
 
 }

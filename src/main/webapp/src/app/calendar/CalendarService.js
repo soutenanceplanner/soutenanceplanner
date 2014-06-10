@@ -36,6 +36,13 @@ angular.module('soutenanceplanner.calendar')
 					url: WS_SERVER_URL + "/calendar/"+id+"/"+link,
 				});
 			},
+			
+			getCalendarSoutenance:function(id, link){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/soutenance/"+id+"/"+link,
+				});
+			},
 
 			deleteCalendar:function(id){
 				return $http({
@@ -47,7 +54,7 @@ angular.module('soutenanceplanner.calendar')
 			adminListCalendar:function(){
 				return $http({
 					method: 'GET',
-					url: WS_SERVER_URL + "/calendar/admin_list",
+					url: WS_SERVER_URL + "/calendar/admin_list2",
 				});
 			},
 

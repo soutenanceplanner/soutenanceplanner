@@ -30,6 +30,7 @@ import com.angers.m2sili.soutenance.service.impl.OralServiceImpl;
 import com.angers.m2sili.soutenance.web.dto.CalendarDTO;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
+import com.angers.m2sili.soutenance.web.dto.UserDTO;
 
 
 /**
@@ -118,6 +119,36 @@ public class CalendarController extends BaseController {
 		return dto;
 	}
 	
+	
+	@RequestMapping(value = "soutenance/{id}/{link}", method = RequestMethod.GET)
+	public @ResponseBody
+	ReturnValueDTO getCalendarSoutenance(@PathVariable Integer id, @PathVariable String link) {
+		User user = securityServiceImpl.retrieveUser();
+		
+		ReturnValueDTO dto = new ReturnValueDTO();
+		Calendar cal = calServiceImpl.get(id);
+		//on récupère la liste des oraux filtrés
+		ArrayList<OralDTO> listOral = oralService.getOralsByCalendar(cal);
+	    	
+		if(!cal.getLink().contentEquals(link)) {
+			dto.setError("Non autorisé à accéder au calendrier.");
+		} else {
+			CalendarDTO calDTO = transformerService.beanToDto(cal);
+						calDTO.setOrals(listOral);
+			UserDTO userDTO = null ;
+		if(user !=null)				
+			 userDTO = transformerService.beanToDto(user);
+			
+		ArrayList<Object> list = new ArrayList<Object>();
+			list.add(calDTO);
+			list.add(userDTO);
+			
+			dto.setValue(list);
+		}
+		return dto;
+	}
+	
+	
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/admin_list", method = RequestMethod.GET)
 	public @ResponseBody
@@ -127,6 +158,20 @@ public class CalendarController extends BaseController {
 		for(int i=0; i<cals.size(); ++i) {
 			ReturnValueDTO dto = new ReturnValueDTO();
 			dto.setValue(transformerService.beanToDto(cals.get(i)));
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@RequestMapping(value = "/admin_list2", method = RequestMethod.GET)
+	public @ResponseBody
+	List<ReturnValueDTO> getAllAdmin2() {
+		List<Calendar> cals = calServiceImpl.getAll();
+		List<ReturnValueDTO> dtos = new ArrayList<ReturnValueDTO>();
+		for(int i=0; i<cals.size(); ++i) {
+			ReturnValueDTO dto = new ReturnValueDTO();
+			dto.setValue(transformerService.beanToDto2(cals.get(i)));
 			dtos.add(dto);
 		}
 		return dtos;
