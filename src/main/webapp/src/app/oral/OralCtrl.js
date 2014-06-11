@@ -10,12 +10,149 @@ angular.module('soutenanceplanner.oral')
 .controller('OralAddCtrl', ['$scope', '$log', '$alert', '$state', 'OralService', 'FactoryService', 'SecurityService',
 	function($scope, $log, $alert, $state, OralService, FactoryService, SecurityService) {
 		$log.debug('OralAddCtrl');
+
+		/* Statut des événements */
+		var STATUS = {
+			AVAILABLE  : {value: 0, name: "Available",   code: "A"}, 
+			UNAVAILABLE: {value: 1, name: "Unavailable", code: "U"}, 
+			RESERVED   : {value: 2, name: "Reserved",    code: "R"}
+		};
+
+		$scope.init = function(){
+
+			FactoryService.oral().then(
+				function(response){
+					$scope.oral = response.data;
+				}
+			);
+		};
+
+		//init
+		$scope.init();
+
+		$scope.createOral = function(){
+			$scope.oral.title = $scope.event.title;
+			$scope.oral.participants = $scope.event.participants;
+			$scope.oral.beginningHour = $scope.event.start;
+			$scope.oral.calendarId = $scope.event.calendarId;
+			$scope.oral.userId = $scope.event.userId;
+			$scope.hideModal();
+
+			OralService.createOral($scope.oral).then(
+				function(response){
+					$scope.neworal = response.data;
+					/* MaJ de la vue */
+					var duration = $scope.calendar.duration * 60;
+					var beginningHour = new Date($scope.neworal.beginningHour);
+					var endingHour = new Date($scope.neworal.beginningHour);
+					endingHour.setMinutes(beginningHour.getMinutes() + duration );
+
+					$scope.reservedSlots.events.push({
+						id : $scope.neworal.id,
+						status : STATUS.RESERVED,
+						title : $scope.neworal.title,
+						participants : $scope.neworal.participants,
+						userId : $scope.user.id,
+						start : beginningHour,
+						end : endingHour,
+						allDay : false,
+						startEditable : false,
+						durationEditable : false
+					});
+
+					for (var index = 0; index < $scope.availableSlots.events.length; index++) {
+						if ($scope.availableSlots.events[index].id == $scope.event.id) {
+							$scope.availableSlots.events.splice(index,1);
+						}
+					}
+
+					var myAlert = $alert({
+						title: '', 
+						content: 'Soutance ajoutée',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
+				},
+				function(response){
+					var myAlert = $alert({
+						title: '', 
+						content: 'Erreur serveur',
+						placement: 'top-right',
+						type: 'danger',
+						duration : '3',
+						show: true
+					});
+					$state.go("home");
+				}
+			);
+		};
 	}
 ])
 
 .controller('OralEditCtrl', ['$scope', '$location', '$log', '$state', '$stateParams', '$alert', 'OralService',
 	function($scope, $location, $log, $state, $stateParams, $alert, OralService) {
 		$log.debug('OralEditCtrl');
+
+		$scope.init = function(){
+			OralService.getOral($scope.event.id).then(
+				function(response){
+					$scope.oral = response.data;
+				}
+			);
+		};
+
+		//init
+		$scope.init();
+		
+		$scope.updateOral = function () {
+			$log.debug("Suppression de l'oral avec l'id");
+			$scope.oral.title = $scope.event.title;
+			$scope.oral.participants = $scope.event.participants;
+
+			$scope.hideModal();
+
+			OralService.updateOral($scope.oral).then(
+				function(response){
+					$scope.oral= response.data;
+					
+					var myAlert = $alert({
+						title: '', 
+						content: 'Soutenace mise à jour',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
+				}
+			);
+		};
+
+		$scope.deleteOral = function(id){
+			/* MaJ de la vue */
+			//location.reload(true); // <- A revoir
+			/*
+			$scope.remove = function(index) {
+				$scope.events.splice(index,1);
+			};
+			*/
+			
+			$scope.hideModal();
+			$log.debug("Suppression de l'oral avec l'id :"+id);
+			OralService.deleteOral(id).then(
+				function(response){
+					var myAlert = $alert({
+						title: '', 
+						content: 'Soutenance supprimée',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
+				}
+			);
+		};
 	}
 ])
 
@@ -94,7 +231,17 @@ angular.module('soutenanceplanner.oral')
 							$scope.oral = {}; 
 							$scope.oral.beginningHour = event.start;
 							var oralModal;
-							
+
+							$log.debug('BEFORE');
+							$log.debug("event");
+							$log.debug($scope.event);
+							$log.debug("reservedSlots");
+							$log.debug($scope.reservedSlots);
+							$log.debug("unavailableSlots");
+							$log.debug($scope.unavailableSlots);
+							$log.debug("availableSlots");
+							$log.debug($scope.availableSlots);
+					
 							if (event.status == STATUS.AVAILABLE) {
 								oralModal = $modal(
 									{
@@ -246,7 +393,6 @@ angular.module('soutenanceplanner.oral')
 										startEditable : false,
 										durationEditable : false
 									});
-									$i--; 
 								}
 
 								current_hour = new Date(d2);
