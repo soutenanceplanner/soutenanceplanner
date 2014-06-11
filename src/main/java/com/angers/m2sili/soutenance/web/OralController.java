@@ -18,7 +18,6 @@ import com.angers.m2sili.soutenance.service.CalendarService;
 import com.angers.m2sili.soutenance.service.OralService;
 import com.angers.m2sili.soutenance.service.SecurityService;
 import com.angers.m2sili.soutenance.service.UserService;
-import com.angers.m2sili.soutenance.web.dto.FormationDTO;
 import com.angers.m2sili.soutenance.web.dto.OralDTO;
 import com.angers.m2sili.soutenance.web.dto.ReturnValueDTO;
 
