@@ -29,64 +29,7 @@ angular.module('soutenanceplanner.oral')
 		//init
 		$scope.init();
 
-		$scope.createOral = function(){
-			$scope.oral.title = $scope.event.title;
-			$scope.oral.participants = $scope.event.participants;
-			$scope.oral.beginningHour = $scope.event.start;
-			$scope.oral.calendarId = $scope.event.calendarId;
-			$scope.oral.userId = $scope.event.userId;
-			$scope.hideModal();
 
-			OralService.createOral($scope.oral).then(
-				function(response){
-					$scope.neworal = response.data;
-					/* MaJ de la vue */
-					var duration = $scope.calendar.duration * 60;
-					var beginningHour = new Date($scope.neworal.beginningHour);
-					var endingHour = new Date($scope.neworal.beginningHour);
-					endingHour.setMinutes(beginningHour.getMinutes() + duration );
-
-					$scope.reservedSlots.events.push({
-						id : $scope.neworal.id,
-						status : STATUS.RESERVED,
-						title : $scope.neworal.title,
-						participants : $scope.neworal.participants,
-						userId : $scope.user.id,
-						start : beginningHour,
-						end : endingHour,
-						allDay : false,
-						startEditable : false,
-						durationEditable : false
-					});
-
-					for (var index = 0; index < $scope.availableSlots.events.length; index++) {
-						if ($scope.availableSlots.events[index].id == $scope.event.id) {
-							$scope.availableSlots.events.splice(index,1);
-						}
-					}
-
-					var myAlert = $alert({
-						title: '', 
-						content: 'Soutance ajoutée',
-						placement: 'top-right',
-						type: 'success',
-						duration : '3',
-						show: true
-					});
-				},
-				function(response){
-					var myAlert = $alert({
-						title: '', 
-						content: 'Erreur serveur',
-						placement: 'top-right',
-						type: 'danger',
-						duration : '3',
-						show: true
-					});
-					$state.go("home");
-				}
-			);
-		};
 	}
 ])
 
@@ -417,54 +360,55 @@ angular.module('soutenanceplanner.oral')
 		 * @param  {int} id [identifiant de l'oral]
 		 */
 		$scope.createOral = function(){
-			var createDeferred = $q.defer();
-			var oral;
-			/* Initialisation de l'oral */
-			FactoryService.oral().then(
-				function(response){
-					oral = response.data;
-					createDeferred.resolve();
-				}
-			);
-
-			var promise = createDeferred.promise;
-			promise.then(function() {
-				/* On efface la modal */
-				$scope.hideModal();
-
-				/* On insère les données de l'oral */
-				oral.title = $scope.event.titre;
-				oral.participants = $scope.event.people;
-				oral.beginningHour = $scope.event.start;
-				oral.calendarId = $scope.event.calendarId;
-				oral.userId = $scope.event.userId;
-
-				OralService.createOral(oral).then(
+			$log.debug("ajout d'un oral");
+			$scope.hideModal();
+			
+			var oral = {} ;
+			
+			oral.title = $scope.event.titre;
+			oral.participants = $scope.event.people;
+			oral.beginningHour = $scope.event.start;
+			oral.calendarId = $scope.event.calendarId;
+			oral.userId = $scope.event.userId;
+			
+			var endDate = $scope.event.end ;
+			$log.debug(oral);
+			$log.debug($scope.event.start);
+			
+			OralService.createOral(oral).then(
 					function(response){
-						oral= response.data;
-
-						/* On ajoute dans la vue le nouveau créneau réservé */
-						var newEvent = {
-							id : oral.id,
-							status : STATUS.RESERVED,
-							title : oral.title,
-							participants : oral.participants,
-							userId : $scope.user.id,
-							start : $scope.event.start,
-							end : $scope.event.end,
-							allDay : false,
-							startEditable : false,
-							durationEditable : false
-						};
-						$scope.reservedSlots.events.push(newEvent);
-
-						/* On suprime dans la vue l'ancien créneau libre */
-						for (var index = 0; index < $scope.availableSlots.events.length; index++) {
-							if ($scope.availableSlots.events[index].id == $scope.event.id) {
+						
+						$log.debug(response.data);
+						
+						//on supprime le créneau
+						for (index = 0; index < $scope.availableSlots.events.length; index++) {
+							$log.debug("parcours liste");
+							if ($scope.availableSlots.events[index].start == $scope.event.start) {
 								$scope.availableSlots.events.splice(index,1);
+								$log.debug("debug - 1");
 							}
 						}
 						
+						var objet = {
+							id : response.data.id,
+							status : STATUS.RESERVED,
+							title : oral.title,
+							participants : oral.participants,
+							userId : oral.userId,
+							calendarId : oral.calendarId ,
+							start : oral.beginningHour,
+							end : endDate,
+							allDay : false,
+							startEditable : false,
+							durationEditable : false};
+						
+						$scope.reservedSlots.events.push(objet);
+
+						$log.debug(objet);
+						
+						
+						$log.debug("fin d'ajout");
+
 						var myAlert = $alert({
 							title: '', 
 							content: 'La soutenace a été ajoutée',
@@ -486,7 +430,6 @@ angular.module('soutenanceplanner.oral')
 						$state.go("home");
 					}
 				);
-			});
 		};
 
 		/**
@@ -555,6 +498,7 @@ angular.module('soutenanceplanner.oral')
 			);
 
 			var promise = deleteDeferred.promise;
+			
 			promise.then(function() {
 				/* On efface la modal */
 				$scope.hideModal();
