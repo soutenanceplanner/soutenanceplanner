@@ -425,7 +425,7 @@ angular.module('soutenanceplanner.calendar')
 						$log.debug(response.data);
 						$state.go('calendar');
 					} else {
-						$log.debug(response.data);
+						//$log.debug(response.data);
 						$scope.calendar = response.data.value;
 						FormationService.getFormation($scope.calendar.formationId).then(
 							function(response){
@@ -433,7 +433,10 @@ angular.module('soutenanceplanner.calendar')
 							}
 						);
 						$(".calendar").fullCalendar('removeEventSource');
-						$(".calendar").fullCalendar('addEventSource', $scope.initializeEvents($scope.calendar));
+						var events = $(".calendar").fullCalendar('clientEvents');
+						if(events.length === 0) {
+							$(".calendar").fullCalendar('addEventSource', $scope.initializeEvents($scope.calendar));
+						}
 						$(".calendar").fullCalendar('gotoDate', new Date($scope.calendar.beginningDate));
 
 						//full link

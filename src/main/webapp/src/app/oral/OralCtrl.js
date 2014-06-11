@@ -35,7 +35,6 @@ angular.module('soutenanceplanner.oral')
 			$scope.oral.beginningHour = $scope.event.start;
 			$scope.oral.calendarId = $scope.event.calendarId;
 			$scope.oral.userId = $scope.event.userId;
-			
 			$scope.hideModal();
 
 			OralService.createOral($scope.oral).then(
@@ -107,6 +106,7 @@ angular.module('soutenanceplanner.oral')
 		$scope.init();
 		
 		$scope.updateOral = function () {
+			$log.debug("Suppression de l'oral avec l'id");
 			$scope.oral.title = $scope.event.title;
 			$scope.oral.participants = $scope.event.participants;
 
@@ -130,7 +130,7 @@ angular.module('soutenanceplanner.oral')
 
 		$scope.deleteOral = function(id){
 			/* MaJ de la vue */
-			location.reload(true); // <- A revoir
+			//location.reload(true); // <- A revoir
 			/*
 			$scope.remove = function(index) {
 				$scope.events.splice(index,1);
@@ -138,7 +138,7 @@ angular.module('soutenanceplanner.oral')
 			*/
 			
 			$scope.hideModal();
-
+			$log.debug("Suppression de l'oral avec l'id :"+id);
 			OralService.deleteOral(id).then(
 				function(response){
 					var myAlert = $alert({
