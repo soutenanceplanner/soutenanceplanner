@@ -98,9 +98,15 @@
 	}
 ])
 
-.controller('OralListCtrl', ['$scope', '$q', '$modal', '$log', '$alert', '$state', '$stateParams', 'OralService', 'FactoryService', 'CalendarService', 'FormationService', 'SecurityService',
-	function($scope, $q, $modal, $log, $alert, $state, $stateParams, OralService, FactoryService, CalendarService, FormationService, SecurityService) {
+.controller('OralListCtrl', ['$scope', '$q', '$modal', '$log', '$alert', '$state', '$stateParams', 'OralService', 'FactoryService', 'CalendarService', 'FormationService', 'SecurityService','$filter',
+	function($scope, $q, $modal, $log, $alert, $state, $stateParams, OralService, FactoryService, CalendarService, FormationService, SecurityService,$filter) {
 		$log.debug('OralListCtrl');
+		
+		$scope.goToDate = function(){
+			var d = new Date($scope.calendar.beginningDate); 
+			$log.debug(d); 
+			$('.calendar').fullCalendar( 'gotoDate',d);
+		};
 		
 		/* Statut des événements */
 		var STATUS = {
@@ -137,6 +143,7 @@
 			CalendarService.getCalendarSoutenance($stateParams.id, $stateParams.link).then(
 				function(response){
 					$scope.calendar = response.data.value[0];
+					$log.debug(response.data.value[0]);
 					$scope.user = response.data.value[1];
 					$scope.orals = $scope.calendar.orals;
 
@@ -154,6 +161,7 @@
 				/* Génération du calendrier */
 
 				/* Configuration du calendrier */
+				$log.debug('Configuration du calendrier');
 				$scope.uiConfig = {
 					calendar : {
 						height : 650,
@@ -351,6 +359,7 @@
 
 				generateReservedSlots();
 				generateAvailableSlots();
+
 
 			});
 		};
@@ -563,6 +572,7 @@
 
 		/* Ajout des événements pour la vue */
 		$scope.eventSources = [$scope.availableSlots, $scope.reservedSlots, $scope.unavailableSlots];
+
 	}
 ])
 
