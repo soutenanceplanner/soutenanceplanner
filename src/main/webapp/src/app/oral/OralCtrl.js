@@ -201,8 +201,7 @@ angular.module('soutenanceplanner.oral')
 				/* Configuration du calendrier */
 				$scope.uiConfig = {
 					calendar : {
-						setDate: Date($scope.calendar.beginningDate),
-						height : 450,
+						height : 650,
 						editable : true,
 						header : {
 							left : 'prev,next today',
@@ -214,7 +213,6 @@ angular.module('soutenanceplanner.oral')
 						maxTime : 20,
 						defaultView: 'agendaWeek',
 						eventClick : function(event, jsEvent, view) {
-							//if (event.status == STATUS.AVAILABLE) {
 							$scope.event = event;
 							$scope.oral = {}; 
 							$scope.oral.beginningHour = event.start;
@@ -224,25 +222,36 @@ angular.module('soutenanceplanner.oral')
 								addOralModal = $modal(
 									{
 										scope: $scope,
-										template: 'oral/add.tpl.html', 
+										template: 'oral/add.tpl.html',
 										show: false
 									}
 								);
 							}
 							else if (event.status == STATUS.UNAVAILABLE) {
-								addOralModal = $modal(
-									{
-										scope: $scope,
-										template: 'oral/detail.tpl.html', 
-										show: false
-									}
-								);
+								if ($scope.isAdmin) {
+									addOralModal = $modal(
+										{
+											scope: $scope,
+											template: 'oral/edit.tpl.html',
+											show: false
+										}
+									);
+								}
+								else{
+									addOralModal = $modal(
+										{
+											scope: $scope,
+											template: 'oral/detail.tpl.html',
+											show: false
+										}
+									);
+								}
 							}
 							else if (event.status == STATUS.RESERVED) {
 								addOralModal = $modal(
 									{
 										scope: $scope,
-										template: 'oral/edit.tpl.html', 
+										template: 'oral/edit.tpl.html',
 										show: false
 									}
 								);
@@ -263,7 +272,7 @@ angular.module('soutenanceplanner.oral')
 
 				/* Fonction qui permet de générer les créneaux réservés
 				 */
-				$scope.generateReservedSlots = function() {
+				generateReservedSlots = function() {
 					$log.debug($scope.orals);
 					var duration = $scope.calendar.duration * 60;
 					angular.forEach($scope.orals, function(oral, key) {
@@ -273,6 +282,7 @@ angular.module('soutenanceplanner.oral')
 						//endingHour.setHours(beginningHour.getHours()+1);
 						
 						if( $scope.user && $scope.user.id == oral.userId) {
+							/* Ajout des créneaux réservés par l'utilisateur */
 							$scope.reservedSlots.events.push({
 								id : oral.id,
 								status : STATUS.RESERVED,
@@ -287,6 +297,7 @@ angular.module('soutenanceplanner.oral')
 							});
 						}
 						else {
+							/* Ajout des créneaux réservés par les autres utilisateurs */
 							$scope.unavailableSlots.events.push({
 								id : oral.id,
 								status : STATUS.UNAVAILABLE,
@@ -302,9 +313,11 @@ angular.module('soutenanceplanner.oral')
 						}
 					});
 				};
-				$scope.generateReservedSlots();
+				generateReservedSlots();
 				$log.debug("reservedSlots");
 				$log.debug($scope.reservedSlots.events);
+				$log.debug("unavailableSlots");
+				$log.debug($scope.unavailableSlots.events);
 
 				isEqual = function(date1, date2) {
 					return date1.valueOf() == date2.valueOf();
@@ -324,7 +337,7 @@ angular.module('soutenanceplanner.oral')
 				/* 
 				 * Fonction qui permet de générer les créneaux libres 
 				 */
-				$scope.generateAvailableSlots = function() {
+				generateAvailableSlots = function() {
 					var date = new Date($scope.calendar.beginningDate);
 					var endingDate = new Date($scope.calendar.endingDate);
 					
@@ -367,7 +380,7 @@ angular.module('soutenanceplanner.oral')
 						date.setDate(date.getDate() + 1);
 					} while (endingDate.getDate() >= date.getDate());
 				};
-				$scope.generateAvailableSlots();
+				generateAvailableSlots();
 				$log.debug("availableSlots");
 				$log.debug($scope.availableSlots.events);
 
