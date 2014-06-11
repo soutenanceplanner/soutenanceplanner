@@ -124,5 +124,19 @@ public class OralServiceImpl implements OralService {
 		
 		return listeRetour;
 	}
+
+	public OralDTO getAsDTO(Integer id) {
+		Oral oral = oralRepository.findOne(id);
+		
+		OralDTO dto = new OralDTO();
+		dto.setId(oral.getId());
+		dto.setBeginningHour(oral.getBeginningHour());
+		dto.setParticipants(oral.getParticipants());
+		dto.setTitle(oral.getTitle());
+		dto.setCalendarId(oral.getCalendar().getId());
+		dto.setUserId(oral.getUser().getId());
+		
+		return dto;
+	}
 	
 }

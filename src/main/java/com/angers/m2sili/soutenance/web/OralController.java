@@ -65,8 +65,8 @@ public class OralController extends BaseController {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	Oral get(@PathVariable Integer id) {
-		return oralService.get(id);
+	OralDTO get(@PathVariable Integer id) {
+		return oralService.getAsDTO(id);
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

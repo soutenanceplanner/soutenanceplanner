@@ -32,4 +32,7 @@ public interface OralService {
 
 	void deleteListOralByCalendarId(Integer id);
 	Set<Oral> getList2();
+
+	OralDTO getAsDTO(Integer id);
+	
 }

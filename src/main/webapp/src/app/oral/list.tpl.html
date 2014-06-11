@@ -1,19 +1,2 @@
-<legend>Soutenances {{user.login}}</legend>
+<legend>{{calendar.title}} - {{formation.name}}</legend>
 <div ui-calendar="uiConfig.calendar" calendar="myCalendar1" class="span8 calendar" ng-model="eventSources"></div>
-<table class="table table-hover">
-	<tr>
-		<th>Titre</th>
-		<th>Date</th>
-		<th>Heure</th>
-		<th>Participants</th>
-		<th></th>
-	</tr>
-	<tr ng-repeat="oral in orals">
-		<th><a ui-sref="calendar.detail.oral.detail({id:oral.id})"><strong>{{oral.title}}</strong></a></th>
-		<td>{{oral.beginningHour | date:'dd-MM-yyyy'}}</td>
-		<td>{{oral.beginningHour | date:'HH:mm'}}</td>
-		<td>{{oral.participants}}</td>
-		<td><button ng-click="deleteOral(oral.id)" type="button" class="close">&times;</button></td>
-	</tr>
-</table>
-<button ui-sref="calendar.detail.oral.add" class="btn btn-default center-block">Ajouter</button>
