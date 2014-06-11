@@ -1,4 +1,4 @@
-	<div ng-controller="OralAddCtrl" class="modal  ng-scope center am-fadeAndSlideTop fade" style="opacity:1">
+	<div class="modal ng-scope center am-fadeAndSlideTop fade" style="opacity:1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -9,13 +9,13 @@
 						<div class="form-group">
 							<label for="title" class="col-sm-3 control-label">Titre</label>
 							<div class="col-sm-9">
-								<input data-ng-model="event.title" type="text" class="form-control" id="title" placeholder="Titre" required>
+								<input data-ng-model="event.titre" type="text" class="form-control" id="event.title" placeholder="Titre" required>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="participants" class="col-sm-3 control-label">Participants</label>
 							<div class="col-sm-9">
-								<textarea data-ng-model="event.participants" type="text" class="form-control" rows="3" id="participants" placeholder="Liste des participants"></textarea>
+								<textarea data-ng-model="event.people" type="text" class="form-control" rows="3" id="event.participants" placeholder="Liste des participants"></textarea>
 							</div>
 						</div>
 					</div>
