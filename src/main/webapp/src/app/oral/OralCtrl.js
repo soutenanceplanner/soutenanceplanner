@@ -155,8 +155,8 @@ angular.module('soutenanceplanner.oral')
 	}
 ])
 
-.controller('OralListCtrl', ['$scope', '$q', '$modal', '$log', '$state', '$stateParams', 'OralService', 'FactoryService', 'CalendarService', 'FormationService', 'SecurityService',
-	function($scope, $q, $modal, $log, $state, $stateParams, OralService, FactoryService, CalendarService, FormationService, SecurityService) {
+.controller('OralListCtrl', ['$scope', '$q', '$modal', '$log', '$alert', '$state', '$stateParams', 'OralService', 'FactoryService', 'CalendarService', 'FormationService', 'SecurityService',
+	function($scope, $q, $modal, $log, $alert, $state, $stateParams, OralService, FactoryService, CalendarService, FormationService, SecurityService) {
 		$log.debug('OralListCtrl');
 		
 		/* Statut des événements */
@@ -240,7 +240,7 @@ angular.module('soutenanceplanner.oral')
 							$log.debug($scope.unavailableSlots);
 							$log.debug("availableSlots");
 							$log.debug($scope.availableSlots);
-							
+					
 							if (event.status == STATUS.AVAILABLE) {
 								oralModal = $modal(
 									{
@@ -383,6 +383,8 @@ angular.module('soutenanceplanner.oral')
 										id: $i,
 										status : STATUS.AVAILABLE,
 										userId : $scope.user.id,
+										titre : "",
+										people: "",
 										calendarId : $scope.calendar.id,
 										start : d1,
 										end : d2,
@@ -390,7 +392,6 @@ angular.module('soutenanceplanner.oral')
 										startEditable : false,
 										durationEditable : false
 									});
-									$i++; 
 								}
 
 								current_hour = new Date(d2);
@@ -408,6 +409,208 @@ angular.module('soutenanceplanner.oral')
 				generateReservedSlots();
 				generateAvailableSlots();
 
+			});
+		};
+
+		/**
+		 * Fonction qui permet de mettre à jour un oral
+		 * @param  {int} id [identifiant de l'oral]
+		 */
+		$scope.createOral = function(){
+			var createDeferred = $q.defer();
+			var oral;
+			/* Initialisation de l'oral */
+			FactoryService.oral().then(
+				function(response){
+					oral = response.data;
+					createDeferred.resolve();
+				}
+			);
+
+			var promise = createDeferred.promise;
+			promise.then(function() {
+				/* On efface la modal */
+				$scope.hideModal();
+
+				/* On insère les données de l'oral */
+				oral.title = $scope.event.titre;
+				oral.participants = $scope.event.people;
+				oral.beginningHour = $scope.event.start;
+				oral.calendarId = $scope.event.calendarId;
+				oral.userId = $scope.event.userId;
+
+				OralService.createOral(oral).then(
+					function(response){
+						oral= response.data;
+
+						/* On ajoute dans la vue le nouveau créneau réservé */
+						var newEvent = {
+							id : oral.id,
+							status : STATUS.RESERVED,
+							title : oral.title,
+							participants : oral.participants,
+							userId : $scope.user.id,
+							start : $scope.event.start,
+							end : $scope.event.end,
+							allDay : false,
+							startEditable : false,
+							durationEditable : false
+						};
+						$scope.reservedSlots.events.push(newEvent);
+
+						/* On suprime dans la vue l'ancien créneau libre */
+						for (var index = 0; index < $scope.availableSlots.events.length; index++) {
+							if ($scope.availableSlots.events[index].id == $scope.event.id) {
+								$scope.availableSlots.events.splice(index,1);
+							}
+						}
+						
+						var myAlert = $alert({
+							title: '', 
+							content: 'La soutenace a été ajoutée',
+							placement: 'top-right',
+							type: 'success',
+							duration : '3',
+							show: true
+						});
+					},
+					function(response){
+						var myAlert = $alert({
+							title: '', 
+							content: 'Erreur : Impossible de créer la soutenance',
+							placement: 'top-right',
+							type: 'danger',
+							duration : '3',
+							show: true
+						});
+						$state.go("home");
+					}
+				);
+			});
+		};
+
+		/**
+		 * Fonction qui permet de mettre à jour un oral
+		 * @param  {int} id [identifiant de l'oral]
+		 */
+		$scope.updateOral = function(id){
+			var updateDeferred = $q.defer();
+			var oral;
+			/* Récupération de l'oral */
+			OralService.getOral(id).then(
+				function(response){
+					oral = response.data;
+					updateDeferred.resolve();
+				}
+			);
+
+			var promise = updateDeferred.promise;
+			promise.then(function() {
+				/* On efface la modal */
+				$scope.hideModal();
+
+				oral.title = $scope.event.title;
+				oral.participants = $scope.event.participants;
+
+				OralService.updateOral(oral).then(
+					function(response){
+						oral= response.data;
+						
+						var myAlert = $alert({
+							title: '', 
+							content: 'La soutenace a été mise à jour',
+							placement: 'top-right',
+							type: 'success',
+							duration : '3',
+							show: true
+						});
+					},
+					function(response){
+						var myAlert = $alert({
+							title: '', 
+							content: 'Erreur : Impossible de mettre à jour la soutenance',
+							placement: 'top-right',
+							type: 'danger',
+							duration : '3',
+							show: true
+						});
+						$state.go("home");
+					}
+				);
+			});
+		};
+
+		/**
+		 * Fonction qui permet de suprimer un oral
+		 * @param  {int} id [identifiant de l'oral]
+		 */
+		$scope.deleteOral = function(id){
+			var deleteDeferred = $q.defer();
+			/* Récupération de l'oral */
+			OralService.getOral(id).then(
+				function(response){
+					var oral = response.data;
+					deleteDeferred.resolve();
+				}
+			);
+
+			var promise = deleteDeferred.promise;
+			promise.then(function() {
+				/* On efface la modal */
+				$scope.hideModal();
+
+				OralService.deleteOral(id).then(
+					function(response){
+						/* On ajoute dans la vue un nouveau créneau disponible */
+						$scope.availableSlots.events.push({
+							status : STATUS.AVAILABLE,
+							userId : $scope.user.id,
+							calendarId : $scope.calendar.id,
+							start : $scope.event.start,
+							end : $scope.event.end,
+							allDay : false,
+							startEditable : false,
+							durationEditable : false
+						});
+
+						/* On suprime la vue l'ancien créneau */
+						var index = 0;
+						if ($scope.event.status.value == 2) {
+							for (index = 0; index < $scope.reservedSlots.events.length; index++) {
+								if ($scope.reservedSlots.events[index].id == $scope.event.id) {
+									$scope.reservedSlots.events.splice(index,1);
+								}
+							}
+						}
+						else if ($scope.event.status.value == 1) {
+							for (index = 0; index < $scope.unavailableSlots.events.length; index++) {
+								if ($scope.unavailableSlots.events[index].id == $scope.event.id) {
+									$scope.unavailableSlots.events.splice(index,1);
+								}
+							}
+						}
+
+						var myAlert = $alert({
+							title: '', 
+							content: 'La soutenace a été supprimée',
+							placement: 'top-right',
+							type: 'success',
+							duration : '3',
+							show: true
+						});
+					},
+					function(response){
+						var myAlert = $alert({
+							title: '', 
+							content: 'Erreur : Impossible de suprimer la soutenance',
+							placement: 'top-right',
+							type: 'danger',
+							duration : '3',
+							show: true
+						});
+						$state.go("home");
+					}
+				);
 			});
 		};
 

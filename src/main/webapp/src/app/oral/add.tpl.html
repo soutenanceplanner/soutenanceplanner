@@ -1,27 +1,27 @@
-	<div ng-controller="OralAddCtrl" ng-submit="createOral()" class="modal  ng-scope center am-fadeAndSlideTop fade" style="opacity:1">
+	<div class="modal ng-scope center am-fadeAndSlideTop fade" style="opacity:1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h3 class="modal-title">Réservation du créneau du {{event.start | date:'dd/MM/yyyy'}} à {{event.start | date:'HH:mm'}}</h3>
 				</div>
-				<form name="addOralForm"  class="form-horizontal" role="form">
+				<form name="addOralForm" class="form-horizontal" role="form">
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="title" class="col-sm-3 control-label">Titre</label>
 							<div class="col-sm-9">
-								<input data-ng-model="event.title" type="text" class="form-control" id="title" placeholder="Titre" required>
+								<input data-ng-model="event.titre" type="text" class="form-control" id="event.title" placeholder="Titre" required>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="participants" class="col-sm-3 control-label">Participants</label>
 							<div class="col-sm-9">
-								<textarea data-ng-model="event.participants" type="text" class="form-control" rows="3" id="participants" placeholder="Liste des participants"></textarea>
+								<textarea data-ng-model="event.people" type="text" class="form-control" rows="3" id="event.participants" placeholder="Liste des participants"></textarea>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-success">Réserver</button>
-						<button class="btn btn-danger" ng-click="$hide()">Annuler</button>
+						<button class="btn btn-success" ng-click="createOral()">Réserver</button>
+						<button class="btn btn-danger" ng-click="hideModal()">Annuler</button>
 					</div>
 				</form>
 			</div>

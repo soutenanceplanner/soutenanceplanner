@@ -1,10 +1,10 @@
-	<div ng-controller="OralEditCtrl"  class="modal ng-scope center am-fadeAndSlideTop fade" style="opacity:1">
+	<div class="modal ng-scope center am-fadeAndSlideTop fade" style="opacity:1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h3 class="modal-title">Mise à jour du créneau du {{event.start | date:'dd/MM/yyyy'}} à {{event.start | date:'HH:mm'}}</h3>
 				</div>
-				<form name="editOralForm"  class="form-horizontal" role="form">
+				<form name="editOralForm" class="form-horizontal" role="form">
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="title" class="col-sm-3 control-label">Titre</label>
@@ -20,7 +20,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-success" ng-click="updateOral()">Valider</button>
+						<button class="btn btn-success" ng-click="updateOral(event.id)">Valider</button>
 						<button class="btn btn-danger" ng-click="deleteOral(event.id)">Supprimer</button>
 						<button class="btn btn-danger" ng-click="$hide()">Annuler</button>
 					</div>
