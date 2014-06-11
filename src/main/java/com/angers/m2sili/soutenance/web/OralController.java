@@ -60,7 +60,8 @@ public class OralController extends BaseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public @ResponseBody
 	void delete(@PathVariable Integer id) {
-		oralService.delete(id);
+		logger.debug("Suppression d'un oral :"+id);
+		oralService.deleteOralById(id);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -103,6 +104,7 @@ public class OralController extends BaseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public @ResponseBody
 	Oral update(@RequestBody OralDTO oral) {
+		logger.debug("Mise à jour d'un oral :");
 		Oral o = oralService.get(oral.getId());
 		o.setBeginningHour(oral.getBeginningHour());
 		o.setParticipants(oral.getParticipants());

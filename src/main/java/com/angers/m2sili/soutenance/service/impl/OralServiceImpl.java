@@ -100,6 +100,14 @@ public class OralServiceImpl implements OralService {
 		}
 
 	}
+	
+	@Transactional
+	@Override
+	public void deleteOralById(Integer id) {
+			Oral o = oralRepository.findOne(id);
+			o.getUser().getOrals().remove(o);
+			oralRepository.delete(o);
+	}
 
 	@Override
 	@Transactional(readOnly = true)
