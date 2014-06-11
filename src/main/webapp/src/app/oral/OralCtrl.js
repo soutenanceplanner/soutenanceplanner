@@ -17,7 +17,7 @@ angular.module('soutenanceplanner.oral')
 			RESERVED   : {value: 2, name: "Reserved",    code: "R"}
 		};
 
-		$scope.init1 = function(){
+		$scope.init = function(){
 
 			FactoryService.oral().then(
 				function(response){
@@ -27,7 +27,7 @@ angular.module('soutenanceplanner.oral')
 		};
 
 		//init
-		$scope.init1();
+		$scope.init();
 
 		$scope.createOral = function(){
 			$scope.oral.title = $scope.event.title;
@@ -37,16 +37,14 @@ angular.module('soutenanceplanner.oral')
 			$scope.oral.userId = $scope.event.userId;
 
 			/* MaJ de la vue */
+			location.reload(true); // <- A revoir
+			/*
 			$scope.event.status = STATUS.RESERVED;
 			$scope.reservedSlots.events.push($scope.event);
-			/*
-			$scope.init();
-			
 			$scope.remove = function(index) {
 				$scope.events.splice(index,1);
 			};
 			*/
-			//$log.debug($scope.oral);
 			$scope.hideModal();
 
 			OralService.createOral($scope.oral).then(
@@ -84,7 +82,6 @@ angular.module('soutenanceplanner.oral')
 			OralService.getOral($scope.event.id).then(
 				function(response){
 					$scope.oral = response.data;
-					$log.debug(response.data);
 				}
 			);
 		};
@@ -101,8 +98,6 @@ angular.module('soutenanceplanner.oral')
 			OralService.updateOral($scope.oral).then(
 				function(response){
 					$scope.oral= response.data;
-					$log.debug(response.data);
-					$scope.init();
 
 					var myAlert = $alert({
 						title: '', 
@@ -117,17 +112,18 @@ angular.module('soutenanceplanner.oral')
 		};
 
 		$scope.deleteOral = function(id){
-			$scope.hideModal();
+			/* MaJ de la vue */
+			location.reload(true); // <- A revoir
 			/*
 			$scope.remove = function(index) {
 				$scope.events.splice(index,1);
 			};
 			*/
+			
+			$scope.hideModal();
 
 			OralService.deleteOral(id).then(
 				function(response){
-					$log.debug(response);
-
 					var myAlert = $alert({
 						title: '', 
 						content: 'Soutenance supprimée',
@@ -196,7 +192,6 @@ angular.module('soutenanceplanner.oral')
 			var promise = deferred.promise;
 			promise.then(function() {
 				/* Génération du calendrier */
-
 
 				/* Configuration du calendrier */
 				$scope.uiConfig = {
@@ -270,16 +265,15 @@ angular.module('soutenanceplanner.oral')
 					}
 				};
 
-				/* Fonction qui permet de générer les créneaux réservés
+				/**
+				 *  Fonction qui permet de générer les créneaux réservés
 				 */
 				generateReservedSlots = function() {
-					$log.debug($scope.orals);
 					var duration = $scope.calendar.duration * 60;
 					angular.forEach($scope.orals, function(oral, key) {
 						var beginningHour = new Date(oral.beginningHour);
 						var endingHour = new Date(oral.beginningHour);
 						endingHour.setMinutes(beginningHour.getMinutes() + duration );
-						//endingHour.setHours(beginningHour.getHours()+1);
 						
 						if( $scope.user && $scope.user.id == oral.userId) {
 							/* Ajout des créneaux réservés par l'utilisateur */
@@ -313,11 +307,6 @@ angular.module('soutenanceplanner.oral')
 						}
 					});
 				};
-				generateReservedSlots();
-				$log.debug("reservedSlots");
-				$log.debug($scope.reservedSlots.events);
-				$log.debug("unavailableSlots");
-				$log.debug($scope.unavailableSlots.events);
 
 				isEqual = function(date1, date2) {
 					return date1.valueOf() == date2.valueOf();
@@ -334,8 +323,8 @@ angular.module('soutenanceplanner.oral')
 					return bool;
 				};
 
-				/* 
-				 * Fonction qui permet de générer les créneaux libres 
+				/**
+				 *  Fonction qui permet de générer les créneaux libres 
 				 */
 				generateAvailableSlots = function() {
 					var date = new Date($scope.calendar.beginningDate);
@@ -380,20 +369,11 @@ angular.module('soutenanceplanner.oral')
 						date.setDate(date.getDate() + 1);
 					} while (endingDate.getDate() >= date.getDate());
 				};
+
+				generateReservedSlots();
 				generateAvailableSlots();
-				$log.debug("availableSlots");
-				$log.debug($scope.availableSlots.events);
 
 			});
-		};
-
-		$scope.deleteOral = function(id){
-			OralService.deleteOral(id).then(
-				function(response){
-					$log.debug(response.data);
-					//$scope.init();
-				}
-			);
 		};
 
 		//init
