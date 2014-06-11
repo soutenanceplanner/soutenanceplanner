@@ -35,20 +35,36 @@ angular.module('soutenanceplanner.oral')
 			$scope.oral.beginningHour = $scope.event.start;
 			$scope.oral.calendarId = $scope.event.calendarId;
 			$scope.oral.userId = $scope.event.userId;
-
-			/* MaJ de la vue */
-		//	location.reload(true); // <- A revoir
-			/*
-			$scope.event.status = STATUS.RESERVED;
-			$scope.reservedSlots.events.push($scope.event);
-			$scope.remove = function(index) {
-				$scope.events.splice(index,1);
-			};
-			*/
 			$scope.hideModal();
 
 			OralService.createOral($scope.oral).then(
 				function(response){
+					$scope.neworal = response.data;
+					/* MaJ de la vue */
+					var duration = $scope.calendar.duration * 60;
+					var beginningHour = new Date($scope.neworal.beginningHour);
+					var endingHour = new Date($scope.neworal.beginningHour);
+					endingHour.setMinutes(beginningHour.getMinutes() + duration );
+
+					$scope.reservedSlots.events.push({
+						id : $scope.neworal.id,
+						status : STATUS.RESERVED,
+						title : $scope.neworal.title,
+						participants : $scope.neworal.participants,
+						userId : $scope.user.id,
+						start : beginningHour,
+						end : endingHour,
+						allDay : false,
+						startEditable : false,
+						durationEditable : false
+					});
+
+					for (var index = 0; index < $scope.availableSlots.events.length; index++) {
+						if ($scope.availableSlots.events[index].id == $scope.event.id) {
+							$scope.availableSlots.events.splice(index,1);
+						}
+					}
+
 					var myAlert = $alert({
 						title: '', 
 						content: 'Soutance ajoutée',
@@ -99,7 +115,7 @@ angular.module('soutenanceplanner.oral')
 			OralService.updateOral($scope.oral).then(
 				function(response){
 					$scope.oral= response.data;
-
+					
 					var myAlert = $alert({
 						title: '', 
 						content: 'Soutenace mise à jour',
@@ -209,13 +225,24 @@ angular.module('soutenanceplanner.oral')
 						maxTime : 20,
 						defaultView: 'agendaWeek',
 						eventClick : function(event, jsEvent, view) {
+							var sauvEvent = event; 
 							$scope.event = event;
 							$scope.oral = {}; 
 							$scope.oral.beginningHour = event.start;
-							var addOralModal;
+							var oralModal;
+
+							$log.debug('BEFORE');
+							$log.debug("event");
+							$log.debug($scope.event);
+							$log.debug("reservedSlots");
+							$log.debug($scope.reservedSlots);
+							$log.debug("unavailableSlots");
+							$log.debug($scope.unavailableSlots);
+							$log.debug("availableSlots");
+							$log.debug($scope.availableSlots);
 							
 							if (event.status == STATUS.AVAILABLE) {
-								addOralModal = $modal(
+								oralModal = $modal(
 									{
 										scope: $scope,
 										template: 'oral/add.tpl.html',
@@ -225,7 +252,7 @@ angular.module('soutenanceplanner.oral')
 							}
 							else if (event.status == STATUS.UNAVAILABLE) {
 								if ($scope.isAdmin) {
-									addOralModal = $modal(
+									oralModal = $modal(
 										{
 											scope: $scope,
 											template: 'oral/edit.tpl.html',
@@ -234,7 +261,7 @@ angular.module('soutenanceplanner.oral')
 									);
 								}
 								else{
-									addOralModal = $modal(
+									oralModal = $modal(
 										{
 											scope: $scope,
 											template: 'oral/detail.tpl.html',
@@ -244,7 +271,7 @@ angular.module('soutenanceplanner.oral')
 								}
 							}
 							else if (event.status == STATUS.RESERVED) {
-								addOralModal = $modal(
+								oralModal = $modal(
 									{
 										scope: $scope,
 										template: 'oral/edit.tpl.html',
@@ -254,11 +281,15 @@ angular.module('soutenanceplanner.oral')
 							}
 
 							$scope.showModal = function() {
-								addOralModal.$promise.then(addOralModal.show);
+								oralModal.$promise.then(oralModal.show);
 							};
 
 							$scope.hideModal = function() {
-								addOralModal.$promise.then(addOralModal.hide);
+								oralModal.$promise.then(oralModal.hide);
+								if (event.status == STATUS.AVAILABLE) {
+									event.title = "";
+									event.participants = "";
+								}
 							};
 
 							$scope.showModal();
@@ -328,6 +359,7 @@ angular.module('soutenanceplanner.oral')
 				 *  Fonction qui permet de générer les créneaux libres 
 				 */
 				generateAvailableSlots = function() {
+					$i =  0;
 					var date = new Date($scope.calendar.beginningDate);
 					var endingDate = new Date($scope.calendar.endingDate);
 					
@@ -348,6 +380,7 @@ angular.module('soutenanceplanner.oral')
 
 								if( $scope.user && (!eventExist(d1, $scope.reservedSlots.events)) && (!eventExist(d1, $scope.unavailableSlots.events)) )  {
 									$scope.availableSlots.events.push({
+										id: $i,
 										status : STATUS.AVAILABLE,
 										userId : $scope.user.id,
 										calendarId : $scope.calendar.id,
@@ -357,6 +390,7 @@ angular.module('soutenanceplanner.oral')
 										startEditable : false,
 										durationEditable : false
 									});
+									$i++; 
 								}
 
 								current_hour = new Date(d2);
