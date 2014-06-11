@@ -359,6 +359,7 @@ angular.module('soutenanceplanner.calendar')
 		/**
 		 * Configuration de l'élément calendar
 		 */
+		$scope.eventSources = [];
 		$scope.uiConfig = {
 			calendar : {
 				height : 450,
@@ -373,7 +374,6 @@ angular.module('soutenanceplanner.calendar')
 				minTime : 7,
 				maxTime : 20,
 				eventResize : function(event, dayDelta, minuteDelta, revertFunc) {
-					//$scope.initializeConstraints(event);
 				},
 				eventClick : function(event, jsEvent, view) {
 				}
@@ -434,7 +434,7 @@ angular.module('soutenanceplanner.calendar')
 						);
 						$(".calendar").fullCalendar('removeEventSource');
 						$(".calendar").fullCalendar('addEventSource', $scope.initializeEvents($scope.calendar));
-						//$(".calendar").fullCalendar( { eventSources : [ { events : $scope.initializeEvents($scope.calendar) } ] });
+						$(".calendar").fullCalendar('gotoDate', new Date($scope.calendar.beginningDate));
 
 						//full link
 						$scope.fullLink = $location.absUrl();
@@ -447,7 +447,6 @@ angular.module('soutenanceplanner.calendar')
 		*Copie auto dans presse papier
 		*/
 		$scope.alertCopyLink = function(){
-			$log.debug("test");
 			$alert({
 				content: 'Lien ajouté au presse-papier',
 				type: 'success',
