@@ -1,10 +1,102 @@
-angular.module('soutenanceplanner.oral')
+	angular.module('soutenanceplanner.oral')
 
 .config(function($modalProvider) {
 		angular.extend($modalProvider.defaults, {
 		html: true
 	});
 })
+
+.controller('OralAddCtrl', ['$scope', '$log', '$alert', '$state', 'OralService', 'FactoryService', 'SecurityService',
+	function($scope, $log, $alert, $state, OralService, FactoryService, SecurityService) {
+		$log.debug('OralAddCtrl');
+
+		/* Statut des événements */
+		var STATUS = {
+			AVAILABLE  : {value: 0, name: "Available",   code: "A"}, 
+			UNAVAILABLE: {value: 1, name: "Unavailable", code: "U"}, 
+			RESERVED   : {value: 2, name: "Reserved",    code: "R"}
+		};
+
+		$scope.init = function(){
+
+			FactoryService.oral().then(
+				function(response){
+					$scope.oral = response.data;
+				}
+			);
+		};
+
+		//init
+		$scope.init();
+
+
+	}
+])
+
+.controller('OralEditCtrl', ['$scope', '$location', '$log', '$state', '$stateParams', '$alert', 'OralService',
+	function($scope, $location, $log, $state, $stateParams, $alert, OralService) {
+		$log.debug('OralEditCtrl');
+
+		$scope.init = function(){
+			OralService.getOral($scope.event.id).then(
+				function(response){
+					$scope.oral = response.data;
+				}
+			);
+		};
+
+		//init
+		$scope.init();
+		
+		$scope.updateOral = function () {
+			$log.debug("Suppression de l'oral avec l'id");
+			$scope.oral.title = $scope.event.title;
+			$scope.oral.participants = $scope.event.participants;
+
+			$scope.hideModal();
+
+			OralService.updateOral($scope.oral).then(
+				function(response){
+					$scope.oral= response.data;
+					
+					var myAlert = $alert({
+						title: '', 
+						content: 'Soutenace mise à jour',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
+				}
+			);
+		};
+
+		$scope.deleteOral = function(id){
+			/* MaJ de la vue */
+			//location.reload(true); // <- A revoir
+			/*
+			$scope.remove = function(index) {
+				$scope.events.splice(index,1);
+			};
+			*/
+			
+			$scope.hideModal();
+			$log.debug("Suppression de l'oral avec l'id :"+id);
+			OralService.deleteOral(id).then(
+				function(response){
+					var myAlert = $alert({
+						title: '', 
+						content: 'Soutenance supprimée',
+						placement: 'top-right',
+						type: 'success',
+						duration : '3',
+						show: true
+					});
+				}
+			);
+		};
+	}
+])
 
 .controller('OralListCtrl', ['$scope', '$q', '$modal', '$log', '$alert', '$state', '$stateParams', 'OralService', 'FactoryService', 'CalendarService', 'FormationService', 'SecurityService',
 	function($scope, $q, $modal, $log, $alert, $state, $stateParams, OralService, FactoryService, CalendarService, FormationService, SecurityService) {
@@ -268,54 +360,55 @@ angular.module('soutenanceplanner.oral')
 		 * @param  {int} id [identifiant de l'oral]
 		 */
 		$scope.createOral = function(){
-			var createDeferred = $q.defer();
-			var oral;
-			/* Initialisation de l'oral */
-			FactoryService.oral().then(
-				function(response){
-					oral = response.data;
-					createDeferred.resolve();
-				}
-			);
-
-			var promise = createDeferred.promise;
-			promise.then(function() {
-				/* On efface la modal */
-				$scope.hideModal();
-
-				/* On insère les données de l'oral */
-				oral.title = $scope.event.titre;
-				oral.participants = $scope.event.people;
-				oral.beginningHour = $scope.event.start;
-				oral.calendarId = $scope.event.calendarId;
-				oral.userId = $scope.event.userId;
-
-				OralService.createOral(oral).then(
+			$log.debug("ajout d'un oral");
+			$scope.hideModal();
+			
+			var oral = {} ;
+			
+			oral.title = $scope.event.titre;
+			oral.participants = $scope.event.people;
+			oral.beginningHour = $scope.event.start;
+			oral.calendarId = $scope.event.calendarId;
+			oral.userId = $scope.event.userId;
+			
+			var endDate = $scope.event.end ;
+			$log.debug(oral);
+			$log.debug($scope.event.start);
+			
+			OralService.createOral(oral).then(
 					function(response){
-						oral= response.data;
-
-						/* On ajoute dans la vue le nouveau créneau réservé */
-						var newEvent = {
-							id : oral.id,
-							status : STATUS.RESERVED,
-							title : oral.title,
-							participants : oral.participants,
-							userId : $scope.user.id,
-							start : $scope.event.start,
-							end : $scope.event.end,
-							allDay : false,
-							startEditable : false,
-							durationEditable : false
-						};
-						$scope.reservedSlots.events.push(newEvent);
-
-						/* On suprime dans la vue l'ancien créneau libre */
-						for (var index = 0; index < $scope.availableSlots.events.length; index++) {
-							if ($scope.availableSlots.events[index].id == $scope.event.id) {
+						
+						$log.debug(response.data);
+						
+						//on supprime le créneau
+						for (index = 0; index < $scope.availableSlots.events.length; index++) {
+							$log.debug("parcours liste");
+							if ($scope.availableSlots.events[index].start == $scope.event.start) {
 								$scope.availableSlots.events.splice(index,1);
+								$log.debug("debug - 1");
 							}
 						}
 						
+						var objet = {
+							id : response.data.id,
+							status : STATUS.RESERVED,
+							title : oral.title,
+							participants : oral.participants,
+							userId : oral.userId,
+							calendarId : oral.calendarId ,
+							start : oral.beginningHour,
+							end : endDate,
+							allDay : false,
+							startEditable : false,
+							durationEditable : false};
+						
+						$scope.reservedSlots.events.push(objet);
+
+						$log.debug(objet);
+						
+						
+						$log.debug("fin d'ajout");
+
 						var myAlert = $alert({
 							title: '', 
 							content: 'La soutenace a été ajoutée',
@@ -337,7 +430,6 @@ angular.module('soutenanceplanner.oral')
 						$state.go("home");
 					}
 				);
-			});
 		};
 
 		/**
@@ -406,6 +498,7 @@ angular.module('soutenanceplanner.oral')
 			);
 
 			var promise = deleteDeferred.promise;
+			
 			promise.then(function() {
 				/* On efface la modal */
 				$scope.hideModal();
@@ -470,6 +563,12 @@ angular.module('soutenanceplanner.oral')
 
 		/* Ajout des événements pour la vue */
 		$scope.eventSources = [$scope.availableSlots, $scope.reservedSlots, $scope.unavailableSlots];
+	}
+])
+
+.controller('OralDetailCtrl', ['$scope', '$log', '$stateParams', 'OralService',
+	function($scope, $log, $stateParams, OralService) {
+		$log.debug('OralDetailCtrl');
 	}
 ])
 
