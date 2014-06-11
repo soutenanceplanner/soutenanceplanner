@@ -48,7 +48,7 @@ angular.module('soutenanceplanner.calendar')
 					}
 				},
 				data: {
-					ncyBreadcrumbLabel: 'Calendrier - {{calendar.title}}'
+					ncyBreadcrumbLabel: 'Calendrier'
 				}
 			})
 		;
