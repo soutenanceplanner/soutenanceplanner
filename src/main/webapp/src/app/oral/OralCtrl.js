@@ -1,3 +1,4 @@
+
 angular.module('soutenanceplanner.oral')
 
 .config(function($modalProvider) {
