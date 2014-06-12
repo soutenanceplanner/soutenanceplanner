@@ -1,4 +1,6 @@
 <legend>{{calendar.title}} - {{formation.name}} - </legend >
-<button class="fc-button fc-button-today fc-state-default fc-corner-left fc-corner-right" ng-click="goToDate()">Se rendre au debut du calendrier</button>
+<button class="btn btn-primary" ng-click="goToDate()">
+	Début calendrier&nbsp;&nbsp;<span class="glyphicon glyphicon-play"></span>
+</button>
 </br> 
 <div ui-calendar="uiConfig.calendar" calendar="myCalendar1" class="span8 calendar" ng-model="eventSources"></div>
