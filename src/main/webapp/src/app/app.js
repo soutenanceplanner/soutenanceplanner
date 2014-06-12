@@ -42,6 +42,9 @@ angular.module('soutenanceplanner')
 // INTEG EXTERNE
 //.value('WS_SERVER_URL','http://soutenanceplanner.m2sili.cloudbees.net')
 
+//LIVRABLE
+//.value('WS_SERVER_URL', 'http://localhost:8082/soutenanceplanner_back')
+
 // LOCALHOST
 .value('WS_SERVER_URL', 'http://localhost:8082/soutenanceplanner')
 
