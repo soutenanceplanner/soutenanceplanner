@@ -53,7 +53,7 @@ angular.module('soutenanceplanner')
 } ])
 
 .config([ '$logProvider', function($logProvider) {
-	$logProvider.debugEnabled(true);
+	$logProvider.debugEnabled(false);
 } ])
 
 .config([ '$locationProvider', function($locationProvider) {
