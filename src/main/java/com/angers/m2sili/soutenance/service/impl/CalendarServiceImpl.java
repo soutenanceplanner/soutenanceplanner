@@ -1,10 +1,8 @@
 package com.angers.m2sili.soutenance.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -132,15 +130,14 @@ public class CalendarServiceImpl implements CalendarService{
 
 	@Override
 	public List<Calendar> getInscriptionCalendars(User user) {
-		// TODO Auto-generated method stub
 		
-		Iterator i = user.getOrals().iterator();
+		Iterator<Oral> i = user.getOrals().iterator();
 		ArrayList<Calendar> liste = new ArrayList<Calendar>() ;
 
 			while(i.hasNext()){
 				
 				Oral o = (Oral) i.next();
-				Iterator j = liste.iterator();
+				Iterator<Calendar> j = liste.iterator();
 				Calendar c = calendarRepository.findOne(o.getCalendar().getId());
 				boolean present = false ;
 				while(j.hasNext()){

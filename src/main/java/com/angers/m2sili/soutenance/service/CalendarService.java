@@ -1,7 +1,6 @@
 package com.angers.m2sili.soutenance.service;
 
 import java.util.List;
-import java.util.Set;
 
 import com.angers.m2sili.soutenance.model.Calendar;
 import com.angers.m2sili.soutenance.model.User;
