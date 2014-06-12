@@ -133,6 +133,17 @@ angular.module('soutenanceplanner')
 								$scope.futurCalendars = response.data ;
 							}
 						);
+						CalendarService.getPresentCalendars().then(
+								function(response){
+									$scope.presentCalendars = response.data ;
+								}
+						);
+						CalendarService.getInscriptionCalendars().then(
+								function(response){
+									$scope.inscriptionCalendars = response.data ;
+									$log.debug(response.data);
+								}
+						);
 					}
 				}
 			);
@@ -159,5 +170,4 @@ angular.module('soutenanceplanner')
 		
 	}
 ])
-
 ;
