@@ -3,6 +3,7 @@ package com.angers.m2sili.soutenance.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -194,5 +195,24 @@ public class CalendarController extends BaseController {
 	List<Calendar> getPastCalendars() {
 		return calServiceImpl.getAllPast();
 	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping(value = "/present_futur", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Calendar> getPresentCalendars() {
+		return calServiceImpl.getAllPresent();
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping(value = "/list_inscription", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Calendar> getInscriptionCalendars() {
+		User user = securityServiceImpl.retrieveUser();
+		if(user == null)
+			return null ;
+		
+		return calServiceImpl.getInscriptionCalendars(user);
+	}
+	
 
 }

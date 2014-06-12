@@ -1,6 +1,10 @@
 package com.angers.m2sili.soutenance.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.angers.m2sili.soutenance.model.Calendar;
+import com.angers.m2sili.soutenance.model.Oral;
 import com.angers.m2sili.soutenance.model.User;
 import com.angers.m2sili.soutenance.repository.CalendarRepository;
 import com.angers.m2sili.soutenance.repository.OralRepository;
@@ -112,6 +117,46 @@ public class CalendarServiceImpl implements CalendarService{
 	@Transactional(readOnly = true)
 	public List<Calendar> findAllByFormationName(String formation) {
 		return calendarRepository.findAllByFormationName(formation);
+	}
+
+	@Override
+	public List<Calendar> getAllPresent() {
+		//Date courante
+		java.util.Calendar cal = java.util.Calendar.getInstance();
+		java.util.Date utilDate = cal.getTime();
+		java.sql.Date sqlDate =  new java.sql.Date(utilDate.getTime());
+		
+		logger.debug("Recupération des Calendriers passés avant : "+sqlDate);
+		return calendarRepository.findAllByBeginningDateLessThanAndEndingDateGreaterThan(sqlDate,sqlDate);
+	}
+
+	@Override
+	public List<Calendar> getInscriptionCalendars(User user) {
+		// TODO Auto-generated method stub
+		
+		Iterator i = user.getOrals().iterator();
+		ArrayList<Calendar> liste = new ArrayList<Calendar>() ;
+
+			while(i.hasNext()){
+				
+				Oral o = (Oral) i.next();
+				Iterator j = liste.iterator();
+				Calendar c = calendarRepository.findOne(o.getCalendar().getId());
+				boolean present = false ;
+				while(j.hasNext()){
+					Calendar calTemp = (Calendar) j.next() ;
+					if(c.getId().equals(calTemp.getId())){
+						present = true ;
+						break ;
+					}
+				}			
+					if(present == false)
+					liste.add(c);	
+			}
+			
+			//on supprime les doublons
+			
+			return liste;
 	}
 
 	

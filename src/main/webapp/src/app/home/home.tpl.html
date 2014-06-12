@@ -1,3 +1,15 @@
+<div class="well">
+			<span class="badge pull-right">{{presentCalendars.length}}</span>
+Les Calendriers auxquels je suis inscris :
+			<ul class="nav " ng-repeat="monCalendrier in inscriptionCalendars">
+			
+			{{monCalendrier.beginningDate | date:'dd/MM/yyyy'}} : {{monCalendrier.title}}
+			
+				<li><a ui-sref='calendar.detail({id:monCalendrier.id, link:monCalendrier.link})'>visualiser </a></li>	
+			</ul><br/>
+</div>
+	
+	
 	<div>
 		<p>Sed si ille hac tam eximia fortuna propter utilitatem rei
 			publicae frui non properat, ut omnia illa conficiat, quid ego,

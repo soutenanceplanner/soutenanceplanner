@@ -86,6 +86,22 @@ angular.module('soutenanceplanner.calendar')
 					data: {}
 				});
 			},
+			
+			getPresentCalendars: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/present_futur",
+					data: {}
+				});
+			},
+			
+			getInscriptionCalendars: function(){
+				return $http({
+					method: 'GET',
+					url: WS_SERVER_URL + "/calendar/list_inscription",
+					data: {}
+				});
+			},
 
 			/**
 			 * Service pour retourner une liste de calendrier à venir

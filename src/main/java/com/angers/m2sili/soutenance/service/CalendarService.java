@@ -1,8 +1,10 @@
 package com.angers.m2sili.soutenance.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.angers.m2sili.soutenance.model.Calendar;
+import com.angers.m2sili.soutenance.model.User;
 
 /**
  * 
@@ -17,6 +19,8 @@ public interface CalendarService {
 	public List<Calendar> getAll(String login);
 	public List<Calendar> getAllFuturs();
 	public List<Calendar> getAllPast();
+	public List<Calendar> getAllPresent();
+	public List<Calendar> getInscriptionCalendars(User user);
 	void delete(Integer id);
 	Calendar update(Calendar calendar);
 	public List<Calendar> findAllByFormationName(String formation);

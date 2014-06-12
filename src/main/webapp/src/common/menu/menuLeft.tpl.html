@@ -15,6 +15,14 @@
 				<li><a ui-sref='calendar.detail({id:monCalendrier.id, link:monCalendrier.link})'>{{monCalendrier.title}} </a></li>	
 			</ul><br/>
 		</div>
+		
+		<div class="well">
+			<span class="badge pull-right">{{presentCalendars.length}}</span>
+			Calendriers en cours	
+			<ul class="nav " ng-repeat="monCalendrier in presentCalendars">
+				<li><a ui-sref='calendar.detail({id:monCalendrier.id, link:monCalendrier.link})'>{{monCalendrier.title}} </a></li>	
+			</ul><br/>
+		</div>
 	</div>
 </div>
 				
