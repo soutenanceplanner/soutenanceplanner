@@ -1,17 +1,4 @@
-<!-- <fieldset>
-	<legend>Formations</legend>
-	<table class="table table-hover">
-		<tr>
-			<th>Nom</th>
-			<th></th>
-		</tr>
-		<tr ng-repeat="formation in formations">
-			<th><a ui-sref="formation.detail({id:formation.id})"><span>{{formation.name}}</span></a></th>
-			<td><button ng-click="deleteFormation(formation.id)" type="button" class="close">&times;</button></td>
-		</tr>
-	</table>
-	<button ui-sref="formation.add" class="btn btn-default center-block">Ajouter</button>
-</fieldset> -->
+
 
 <legend>Formations</legend>
 <table ng-table="tableParams" show-filter="true" class="table">
@@ -19,8 +6,8 @@
 	    <td filter="{ 'name': 'text' }">
 	    	<a ui-sref="formation.detail({id:formation.id})"><strong>{{formation.name}}</strong></a>
 	    </td>
-	    <td><button  class="close" type="button" data-placement="top" data-duration="3" data-animation="am-fadeAndSlideTop" data-container="body" data-type="success" data-keyboard="true" bs-alert="alert"
-			data-template="formation/confirmation.tpl.html" data-scope="formation" bs-modal="">&times;</button>
+	    <td><button  class="close" type="button" data-placement="top" data-duration="3" data-animation="am-fadeAndSlideTop" data-container="body" data-type="success" data-keyboard="true"
+			data-template="formation/confirmation.tpl.html" data-scope="formation" bs-modal="modal">&times;</button>
     </tr>
 </table>
 <button ui-sref="formation.add" class="btn btn-default center-block">Ajouter</button>

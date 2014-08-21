@@ -1,18 +1,4 @@
 <legend>Utilisateurs</legend>
-<!-- <table class="table table-hover">
-	<tr>
-		<th>Identifiant</th>
-		<th>Email</th>
-		<th>Status</th>
-		<th></th>
-	</tr>
-	<tr ng-repeat="user in users">
-		<th><a ui-sref="account.detail({id:user.id})"><span>{{user.login}}</span></a></th>
-		<td>{{user.mail}}</td>
-		<td>{{user.flag}}</td>
-		<td><button ng-click="deleteUser(user.id)" type="button" class="close">&times;</button></td>
-	</tr>
-</table> -->
 
 <table ng-table="tableParams" show-filter="true" class="table">
     <tr ng-repeat="user in $data">
@@ -26,8 +12,8 @@
 	        {{user.flag}}
 	    </td>
   <td>
-	      <button  class="close" type="button" data-placement="top" data-duration="3" data-animation="am-fadeAndSlideTop" data-container="body" data-type="success" data-keyboard="true" bs-alert="alert"
-			data-template="account/confirmation.tpl.html" data-scope="user" bs-modal="">&times;</button>
+	      <button  class="close" type="button" data-placement="top" data-duration="3" data-animation="am-fadeAndSlideTop" data-container="body" data-type="success" data-keyboard="true"
+			data-template="account/confirmation.tpl.html" data-scope="user" bs-modal="modal">&times;</button>
 		</td>
     </tr>
 </table>
