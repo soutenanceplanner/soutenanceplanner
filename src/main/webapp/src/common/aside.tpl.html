@@ -1,0 +1,31 @@
+<div class="aside" tabindex="-1" role="dialog">
+  <div class="aside-dialog">
+    <div class="aside-content" ng-click="$hide();">
+      <div class="aside-header" ng-if='isAdmin == true'>
+        Administration
+      </div>
+      <div class="aside-body" ng-if='isAdmin == true'>
+        <p ui-sref='account.admin'>Utilisateurs</p>
+        <p ui-sref='formation.admin'>Formations</p>
+        <p ui-sref='calendar.admin'>Calendriers</p>
+      </div>                
+
+      <!-- Connecté -->
+      <div class="aside-header">
+        Compte
+      </div>
+      <div class="aside-body" ng-if='userLogin' >
+        <p ui-sref='calendar.user'>Mes calendriers</p>
+        <p ui-sref='account.current'>Mon compte</p>
+        <p ng-click="logout()">Déconnexion</p>
+      </div>
+      <!--  -->
+      
+      <!-- Non connecté -->
+      <div class="aside-body" ng-if='userLogin == null'>
+        <p ui-sref='login'>Connexion</p>
+      </div>
+      <!--  -->
+    </div>
+  </div>
+</div>
