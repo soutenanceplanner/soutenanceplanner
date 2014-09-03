@@ -42,8 +42,8 @@ angular.module('soutenanceplanner')
 
 }])
 
-.run(['$rootScope','$http','$state', '$location', '$cookieStore', '$log', 'SecurityService', 'Base64Service', 'LoginService',
-    function($rootScope, $http, $state, $location, $cookieStore, $log, SecurityService, Base64Service, LoginService) {
+.run(['$rootScope','$http','$state', '$location', '$cookieStore', '$log', 'SecurityService', 'Base64Service', 'LoginService', 'LoadService',
+    function($rootScope, $http, $state, $location, $cookieStore, $log, SecurityService, Base64Service, LoginService, LoadService) {
 
         //check login lors d'un rechargement de page
         $rootScope.$on("$routeChangeStart", function() {
@@ -121,6 +121,7 @@ angular.module('soutenanceplanner')
                 },
                 function(){//donc get ici en principe
                     $rootScope.$broadcast('event:reloadMainCtrl');
+                    LoadService.hideLoad();
                     $state.go("home");
                 }
             );

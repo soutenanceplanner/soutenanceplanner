@@ -1,7 +1,7 @@
 angular.module('soutenanceplanner.login')
 
-.controller('LoginCtrl', ['$rootScope', '$scope', '$log', '$location', '$cookieStore', 'FactoryService', 'SecurityService',
-	function($rootScope, $scope, $log, $location, $cookieStore, FactoryService, SecurityService) {
+.controller('LoginCtrl', ['$rootScope', '$scope', '$log', '$location', '$cookieStore', 'FactoryService', 'SecurityService', 'LoadService',
+	function($rootScope, $scope, $log, $location, $cookieStore, FactoryService, SecurityService, LoadService) {
 		$log.debug('LoginCtrl');
 
 		$scope.essais = 0;
@@ -18,9 +18,11 @@ angular.module('soutenanceplanner.login')
 		};
 
 		$scope.login = function() {
+			LoadService.showLoad();
 			SecurityService.attemptLogin($scope.authenticateDTO).then(
 				function(response){
 					if (response.data.error !== null){
+						LoadService.hideLoad();
 						$scope.essais = $scope.essais + 1;
 					}
 					else {

@@ -97,16 +97,24 @@ angular.module('soutenanceplanner')
 	ngClipProvider.setPath("assets/ZeroClipboard.swf");
 }])
 
-.run(['$rootScope','$state','$stateParams','$http',
-	function($rootScope, $state, $stateParams, $http) {
+.run(['$rootScope','$state','$stateParams','$http', 'LoadService',
+	function($rootScope, $state, $stateParams, $http, LoadService) {
 		$http.defaults.headers.post = {
 			'Content-Type': 'application/json'
 		};
 		//$http.defaults.headers.contentType = "application/x-www-form-urlencoded";
+
+
+		//ré-init loadModal à chaque changement de state
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams){
+                LoadService.hideLoad();
+            }
+        );
 } ])
 
-.controller('MainCtrl',['$rootScope', '$scope', '$log', 'SecurityService', 'i18n','CalendarService',
-	function($rootScope, $scope, $log, SecurityService, i18n,CalendarService) {
+.controller('MainCtrl',['$rootScope', '$scope', '$log', '$modal', 'SecurityService', 'i18n','CalendarService', 'LoadService',
+	function($rootScope, $scope, $log, $modal, SecurityService, i18n,CalendarService, LoadService) {
 		$log.debug("MainCtrl");
 
 		$scope.init = function() {
@@ -158,19 +166,67 @@ angular.module('soutenanceplanner')
 			$scope.init();
 		});
 
+		// ---- Modal de chargement ----- //
+		$scope.loadingModal = $modal(
+                {
+                scope: $scope,
+                animation : "am-fade-and-slide-top",
+                template: "loading.tpl.html",
+                placement: "center",
+                backdrop: "static",
+                show: false
+                }
+            );
+
+        $scope.$on('event:showLoad', function () {
+            $scope.loadingModal.$promise.then($scope.loadingModal.show);
+        });
+
+        $scope.$on('event:hideLoad', function () {
+            $scope.loadingModal.hide();
+        });
+
+        //-------------------------//
+
 		$scope.init();
 } ])
 
 
-.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', '$stateParams', 'SecurityService','CalendarService',
-	function($rootScope, $scope, $log, $state, $location, $stateParams, SecurityService,CalendarService) {
+.controller('MenuCtrl', ['$rootScope', '$scope', '$log','$state', '$location', '$stateParams', 'SecurityService','CalendarService', 'LoadService',
+	function($rootScope, $scope, $log, $state, $location, $stateParams, SecurityService,CalendarService, LoadService) {
 		$log.debug("MenuCtrl");
 
 		$scope.logout = function(){
+			LoadService.showLoad();
 			$rootScope.$broadcast('event:logoutRequest');
 		};
 		
 		
 	}
+])
+
+.service('LoadService', [ '$rootScope',
+
+    function($rootScope) {
+
+        $rootScope.isLoadModalOpened = false;
+
+        var LoadService = {
+
+            showLoad : function(){
+                $rootScope.isLoadModalOpened = true;
+                $rootScope.$broadcast('event:showLoad');
+            },
+
+            hideLoad : function(){
+                if ($rootScope.isLoadModalOpened === true){
+                    $rootScope.isLoadModalOpened = false;
+                    $rootScope.$broadcast('event:hideLoad');
+                }
+            }
+        };
+
+        return LoadService;
+    }
 ])
 ;
