@@ -30,10 +30,10 @@
 	<label class="col-sm-3 help-inline" ng-show="editAccountForm.password.$error.required">Compléter votre mot de passe !</label>
 		
 	</div>
-	<div class="form-group" ng-show="isAdmin === false">
+	<div class="form-group" ng-if="isAdmin === false">
 		<label for="passwordConfirm" class="col-sm-4 control-label">Confirmation</label>
 		<div class="col-sm-5" >
-			<input ng-model="passwordConfirm" type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" value="password" required>
+			<input ng-model="$parent.passwordConfirm" type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" value="password" required>
 		</div>
 		<label ng-show="user.password != passwordConfirm && passwordConfirm != null " class="col-sm-3 control-label">Les mots de passes ne sont pas identiques !</label>
 		<label ng-show="editAccountForm.passwordConfirm.$error.required">Confirmer votre mot de passe !</label>
